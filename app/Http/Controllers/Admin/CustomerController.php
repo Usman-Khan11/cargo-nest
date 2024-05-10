@@ -46,10 +46,10 @@ class CustomerController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Customer";
-        $data['seo_desc']       = "Add New Customer";
-        $data['seo_keywords']   = "Add New Customer";
-        $data['page_title'] = "Add New Customer";
+        $data['seo_title']      = "Customer";
+        $data['seo_desc']       = "Customer";
+        $data['seo_keywords']   = "Customer";
+        $data['page_title'] = "Customer";
         return view('admin.customer.create', $data);
     }
     

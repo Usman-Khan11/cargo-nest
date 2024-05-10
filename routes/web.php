@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\ChargesController;
 use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\PartyController;
 
 
 Route::get('/clear', function(){
@@ -174,6 +175,14 @@ Route::namespace('Admin')
                 Route::get('currency/delete/{id}',[CurrencyController::class ,'delete'])->name('currency.delete');
                 Route::post('currency/store',[CurrencyController::class ,'store'])->name('currency.store');
                 Route::post('currency/update',[CurrencyController::class ,'update'])->name('currency.update');
+
+                // PARTY ROUTES
+                Route::get('party',[PartyController::class ,'index'])->name('party');
+                Route::get('party/create',[PartyController::class ,'create'])->name('party.create');
+                Route::get('party/edit/{id}',[PartyController::class ,'edit'])->name('party.edit');
+                Route::get('party/delete/{id}',[PartyController::class ,'delete'])->name('party.delete');
+                Route::post('party/store',[PartyController::class ,'store'])->name('party.store');
+                Route::post('party/update',[PartyController::class ,'update'])->name('party.update');
 
             });
 

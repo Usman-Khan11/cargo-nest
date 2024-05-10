@@ -46,10 +46,10 @@ class ChargesController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Charges";
-        $data['seo_desc']       = "Add New Charges";
-        $data['seo_keywords']   = "Add New Charges";
-        $data['page_title'] = "Add New Charges";
+        $data['seo_title']      = "Charges";
+        $data['seo_desc']       = "Charges";
+        $data['seo_keywords']   = "Charges";
+        $data['page_title'] = "Charges";
         return view('admin.charges.create', $data);
     }
     

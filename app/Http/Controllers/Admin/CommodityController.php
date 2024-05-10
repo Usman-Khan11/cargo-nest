@@ -45,10 +45,10 @@ class CommodityController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Commodity";
-        $data['seo_desc']       = "Add New Commodity";
-        $data['seo_keywords']   = "Add New Commodity";
-        $data['page_title'] = "Add New Commodity";
+        $data['seo_title']      = "Commodity";
+        $data['seo_desc']       = "Commodity";
+        $data['seo_keywords']   = "Commodity";
+        $data['page_title'] = "Commodity";
         return view('admin.commodity.create', $data);
     }
     

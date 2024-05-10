@@ -1,85 +1,17 @@
 @extends('admin.layouts.app')
 
-@section('top_nav_panel')
-<div class="col-md-4">
-    <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
-        </div>
-        <div class="save">
-            <i class="fa fa-save"></i>
-        </div>
-        <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
-        </div>
-        <div class="refresh">
-            <i class="fa fa-refresh"></i>
-        </div>
-        <div class="lock">
-            <i class="fa fa-lock"></i>
-        </div>
-        <div class="ban">
-            <i class="fa fa-ban"></i>
-        </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
-        </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
-        </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
-        </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="row">
-        <div class="col-md-7">
-            <div class="d-flex align-items-center">
-                <label style="padding:0px 10px;">Search</label>
-                <select class="form-select">
-                    <option></option>
-                    <option>Search</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-5">
-            <input type="text" class="form-control"/>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="d-flex">
-        <div class="check">
-            <i class="fa fa-circle-check"></i>
-        </div>
-        <div class="file-check">
-            <i class="fa fa-file-circle-check"></i>
-        </div>
-        <div class="file_line">
-            <i class="fa fa-file-lines"></i>
-        </div>
-    </div>
-
-</div>
-@endsection
-
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.commodity.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.commodity.update') }}" enctype="multipart/form-data">
             @csrf
-            <div class="card mb-4">
+            <input type="hidden" name="id" value="{{ $commodity->id }}" />
+            <div class="card">
                 <div class="card-header">
-                    <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
-                    <!--<hr />-->
+                    <h4 class="fw-bold">{{ $page_title }}</h4>
+                    <hr />
                 </div>
                 <div class="card-body">
-                    
+                     
                     <div class="row">
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
@@ -256,62 +188,9 @@
                         
                     
                     </div>
+                     
                 </div>
             </div>
-            
-            <div class"card mb-4">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item">
-                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">Tax Authority Details</button>
-                  </li>
-                  <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-messages" aria-controls="navs-top-messages" aria-selected="false"> Internal</button>
-                  </li>
-                </ul>
-                <div class="tab-content">
-                      <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-                        <div class="card-datatable table-responsive pt-0">
-                            
-                            <table class="datatables-basic table">
-                            <thead>
-                              <tr>
-                                <th>...</th>
-                                <th>S.No</th>
-                                <th>Authority</th>
-                                <th>Tax Revenue st</th>
-                                <th>Company</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                            </tbody>
-                        </table>
-                          
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
-                        <textarea type="text" rows="4" class="form-control"></textarea>
-                      </div>
-                </div>
-            </div>
-           
         </form>
     </div>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-

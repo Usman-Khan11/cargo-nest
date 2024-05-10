@@ -47,10 +47,10 @@ class LocationController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Location";
-        $data['seo_desc']       = "Add New Location";
-        $data['seo_keywords']   = "Add New Location";
-        $data['page_title'] = "Add New Location";
+        $data['seo_title']      = "Location";
+        $data['seo_desc']       = "Location";
+        $data['seo_keywords']   = "Location";
+        $data['page_title'] = "Location";
         return view('admin.location.create', $data);
     }
     

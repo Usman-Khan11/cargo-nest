@@ -47,10 +47,10 @@ class VesselController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Vessel";
-        $data['seo_desc']       = "Add New Vessel";
-        $data['seo_keywords']   = "Add New Vessel";
-        $data['page_title'] = "Add New Vessel";
+        $data['seo_title']      = "Vessel";
+        $data['seo_desc']       = "Vessel";
+        $data['seo_keywords']   = "Vessel";
+        $data['page_title'] = "Vessel";
         return view('admin.vessel.create', $data);
     }
     

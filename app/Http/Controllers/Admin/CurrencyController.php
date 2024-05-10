@@ -46,10 +46,10 @@ class CurrencyController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Currency";
-        $data['seo_desc']       = "Add New Currency";
-        $data['seo_keywords']   = "Add New Currency";
-        $data['page_title'] = "Add New Currency";
+        $data['seo_title']      = "Currency";
+        $data['seo_desc']       = "Currency";
+        $data['seo_keywords']   = "Currency";
+        $data['page_title'] = "Currency";
         return view('admin.currency.create', $data);
     }
     

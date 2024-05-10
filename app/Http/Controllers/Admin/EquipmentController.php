@@ -46,10 +46,10 @@ class EquipmentController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Equipment Size Type";
-        $data['seo_desc']       = "Add New Equipment Size Type";
-        $data['seo_keywords']   = "Add New Equipment Size Type";
-        $data['page_title'] = "Add New Equipment Size Type";
+        $data['seo_title']      = "Equipment Size Type";
+        $data['seo_desc']       = "Equipment Size Type";
+        $data['seo_keywords']   = "Equipment Size Type";
+        $data['page_title'] = "Equipment Size Type";
         return view('admin.equipment.create', $data);
     }
     

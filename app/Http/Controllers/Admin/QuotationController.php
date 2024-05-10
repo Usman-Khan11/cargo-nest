@@ -47,10 +47,10 @@ class QuotationController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Quotation";
-        $data['seo_desc']       = "Add New Quotation";
-        $data['seo_keywords']   = "Add New Quotation";
-        $data['page_title'] = "Add New Quotation";
+        $data['seo_title']      = "Quotation";
+        $data['seo_desc']       = "Quotation";
+        $data['seo_keywords']   = "Quotation";
+        $data['page_title'] = "Quotation";
         $data['customers'] = Customer::get();
         return view('admin.quotation.create', $data);
     }

@@ -48,10 +48,10 @@ class StaffController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Staff";
-        $data['seo_desc']       = "Add New Staff";
-        $data['seo_keywords']   = "Add New Staff";
-        $data['page_title'] = "Add New Staff";
+        $data['seo_title']      = "Staff";
+        $data['seo_desc']       = "Staff";
+        $data['seo_keywords']   = "Staff";
+        $data['page_title'] = "Staff";
         $data['roles'] = Role::get();
         return view('admin.staff.create', $data);
     }

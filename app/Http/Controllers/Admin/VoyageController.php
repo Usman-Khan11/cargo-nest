@@ -46,10 +46,10 @@ class VoyageController extends Controller
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Add New Voyage";
-        $data['seo_desc']       = "Add New Voyage";
-        $data['seo_keywords']   = "Add New Voyage";
-        $data['page_title'] = "Add New Voyage";
+        $data['seo_title']      = "Voyage";
+        $data['seo_desc']       = "Voyage";
+        $data['seo_keywords']   = "Voyage";
+        $data['page_title'] = "Voyage";
         return view('admin.voyage.create', $data);
     }
     

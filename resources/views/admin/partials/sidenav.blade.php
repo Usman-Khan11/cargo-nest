@@ -1736,8 +1736,8 @@
                         <div data-i18n="General Setting">Line Manager Selection</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.party.create')}}">
+                    <a href="{{route('admin.party.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Party</div>
                     </a>

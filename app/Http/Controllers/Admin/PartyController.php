@@ -16,21 +16,21 @@ use Session;
 use DataTables;
 use File;
 
-class PackagesController extends Controller
+class PartyController extends Controller
 {
     public function index(Request $request)
     {
-        $data['seo_title']      = "Packages Coding";
-        $data['seo_desc']       = "Packages Coding";
-        $data['seo_keywords']   = "Packages Coding";
-        $data['page_title'] = "All Packages Coding";
+        $data['seo_title']      = "Party";
+        $data['seo_desc']       = "Party";
+        $data['seo_keywords']   = "Party";
+        $data['page_title'] = "All Party";
 
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
             $pageSize = (int)($request->length) ? $request->length : 10;
             $start=(int)($request->start) ? $request->start : 0;
-            $query=Packages::Query();
+            $query=Party::Query();
             $totalCount=$query->count(); 
             
             $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
@@ -40,35 +40,35 @@ class PackagesController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.packages.index', $data);
+        return view('admin.party.index', $data);
     }
     
     
     public function create(Request $request)
     {
-        $data['seo_title']      = "Packages Coding";
-        $data['seo_desc']       = "Packages Coding";
-        $data['seo_keywords']   = "Packages Coding";
-        $data['page_title'] = "Packages Coding";
-        return view('admin.packages.create', $data);
+        $data['seo_title']      = "Party";
+        $data['seo_desc']       = "Party";
+        $data['seo_keywords']   = "Party";
+        $data['page_title'] = "Party";
+        return view('admin.party.create', $data);
     }
     
     public function edit($id)
     {
-        $data['seo_title']      = "Edit Packages Coding";
-        $data['seo_desc']       = "Edit Packages Coding";
-        $data['seo_keywords']   = "Edit Packages Coding";
-        $data['page_title'] = "Edit Equipment Size Type";
-        $data['packages'] = Packages::where("id", $id)->first();
-        return view('admin.packages.edit', $data);
+        $data['seo_title']      = "Edit Party";
+        $data['seo_desc']       = "Edit Party";
+        $data['seo_keywords']   = "Edit Party";
+        $data['page_title'] = "Edit Party";
+        $data['party'] = Party::where("id", $id)->first();
+        return view('admin.party.edit', $data);
     }
     
     public function delete($id)
     {
-        $developer = Packages::where("id", $id);
+        $developer = Party::where("id", $id);
         $developer->delete();
-        $notify[] = ['success', 'Packages Coding Deleted Successfully.'];
-        return redirect()->route('admin.packages')->withNotify($notify);
+        $notify[] = ['success', 'Party Deleted Successfully.'];
+        return redirect()->route('admin.party')->withNotify($notify);
     }
     
     // public function store(Request $request)
