@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                      
-                     <div class="row">
+                    <div class="row">
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Code:</label>
@@ -28,7 +28,7 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Shortcode:</label>
-                                <input name="s_code" type="text" class="form-control" placeholder="" />
+                                <input name="short_code" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-3 col-12">
@@ -58,7 +58,7 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2 mt-4">
                                 <label class="form-label"></label>
-                                <input style="width:15px; height:15px;" name="inactive" type="checkbox" /><span>&nbsp;&nbsp;In-Active</span>
+                                <input style="width:15px; height:15px;" name="inactive" value="inactive" type="checkbox" /><span>&nbsp;&nbsp;In-Active</span>
                             </div>
                         </div>
                     </div>
@@ -71,11 +71,11 @@
                             <label class="form-label">Hazmat Product?</label>
                             <div class="d-flex">
                                 <div class="mb-2">
-                                    <input name="mode" type="radio" class="form-check-input" value id="defaultRadio1" />
+                                    <input name="hazmat_product" type="radio" class="form-check-input" value="No" id="defaultRadio1" />
                                     <label class="form-check-label" for="defaultRadio1">No</label>
                                 </div>
                                 <div class="mb-2 px-3">
-                                    <input name="mode" type="radio" class="form-check-input" value id="defaultRadio2" />
+                                    <input name="hazmat_product" type="radio" class="form-check-input" value="Yes" id="defaultRadio2" />
                                     <label class="form-check-label" for="defaultRadio2">Yes</label>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Hazmat Class:</label>
-                                <select class="form-select" name="packing_group">
+                                <select class="form-select" name="hazmat_class">
                                     <option selected disabled></option>
                                     <option value="">Class not specified</option>
                                     <option>Class 1 Explosive: division not specified</option>
@@ -179,7 +179,7 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Landing/Ins. %</label>
-                                <input name="land_ins" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="landing_insurance" type="text" class="form-control" placeholder="0.00"/>
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
@@ -191,13 +191,13 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">CD %</label>
-                                <input name="cd" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="cd%" type="text" class="form-control" placeholder="0.00"/>
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">FED %</label>
-                                <input name="fed" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="fed%" type="text" class="form-control" placeholder="0.00"/>
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
@@ -222,6 +222,18 @@
                             <div class="mb-2">
                                 <label class="form-label">E.T.O</label>
                                 <input name="eto" type="text" class="form-control" placeholder="0.00"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-12">
+                            <div class="d-flex mt-4">
+                                <div class="mb-2">
+                                    <input name="item" type="radio" class="form-check-input" value="Shipping Item" id="defaultRadio1" />
+                                    <label class="form-check-label" for="defaultRadio1">Shipping Item</label>
+                                </div>
+                                <div class="mb-2 px-3">
+                                    <input name="item" type="radio" class="form-check-input" value="Warehouse Item" id="defaultRadio2" />
+                                    <label class="form-check-label" for="defaultRadio2">Warehouse Item</label>
+                                </div>
                             </div>
                         </div>
                         

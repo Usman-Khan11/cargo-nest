@@ -29,21 +29,24 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Main Symbol:</label>
-                                <input name="pack_name" type="text" class="form-control" placeholder="" />
+                                <input name="main_symbol" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Sub Unit Symbol:</label>
-                                <input name="pack_name" type="text" class="form-control" placeholder="" />
+                                <input name="unit_symbol" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Decimal Portion Digits:</label>
-                                <input name="pack_name" type="text" class="form-control" placeholder="" />
+                                <input name="decimal_portion_digits" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
+
+                        
+
                     </div>
                      
                 </div>

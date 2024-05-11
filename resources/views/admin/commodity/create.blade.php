@@ -7,7 +7,7 @@
             <i class="fa fa-square-plus"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save"></i>
+            <i class="fa fa-save" id="submitButton"></i>
         </div>
         <div class="xmark">
             <i class="fa fa-circle-xmark"></i>
@@ -62,7 +62,7 @@
             <i class="fa fa-file-circle-check"></i>
         </div>
         <div class="file_line">
-            <i class="fa fa-file-lines"></i>
+            <a href="{{route('admin.commodity')}}"><i class="fa fa-file-lines"></i></a>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.commodity.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.commodity.store') }}" id="myForm" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -96,7 +96,7 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Shortcode:</label>
-                                <input name="s_code" type="text" class="form-control" placeholder="" />
+                                <input name="short_code" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-3 col-12">
@@ -110,8 +110,8 @@
                                 <label class="form-label">Cargo Type:</label>
                                 <select class="form-select" name="cargo_type">
                                     <option selected></option>
-                                    <option>GI</option>
-                                    <option>CAR</option>
+                                    <option value="GI">GI</option>
+                                    <option value="CAR">CAR</option>
                                 </select>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2 mt-4">
                                 <label class="form-label"></label>
-                                <input style="width:15px; height:15px;" name="inactive" type="checkbox" /><span>&nbsp;&nbsp;In-Active</span>
+                                <input style="width:15px; height:15px;" name="inactive" value="inactive" type="checkbox" /><span>&nbsp;&nbsp;In-Active</span>
                             </div>
                         </div>
                     </div>
@@ -139,11 +139,11 @@
                             <label class="form-label">Hazmat Product?</label>
                             <div class="d-flex">
                                 <div class="mb-2">
-                                    <input name="mode" type="radio" class="form-check-input" value id="defaultRadio1" />
+                                    <input name="hazmat_product" type="radio" class="form-check-input" value="No" id="defaultRadio1" />
                                     <label class="form-check-label" for="defaultRadio1">No</label>
                                 </div>
                                 <div class="mb-2 px-3">
-                                    <input name="mode" type="radio" class="form-check-input" value id="defaultRadio2" />
+                                    <input name="hazmat_product" type="radio" class="form-check-input" value="Yes" id="defaultRadio2" />
                                     <label class="form-check-label" for="defaultRadio2">Yes</label>
                                 </div>
                             </div>
@@ -172,32 +172,32 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Hazmat Class:</label>
-                                <select class="form-select" name="packing_group">
-                                    <option selected disabled></option>
-                                    <option value="">Class not specified</option>
-                                    <option>Class 1 Explosive: division not specified</option>
-                                    <option>Class 1.1 Explosive: mass</option>
-                                    <option>Class 1.2 Explosive: projection</option>
-                                    <option>Class 1.3 Explosive: fire and minor blast/projection</option>
-                                    <option>Class 1.4 Explosive: minor</option>
-                                    <option>Class 1.5 Explosive: insensitive mass</option>
-                                    <option>Class 1.6 Explosive: insensitive minor</option>
-                                    <option>Class 2 Gas: division not specified</option>
-                                    <option>Class 2.1 Gas: flammable</option>
-                                    <option>Class 2.2 Gas: nonflammable/nonpoisonous/oxygen</option>
-                                    <option>Class 2.3 Gas: poison</option>
-                                    <option>Class 3 Flammable Liquid and Combustible Liquid</option>
-                                    <option>Class 4 Solid: division not specified</option>
-                                    <option>Class 4.1 Flammable Solid</option>
-                                    <option>Class 4.2 Spontaneously Combustible Solid</option>
-                                    <option>Class 4.3 Dangerous When Wet</option>
-                                    <option>Class 5 Oxidizer: division not specified</option>
-                                    <option>Class 5.1 Oxidizer</option>
-                                    <option>Class 5.2 Organic Peroxide</option>
-                                    <option>Class 6 Poison, Toxic or Inhalation Hazard</option>
-                                    <option>Class 7 Radioactive Materials</option>
-                                    <option>Class 8 Corrosive</option>
-                                    <option>Class 9 Miscellaneous</option>
+                                <select class="form-select" name="hazmat_class">
+                                    <option value="" selected disabled></option>
+                                    <option value="ClassNotSpecified">Class not specified</option>
+                                    <option value="Class1ExplosiveDivisionNotSpecified">Class 1 Explosive: division not specified</option>
+                                    <option value="Class1_1ExplosiveMass">Class 1.1 Explosive: mass</option>
+                                    <option value="Class1_2ExplosiveProjection">Class 1.2 Explosive: projection</option>
+                                    <option value="Class1_3ExplosiveFireAndMinorBlastProjection">Class 1.3 Explosive: fire and minor blast/projection</option>
+                                    <option value="Class1_4ExplosiveMinor">Class 1.4 Explosive: minor</option>
+                                    <option value="Class1_5ExplosiveInsensitiveMass">Class 1.5 Explosive: insensitive mass</option>
+                                    <option value="Class1_6ExplosiveInsensitiveMinor">Class 1.6 Explosive: insensitive minor</option>
+                                    <option value="Class2GasDivisionNotSpecified">Class 2 Gas: division not specified</option>
+                                    <option value="Class2_1GasFlammable">Class 2.1 Gas: flammable</option>
+                                    <option value="Class2_2GasNonflammableNonpoisonousOxygen">Class 2.2 Gas: nonflammable/nonpoisonous/oxygen</option>
+                                    <option value="Class2_3GasPoison">Class 2.3 Gas: poison</option>
+                                    <option value="Class3FlammableLiquidAndCombustibleLiquid">Class 3 Flammable Liquid and Combustible Liquid</option>
+                                    <option value="Class4SolidDivisionNotSpecified">Class 4 Solid: division not specified</option>
+                                    <option value="Class4_1FlammableSolid">Class 4.1 Flammable Solid</option>
+                                    <option value="Class4_2SpontaneouslyCombustibleSolid">Class 4.2 Spontaneously Combustible Solid</option>
+                                    <option value="Class4_3DangerousWhenWet">Class 4.3 Dangerous When Wet</option>
+                                    <option value="Class5OxidizerDivisionNotSpecified">Class 5 Oxidizer: division not specified</option>
+                                    <option value="Class5_1Oxidizer">Class 5.1 Oxidizer</option>
+                                    <option value="Class5_2OrganicPeroxide">Class 5.2 Organic Peroxide</option>
+                                    <option value="Class6PoisonToxicOrInhalationHazard">Class 6 Poison, Toxic or Inhalation Hazard</option>
+                                    <option value="Class7RadioactiveMaterials">Class 7 Radioactive Materials</option>
+                                    <option value="Class8Corrosive">Class 8 Corrosive</option>
+                                    <option value="Class9Miscellaneous">Class 9 Miscellaneous</option>
                                 </select>
                             </div>
                         </div>
@@ -247,7 +247,7 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Landing/Ins. %</label>
-                                <input name="land_ins" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="landing_insurance" type="text" class="form-control" placeholder="0.00"/>
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
@@ -259,13 +259,13 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">CD %</label>
-                                <input name="cd" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="cd%" type="text" class="form-control" placeholder="0.00"/>
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">FED %</label>
-                                <input name="fed" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="fed%" type="text" class="form-control" placeholder="0.00"/>
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
@@ -292,6 +292,18 @@
                                 <input name="eto" type="text" class="form-control" placeholder="0.00"/>
                             </div>
                         </div>
+                        <div class="col-md-12 col-12">
+                            <div class="d-flex mt-4">
+                                <div class="mb-2">
+                                    <input name="item" type="radio" class="form-check-input" value="Shipping Item" id="defaultRadio1" />
+                                    <label class="form-check-label" for="defaultRadio1">Shipping Item</label>
+                                </div>
+                                <div class="mb-2 px-3">
+                                    <input name="item" type="radio" class="form-check-input" value="Warehouse Item" id="defaultRadio2" />
+                                    <label class="form-check-label" for="defaultRadio2">Warehouse Item</label>
+                                </div>
+                            </div>
+                        </div>
                         
                         
                     </div>
@@ -302,7 +314,16 @@
     </div>
 @endsection
 
+@push('script')
 
+<script>
+    $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
+</script>
+
+@endpush
 
 
 

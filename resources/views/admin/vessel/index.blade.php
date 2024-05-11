@@ -1,15 +1,81 @@
 @extends('admin.layouts.app')
 
+@section('top_nav_panel')
+<div class="col-md-4">
+    <div class="d-flex">
+        <div class="plus">
+            <a href="{{route('admin.vessel.create')}}"><i class="fa fa-square-plus"></i></a>
+        </div>
+        <div class="save">
+            <i class="fa fa-save"></i>
+        </div>
+        <div class="xmark">
+            <i class="fa fa-circle-xmark"></i>
+        </div>
+        <div class="refresh">
+            <i class="fa fa-refresh"></i>
+        </div>
+        <div class="lock">
+            <i class="fa fa-lock"></i>
+        </div>
+        <div class="ban">
+            <i class="fa fa-ban"></i>
+        </div>
+        <div class="backward">
+            <i class="fa fa-backward-step"></i>
+        </div>
+        <div class="backward">
+            <i class="fa fa-backward"></i>
+        </div>
+        <div class="forward">
+            <i class="fa fa-forward"></i>
+        </div>
+        <div class="forward">
+            <i class="fa fa-forward-step"></i>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="d-flex align-items-center">
+                <label style="padding:0px 10px;">Search</label>
+                <select class="form-select">
+                    <option></option>
+                    <option>Search</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control"/>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="d-flex">
+        <div class="check">
+            <i class="fa fa-circle-check"></i>
+        </div>
+        <div class="file-check">
+            <i class="fa fa-file-circle-check"></i>
+        </div>
+        <div class="file_line">
+            <i class="fa fa-file-lines"></i>
+        </div>
+    </div>
+
+</div>
+@endsection
+
 @section('panel')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-8 text-md-start text-center">
+                <div class="col-md-12 text-md-start text-center">
                     <h4 class="fw-bold">{{ $page_title }}</h4>
-                </div>
-                <div class="col-md-4 text-md-end text-center">
-                    <a href="/admin/quotation/create" class="btn btn-primary btn-sm">Add New Quotation</a>
                 </div>
             </div>
             <hr />
@@ -57,7 +123,7 @@ $(document).ready(function(){
         "pageLength": 15,
         "scrollX": true,
         "ajax": {
-            "url": "{{ route('admin.quotation') }}",
+            "url": "{{ route('admin.vessel') }}",
             "type": "get",
             "data": function(d) {
                 var frm_data = $('#result_report_form').serializeArray();
@@ -72,20 +138,20 @@ $(document).ready(function(){
                 title: 'Sr No'
             },
             {
-                data: 'quotation_no',
-                title: 'Quotation No'
+                data: 'vessel_code',
+                title: 'Vessel Code'
             },
             {
-                data: 'Address',
-                title: 'Address'
+                data: 'vessel_name',
+                title: 'Vessel Name:'
             },
             {
-                data: 'expire_date',
-                title: 'Expire Date'
+                data: 'owner',
+                title: 'Owner'
             },
             {
-                data: 'pkgs',
-                title: 'Packages'
+                data: 'principle_code',
+                title: 'Principle Code'
             },
             {
                 title: 'Options',
@@ -97,8 +163,8 @@ $(document).ready(function(){
                                     <i class="fa fa-cog"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="{{ route("admin.quotation.edit",":edit_id") }}"><i class="ti ti-edit"></i> Edit</a></li>
-                                    <li><a onclick="return checkDelete()" class="dropdown-item" href="{{ route("admin.quotation.delete",":delete_id") }}"><i class="ti ti-trash"></i> Delete</a></li>
+                                    <li><a class="dropdown-item" href="{{ route("admin.vessel.edit",":edit_id") }}"><i class="ti ti-edit"></i> Edit</a></li>
+                                    <li><a onclick="return checkDelete()" class="dropdown-item" href="{{ route("admin.vessel.delete",":delete_id") }}"><i class="ti ti-trash"></i> Delete</a></li>
                                 </ul>
                             </div>
                         </div>`;

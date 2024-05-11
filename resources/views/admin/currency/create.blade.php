@@ -7,7 +7,7 @@
             <i class="fa fa-square-plus"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save"></i>
+            <i class="fa fa-save" id="submitButton"></i>
         </div>
         <div class="xmark">
             <i class="fa fa-circle-xmark"></i>
@@ -62,7 +62,7 @@
             <i class="fa fa-file-circle-check"></i>
         </div>
         <div class="file_line">
-            <i class="fa fa-file-lines"></i>
+            <a href="{{route('admin.currency')}}"><i class="fa fa-file-lines"></i></a>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.packages.store') }}" enctype="multipart/form-data">
+        <form id="myForm" method="post" action="{{ route('admin.currency.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -97,19 +97,19 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Main Symbol:</label>
-                                <input name="pack_name" type="text" class="form-control" placeholder="" />
+                                <input name="main_symbol" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Sub Unit Symbol:</label>
-                                <input name="pack_name" type="text" class="form-control" placeholder="" />
+                                <input name="unit_symbol" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Decimal Portion Digits:</label>
-                                <input name="pack_name" type="text" class="form-control" placeholder="" />
+                                <input name="decimal_portion_digits" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
 
@@ -125,7 +125,16 @@
 
 
 
+@push('script')
 
+<script>
+    $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
+</script>
+
+@endpush
 
 
 

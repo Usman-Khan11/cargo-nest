@@ -1,5 +1,74 @@
 @extends('admin.layouts.app')
 
+@section('top_nav_panel')
+<div class="col-md-4">
+    <div class="d-flex">
+        <div class="plus">
+            <a href="{{route('admin.packages.create')}}"><i class="fa fa-square-plus"></i></a>
+        </div>
+        <div class="save">
+            <i class="fa fa-save"></i>
+        </div>
+        <div class="xmark">
+            <i class="fa fa-circle-xmark"></i>
+        </div>
+        <div class="refresh">
+            <i class="fa fa-refresh"></i>
+        </div>
+        <div class="lock">
+            <i class="fa fa-lock"></i>
+        </div>
+        <div class="ban">
+            <i class="fa fa-ban"></i>
+        </div>
+        <div class="backward">
+            <i class="fa fa-backward-step"></i>
+        </div>
+        <div class="backward">
+            <i class="fa fa-backward"></i>
+        </div>
+        <div class="forward">
+            <i class="fa fa-forward"></i>
+        </div>
+        <div class="forward">
+            <i class="fa fa-forward-step"></i>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="d-flex align-items-center">
+                <label style="padding:0px 10px;">Search</label>
+                <select class="form-select">
+                    <option></option>
+                    <option>Search</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control"/>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="d-flex">
+        <div class="check">
+            <i class="fa fa-circle-check"></i>
+        </div>
+        <div class="file-check">
+            <i class="fa fa-file-circle-check"></i>
+        </div>
+        <div class="file_line">
+            <i class="fa fa-file-lines"></i>
+        </div>
+    </div>
+
+</div>
+@endsection
+
 @section('panel')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
@@ -24,12 +93,10 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -57,7 +124,7 @@ $(document).ready(function(){
         "pageLength": 15,
         "scrollX": true,
         "ajax": {
-            "url": "{{ route('admin.quotation') }}",
+            "url": "{{ route('admin.packages') }}",
             "type": "get",
             "data": function(d) {
                 var frm_data = $('#result_report_form').serializeArray();
@@ -72,21 +139,18 @@ $(document).ready(function(){
                 title: 'Sr No'
             },
             {
-                data: 'quotation_no',
-                title: 'Quotation No'
+                data: 'pack_code',
+                title: 'Package Code'
             },
             {
-                data: 'Address',
-                title: 'Address'
+                data: 'pack_name',
+                title: 'Package Name'
             },
             {
-                data: 'expire_date',
-                title: 'Expire Date'
+                data: 'epas_code',
+                title: 'EPAS Code'
             },
-            {
-                data: 'pkgs',
-                title: 'Packages'
-            },
+           
             {
                 title: 'Options',
                 "render": function(data, type, full, meta) {

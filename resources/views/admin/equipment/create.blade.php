@@ -7,7 +7,7 @@
             <i class="fa fa-square-plus"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save"></i>
+            <i class="fa fa-save" id="submitButton"></i>
         </div>
         <div class="xmark">
             <i class="fa fa-circle-xmark"></i>
@@ -62,7 +62,7 @@
             <i class="fa fa-file-circle-check"></i>
         </div>
         <div class="file_line">
-            <i class="fa fa-file-lines"></i>
+            <a href="{{route('admin.equipment')}}"><i class="fa fa-file-lines"></i></a>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.equipment.store') }}" enctype="multipart/form-data">
+        <form id="myForm" method="post" action="{{ route('admin.equipment.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -93,12 +93,12 @@
                                 <label class="form-label">Size</label>
                                 <select name="size" class="form-select">
                                     <option Selected Disabled></option>
-                                    <option>10</option>
-                                    <option>20</option>
-                                    <option>40</option>
-                                    <option>43</option>
-                                    <option>45</option>
-                                    <option>60</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="40">40</option>
+                                    <option value="43">43</option>
+                                    <option value="45">45</option>
+                                    <option value="60">60</option>
                                 </select>
                             </div>    
                         </div>
@@ -106,19 +106,19 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Type</label>
-                                <select name="size" class="form-select">
+                                <select name="type" class="form-select">
                                     <option Selected Disabled></option>
-                                    <option>Dry Container</option>
-                                    <option>Flat Rack</option>
-                                    <option>High Cude</option>
-                                    <option>Hdc</option>
-                                    <option>Open Top</option>
-                                    <option>Refrigerated Container</option>
-                                    <option>SRFR</option>
-                                    <option>Tank</option>
-                                    <option>Truck & Trailer</option>
-                                    <option>Ventilated</option>
-                                    <option>Bulk</option>
+                                    <option value="Dry Container">Dry Container</option>
+                                    <option value="Flat Rack">Flat Rack</option>
+                                    <option value="High Cube">High Cube</option>
+                                    <option value="Hdc">Hdc</option>
+                                    <option value="Open Top">Open Top</option>
+                                    <option value="Refrigerated Container">Refrigerated Container</option>
+                                    <option value="SRFR">SRFR</option>
+                                    <option value="Tank">Tank</option>
+                                    <option value="Truck & Trailer">Truck & Trailer</option>
+                                    <option value="Ventilated">Ventilated</option>
+                                    <option value="Bulk">Bulk</option>
                                 </select>
                             </div>    
                         </div>
@@ -132,19 +132,19 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Old ISO Code:</label>
-                                <input name="teu" type="text" class="form-control" placeholder="" />
+                                <input name="old_iso" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">ISO Code:</label>
-                                <input name="teu" type="text" class="form-control" placeholder="" />
+                                <input name="iso" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Weight:</label>
-                                <input name="teu" type="text" class="form-control" placeholder="0.00" />
+                                <input name="weight" type="text" class="form-control" placeholder="0.00" />
                             </div>
                         </div>
 
@@ -157,7 +157,16 @@
 @endsection
 
 
+@push('script')
 
+<script>
+    $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
+</script>
+
+@endpush
 
 
 

@@ -7,7 +7,7 @@
             <i class="fa fa-square-plus"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save"></i>
+            <i class="fa fa-save" id="submitButton"></i>
         </div>
         <div class="xmark">
             <i class="fa fa-circle-xmark"></i>
@@ -62,7 +62,7 @@
             <i class="fa fa-file-circle-check"></i>
         </div>
         <div class="file_line">
-            <i class="fa fa-file-lines"></i>
+            <a href="{{route('admin.location')}}"><i class="fa fa-file-lines"></i></a>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.commodity.store') }}" enctype="multipart/form-data">
+        <form id="myForm" method="post" action="{{ route('admin.location.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -84,7 +84,7 @@
                         <div class="col-md-6 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Location:</label>
-                                <input name="code" type="text" class="form-control" placeholder="" />
+                                <input name="location" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-6 col-12">
@@ -92,30 +92,31 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-2">
-                                        <input style="width:15px; height:15px;" name="country" type="checkbox" /><span>&nbsp;&nbsp;Country</span>
+                                        <input style="width:15px; height:15px;" name="location_check[]" type="checkbox" value="country" /><span>&nbsp;&nbsp;Country</span>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-2">
-                                        <input style="width:15px; height:15px;" name="city" type="checkbox" /><span>&nbsp;&nbsp;City</span>
+                                        <input style="width:15px; height:15px;" name="location_check[]" type="checkbox" value="city" /><span>&nbsp;&nbsp;City</span>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-2">
-                                        <input style="width:15px; height:15px;" name="airport" type="checkbox" /><span>&nbsp;&nbsp;Air port</span>
+                                        <input style="width:15px; height:15px;" name="location_check[]" type="checkbox" value="airport" /><span>&nbsp;&nbsp;Airport</span>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-2">
-                                        <input style="width:15px; height:15px;" name="seaport" type="checkbox" /><span>&nbsp;&nbsp;Sea Port</span>
+                                        <input style="width:15px; height:15px;" name="location_check[]" type="checkbox" value="seaport" /><span>&nbsp;&nbsp;Seaport</span>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-2">
-                                        <input style="width:15px; height:15px;" name="terminals" type="checkbox" /><span>&nbsp;&nbsp;Terminals</span>
+                                        <input style="width:15px; height:15px;" name="location_check[]" type="checkbox" value="terminals" /><span>&nbsp;&nbsp;Terminals</span>
                                     </div>
                                 </div>
                             </div>
+
                             
                         </div>
                         <div class="col-md-4 col-12">
@@ -126,7 +127,7 @@
                         </div> 
                         <div class="col-md-2 col-12">
                             <div class="mb-2 mt-4">
-                                <input style="width:15px; height:15px;" name="inactive" type="checkbox" /><span>&nbsp;&nbsp;In-Active</span>
+                                <input style="width:15px; height:15px;" name="inactive" type="checkbox" value="In-Active" /><span>&nbsp;&nbsp;In-Active</span>
                             </div>
                         </div> 
                         <div class="col-md-3 col-12">
@@ -150,7 +151,7 @@
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Phone Prefix:</label>
-                                <input name="ph_prefix" type="text" class="form-control" placeholder="" />
+                                <input name="phone_prefix" type="text" class="form-control" placeholder="" />
                             </div>
                         </div> 
                         <div class="col-md-4 col-12">
@@ -199,7 +200,16 @@
 @endsection
 
 
+@push('script')
 
+<script>
+    $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
+</script>
+
+@endpush
 
 
 
