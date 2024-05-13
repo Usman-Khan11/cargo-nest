@@ -115,6 +115,9 @@
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-notification" aria-controls="navs-top-notification" aria-selected="false"> Notifications</button>
                       </li>
                       <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-insurance" aria-controls="navs-top-insurance" aria-selected="false"> Insurance Detail</button>
+                      </li>
+                      <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-company" aria-controls="navs-top-company" aria-selected="false"> Company/CostCenter</button>
                       </li>
                       <li class="nav-item">
@@ -786,6 +789,32 @@
                                             <option>Other</option>
                                             <option>All</option>
                                         </select></td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="navs-top-insurance" role="tabpanel">
+                            <div class="p-3">
+                                <table class="datatables-basic table">
+                                    <thead>
+                                      <tr>
+                                        <th>...</th>
+                                        <th>S.No</th>
+                                        <th>Insurance Company</th>
+                                        <th>Insurance Type</th>
+                                        <th>Policy Value</th>
+                                        <th>Policy#</th>
+                                        <th>Expiry Date</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
+                                        <td><input type="text" style="width: 100%;"/></td>
+                                        <td><select style="width: 100%; border:none; outline:none;"> </select></td>
+                                        <td><select style="width: 100%; border:none; outline:none;"> </select></td>
+                                        <td><input type="text" style="width: 100%;"/></td>
+                                        <td><input type="text" style="width: 100%;"/></td>
+                                        <td><input type="text" style="width: 100%;"/></td>
                                     </tbody>
                                 </table>
                             </div>

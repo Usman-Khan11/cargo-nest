@@ -18,13 +18,34 @@ use File;
 
 class VesselController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Vessel";
-        $data['seo_desc']       = "Vessel";
-        $data['seo_keywords']   = "Vessel";
-        $data['page_title'] = "All Vessel";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Vessel";
+    //     $data['seo_desc']       = "Vessel";
+    //     $data['seo_keywords']   = "Vessel";
+    //     $data['page_title'] = "All Vessel";
 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Vessel::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.vessel.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
@@ -40,12 +61,15 @@ class VesselController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.vessel.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
+        $check_last_code = Vessel::orderBy('id', 'desc')->first();
+        if (!empty($check_last_code)) {
+            $num = $check_last_code->vessel_code;
+            $data['code'] = $num + 1;
+        } else {
+            $data['code'] = 1001;
+        }
+        
         $data['seo_title']      = "Vessel";
         $data['seo_desc']       = "Vessel";
         $data['seo_keywords']   = "Vessel";
@@ -76,7 +100,6 @@ class VesselController extends Controller
         $validated = $request->validate([
             'vessel_code' => 'required',
             'vessel_name' => 'required',
-            'owner' => 'required',
         ]);
         
         $vessel = new Vessel();
@@ -84,7 +107,7 @@ class VesselController extends Controller
         $vessel->save();
         
         $notify[] = ['success', 'Vessel Added Successfully.'];
-        return redirect()->route('admin.vessel')->withNotify($notify);
+        return back()->withNotify($notify);
     }
     
     public function update(Request $request)
@@ -92,7 +115,6 @@ class VesselController extends Controller
         $validated = $request->validate([
             'vessel_code' => 'required',
             'vessel_name' => 'required',
-            'owner' => 'required',
         ]);
         
         $vessel = Vessel::where("id", $request->id)->first();

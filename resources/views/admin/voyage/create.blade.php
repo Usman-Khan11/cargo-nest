@@ -71,59 +71,96 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.commodity.store') }}" enctype="multipart/form-data">
-            @csrf
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
-                    <!--<hr />-->
-                </div>
-                <div class="card-body">
+        <div class="row">
+            <div class="col-md-5">
+                <form method="post" action="{{ route('admin.commodity.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
+                            <!--<hr />-->
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Vessel:</label>
+                                        <input name="vessel" type="text" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Voyage</label>
+                                        <input name="voyage" type="text" class="form-control" placeholder="" />
+                                    </div>    
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Port of Dischage</label>
+                                        <input name="port_of_discharge" type="text" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Port of Loading</label>
+                                        <input name="port_of_loading" type="text" class="form-control" placeholder="" />
+                                    </div>
+                                </div>
+                                
+                                 <div class="col-md-8 col-12">
+                                    <label class="form-check-label mb-2">Type:</label>
+                                    <div class="d-flex">
+                                        <div class="mb-2">
+                                            <input name="type" type="radio" class="form-check-input" value="Import" id="defaultRadio1" />
+                                            <label class="form-check-label" for="defaultRadio1">Import</label>
+                                        </div>
+                                        <div class="mb-2 px-3">
+                                            <input name="type" type="radio" class="form-check-input" value="Export" id="defaultRadio2" />
+                                            <label class="form-check-label" for="defaultRadio2">Export</label>
+                                        </div>
+                                        <div class="mb-2 px-3">
+                                            <input name="type" type="radio" class="form-check-input" value="Both" id="defaultRadio3" />
+                                            <label class="form-check-label" for="defaultRadio3">Both</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div class="row">
-                        <div class="col-md-6 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Vessel:</label>
-                                <input name="vessel" type="text" class="form-control" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Voyage</label>
-                                <input name="voyage" type="text" class="form-control" placeholder="" />
-                            </div>    
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Port of Dischage</label>
-                                <input name="port_of_discharge" type="text" class="form-control" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Port of Loading</label>
-                                <input name="port_of_loading" type="text" class="form-control" placeholder="" />
-                            </div>
-                        </div>
-                        
-                         <div class="col-md-8 col-12">
-                            <label class="form-check-label mb-2">Type:</label>
-                            <div class="d-flex">
-                                <div class="mb-2">
-                                    <input name="mode" type="radio" class="form-check-input" value id="defaultRadio1" />
-                                    <label class="form-check-label" for="defaultRadio1">Import</label>
-                                </div>
-                                <div class="mb-2 px-3">
-                                    <input name="mode" type="radio" class="form-check-input" value id="defaultRadio2" />
-                                    <label class="form-check-label" for="defaultRadio2">Export</label>
-                                </div>
-                                <div class="mb-2 px-3">
-                                    <input name="mode" type="radio" class="form-check-input" value id="defaultRadio3" />
-                                    <label class="form-check-label" for="defaultRadio3">Both</label>
-                                </div>
-                            </div>
-                        </div>
                     
+                   
+                </form>
+            </div>
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="responsive text-nowrap">
+                            <table class="table table-bordered table-sm quotation_record">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,14 +191,76 @@
                     </table>
                 </div>
             </div> 
-           
-        </form>
+        </div>
     </div>
 @endsection
 
+@push('script')
+<script>
+    $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
+      
+
+
+    $(document).ready(function(){
+    var datatable = $('.quotation_record').DataTable({
+        select: {
+            style: 'api'
+        },
+        "processing": true,
+        "serverSide": true,
+        "lengthChange": false,
+        "pageLength": 15,
+        "scrollX": true,
+        "ajax": {
+            "url": "{{ route('admin.voyage.create') }}",
+            "type": "get",
+            "data": function(d) {
+                var frm_data = $('#result_report_form').serializeArray();
+                $.each(frm_data, function(key, val) {
+                    d[val.name] = val.value;
+                });
+            },
+        },
+        columns: [
+            {
+                data: 'DT_RowIndex',
+                title: 'Sr No'
+            },
+            {
+                data: 'vessel',
+                title: 'Vessel'
+            },
+            {
+                data: 'voyage',
+                title: 'Voyage'
+            },
+            {
+                data: 'port_of_discharge',
+                title: 'Port of Dischage'
+            },
+            {
+                data: 'port_of_loading',
+                title: 'Port of Loading'
+            },
+            {
+                data: 'type',
+                title: 'Type'
+            },
+            
+        ],          
+         "rowCallback": function(row, data) {}
+    });
+});
 
 
 
+
+
+</script>
+@endpush
 
 
 

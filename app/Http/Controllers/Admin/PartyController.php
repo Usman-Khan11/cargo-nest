@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Quotation;
+use App\Models\PartyBasicInfo;
+use App\Models\PartyOtherInfo;
+use App\Models\PartyAccountDetail;
+use App\Models\PartyAchBankDetail;
+use App\Models\PartyLocalizeKyc;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -71,34 +75,135 @@ class PartyController extends Controller
         return redirect()->route('admin.party')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'quotation_no' => 'required',
-    //         'date' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'short_name' => 'required',
+            'reg_date' => 'required',
+            'license_no' => 'required',
+            'contact_person' => 'required',
+        ]);
         
-    //     $quotation = new Quotation();
-    //     $quotation->fill($request->all());
-    //     $quotation->save();
+        $partybasicinfo = new PartyBasicInfo();
+        $partybasicinfo->short_name = $request->short_name;
+        $partybasicinfo->reg_date = $request->reg_date;
+        $partybasicinfo->license_no = $request->license_no;
+        $partybasicinfo->contact_person = $request->contact_person;
+        $partybasicinfo->ntn = $request->ntn;
+        $partybasicinfo->strn = $request->strn;
+        $partybasicinfo->address1 = $request->address1;
+        $partybasicinfo->address2 = $request->address2;
+        $partybasicinfo->address3 = $request->address3;
+        $partybasicinfo->city = $request->city;
+        $partybasicinfo->zipcode = $request->zipcode;
+        $partybasicinfo->tel_1 = $request->tel_1;
+        $partybasicinfo->tel_2 = $request->tel_2;
+        $partybasicinfo->facsimile = $request->facsimile;
+        $partybasicinfo->mobile = $request->mobile;
+        $partybasicinfo->website = $request->website;
+        $partybasicinfo->email = $request->email;
+        $partybasicinfo->acc_dept_email = $request->acc_dept_email;
+        $partybasicinfo->operation = $request->operation;
+        $partybasicinfo->operation_check=json_encode($request->operation_check);
+        $partybasicinfo->Type=json_encode($request->Type);
+        $partybasicinfo->nomination=json_encode($request->nomination);
+        $partybasicinfo->scac_iata_code = $request->scac_iata_code;
+        $partybasicinfo->restriction=json_encode($request->restriction);
+        $partybasicinfo->save();
+        $this->other_info_store($request,$partybasicinfo->id);
+        $this->account_detail_store($request,$partybasicinfo->id);
+        $this->ach_bank_detail_store($request,$partybasicinfo->id);
+        $this->localize_kyc_store($request,$partybasicinfo->id);
         
-    //     $notify[] = ['success', 'Quotation Added Successfully.'];
-    //     return redirect()->route('admin.quotation')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Party Added Successfully.'];
+        return redirect()->route('admin.party')->withNotify($notify);
+    }
     
-    // public function update(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'quotation_no' => 'required',
-    //         'date' => 'required',
-    //     ]);
+    public function other_info_store($request,$id)
+    {
+        $partyotherinfo = new PartyOtherInfo();
+        $partyotherinfo->party_basic_id = $id;
+        $partyotherinfo->ownership = $request->ownership;
+        $partyotherinfo->affiliated_companies = $request->affiliated_companies;
+        $partyotherinfo->fed_id = $request->fed_id;
+        $partyotherinfo->business_type = $request->business_type;
+        $partyotherinfo->year_company_establised = $request->year_company_establised;
+        $partyotherinfo->no_of_employee = $request->no_of_employee;
+        $partyotherinfo->est_annual_sales = $request->est_annual_sales;
+        $partyotherinfo->d_b = $request->d_b;
+        $partyotherinfo->ntn_name = $request->ntn_name;
+        $partyotherinfo->buyer_type = $request->buyer_type;
+        $partyotherinfo->specific_credit_card = $request->specific_credit_card;
+        $partyotherinfo->due_days = $request->due_days;
+        $partyotherinfo->credit_unit = $request->credit_unit;
+        $partyotherinfo->expiry_date = $request->expiry_date;
+        $partyotherinfo->save();
+    }
+    
+    public function account_detail_store($request,$id)
+    {
+        $partyaccountdetail = new PartyAccountDetail();
+        $partyaccountdetail->party_basic_id = $id;
+        $partyaccountdetail->manual_account = $request->manual_account	;
+        $partyaccountdetail->parent_account = $request->parent_account	;
+        $partyaccountdetail->account = $request->account	;
+        $partyaccountdetail->sale_rep = $request->sale_rep	;
+        $partyaccountdetail->doc_rep = $request->doc_rep	;
+        $partyaccountdetail->account_rep = $request->account_rep	;
+        $partyaccountdetail->referred_by = $request->referred_by	;
+        $partyaccountdetail->currency = $request->currency;
+        $partyaccountdetail->customer_grp = $request->customer_grp;
+        $partyaccountdetail->sub_type = $request->sub_type;
+        $partyaccountdetail->save();
+    }
+    
+    public function ach_bank_detail_store($request,$id){
+        $partyachbankdetail = new PartyAchBankDetail();
+        $partyachbankdetail->party_basic_id = $id;
+        $partyachbankdetail->ach_authority = $request->ach_authority;
+        $partyachbankdetail->account_title = $request->account_title;
+        $partyachbankdetail->bank = $request->bank;
+        $partyachbankdetail->bank_name = $request->bank_name;
+        $partyachbankdetail->account_no = $request->account_no;
+        $partyachbankdetail->iban = $request->iban;
+        $partyachbankdetail->branch_code = $request->branch_code;
+        $partyachbankdetail->swift_code = $request->swift_code;
+        $partyachbankdetail->routing_no = $request->routing_no;
+        $partyachbankdetail->ifsc_code = $request->ifsc_code;
+        $partyachbankdetail->micr_code = $request->micr_code;
+        $partyachbankdetail->remarks = $request->remarks;
+        $partyachbankdetail->auth_date = $request->auth_date;
+        $partyachbankdetail->auth_by = $request->auth_by;
+        $partyachbankdetail->save();
+    }
+    
+    public function localize_kyc_store($request,$id){
+        $partylocalizekyc = new PartyLocalizeKyc();
+        $partylocalizekyc->party_basic_id = $id;
+        $partylocalizekyc->name = $request->name;
+        $partylocalizekyc->address1 = $request->address1;
+        $partylocalizekyc->address2 = $request->address2;
+        $partylocalizekyc->address3 = $request->address3;
+        $partylocalizekyc->kyc_verification = $request->kyc_verification;
+        $partylocalizekyc->kyc_date = $request->kyc_date;
+        $partylocalizekyc->kyc_remarks = $request->kyc_remarks;
+        $partylocalizekyc->save();
+    }
+    
+    
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'quotation_no' => 'required',
+            'date' => 'required',
+        ]);
         
-    //     $quotation = Quotation::where("id", $request->id)->first();
-    //     $quotation->fill($request->all());
-    //     $quotation->save();
+        $quotation = Quotation::where("id", $request->id)->first();
+        $quotation->fill($request->all());
+        $quotation->save();
         
-    //     $notify[] = ['success', 'Quotation Updated Successfully.'];
-    //     return redirect()->route('admin.quotation')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Quotation Updated Successfully.'];
+        return redirect()->route('admin.quotation')->withNotify($notify);
+    }
     
 }
