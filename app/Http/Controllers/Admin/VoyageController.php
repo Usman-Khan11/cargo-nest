@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Quotation;
+use App\Models\Voyage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -88,34 +88,34 @@ class VoyageController extends Controller
         return redirect()->route('admin.voyage')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'quotation_no' => 'required',
-    //         'date' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'vessel' => 'required',
+            'voy' => 'required',
+        ]);
         
-    //     $quotation = new Quotation();
-    //     $quotation->fill($request->all());
-    //     $quotation->save();
+        $voyage = new Voyage();
+        $voyage->fill($request->all());
+        $voyage->save();
         
-    //     $notify[] = ['success', 'Quotation Added Successfully.'];
-    //     return redirect()->route('admin.quotation')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Voyage Added Successfully.'];
+        return redirect()->route('admin.voyage.create')->withNotify($notify);
+    }
     
-    // public function update(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'quotation_no' => 'required',
-    //         'date' => 'required',
-    //     ]);
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'vessel' => 'required',
+            'voy' => 'required',
+        ]);
         
-    //     $quotation = Quotation::where("id", $request->id)->first();
-    //     $quotation->fill($request->all());
-    //     $quotation->save();
+        $voyage = Voyage::where("id", $request->id)->first();
+        $voyage->fill($request->all());
+        $voyage->save();
         
-    //     $notify[] = ['success', 'Quotation Updated Successfully.'];
-    //     return redirect()->route('admin.quotation')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Voyage Updated Successfully.'];
+        return redirect()->route('admin.voyage.create')->withNotify($notify);
+    }
     
 }

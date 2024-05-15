@@ -62,7 +62,7 @@
             <i class="fa fa-file-circle-check"></i>
         </div>
         <div class="file_line">
-            <a href="{{route('admin.currency')}}"><i class="fa fa-file-lines"></i></a>
+            <i class="fa fa-file-lines"></i>
         </div>
     </div>
 
@@ -71,7 +71,9 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form id="myForm" method="post" action="{{ route('admin.currency.store') }}" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-5">
+                <form id="myForm" method="post" action="{{ route('admin.currency.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -79,47 +81,82 @@
                     <!--<hr />-->
                 </div>
                 <div class="card-body">
-                    
+                    <input name="id" type="hidden" />
                     <div class="row">
-                        <div class="col-md-2 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Code:</label>
-                                <input name="code" type="text" class="form-control" placeholder="" />
-                            </div>
-                        </div>
-                        
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
-                                <label class="form-label">Name:</label>
-                                <input name="name" type="text" class="form-control" placeholder="" />
+                                <label class="form-label">Code:</label>
+                                <input name="code" type="text" class="form-control code" placeholder="" />
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        
+                        <div class="col-md-8 col-12">
+                            <div class="mb-2">
+                                <label class="form-label">Name:</label>
+                                <input name="name" type="text" class="form-control name" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Main Symbol:</label>
-                                <input name="main_symbol" type="text" class="form-control" placeholder="" />
+                                <input name="main_symbol" type="text" class="form-control main_symbol" placeholder="" />
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-6 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Sub Unit Symbol:</label>
-                                <input name="unit_symbol" type="text" class="form-control" placeholder="" />
+                                <input name="unit_symbol" type="text" class="form-control unit_symbol" placeholder="" />
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-6 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Decimal Portion Digits:</label>
-                                <input name="decimal_portion_digits" type="text" class="form-control" placeholder="" />
+                                <input name="decimal_portion_digits" type="text" class="form-control decimal_portion_digits" placeholder="" />
                             </div>
                         </div>
-
-                        
-
+                        <div class="col-md-6 col-12">
+                            <div class="mb-2 mt-4">
+                                <button class="btn btn-primary">Bulk Upload</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
      
         </form>
+            </div>
+            
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="responsive text-nowrap">
+                            <table class="table table-bordered table-sm quotation_record">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -132,6 +169,77 @@
         // Trigger form submission
         $('#myForm').submit();
       });
+      
+      
+      $(document).ready(function(){
+            var datatable = $('.quotation_record').DataTable({
+                select: {
+                    style: 'api'
+                },
+                "processing": true,
+                "serverSide": true,
+                "lengthChange": false,
+                "pageLength": 15,
+                "scrollX": true,
+                "ajax": {
+                    "url": "{{ route('admin.currency.create') }}",
+                    "type": "get",
+                    "data": function(d) {
+                        var frm_data = $('#result_report_form').serializeArray();
+                        $.each(frm_data, function(key, val) {
+                            d[val.name] = val.value;
+                        });
+                    },
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        title: 'Sr No'
+                    },
+                    {
+                        data: 'code',
+                        title: 'Code'
+                    },
+                    {
+                        data: 'name',
+                        title: 'Name'
+                    },
+                    {
+                        data: 'main_symbol',
+                        title: 'Main Symbol'
+                    },
+                    {
+                        data: 'unit_symbol',
+                        title: 'Unit Symbol'
+                    },
+                    {
+                        data: 'decimal_portion_digits',
+                        title: 'Decimal Digits'
+                    },
+                    
+                ],          
+                 "rowCallback": function(row, data) {
+                     $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
+                 }
+            });
+        });
+
+
+function edit_row(e,data){
+    data = JSON.parse(data);
+    if(data){
+        $(".code").val(data.code);
+        $(".name").val(data.name);
+        $(".main_symbol").val(data.main_symbol);
+        $(".unit_symbol").val(data.unit_symbol);
+        $(".decimal_portion_digits").val(data.decimal_portion_digits);
+        
+        $("#myForm").attr("action","{{ route('admin.currency.update') }}")
+        $("input[name=id]").val(data.id);
+    }
+    
+}
+
 </script>
 
 @endpush

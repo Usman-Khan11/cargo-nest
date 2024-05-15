@@ -18,14 +18,35 @@ use File;
 
 class ChargesController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Charges";
-        $data['seo_desc']       = "Charges";
-        $data['seo_keywords']   = "Charges";
-        $data['page_title'] = "All Charges";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Charges";
+    //     $data['seo_desc']       = "Charges";
+    //     $data['seo_keywords']   = "Charges";
+    //     $data['page_title'] = "All Charges";
 
-        if ($request->ajax()) {
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Charges::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.charges.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
+         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
             $pageSize = (int)($request->length) ? $request->length : 10;
@@ -40,12 +61,7 @@ class ChargesController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.charges.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
         $data['seo_title']      = "Charges";
         $data['seo_desc']       = "Charges";
         $data['seo_keywords']   = "Charges";
@@ -136,7 +152,7 @@ class ChargesController extends Controller
         $charges->save();
         
         $notify[] = ['success', 'Charges Updated Successfully.'];
-        return redirect()->route('admin.charges')->withNotify($notify);
+        return redirect()->route('admin.charges.create')->withNotify($notify);
     }
     
 }

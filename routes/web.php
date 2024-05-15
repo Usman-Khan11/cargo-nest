@@ -26,6 +26,10 @@ use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\PartyController;
+use App\Http\Controllers\Admin\ManifestController;
+use App\Http\Controllers\Admin\CroController;
+use App\Http\Controllers\Admin\BlController;
+use App\Http\Controllers\Admin\JobController;
 
 
 Route::get('/clear', function(){
@@ -183,6 +187,38 @@ Route::namespace('Admin')
                 Route::get('party/delete/{id}',[PartyController::class ,'delete'])->name('party.delete');
                 Route::post('party/store',[PartyController::class ,'store'])->name('party.store');
                 Route::post('party/update',[PartyController::class ,'update'])->name('party.update');
+                
+                // MANIFEST ROUTES
+                Route::get('manifest',[ManifestController::class ,'index'])->name('manifest');
+                Route::get('manifest/create',[ManifestController::class ,'create'])->name('manifest.create');
+                Route::get('manifest/edit/{id}',[ManifestController::class ,'edit'])->name('manifest.edit');
+                Route::get('manifest/delete/{id}',[ManifestController::class ,'delete'])->name('manifest.delete');
+                Route::post('manifest/store',[ManifestController::class ,'store'])->name('manifest.store');
+                Route::post('manifest/update',[ManifestController::class ,'update'])->name('manifest.update');
+                
+                // CRO ROUTES
+                Route::get('cro',[CroController::class ,'index'])->name('cro');
+                Route::get('cro/create',[CroController::class ,'create'])->name('cro.create');
+                Route::get('cro/edit/{id}',[CroController::class ,'edit'])->name('cro.edit');
+                Route::get('cro/delete/{id}',[CroController::class ,'delete'])->name('cro.delete');
+                Route::post('cro/store',[CroController::class ,'store'])->name('cro.store');
+                Route::post('cro/update',[CroController::class ,'update'])->name('cro.update');
+                
+                // B/L ROUTES
+                Route::get('bl',[BlController::class ,'index'])->name('bl');
+                Route::get('bl/create',[BlController::class ,'create'])->name('bl.create');
+                Route::get('bl/edit/{id}',[BlController::class ,'edit'])->name('bl.edit');
+                Route::get('bl/delete/{id}',[BlController::class ,'delete'])->name('bl.delete');
+                Route::post('bl/store',[BlController::class ,'store'])->name('bl.store');
+                Route::post('bl/update',[BlController::class ,'update'])->name('bl.update');
+                
+                // JOB ROUTES
+                Route::get('job',[JobController::class ,'index'])->name('job');
+                Route::get('job/create',[JobController::class ,'create'])->name('job.create');
+                Route::get('job/edit/{id}',[JobController::class ,'edit'])->name('job.edit');
+                Route::get('job/delete/{id}',[JobController::class ,'delete'])->name('job.delete');
+                Route::post('job/store',[JobController::class ,'store'])->name('job.store');
+                Route::post('job/update',[JobController::class ,'update'])->name('job.update');
 
             });
 

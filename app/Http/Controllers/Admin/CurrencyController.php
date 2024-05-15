@@ -18,13 +18,35 @@ use File;
 
 class CurrencyController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Currency";
-        $data['seo_desc']       = "Currency";
-        $data['seo_keywords']   = "Currency";
-        $data['page_title'] = "All Currency";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Currency";
+    //     $data['seo_desc']       = "Currency";
+    //     $data['seo_keywords']   = "Currency";
+    //     $data['page_title'] = "All Currency";
 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Currency::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.currency.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
+        
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
@@ -40,12 +62,7 @@ class CurrencyController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.currency.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
         $data['seo_title']      = "Currency";
         $data['seo_desc']       = "Currency";
         $data['seo_keywords']   = "Currency";
@@ -85,7 +102,7 @@ class CurrencyController extends Controller
         $currency->save();
         
         $notify[] = ['success', 'Currency Added Successfully.'];
-        return redirect()->route('admin.currency')->withNotify($notify);
+        return redirect()->route('admin.currency.create')->withNotify($notify);
     }
     
     public function update(Request $request)
@@ -101,8 +118,8 @@ class CurrencyController extends Controller
         $currency->fill($request->all());
         $currency->save();
         
-        $notify[] = ['success', 'Quotation Updated Successfully.'];
-        return redirect()->route('admin.currency')->withNotify($notify);
+        $notify[] = ['success', 'Currency Updated Successfully.'];
+        return redirect()->route('admin.currency.create')->withNotify($notify);
     }
     
 }

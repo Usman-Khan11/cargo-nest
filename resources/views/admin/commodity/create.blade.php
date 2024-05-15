@@ -35,7 +35,6 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-4">
     <div class="row">
         <div class="col-md-7">
@@ -52,7 +51,6 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-4">
     <div class="d-flex">
         <div class="check">
@@ -62,7 +60,7 @@
             <i class="fa fa-file-circle-check"></i>
         </div>
         <div class="file_line">
-            <a href="{{route('admin.commodity')}}"><i class="fa fa-file-lines"></i></a>
+            <i class="fa fa-file-lines"></i>
         </div>
     </div>
 
@@ -71,62 +69,63 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.commodity.store') }}" id="myForm" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" action="{{ route('admin.commodity.store') }}" id="myForm" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
                     <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
-                    <!--<hr />-->
                 </div>
                 <div class="card-body">
-                    
+                    <input name="id" type="hidden" />
                     <div class="row">
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Code:</label>
-                                <input name="code" type="text" class="form-control" placeholder="" />
+                                <input name="code" type="text" class="form-control code" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-12">
+                            <div class="mb-2">
+                                <label class="form-label">Name:</label>
+                                <input name="name" type="text" class="form-control name" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
-                                <label class="form-label">Name:</label>
-                                <input name="name" type="text" class="form-control" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
                                 <label class="form-label">Shortcode:</label>
-                                <input name="short_code" type="text" class="form-control" placeholder="" />
+                                <input name="short_code" type="text" class="form-control short_code" placeholder="" />
                             </div>
                         </div>
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Hs Code:</label>
-                                <input name="hs_code" type="text" class="form-control" placeholder="" />
+                                <input name="hs_code" type="text" class="form-control hs_code" placeholder="" />
                             </div>
                         </div>
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Cargo Type:</label>
-                                <select class="form-select" name="cargo_type">
+                                <select class="form-select cargo_type" name="cargo_type">
                                     <option selected></option>
                                     <option value="GI">GI</option>
                                     <option value="CAR">CAR</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-7 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Commodity Group:</label>
-                                <select class="form-select" name="commodity_group">
+                                <select class="form-select commodity_group" name="commodity_group">
                                     <option selected></option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-5 col-12">
                             <div class="mb-2 mt-4">
                                 <label class="form-label"></label>
-                                <input style="width:15px; height:15px;" name="inactive" value="inactive" type="checkbox" /><span>&nbsp;&nbsp;In-Active</span>
+                                <input style="width:15px; height:15px;" name="inactive" class="inactive" value="inactive" type="checkbox" /><span>&nbsp;&nbsp;In-Active</span>
                             </div>
                         </div>
                     </div>
@@ -135,24 +134,24 @@
                         
                         <h5>Hazmat Details:</h5>
                         
-                       <div class="col-md-12 col-12">
+                       <div class="col-md-4 col-12">
                             <label class="form-label">Hazmat Product?</label>
                             <div class="d-flex">
                                 <div class="mb-2">
-                                    <input name="hazmat_product" type="radio" class="form-check-input" value="No" id="defaultRadio1" />
+                                    <input name="hazmat_product" type="radio" class="form-check-input hazmat_product" value="No" id="defaultRadio1" />
                                     <label class="form-check-label" for="defaultRadio1">No</label>
                                 </div>
                                 <div class="mb-2 px-3">
-                                    <input name="hazmat_product" type="radio" class="form-check-input" value="Yes" id="defaultRadio2" />
+                                    <input name="hazmat_product" type="radio" class="form-check-input hazmat_product" value="Yes" id="defaultRadio2" />
                                     <label class="form-check-label" for="defaultRadio2">Yes</label>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Packing Group:</label>
-                                <select class="form-select" name="packing_group">
+                                <select class="form-select packing_group" name="packing_group">
                                     <option selected disabled></option>
                                     <option value="none">None</option>
                                     <option value="i(high-danger)">I (High Danger)</option>
@@ -162,17 +161,17 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Hazmat Code</label>
-                                <input name="hazmat_code" type="text" class="form-control"/>
+                                <input name="hazmat_code" type="text" class="form-control hazmat_code"/>
                             </div>
                         </div>
                         
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-5 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Hazmat Class:</label>
-                                <select class="form-select" name="hazmat_class">
+                                <select class="form-select hazmat_class" name="hazmat_class">
                                     <option value="" selected disabled></option>
                                     <option value="ClassNotSpecified">Class not specified</option>
                                     <option value="Class1ExplosiveDivisionNotSpecified">Class 1 Explosive: division not specified</option>
@@ -202,17 +201,17 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Chemical Name</label>
-                                <input name="chemical_name" type="text" class="form-control"/>
+                                <input name="chemical_name" type="text" class="form-control chemical_name"/>
                             </div>
                         </div>
                         
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">UNO Code</label>
-                                <input name="uno_code" type="text" class="form-control"/>
+                                <input name="uno_code" type="text" class="form-control uno_code"/>
                             </div>
                         </div>
                         
@@ -220,87 +219,87 @@
                     
                     <div class="row mt-3">
                         <h5>Duty Detail:</h5>
-                        <div class="col-md-12 col-12">
+                        <div class="col-md-8 col-12">
                             <div class="mb-2">
                                 <label class="form-label">SRO</label>
-                                <input name="sro" type="text" class="form-control"/>
+                                <input name="sro" type="text" class="form-control sro"/>
                             </div>
                         </div>
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Insurance</label>
-                                <input name="insurance" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="insurance" type="text" class="form-control insurance" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">I. Tax %</label>
-                                <input name="i_tax" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="i_tax" type="text" class="form-control i_tax" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">RD %</label>
-                                <input name="rd" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="rd" type="text" class="form-control rd" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Landing/Ins. %</label>
-                                <input name="landing_insurance" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="landing_insurance" type="text" class="form-control landing_insurance" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">S.ITax %</label>
-                                <input name="s_itax" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="s_itax" type="text" class="form-control s_itax" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">CD %</label>
-                                <input name="cd%" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="cd%" type="text" class="form-control cd" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">FED %</label>
-                                <input name="fed%" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="fed%" type="text" class="form-control fed" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Add.STax %</label>
-                                <input name="add_stax" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="add_stax" type="text" class="form-control add_stax" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Fine</label>
-                                <input name="fine" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="fine" type="text" class="form-control fine" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Add.CD %</label>
-                                <input name="add_cd" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="add_cd" type="text" class="form-control add_cd" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">E.T.O</label>
-                                <input name="eto" type="text" class="form-control" placeholder="0.00"/>
+                                <input name="eto" type="text" class="form-control eto" placeholder="0.00"/>
                             </div>
                         </div>
-                        <div class="col-md-12 col-12">
+                        <div class="col-md-6 col-12">
                             <div class="d-flex mt-4">
                                 <div class="mb-2">
-                                    <input name="item" type="radio" class="form-check-input" value="Shipping Item" id="defaultRadio1" />
-                                    <label class="form-check-label" for="defaultRadio1">Shipping Item</label>
+                                    <input name="item" type="radio" class="form-check-input atom" value="Shipping Item" id="defaultRadio1" />
+                                    <label class="form-check-label" for="defaultRadio1" style="font-size:13px;">Shipping Item</label>
                                 </div>
                                 <div class="mb-2 px-3">
-                                    <input name="item" type="radio" class="form-check-input" value="Warehouse Item" id="defaultRadio2" />
-                                    <label class="form-check-label" for="defaultRadio2">Warehouse Item</label>
+                                    <input name="item" type="radio" class="form-check-input atom" value="Warehouse Item" id="defaultRadio2" />
+                                    <label class="form-check-label" for="defaultRadio2" style="font-size:13px;">Warehouse Item</label>
                                 </div>
                             </div>
                         </div>
@@ -311,6 +310,36 @@
                 </div>
             </div>
         </form>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="responsive text-nowrap">
+                            <table class="table table-bordered table-sm quotation_record">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -321,6 +350,107 @@
         // Trigger form submission
         $('#myForm').submit();
       });
+      
+      $(document).ready(function(){
+    var datatable = $('.quotation_record').DataTable({
+        select: {
+            style: 'api'
+        },
+        "processing": true,
+        "serverSide": true,
+        "lengthChange": false,
+        "pageLength": 15,
+        "scrollX": true,
+        "ajax": {
+            "url": "{{ route('admin.commodity.create') }}",
+            "type": "get",
+            "data": function(d) {
+                var frm_data = $('#result_report_form').serializeArray();
+                $.each(frm_data, function(key, val) {
+                    d[val.name] = val.value;
+                });
+            },
+        },
+        columns: [
+            {
+                data: 'DT_RowIndex',
+                title: 'Sr No'
+            },
+            {
+                data: 'code',
+                title: 'Code'
+            },
+            {
+                data: 'name',
+                title: 'Name'
+            },
+            {
+                data: 'cargo_type',
+                title: 'Cargo Type'
+            },
+            {
+                data: 'commodity_group',
+                title: 'Commodity Group'
+            },
+        ],          
+         "rowCallback": function(row, data) {
+             $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
+         }
+    });
+});
+
+
+
+
+
+
+function edit_row(e,data){
+    data = JSON.parse(data);
+    if(data){
+        $(".code").val(data.code);
+        $(".name").val(data.name);
+        $(".short_code").val(data.short_code);
+        $(".hs_code").val(data.hs_code);
+        $(".cargo_type").val(data.cargo_type);
+        $(".commodity_group").val(data.commodity_group);
+        $(".inactive").removeAttr('checked');
+        $(`.inactive[value=${data.inactive}]`).attr('checked',true);
+        
+        $(".hazmat_product").removeAttr('checked');
+        $(`.hazmat_product[value=${data.hazmat_product}]`).attr('checked',true);
+        $(".packing_group").val(data.packing_group);
+        $(".hazmat_code").val(data.hazmat_code);
+        $(".hazmat_class").val(data.hazmat_class);
+        $(".chemical_name").val(data.chemical_name);
+        $(".chemical_name").val(data.uno_code);
+        
+        $(".sro").val(data.sro);
+        $(".insurance").val(data.insurance);
+        $(".i_tax").val(data.i_tax);
+        $(".rd").val(data.rd);
+        $(".landing_insurance").val(data.landing_insurance);
+        $(".s_itax").val(data.s_itax);
+        $(".cd").val(data.cd);
+        $(".fed").val(data.fed);
+        $(".add_stax").val(data.add_stax);
+        $(".fine").val(data.fine);
+        $(".add_cd").val(data.add_cd);
+        $(".eto").val(data.eto);
+        
+        $(".atom").removeAttr('checked');
+        $(`.atom[value=${data.item}]`).attr('checked',true);
+        
+        $("#myForm").attr("action","{{ route('admin.commodity.update') }}")
+         $("input[name=id]").val(data.id);
+    }
+    
+}
+
+
+
+
+
+
 </script>
 
 @endpush

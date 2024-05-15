@@ -7,7 +7,7 @@
             <i class="fa fa-square-plus"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save"></i>
+            <i class="fa fa-save" id="submitButton"></i>
         </div>
         <div class="xmark">
             <i class="fa fa-circle-xmark"></i>
@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-5">
-                <form method="post" action="{{ route('admin.commodity.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.voyage.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-4">
                         <div class="card-header">
@@ -81,30 +81,30 @@
                             <!--<hr />-->
                         </div>
                         <div class="card-body">
-                            
+                             <input name="id" type="hidden" />
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Vessel:</label>
-                                        <input name="vessel" type="text" class="form-control" placeholder="" />
+                                        <input name="vessel" type="text" class="form-control vessel" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Voyage</label>
-                                        <input name="voyage" type="text" class="form-control" placeholder="" />
+                                        <input name="voy" type="text" class="form-control voy" placeholder="" />
                                     </div>    
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Port of Dischage</label>
-                                        <input name="port_of_discharge" type="text" class="form-control" placeholder="" />
+                                        <input name="port_of_discharge" type="text" class="form-control port_of_discharge" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Port of Loading</label>
-                                        <input name="port_of_loading" type="text" class="form-control" placeholder="" />
+                                        <input name="port_of_loading" type="text" class="form-control port_of_loading" placeholder="" />
                                     </div>
                                 </div>
                                 
@@ -112,15 +112,15 @@
                                     <label class="form-check-label mb-2">Type:</label>
                                     <div class="d-flex">
                                         <div class="mb-2">
-                                            <input name="type" type="radio" class="form-check-input" value="Import" id="defaultRadio1" />
+                                            <input name="type" type="radio" class="form-check-input type" value="Import" id="defaultRadio1" />
                                             <label class="form-check-label" for="defaultRadio1">Import</label>
                                         </div>
                                         <div class="mb-2 px-3">
-                                            <input name="type" type="radio" class="form-check-input" value="Export" id="defaultRadio2" />
+                                            <input name="type" type="radio" class="form-check-input type" value="Export" id="defaultRadio2" />
                                             <label class="form-check-label" for="defaultRadio2">Export</label>
                                         </div>
                                         <div class="mb-2 px-3">
-                                            <input name="type" type="radio" class="form-check-input" value="Both" id="defaultRadio3" />
+                                            <input name="type" type="radio" class="form-check-input type" value="Both" id="defaultRadio3" />
                                             <label class="form-check-label" for="defaultRadio3">Both</label>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                 </form>
             </div>
             <div class="col-md-7">
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-body">
                         <div class="responsive text-nowrap">
                             <table class="table table-bordered table-sm quotation_record">
@@ -234,7 +234,7 @@
                 title: 'Vessel'
             },
             {
-                data: 'voyage',
+                data: 'voy',
                 title: 'Voyage'
             },
             {
@@ -251,12 +251,27 @@
             },
             
         ],          
-         "rowCallback": function(row, data) {}
+         "rowCallback": function(row, data) {
+             $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
+         }
     });
 });
 
 
-
+function edit_row(e,data){
+    data = JSON.parse(data);
+    if(data){
+        $(".vessel").val(data.vessel);
+        $(".voy").val(data.voy);
+        $(".port_of_discharge").val(data.port_of_discharge);
+        $(".port_of_loading").val(data.port_of_loading);
+        $(".type").removeAttr('checked');
+        $(`.type[value=${data.type}]`).attr('checked',true);
+        $("#myForm").attr("action","{{ route('admin.voyage.update') }}")
+         $("input[name=id]").val(data.id);
+    }
+    
+}
 
 
 </script>

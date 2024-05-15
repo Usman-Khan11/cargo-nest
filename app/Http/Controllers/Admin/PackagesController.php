@@ -18,13 +18,34 @@ use File;
 
 class PackagesController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Packages Coding";
-        $data['seo_desc']       = "Packages Coding";
-        $data['seo_keywords']   = "Packages Coding";
-        $data['page_title'] = "Packages Coding";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Packages Coding";
+    //     $data['seo_desc']       = "Packages Coding";
+    //     $data['seo_keywords']   = "Packages Coding";
+    //     $data['page_title'] = "Packages Coding";
 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Packages::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.packages.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
@@ -40,12 +61,7 @@ class PackagesController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.packages.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
         $data['seo_title']      = "Packages Coding";
         $data['seo_desc']       = "Packages Coding";
         $data['seo_keywords']   = "Packages Coding";
@@ -83,7 +99,7 @@ class PackagesController extends Controller
         $packages->save();
         
         $notify[] = ['success', 'Packages Added Successfully.'];
-        return redirect()->route('admin.packages')->withNotify($notify);
+        return redirect()->route('admin.packages.create')->withNotify($notify);
     }
     
     public function update(Request $request)
@@ -94,11 +110,12 @@ class PackagesController extends Controller
         ]);
         
         $packages = Packages::where("id", $request->id)->first();
+        $packages->default = $request->default ? $request->default : '';
         $packages->fill($request->all());
         $packages->save();
         
         $notify[] = ['success', 'Packages Updated Successfully.'];
-        return redirect()->route('admin.packages')->withNotify($notify);
+        return redirect()->route('admin.packages.create')->withNotify($notify);
     }
     
 }

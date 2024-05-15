@@ -18,13 +18,34 @@ use File;
 
 class EquipmentController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Equipment Size Type";
-        $data['seo_desc']       = "Equipment Size Type";
-        $data['seo_keywords']   = "Equipment Size Type";
-        $data['page_title'] = "Equipment Size Type";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Equipment Size Type";
+    //     $data['seo_desc']       = "Equipment Size Type";
+    //     $data['seo_keywords']   = "Equipment Size Type";
+    //     $data['page_title'] = "Equipment Size Type";
 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Equipment::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.equipment.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
@@ -40,12 +61,7 @@ class EquipmentController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.equipment.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
         $data['seo_title']      = "Equipment Size Type";
         $data['seo_desc']       = "Equipment Size Type";
         $data['seo_keywords']   = "Equipment Size Type";
@@ -84,7 +100,7 @@ class EquipmentController extends Controller
         $equipment->save();
         
         $notify[] = ['success', 'Equipment Size Type Added Successfully.'];
-        return redirect()->route('admin.equipment')->withNotify($notify);
+        return redirect()->route('admin.equipment.create')->withNotify($notify);
     }
     
     public function update(Request $request)
@@ -100,7 +116,7 @@ class EquipmentController extends Controller
         $equipment->save();
         
         $notify[] = ['success', 'Equipment Size Type Updated Successfully.'];
-        return redirect()->route('admin.equipment')->withNotify($notify);
+        return redirect()->route('admin.equipment.create')->withNotify($notify);
     }
     
 }

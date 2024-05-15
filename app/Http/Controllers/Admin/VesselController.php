@@ -122,7 +122,7 @@ class VesselController extends Controller
         $vessel->save();
         
         $notify[] = ['success', 'Vessel Updated Successfully.'];
-        return redirect()->route('admin.vessel')->withNotify($notify);
+        return redirect()->route('admin.vessel.create')->withNotify($notify);
     }
     
 }

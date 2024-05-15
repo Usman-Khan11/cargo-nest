@@ -81,65 +81,65 @@
                     <!--<hr />-->
                 </div>
                 <div class="card-body">
-                    
+                    <input name="id" type="hidden" />
                     <div class="row">
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Vessel Code:</label>
-                                <input name="vessel_code" type="text" value="{{$code}}" class="form-control" placeholder="" />
+                                <input name="vessel_code" type="text" value="{{$code}}" class="form-control vessel_code" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-8 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Vessel Name:</label>
-                                <input name="vessel_name" type="text" class="form-control" placeholder="" />
+                                <input name="vessel_name" type="text" class="form-control vessel_name" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-8 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Owner:</label>
-                                <input name="owner" type="text" class="form-control" placeholder="" />
+                                <input name="owner" type="text" class="form-control owner" placeholder="" />
                             </div>
                         </div>
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Principle Code:</label>
-                                <input name="principle_code" type="text" class="form-control" placeholder="" />
+                                <input name="principle_code" type="text" class="form-control principle_code" placeholder="" />
                             </div>
                         </div>
                         
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Call Sign:</label>
-                                <input name="call_sign" type="text" class="form-control" placeholder="" />
+                                <input name="call_sign" type="text" class="form-control call_sign" placeholder="" />
                             </div>
                         </div>
                         
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">GRT:</label>
-                                <input name="grt" type="text" class="form-control" placeholder="" />
+                                <input name="grt" type="text" class="form-control grt" placeholder="" />
                             </div>
                         </div>
                         
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">NRT:</label>
-                                <input name="nrt" type="text" class="form-control" placeholder="" />
+                                <input name="nrt" type="text" class="form-control nrt" placeholder="" />
                             </div>
                         </div>
                         
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">IMO No:</label>
-                                <input name="imo_no" type="text" class="form-control" placeholder="" />
+                                <input name="imo_no" type="text" class="form-control imo_no" placeholder="" />
                             </div>
                         </div>
                         
                         <div class="col-md-8 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Country Of Registered:</label>
-                                <input name="country_registered" type="text" class="form-control" placeholder="" />
+                                <input name="country_registered" type="text" class="form-control country_registered" placeholder="" />
                             </div>
                         </div>
                         
@@ -272,9 +272,36 @@ $(document).ready(function(){
             },
            
         ],          
-         "rowCallback": function(row, data) {}
+         "rowCallback": function(row, data) {
+             $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
+         }
     });
 });
+
+function edit_row(e,data){
+    data = JSON.parse(data);
+    if(data){
+        $(".vessel_code").val(data.vessel_code);
+        $(".vessel_name").val(data.vessel_name);
+        $(".owner").val(data.owner);
+        $(".principle_code").val(data.principle_code);
+        $(".call_sign").val(data.call_sign);
+        $(".grt").val(data.grt);
+        $(".nrt").val(data.nrt);
+        $(".imo_no").val(data.imo_no);
+        $(".country_registered").val(data.country_registered);
+        $("#myForm").attr("action","{{ route('admin.vessel.update') }}")
+         $("input[name=id]").val(data.id);
+    }
+    
+}
+
+
+
+
+
+
+
 </script>
 
 @endpush

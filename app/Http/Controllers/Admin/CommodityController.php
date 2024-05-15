@@ -17,13 +17,34 @@ use File;
 
 class CommodityController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Commodity";
-        $data['seo_desc']       = "Commodity";
-        $data['seo_keywords']   = "Commodity";
-        $data['page_title'] = "All Commodity";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Commodity";
+    //     $data['seo_desc']       = "Commodity";
+    //     $data['seo_keywords']   = "Commodity";
+    //     $data['page_title'] = "All Commodity";
 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Commodity::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.commodity.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
@@ -39,12 +60,7 @@ class CommodityController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.commodity.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
         $data['seo_title']      = "Commodity";
         $data['seo_desc']       = "Commodity";
         $data['seo_keywords']   = "Commodity";
@@ -82,7 +98,7 @@ class CommodityController extends Controller
         $commodity->save();
         
         $notify[] = ['success', 'Commodity Added Successfully.'];
-        return redirect()->route('admin.commodity')->withNotify($notify);
+        return redirect()->route('admin.commodity.create')->withNotify($notify);
     }
     
     public function update(Request $request)
@@ -93,11 +109,12 @@ class CommodityController extends Controller
         ]);
         
         $commodity = Commodity::where("id", $request->id)->first();
+        $commodity->inactive = $request->inactive ? $request->inactive : '';
         $commodity->fill($request->all());
-        $commodity->save();
+        $commodity->update();
         
         $notify[] = ['success', 'Commodity Updated Successfully.'];
-        return redirect()->route('admin.commodity')->withNotify($notify);
+        return redirect()->route('admin.commodity.create')->withNotify($notify);
     }
     
 }

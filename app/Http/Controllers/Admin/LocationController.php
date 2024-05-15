@@ -18,13 +18,34 @@ use File;
 
 class LocationController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Location";
-        $data['seo_desc']       = "Location";
-        $data['seo_keywords']   = "Location";
-        $data['page_title'] = "Location";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Location";
+    //     $data['seo_desc']       = "Location";
+    //     $data['seo_keywords']   = "Location";
+    //     $data['page_title'] = "Location";
 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Location::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.location.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
@@ -40,12 +61,7 @@ class LocationController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.location.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
         $data['seo_title']      = "Location";
         $data['seo_desc']       = "Location";
         $data['seo_keywords']   = "Location";
@@ -94,22 +110,23 @@ class LocationController extends Controller
         $location->save();
         
         $notify[] = ['success', 'Location Added Successfully.'];
-        return redirect()->route('admin.location')->withNotify($notify);
+        return redirect()->route('admin.location.create')->withNotify($notify);
     }
     
     public function update(Request $request)
     {
         $validated = $request->validate([
             'location' => 'required',
-            'location_check' => 'required',
+            //'location_check' => 'required',
         ]);
         
         $location = Location::where("id", $request->id)->first();
-        $quotation->fill($request->all());
-        $quotation->save();
+        $location->inactive = $request->inactive ? $request->inactive : '';
+        $location->fill($request->all());
+        $location->save();
         
         $notify[] = ['success', 'Location Updated Successfully.'];
-        return redirect()->route('admin.location')->withNotify($notify);
+        return redirect()->route('admin.location.create')->withNotify($notify);
     }
     
 }

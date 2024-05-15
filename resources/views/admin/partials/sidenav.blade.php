@@ -347,26 +347,26 @@
                 <div data-i18n="General Setting">Sea Export</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.manifest.create')}}">
+                    <a href="{{route('admin.manifest.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Manifest</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.job.create')}}">
+                    <a href="{{route('admin.job.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Job</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.cro.create')}}">
+                    <a href="{{route('admin.cro.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Cro</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.bl.create')}}">
+                    <a href="{{route('admin.bl.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se B/L</div>
                     </a>
@@ -443,8 +443,8 @@
                         <div data-i18n="General Setting">Se Letter List</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.quotation.create')}}">
-                    <a href="{{route('admin.quotation.create')}}" class="menu-link">
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Quotation</div>
                     </a>
@@ -2219,8 +2219,8 @@
                         <div data-i18n="JOB SETTLEMENT">Job Settlement</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.quotation.create')}}">
+                    <a href="{{route('admin.quotation.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-book"></i>
                         <div data-i18n="QUOTATION">Quotation</div>
                     </a>
