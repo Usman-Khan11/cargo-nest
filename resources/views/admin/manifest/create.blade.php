@@ -72,7 +72,7 @@
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-7">
                 <form method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
@@ -232,11 +232,11 @@
                     <button class="btn btn-primary btn-sm">Show Summary</button>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Operation</label>
                                     <select name="operation" class="form-select">
@@ -244,79 +244,79 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Book No</label>
                                     <input name="book_no" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Voyage#</label>
                                     <input name="voyage_no" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-12 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">ETD Date</label>
                                     <input name="etd_date" type="date" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-12 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">EGM Date</label>
                                     <input name="egm_date" type="date" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">EGM No</label>
                                     <input name="egm_no" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Seq No</label>
                                     <input name="seq_no" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">No of Install</label>
                                     <input name="install_count" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">VIR No</label>
                                     <input name="vir_no" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-12 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Date of Amendment</label>
                                     <input name="date_of_amendment" type="date" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Operator Code</label>
                                     <input name="operator_code" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-4 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Guarantee</label>
                                     <input name="guarantee" type="text" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-12 col-12">
+                            <div class="col-md-5 col-12">
                                 <div class="mb-2">
                                     <label class="form-label">Pre Alert Date</label>
                                     <input name="pre_alert_date" type="date" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
+                            <div class="col-md-7 col-12">
                                 <div class="mb-2 mt-4">
                                     <button class="btn btn-primary">Clear</button>
                                 </div>
@@ -327,9 +327,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" id="manifest_list">
+                <div class="card mt-3" id="manifest_list">
                     <div class="card-body">
                         <div class="responsive text-nowrap">
                             <table class="table table-bordered table-sm quotation_record">
@@ -356,6 +354,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-md-12">
                 <div id="job_allocation" class="card mt-3">
                     <div class="card-body">

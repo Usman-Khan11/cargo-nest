@@ -30,6 +30,11 @@ use App\Http\Controllers\Admin\ManifestController;
 use App\Http\Controllers\Admin\CroController;
 use App\Http\Controllers\Admin\BlController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\SwitchblController;
+use App\Http\Controllers\Admin\StuffingController;
+use App\Http\Controllers\Admin\MilestoneController;
+use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\ReceiptController;
 
 
 Route::get('/clear', function(){
@@ -219,6 +224,46 @@ Route::namespace('Admin')
                 Route::get('job/delete/{id}',[JobController::class ,'delete'])->name('job.delete');
                 Route::post('job/store',[JobController::class ,'store'])->name('job.store');
                 Route::post('job/update',[JobController::class ,'update'])->name('job.update');
+                
+                // SWITCH B/L ROUTES
+                Route::get('switchbl',[SwitchblController::class ,'index'])->name('switchbl');
+                Route::get('switchbl/create',[SwitchblController::class ,'create'])->name('switchbl.create');
+                Route::get('switchbl/edit/{id}',[SwitchblController::class ,'edit'])->name('switchbl.edit');
+                Route::get('switchbl/delete/{id}',[SwitchblController::class ,'delete'])->name('switchbl.delete');
+                Route::post('switchbl/store',[SwitchblController::class ,'store'])->name('switchbl.store');
+                Route::post('switchbl/update',[SwitchblController::class ,'update'])->name('switchbl.update');
+                
+                // STUFFING ROUTES
+                Route::get('stuffing',[StuffingController::class ,'index'])->name('stuffing');
+                Route::get('stuffing/create',[StuffingController::class ,'create'])->name('stuffing.create');
+                Route::get('stuffing/edit/{id}',[StuffingController::class ,'edit'])->name('stuffing.edit');
+                Route::get('stuffing/delete/{id}',[StuffingController::class ,'delete'])->name('stuffing.delete');
+                Route::post('stuffing/store',[StuffingController::class ,'store'])->name('stuffing.store');
+                Route::post('stuffing/update',[StuffingController::class ,'update'])->name('stuffing.update');
+                
+                // MILESTONE ROUTES
+                Route::get('milestone',[MilestoneController::class ,'index'])->name('milestone');
+                Route::get('milestone/create',[MilestoneController::class ,'create'])->name('milestone.create');
+                Route::get('milestone/edit/{id}',[MilestoneController::class ,'edit'])->name('milestone.edit');
+                Route::get('milestone/delete/{id}',[MilestoneController::class ,'delete'])->name('milestone.delete');
+                Route::post('milestone/store',[MilestoneController::class ,'store'])->name('milestone.store');
+                Route::post('milestone/update',[MilestoneController::class ,'update'])->name('milestone.update');
+                
+                // INVOICE ROUTES
+                Route::get('invoice',[InvoiceController::class ,'index'])->name('invoice');
+                Route::get('invoice/create',[InvoiceController::class ,'create'])->name('invoice.create');
+                Route::get('invoice/edit/{id}',[InvoiceController::class ,'edit'])->name('invoice.edit');
+                Route::get('invoice/delete/{id}',[InvoiceController::class ,'delete'])->name('invoice.delete');
+                Route::post('invoice/store',[InvoiceController::class ,'store'])->name('invoice.store');
+                Route::post('invoice/update',[InvoiceController::class ,'update'])->name('invoice.update');
+                
+                // RECEIPT ROUTES
+                Route::get('receipt',[ReceiptController::class ,'index'])->name('receipt');
+                Route::get('receipt/create',[ReceiptController::class ,'create'])->name('receipt.create');
+                Route::get('receipt/edit/{id}',[ReceiptController::class ,'edit'])->name('receipt.edit');
+                Route::get('receipt/delete/{id}',[ReceiptController::class ,'delete'])->name('receipt.delete');
+                Route::post('receipt/store',[ReceiptController::class ,'store'])->name('receipt.store');
+                Route::post('receipt/update',[ReceiptController::class ,'update'])->name('receipt.update');
 
             });
 
