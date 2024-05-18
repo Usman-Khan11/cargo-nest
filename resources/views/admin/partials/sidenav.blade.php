@@ -407,32 +407,32 @@
                         <div data-i18n="General Setting">Se Bill</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.payment.create')}}">
+                    <a href="{{route('admin.payment.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Payment</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.agent_invoice.create')}}">
+                    <a href="{{route('admin.agent_invoice.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Agent Invoice</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.agent_receipt.create')}}">
+                    <a href="{{route('admin.agent_receipt.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Agent Receipt / Payment</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.query.create')}}">
+                    <a href="{{route('admin.query.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Query</div>
                     </a>
                 </li>
                 <li class="menu-item {{menuActive('admin.lettertemplate.create')}}">
-                    <a href="{route('admin.lettertemplate.create')}}" class="menu-link">
+                    <a href="{{route('admin.lettertemplate.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Letter Template</div>
                     </a>
@@ -455,8 +455,8 @@
                         <div data-i18n="General Setting">Se Query (Customer Service)</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.shipping_instruction.create')}}">
+                    <a href="{{route('admin.shipping_instruction.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Shipping Instruction</div>
                     </a>
@@ -467,14 +467,14 @@
                         <div data-i18n="General Setting">Export Booking Request </div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.payment_requisition.create')}}">
+                    <a href="{{route('admin.payment_requisition.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Payment Requisition</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.agent_payment_requisition.create')}}">
+                    <a href="{{route('admin.agent_payment_requisition.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Agent Payment Requisition</div>
                     </a>

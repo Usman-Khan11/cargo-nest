@@ -42,6 +42,16 @@ use App\Http\Controllers\Admin\LettertemplateController;
 use App\Http\Controllers\Admin\LetterprocessController;
 use App\Http\Controllers\Admin\QueryController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\AgentInvoiceController;
+use App\Http\Controllers\Admin\AgentReceiptController;
+use App\Http\Controllers\Admin\AgentPaymentRequisitionController;
+use App\Http\Controllers\Admin\PaymentRequisitionController;
+use App\Http\Controllers\Admin\ShippingInstructionController;
+
+//    SE EXPORT REPORTS
+use App\Http\Controllers\Admin\SeExportController;
+
+
 
 
 Route::get('/clear', function(){
@@ -327,7 +337,50 @@ Route::namespace('Admin')
                 Route::get('payment/delete/{id}',[PaymentController::class ,'delete'])->name('payment.delete');
                 Route::post('payment/store',[PaymentController::class ,'store'])->name('payment.store');
                 Route::post('payment/update',[PaymentController::class ,'update'])->name('payment.update');
+                
+                // AGENT INVOICE ROUTES
+                Route::get('agent_invoice',[AgentInvoiceController::class ,'index'])->name('agent_invoice');
+                Route::get('agent_invoice/create',[AgentInvoiceController::class ,'create'])->name('agent_invoice.create');
+                Route::get('agent_invoice/edit/{id}',[AgentInvoiceController::class ,'edit'])->name('agent_invoice.edit');
+                Route::get('agent_invoice/delete/{id}',[AgentInvoiceController::class ,'delete'])->name('agent_invoice.delete');
+                Route::post('agent_invoice/store',[AgentInvoiceController::class ,'store'])->name('agent_invoice.store');
+                Route::post('agent_invoice/update',[AgentInvoiceController::class ,'update'])->name('agent_invoice.update');
+                
+                // AGENT RECEIPT ROUTES
+                Route::get('agent_receipt',[AgentReceiptController::class ,'index'])->name('agent_receipt');
+                Route::get('agent_receipt/create',[AgentReceiptController::class ,'create'])->name('agent_receipt.create');
+                Route::get('agent_receipt/edit/{id}',[AgentReceiptController::class ,'edit'])->name('agent_receipt.edit');
+                Route::get('agent_receipt/delete/{id}',[AgentReceiptController::class ,'delete'])->name('agent_receipt.delete');
+                Route::post('agent_receipt/store',[AgentReceiptController::class ,'store'])->name('agent_receipt.store');
+                Route::post('agent_receipt/update',[AgentReceiptController::class ,'update'])->name('agent_receipt.update');
+                
+                // AGENT PAYMENT REQUISITION ROUTES
+                Route::get('agent_payment_requisition',[AgentPaymentRequisitionController::class ,'index'])->name('agent_payment_requisition');
+                Route::get('agent_payment_requisition/create',[AgentPaymentRequisitionController::class ,'create'])->name('agent_payment_requisition.create');
+                Route::get('agent_payment_requisition/edit/{id}',[AgentPaymentRequisitionController::class ,'edit'])->name('agent_payment_requisition.edit');
+                Route::get('agent_payment_requisition/delete/{id}',[AgentPaymentRequisitionController::class ,'delete'])->name('agent_payment_requisition.delete');
+                Route::post('agent_payment_requisition/store',[AgentPaymentRequisitionController::class ,'store'])->name('agent_payment_requisition.store');
+                Route::post('agent_payment_requisition/update',[AgentPaymentRequisitionController::class ,'update'])->name('agent_payment_requisition.update');
+                
+                // PAYMENT REQUISITION ROUTES
+                Route::get('payment_requisition',[PaymentRequisitionController::class ,'index'])->name('payment_requisition');
+                Route::get('payment_requisition/create',[PaymentRequisitionController::class ,'create'])->name('payment_requisition.create');
+                Route::get('payment_requisition/edit/{id}',[PaymentRequisitionController::class ,'edit'])->name('payment_requisition.edit');
+                Route::get('payment_requisition/delete/{id}',[PaymentRequisitionController::class ,'delete'])->name('payment_requisition.delete');
+                Route::post('payment_requisition/store',[PaymentRequisitionController::class ,'store'])->name('payment_requisition.store');
+                Route::post('payment_requisition/update',[PaymentRequisitionController::class ,'update'])->name('payment_requisition.update');
+                
+                //  SHIPPING INSTRUCTION
+                Route::get('shipping_instruction',[ShippingInstructionController::class ,'index'])->name('shipping_instruction');
+                Route::get('shipping_instruction/create',[ShippingInstructionController::class ,'create'])->name('shipping_instruction.create');
+                Route::get('shipping_instruction/edit/{id}',[ShippingInstructionController::class ,'edit'])->name('shipping_instruction.edit');
+                Route::get('shipping_instruction/delete/{id}',[ShippingInstructionController::class ,'delete'])->name('shipping_instruction.delete');
+                Route::post('shipping_instruction/store',[ShippingInstructionController::class ,'store'])->name('shipping_instruction.store');
+                Route::post('shipping_instruction/update',[ShippingInstructionController::class ,'update'])->name('shipping_instruction.update');
 
+                //  JOB BALANCING
+                Route::get('job_balancing',[SeExportController::class ,'index'])->name('job_balancing');
+           
             });
 
     });

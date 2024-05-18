@@ -82,215 +82,375 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-2">
+                                
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Tran #</label>
-                                        <input name="tran_number" type="text" class="form-control">
+                                        <label for="tran_number" class="form-label">Tran #</label>
+                                        <input id="tran_number" name="tran_number" type="text" class="form-control" >
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Bill Date</label>
-                                        <input name="bill_date" type="date" class="form-control">
+                                        <label for="tran_date" class="form-label">Tran Date</label>
+                                        <input id="tran_date" name="tran_date" type="date" class="form-control" >
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Reference No</label>
-                                        <input name="reference_number" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Status</label>
-                                        <select name="status" class="form-select">
-                                            <option>Active</option>
+                                        <label for="status" class="form-label">Status</label>
+                                        <select id="status" name="status" class="form-select" >
+                                            <option value="">Select status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="In Progress">In Progress</option>
                                         </select>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Category</label>
-                                        <input name="category" type="text" class="form-control">
+                                        <label for="sequence" class="form-label">Sequence</label>
+                                        <input id="sequence" name="sequence" type="number" class="form-control" >
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Sequence</label>
-                                        <input name="sequence" type="text" class="form-control">
+                                        <label for="job_type" class="form-label">Job Type</label>
+                                        <select id="job_type" name="job_type" class="form-select" >
+                                            <option value="">Select job type</option>
+                                            <option value="Full-Time">Full-Time</option>
+                                            <option value="Part-Time">Part-Time</option>
+                                            <option value="Contract">Contract</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label for="req" class="form-label">Req</label>
+                                        <input id="req" name="req" type="text" class="form-control" >
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-3">
-                                    <div class="mb-2 mt-4 d-flex">
-                                        <div>
-                                            <input type="radio" id="cash" name="payment_type" value="Settled" class="form-check-input">
-                                            <label for="cash" class="form-check-label">Settled</label>
-                                        </div>
-                                        <div class="mx-2">
-                                            <input type="radio" id="bank" name="payment_type" value="Un-settled" class="form-check-input">
-                                            <label for="bank" class="form-check-label">Un-settled</label>
-                                        </div>
-                                    </div>    
+                                    <div class="mb-2">
+                                        <label for="cost_center" class="form-label">Cost Center</label>
+                                        <select id="cost_center" name="job_type" class="form-select" >
+                                            <option value="">Head Office</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                
                                 <div class="col-md-3">
+                                    <div class="mb-2 mt-4">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="manual" value="settle_multiple_cc_invoice" class="form-check-input">
+                                            &nbsp;Settle Multiple CC Invoice
+                                        </label>
+                                    </div>
+                                </div> 
+                                <div class="col-md-2">
                                     <div class="mb-2">
-                                        <button class="btn btn-primary btn-sm">Job Payment</button>
-                                        <button class="btn btn-primary btn-sm mx-2">Advance Search</button>
-                                        <button class="btn btn-primary btn-sm mt-2">Payment Requisition</button>
+                                        <label for="total_amount" class="form-label">Total Amount</label>
+                                        <input id="total_amount" name="total_amount" type="number" step="0.01" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-2">
+                                        <label for="total_amount" class="form-label">Total Amount</label>
+                                        <input id="total_amount" name="total_amount" type="number" step="0.01" class="form-control" required>
                                     </div>
                                 </div>
                                 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-2">
-                                        <label class="form-label">Vendor</label>
-                                        <input name="vendor" type="text" class="form-control">
+                                        <label for="vendor" class="form-label">Vendor</label>
+                                        <input id="vendor" name="vendor" type="text" class="form-control" required>
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Currency</label>
-                                        <select name="currency" class="form-select">
-                                            <option>PKR</option>
-                                            <option>USD</option>
-                                            <option>AED</option>
-                                            <option>GPB</option>
-                                            <option>EUR</option>
-                                            <option>BDT</option>
-                                            <option>OMR</option>
+                                        <label for="cost" class="form-label">Code</label>
+                                        <input id="code" name="cost" type="number" step="0.01" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label for="currency" class="form-label">Currency</label>
+                                        <select id="currency" name="currency" class="form-select" required>
+                                            <option value=""></option>
+                                            <option value="USD">PKR</option>
+                                            <option value="USD">USD</option>
+                                            <option value="USD">AED</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="GBP">GBP</option>
+                                            <option value="BDT">BDT</option>
+                                            <option value="OMR">OMR</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Invoice Type</label>
-                                        <select name="invoice_type" class="form-select">
-                                            <option>PI</option>
-                                            <option>DR</option>
-                                        </select>
+                                <div class="col-md-4">
+                                    <div class="mb-2 mt-4">
+                                        <button class="btn btn-primary btn-sm">Auto Knock off</button>
+                                        <button class="btn btn-primary btn-sm">Refresh Bills</button>
+                                        <button class="btn btn-primary btn-sm">Advanch Search</button>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Ref, Bill#</label>
-                                        <input name="ref_bill" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Operation</label>
-                                        <select name="operation" class="form-select">
-                                            <option>Air Import</option>
-                                            <option>Air Export</option>
-                                            <option>Sea Import</option>
-                                            <option>Sea Export</option>
-                                            <option>Logistics</option>
-                                            <option>Warehouse</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Aut/Man</label>
-                                        <select name="auto_manual" class="form-select">
-                                            <option>Auto</option>
-                                            <option>Manual</option>
+                                        <label for="currency" class="form-label">Operation</label>
+                                        <select id="operation" name="operation" class="form-select" required>
+                                            <option value=""></option>
+                                            <option value="Air Import">Air Import</option>
+                                            <option value="Air Export">Air Export</option>
+                                            <option value="Sea Import">Sea Import</option>
+                                            <option value="Sea Export">Sea Export</option>
+                                            <option value="Logistics">Logistics</option>
+                                            <option value="Warehouse">Warehouse</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2">
                                         <label class="form-label">Job #</label>
-                                        <input name="job_no" type="text" class="form-control">
+                                        <input name="job_number" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2 mt-4 d-flex">
-                                        <div>
-                                            <input type="radio" id="cash" name="payment_type" value="Single" class="form-check-input">
-                                            <label for="cash" class="form-check-label">Single</label>
-                                        </div>
-                                        <div class="mx-2">
-                                            <input type="radio" id="bank" name="payment_type" value="Multiple" class="form-check-input">
-                                            <label for="bank" class="form-check-label">Multiple</label>
-                                        </div>
-                                    </div>    
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Terminal Inv</label>
+                                        <input name="terminal_inv" type="text" class="form-control">
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2 mt-4">
-                                        <button class="btn btn-primary btn-sm">Pick Charges</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Cost Center</label>
-                                        <select name="cost_center" class="form-select">
-                                            <option>Head Office</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2 mt-3">
-                                        <label class="form-check-label mb-2">
-                                            <input type="checkbox" name="auto_round_off" value="auto_round_off" class="form-check-input">
-                                            Auto Round Off
-                                        </label>
-                                        <label class="form-check-label mx-3 mb-2">
-                                            <input type="checkbox" name="continue_mode" value="continue_mode" class="form-check-input">
-                                            Continue Mode
-                                        </label>
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="show_terminal" value="show_terminal" class="form-check-input">
-                                            Show Terminal
-                                        </label>
-                                        <label class="form-check-label mx-3">
-                                            <input type="checkbox" name="rebate" value="rebate" class="form-check-input">
-                                            Rebate
-                                        </label>
-                                        <label class="form-check-label">
-                                            <input type="checkbox" name="show_bl_no" value="show_bl_no" class="form-check-input">
-                                            Show BL No
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="mb-2 mt-3">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" name="manual" value="Manual" class="form-check-input">
-                                            Manual
+                                            <input type="checkbox" name="manual" value="settle_multiple_cc_invoice" class="form-check-input">
+                                            &nbsp;Continue
                                         </label>
                                     </div>
                                 </div> 
                                 <div class="col-md-2">
+                                    <div class="mb-2 mt-4">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="manual" value="settle_multiple_cc_invoice" class="form-check-input">
+                                            &nbsp;Adjust Advance
+                                        </label>
+                                    </div>
+                                </div> 
+                                <div class="col-md-6">
+                                    <label class="form-label">Tran Mode</label>
+                                    <div class="mb-2 d-flex">
+                                        <div>
+                                            <input type="radio" id="cash" name="payment_type" value="Cash" class="form-check-input">
+                                            <label for="cash" class="form-check-label">Cash</label>
+                                        </div>
+                                        <div class="mx-3">
+                                            <input type="radio" id="bank" name="payment_type" value="Bank" class="form-check-input">
+                                            <label for="bank" class="form-check-label">Bank</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="radio" id="bank" name="payment_type" value="Adjustment" class="form-check-input">
+                                            <label for="bank" class="form-check-label">Adjustment</label>
+                                        </div>
+                                        <div class="mx-3">
+                                            <input type="radio" id="bank" name="payment_type" value="Adjustment" class="form-check-input">
+                                            <label for="bank" class="form-check-label">Adjustment Against Security</label>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="col-md-3">
                                     <div class="mb-2">
-                                        <label class="form-label">Due Days</label>
-                                        <input name="due_days" type="text" class="form-control">
+                                        <label class="form-label">Exchange Rate</label>
+                                        <input name="exchange_rate" type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
+                                    <div class="mb-2 mt-4">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="multi_currency" value="Multi Currency" class="form-check-input">
+                                            &nbsp;Multi Currency
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
                                     <div class="mb-2">
-                                        <label class="form-label">Vndr Tax Inv No</label>
-                                        <input name="vendor_tax_invoice_number" type="text" class="form-control">
+                                        <label class="form-label">Account</label>
+                                        <input name="account" type="text" class="form-control">
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Vndr Cmercial Inv No</label>
-                                        <input name="vendor_commercial_invoice_number" type="text" class="form-control">
+                                        <label class="form-label">Code</label>
+                                        <input name="code" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2 mt-4">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" name="manual" value="Reversal" class="form-check-input">
+                                            &nbsp;Reversal
+                                        </label>
+                                    </div>
+                                </div> 
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Rev Tran #</label>
+                                        <input name="rev_tran_number" type="text" class="form-control">
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                        <label class="form-label">Vndr Inv Date</label>
-                                        <input name="vendor_invoice_date" type="date" class="form-control">
+                                        <label class="form-label">Sub Type</label>
+                                        <select name="sub_type" class="form-select">
+                                            <option value="">Select sub type</option>
+                                            <option value="Option 1">Option 1</option>
+                                            <option value="Option 2">Option 2</option>
+                                            <option value="Option 3">Option 3</option>
+                                        </select>
                                     </div>
                                 </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="mb-2">
+                                        <label class="form-label">Cheque</label>
+                                        <input name="cheque" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Date</label>
+                                        <input name="date" type="date" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="mb-2">
+                                        <label class="form-label">Tax Authority</label>
+                                        <input name="tax_authority" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Tax %</label>
+                                        <input name="tax_percentage" type="number" step="0.01" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Tax Amount</label>
+                                        <input name="tax_amount" type="number" step="0.01" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-5">
+                                    <div class="mb-2">
+                                        <label class="form-label">Pay To</label>
+                                        <input name="pay_to" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="mb-2">
+                                        <label class="form-label">Account</label>
+                                        <input name="on_account" type="text" class="form-control">
+                                    </div>
+                                </div>    
+                                <div class="col-md-5">
+                                    <div class="mb-2">
+                                        <label class="form-label">On Account</label>
+                                        <input name="on_account" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <hr/>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Tax2 %</label>
+                                        <input name="tax2_percentage" type="number" step="0.01" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Tax2 Amt</label>
+                                        <input name="tax2_amount" type="number" step="0.01" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="mb-2">
+                                        <label class="form-label">Account2 #</label>
+                                        <input name="account2_number" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Tax3 %</label>
+                                        <input name="tax3_percentage" type="number" step="0.01" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="mb-2">
+                                        <label class="form-label">Tax3 Amt</label>
+                                        <input name="tax3_amount" type="number" step="0.01" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="mb-2">
+                                        <label class="form-label">Account3 #</label>
+                                        <input name="account3_number" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="mb-2">
+                                        <label class="form-label">Bank Charges</label>
+                                        <input name="bank_charges" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="mb-2">
+                                        <label class="form-label">Gain/Loss (FC)</label>
+                                        <input name="gain_loss_fc" type="number" step="0.01" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="mb-2">
+                                        <label class="form-label">Account</label>
+                                        <input name="account" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="mb-2">
+                                        <label class="form-label">Account</label>
+                                        <input name="account" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+
 
                                 
                                 
@@ -309,35 +469,37 @@
                                           <tr>
                                             <th>...</th>
                                             <th>S.No</th>
+                                            <th>Operation</th>
                                             <th>Job #</th>
-                                            <th>Charges Code</th>
-                                            <th>Charges Name</th>
-                                            <th>Charges Description</th>
-                                            <th>Rate Group</th>
-                                            <th>Size Type</th>
-                                            <th>DG/Non-DG</th>
-                                            <th>Manual Cont</th>
-                                            <th>Containers</th>
-                                            <th>Qty</th>
-                                            <th>Rate</th>
-                                            <th>Currency</th>
-                                            <th>Amount</th>
-                                            <th>Discount</th>
-                                            <th>Net Amount</th>
-                                            <th>Margin</th>
-                                            <th>Tax</th>
-                                            <th>Tax Amount</th>
-                                            <th>Net Amount Inc Tax</th>
-                                            <th>Ex Rate</th>
-                                            <th>Local Amount</th>
-                                            <th>Code</th>
-                                            <th>Principal Name</th>
-                                            <th>TPGL Payment</th>
-                                            <th>TPGL Invoice</th>
+                                            <th>Bill #</th>
+                                            <th>Bill Date</th>
+                                            <th>Ref No</th>
+                                            <th>HBL #</th>
+                                            <th>MBL #</th>
+                                            <th>Inv Curr</th>
+                                            <th>Ex.Rate</th>
+                                            <th>Bill Bal(FC)</th>
+                                            <th>Payment Amount(FC)</th>
+                                            <th>Balance(FC)</th>
+                                            <th>-</th>
+                                            <th>File #</th>
+                                            <th>Container #</th>
+                                            <th>Index #</th>
+                                            <th>Vessel</th>
+                                            <th>Voyage</th>
+                                            <th>VndrTax Inv No</th>
+                                            <th>Vndr Comercial Inv</th>
+                                            <th>VndrTax Inv Date</th>
+                                            
                                           </tr>
                                         </thead>
                                         <tbody>
                                             <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
+                                            <td><input type="text" style="width: 100%;"/></td>
+                                            <td><input type="text" style="width: 100%;"/></td>
+                                            <td><input type="text" style="width: 100%;"/></td>
+                                            <td><input type="text" style="width: 100%;"/></td>
+                                            <td><input type="text" style="width: 100%;"/></td>
                                             <td><input type="text" style="width: 100%;"/></td>
                                             <td><input type="text" style="width: 100%;"/></td>
                                             <td><input type="text" style="width: 100%;"/></td>
@@ -355,15 +517,7 @@
                                             <td><input type="text" style="width: 100%;"/></td>
                                             <td><input type="text" style="width: 100%;"/></td>
                                             <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
-                                            <td><input type="text" style="width: 100%;"/></td>
+                                    
                                         </tbody>
                                     </table>
                                 </div>
@@ -374,10 +528,10 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-6">
                                 <div class="mb-2">
                                     <label class="form-label">Remarks</label>
-                                    <input name="remarks" type="text" class="form-control">
+                                    <textarea name="remarks" type="text" rows="4" class="form-control"></textarea>
                                 </div>
                             </div>
                             
@@ -403,11 +557,13 @@
                             </div>
                             
                             <div class="col-md-2">
-                                <div class="mb-2">
-                                    <label class="form-label">Manual Remarks</label>
-                                    <input name="manual_remarks" type="text" class="form-control">
+                                <div class="mb-2 mt-4">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="manual_remarks" value="Manual Remarks" class="form-check-input">
+                                        &nbsp;Manual Remarks
+                                    </label>
                                 </div>
-                            </div>
+                            </div> 
                             
                             <div class="col-md-2">
                                 <div class="mb-2">
