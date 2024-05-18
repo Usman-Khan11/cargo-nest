@@ -35,6 +35,13 @@ use App\Http\Controllers\Admin\StuffingController;
 use App\Http\Controllers\Admin\MilestoneController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ReceiptController;
+use App\Http\Controllers\Admin\BillController;
+use App\Http\Controllers\Admin\LetterController;
+use App\Http\Controllers\Admin\LetterlistController;
+use App\Http\Controllers\Admin\LettertemplateController;
+use App\Http\Controllers\Admin\LetterprocessController;
+use App\Http\Controllers\Admin\QueryController;
+use App\Http\Controllers\Admin\PaymentController;
 
 
 Route::get('/clear', function(){
@@ -264,6 +271,62 @@ Route::namespace('Admin')
                 Route::get('receipt/delete/{id}',[ReceiptController::class ,'delete'])->name('receipt.delete');
                 Route::post('receipt/store',[ReceiptController::class ,'store'])->name('receipt.store');
                 Route::post('receipt/update',[ReceiptController::class ,'update'])->name('receipt.update');
+                
+                // BILL ROUTES
+                Route::get('bill',[BillController::class ,'index'])->name('bill');
+                Route::get('bill/create',[BillController::class ,'create'])->name('bill.create');
+                Route::get('bill/edit/{id}',[BillController::class ,'edit'])->name('bill.edit');
+                Route::get('bill/delete/{id}',[BillController::class ,'delete'])->name('bill.delete');
+                Route::post('bill/store',[BillController::class ,'store'])->name('bill.store');
+                Route::post('bill/update',[BillController::class ,'update'])->name('bill.update');
+                
+                // LETTERS ROUTES
+                Route::get('letter',[LetterController::class ,'index'])->name('letter');
+                Route::get('letter/create',[LetterController::class ,'create'])->name('letter.create');
+                Route::get('letter/edit/{id}',[LetterController::class ,'edit'])->name('letter.edit');
+                Route::get('letter/delete/{id}',[LetterController::class ,'delete'])->name('letter.delete');
+                Route::post('letter/store',[LetterController::class ,'store'])->name('letter.store');
+                Route::post('letter/update',[LetterController::class ,'update'])->name('letter.update');
+                
+                // LETTERS LIST ROUTES
+                Route::get('letterlist',[LetterlistController::class ,'index'])->name('letterlist');
+                Route::get('letterlist/create',[LetterlistController::class ,'create'])->name('letterlist.create');
+                Route::get('letterlist/edit/{id}',[LetterlistController::class ,'edit'])->name('letterlist.edit');
+                Route::get('letterlist/delete/{id}',[LetterlistController::class ,'delete'])->name('letterlist.delete');
+                Route::post('letterlist/store',[LetterlistController::class ,'store'])->name('letterlist.store');
+                Route::post('letterlist/update',[LetterlistController::class ,'update'])->name('letterlist.update');
+                
+                // LETTERS TEMPLATES ROUTES
+                Route::get('lettertemplate',[LettertemplateController::class ,'index'])->name('lettertemplate');
+                Route::get('lettertemplate/create',[LettertemplateController::class ,'create'])->name('lettertemplate.create');
+                Route::get('lettertemplate/edit/{id}',[LettertemplateController::class ,'edit'])->name('lettertemplate.edit');
+                Route::get('lettertemplate/delete/{id}',[LettertemplateController::class ,'delete'])->name('lettertemplate.delete');
+                Route::post('lettertemplate/store',[LettertemplateController::class ,'store'])->name('lettertemplate.store');
+                Route::post('lettertemplate/update',[LettertemplateController::class ,'update'])->name('lettertemplate.update');
+                
+                // LETTERS PROCESS ROUTES
+                Route::get('letterprocess',[LetterprocessController::class ,'index'])->name('letterprocess');
+                Route::get('letterprocess/create',[LetterprocessController::class ,'create'])->name('letterprocess.create');
+                Route::get('letterprocess/edit/{id}',[LetterprocessController::class ,'edit'])->name('letterprocess.edit');
+                Route::get('letterprocess/delete/{id}',[LetterprocessController::class ,'delete'])->name('letterprocess.delete');
+                Route::post('letterprocess/store',[LetterprocessController::class ,'store'])->name('letterprocess.store');
+                Route::post('letterprocess/update',[LetterprocessController::class ,'update'])->name('letterprocess.update');
+                
+                // QUERY ROUTES
+                Route::get('query',[QueryController::class ,'index'])->name('query');
+                Route::get('query/create',[QueryController::class ,'create'])->name('query.create');
+                Route::get('query/edit/{id}',[QueryController::class ,'edit'])->name('query.edit');
+                Route::get('query/delete/{id}',[QueryController::class ,'delete'])->name('query.delete');
+                Route::post('query/store',[QueryController::class ,'store'])->name('query.store');
+                Route::post('query/update',[QueryController::class ,'update'])->name('query.update');
+                
+                // PAYMENT ROUTES
+                Route::get('payment',[PaymentController::class ,'index'])->name('payment');
+                Route::get('payment/create',[PaymentController::class ,'create'])->name('payment.create');
+                Route::get('payment/edit/{id}',[PaymentController::class ,'edit'])->name('payment.edit');
+                Route::get('payment/delete/{id}',[PaymentController::class ,'delete'])->name('payment.delete');
+                Route::post('payment/store',[PaymentController::class ,'store'])->name('payment.store');
+                Route::post('payment/update',[PaymentController::class ,'update'])->name('payment.update');
 
             });
 

@@ -395,14 +395,14 @@
                         <div data-i18n="General Setting">Se Invoice</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.receipt.create')}}">
+                    <a href="{{route('admin.receipt.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Receipt</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.bill.create')}}">
+                    <a href="{{route('admin.bill.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Bill</div>
                     </a>
@@ -431,14 +431,14 @@
                         <div data-i18n="General Setting">Se Query</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.lettertemplate.create')}}">
+                    <a href="{route('admin.lettertemplate.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Letter Template</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.letterlist.create')}}">
+                    <a href="{{route('admin.letterlist.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Letter List</div>
                     </a>
