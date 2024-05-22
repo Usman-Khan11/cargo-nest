@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 17, 2024 at 12:40 AM
+-- Generation Time: May 22, 2024 at 08:59 AM
 -- Server version: 10.3.39-MariaDB
 -- PHP Version: 8.1.27
 
@@ -243,6 +243,62 @@ INSERT INTO `complains` (`id`, `title`, `company_id`, `status`, `description`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cros`
+--
+
+CREATE TABLE `cros` (
+  `id` int(11) NOT NULL,
+  `cro_no` varchar(255) NOT NULL,
+  `cro_type` varchar(255) NOT NULL,
+  `job_number` varchar(255) NOT NULL,
+  `client` text NOT NULL,
+  `issue_date` varchar(255) NOT NULL,
+  `cro_valid_for` text DEFAULT NULL,
+  `ref_number` varchar(255) DEFAULT NULL,
+  `equip_qty` varchar(255) DEFAULT NULL,
+  `size_type` varchar(255) DEFAULT NULL,
+  `overseas_agent` text DEFAULT NULL,
+  `clearing_agent` text DEFAULT NULL,
+  `shipper` text DEFAULT NULL,
+  `pickup_location` text DEFAULT NULL,
+  `port_of_loading` text DEFAULT NULL,
+  `port_of_discharge` text DEFAULT NULL,
+  `final_destination` text DEFAULT NULL,
+  `commodity` text DEFAULT NULL,
+  `terminal` text DEFAULT NULL,
+  `empty_depot` text DEFAULT NULL,
+  `transporter` text DEFAULT NULL,
+  `book_no` varchar(255) DEFAULT NULL,
+  `gate_pass` varchar(255) DEFAULT NULL,
+  `date` varchar(155) DEFAULT NULL,
+  `letter_no` varchar(255) DEFAULT NULL,
+  `licence_no` varchar(255) DEFAULT NULL,
+  `job_no` varchar(255) DEFAULT NULL,
+  `expiry_date` varchar(155) DEFAULT NULL,
+  `shipping_agent` text DEFAULT NULL,
+  `cargo_type` varchar(155) DEFAULT NULL,
+  `vessel` varchar(255) DEFAULT NULL,
+  `voyage` varchar(255) DEFAULT NULL,
+  `sailing_date` varchar(155) DEFAULT NULL,
+  `Manual` varchar(155) DEFAULT NULL,
+  `upload` text DEFAULT NULL,
+  `print_logo` varchar(155) DEFAULT NULL,
+  `continue_mode` varchar(155) DEFAULT NULL,
+  `haulage` text DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `cros`
+--
+
+INSERT INTO `cros` (`id`, `cro_no`, `cro_type`, `job_number`, `client`, `issue_date`, `cro_valid_for`, `ref_number`, `equip_qty`, `size_type`, `overseas_agent`, `clearing_agent`, `shipper`, `pickup_location`, `port_of_loading`, `port_of_discharge`, `final_destination`, `commodity`, `terminal`, `empty_depot`, `transporter`, `book_no`, `gate_pass`, `date`, `letter_no`, `licence_no`, `job_no`, `expiry_date`, `shipping_agent`, `cargo_type`, `vessel`, `voyage`, `sailing_date`, `Manual`, `upload`, `print_logo`, `continue_mode`, `haulage`, `created_at`, `updated_at`) VALUES
+(1, '23', 'empty_movement', '33', 'cfhgv', '2024-05-29', 're6cr', NULL, NULL, NULL, 'edrd', 'rddrd', 'cddrr', NULL, 'ed', '5d5', 'drtdr', NULL, 'dtrcd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dtcd', NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 07:14:29', '2024-05-22 07:14:29');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `currencies`
 --
 
@@ -444,6 +500,47 @@ INSERT INTO `general_settings` (`id`, `sitename`, `footer_desc`, `logo`, `phone`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` int(11) NOT NULL,
+  `tran_number` varchar(225) NOT NULL,
+  `inv_date` varchar(155) NOT NULL,
+  `reference` varchar(225) NOT NULL,
+  `status` varchar(155) NOT NULL,
+  `category` varchar(155) DEFAULT NULL,
+  `option` varchar(100) DEFAULT NULL,
+  `client` varchar(255) DEFAULT NULL,
+  `sequence` varchar(255) DEFAULT NULL,
+  `invoice_type` varchar(255) DEFAULT NULL,
+  `ref_tran_number` varchar(225) DEFAULT NULL,
+  `operation` varchar(155) DEFAULT NULL,
+  `job_number` varchar(155) DEFAULT NULL,
+  `currency` varchar(100) DEFAULT NULL,
+  `cost_center` varchar(225) DEFAULT NULL,
+  `invoice_to` varchar(255) DEFAULT NULL,
+  `manual` varchar(100) DEFAULT NULL,
+  `due_days` varchar(155) DEFAULT NULL,
+  `invoice_ac` varchar(155) DEFAULT NULL,
+  `auto_round_off` varchar(100) DEFAULT NULL,
+  `storage_end_date` varchar(100) DEFAULT NULL,
+  `tax_charges` varchar(100) DEFAULT NULL,
+  `invoice_title` varchar(225) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `tran_number`, `inv_date`, `reference`, `status`, `category`, `option`, `client`, `sequence`, `invoice_type`, `ref_tran_number`, `operation`, `job_number`, `currency`, `cost_center`, `invoice_to`, `manual`, `due_days`, `invoice_ac`, `auto_round_off`, `storage_end_date`, `tax_charges`, `invoice_title`, `created_at`, `updated_at`) VALUES
+(1, '5543', '2024-05-30', 'jhjhhuj', 'incomplete', 'securityDeposit', NULL, NULL, NULL, NULL, NULL, 'air import', NULL, 'PKR', 'Head Office', 'invoiceTo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 12:58:01', '2024-05-22 12:58:01');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `leads`
 --
 
@@ -504,6 +601,47 @@ INSERT INTO `locations` (`id`, `location`, `location_check`, `co_ordinates`, `in
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `manifests`
+--
+
+CREATE TABLE `manifests` (
+  `id` int(11) NOT NULL,
+  `tran` varchar(100) NOT NULL,
+  `doc` varchar(225) NOT NULL,
+  `year` varchar(100) NOT NULL,
+  `agent` varchar(155) DEFAULT NULL,
+  `vessel` varchar(225) DEFAULT NULL,
+  `terminals` varchar(225) DEFAULT NULL,
+  `license` varchar(155) DEFAULT NULL,
+  `port` varchar(155) DEFAULT NULL,
+  `ship_company` varchar(225) DEFAULT NULL,
+  `captain_name` varchar(225) DEFAULT NULL,
+  `berth_wharf` varchar(225) DEFAULT NULL,
+  `remarks` varchar(225) DEFAULT NULL,
+  `same_bottom_cargo` varchar(225) DEFAULT NULL,
+  `manifest_ref` varchar(225) DEFAULT NULL,
+  `shad_no` varchar(225) DEFAULT NULL,
+  `ground_date` varchar(155) DEFAULT NULL,
+  `docs_rcvd` varchar(225) DEFAULT NULL,
+  `time` varchar(155) DEFAULT NULL,
+  `agent_code` varchar(155) DEFAULT NULL,
+  `line_code` varchar(155) DEFAULT NULL,
+  `cost_center` varchar(225) DEFAULT NULL,
+  `custom_report` varchar(225) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `manifests`
+--
+
+INSERT INTO `manifests` (`id`, `tran`, `doc`, `year`, `agent`, `vessel`, `terminals`, `license`, `port`, `ship_company`, `captain_name`, `berth_wharf`, `remarks`, `same_bottom_cargo`, `manifest_ref`, `shad_no`, `ground_date`, `docs_rcvd`, `time`, `agent_code`, `line_code`, `cost_center`, `custom_report`, `created_at`, `updated_at`) VALUES
+(1, '4778', 'dtdc', '2024', 'kbkjj', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Manifest', '2024-05-22 05:02:39', '2024-05-22 05:02:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -539,6 +677,29 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2023_08_30_154620_create_referral_settings_table', 11),
 (20, '2023_08_30_154704_create_referral_logs_table', 11),
 (21, '2023_08_30_160400_create_payments_table', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `milestones`
+--
+
+CREATE TABLE `milestones` (
+  `id` int(11) NOT NULL,
+  `type` varchar(225) NOT NULL,
+  `job_no` varchar(225) NOT NULL,
+  `job_date` varchar(225) NOT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `milestones`
+--
+
+INSERT INTO `milestones` (`id`, `type`, `job_no`, `job_date`, `created_at`, `updated_at`) VALUES
+(1, 'Job wise', '54', '2024-05-31', '2024-05-22 08:12:33', '2024-05-22 08:12:33'),
+(2, 'Milestone wise', '77', '2024-05-27', '2024-05-22 08:14:27', '2024-05-22 08:14:27');
 
 -- --------------------------------------------------------
 
@@ -956,6 +1117,46 @@ INSERT INTO `statuses` (`id`, `title`, `type`, `description`, `created_at`, `upd
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stuffings`
+--
+
+CREATE TABLE `stuffings` (
+  `id` int(11) NOT NULL,
+  `tran_number` varchar(155) NOT NULL,
+  `date` varchar(155) NOT NULL,
+  `type1` varchar(255) DEFAULT NULL,
+  `type2` varchar(255) DEFAULT NULL,
+  `container` varchar(255) DEFAULT NULL,
+  `seal_number` varchar(255) DEFAULT NULL,
+  `vessel` varchar(255) DEFAULT NULL,
+  `overseas_agent` varchar(255) DEFAULT NULL,
+  `shipping_line` varchar(255) DEFAULT NULL,
+  `sales_rep` varchar(255) DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `stuffing_date` varchar(155) DEFAULT NULL,
+  `cut_off_date` varchar(155) DEFAULT NULL,
+  `port_of_discharge` text DEFAULT NULL,
+  `size_type` int(11) DEFAULT NULL,
+  `job_number` varchar(155) DEFAULT NULL,
+  `voyage` varchar(155) DEFAULT NULL,
+  `sailing_date` varchar(155) DEFAULT NULL,
+  `delivery` text DEFAULT NULL,
+  `print` text DEFAULT NULL,
+  `serial_number` text DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `stuffings`
+--
+
+INSERT INTO `stuffings` (`id`, `tran_number`, `date`, `type1`, `type2`, `container`, `seal_number`, `vessel`, `overseas_agent`, `shipping_line`, `sales_rep`, `remarks`, `stuffing_date`, `cut_off_date`, `port_of_discharge`, `size_type`, `job_number`, `voyage`, `sailing_date`, `delivery`, `print`, `serial_number`, `created_at`, `updated_at`) VALUES
+(1, '5543', '2024-05-30', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-22 07:57:14', '2024-05-22 07:57:14');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -1122,6 +1323,12 @@ ALTER TABLE `complains`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `cros`
+--
+ALTER TABLE `cros`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `currencies`
 --
 ALTER TABLE `currencies`
@@ -1165,6 +1372,12 @@ ALTER TABLE `general_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `leads`
 --
 ALTER TABLE `leads`
@@ -1177,9 +1390,21 @@ ALTER TABLE `locations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `manifests`
+--
+ALTER TABLE `manifests`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `milestones`
+--
+ALTER TABLE `milestones`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1281,6 +1506,12 @@ ALTER TABLE `statuses`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `stuffings`
+--
+ALTER TABLE `stuffings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -1358,6 +1589,12 @@ ALTER TABLE `complains`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `cros`
+--
+ALTER TABLE `cros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
@@ -1400,6 +1637,12 @@ ALTER TABLE `general_settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
@@ -1412,10 +1655,22 @@ ALTER TABLE `locations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `manifests`
+--
+ALTER TABLE `manifests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `milestones`
+--
+ALTER TABLE `milestones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -1505,6 +1760,12 @@ ALTER TABLE `staffs`
 -- AUTO_INCREMENT for table `statuses`
 --
 ALTER TABLE `statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `stuffings`
+--
+ALTER TABLE `stuffings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
