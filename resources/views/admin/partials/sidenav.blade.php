@@ -515,32 +515,32 @@
                         <div data-i18n="General Setting">Reports</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.job_balancing')}}">
+                            <a href="{{route('admin.job_balancing')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Balancing</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.job_list')}}">
+                            <a href="{{route('admin.job_list')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job List</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.job_wise_cont_list')}}">
+                            <a href="{{route('admin.job_wise_cont_list')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Wise Container List</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.charges_wise_job_report')}}">
+                            <a href="{{route('admin.charges_wise_job_report')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Charges Wise Job Report</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.job_profit_loss')}}">
+                            <a href="{{route('admin.job_profit_loss')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Profit & Loss Report</div>
                             </a>
@@ -557,8 +557,8 @@
                                 <div data-i18n="General Setting">Party Audit</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.loading_list')}}">
+                            <a href="{{route('admin.loading_list')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Loading List</div>
                             </a>
@@ -569,8 +569,8 @@
                                 <div data-i18n="General Setting">Se Agent Invoice Balancing</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.job_statistics')}}">
+                            <a href="{{route('admin.job_statistics')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Statistics</div>
                             </a>
@@ -587,20 +587,20 @@
                                 <div data-i18n="General Setting">Se Client Exposure Report</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.booking_list')}}">
+                            <a href="{{route('admin.booking_list')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Export Booking List</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.bl_release_status')}}">
+                            <a href="{{route('admin.bl_release_status')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">BL Release Status Report</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.cargo_movement')}}">
+                            <a href="{{route('admin.cargo_movement')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Cargo Movement</div>
                             </a>
@@ -617,8 +617,8 @@
                                 <div data-i18n="General Setting">Se Milestone Status</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.debit_credit')}}">
+                            <a href="{{route('admin.debit_credit')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Debit Credit Notes List</div>
                             </a>

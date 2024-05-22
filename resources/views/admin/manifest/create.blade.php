@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-7">
-                <form method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -84,130 +84,128 @@
                             <div class="row">
                                 <div class="col-md-2 col-12">
                                     <div class="mb-2">
-                                        <label class="form-label">Trans #</label>
-                                        <input name="trans" type="text" class="form-control" placeholder="" />
+                                        <label class="form-label">Tran #</label>
+                                        <input name="tran" type="text" class="form-control tran" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Doc #</label>
-                                        <input name="doc" type="text" class="form-control" placeholder="" />
+                                        <input name="doc" type="text" class="form-control doc" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Year</label>
-                                        <input name="year" type="text" class="form-control" placeholder="" />
+                                        <input name="year" type="text" class="form-control year" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Shipping Line Agent</label>
-                                        <input name="agent" type="text" class="form-control" placeholder="" />
+                                        <input name="agent" type="text" class="form-control agent" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Vessel</label>
-                                        <input name="vessel" type="text" class="form-control" placeholder="" />
+                                        <input name="vessel" type="text" class="form-control vessel" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Terminals</label>
-                                        <input name="terminals" type="text" class="form-control" placeholder="" />
+                                        <input name="terminals" type="text" class="form-control terminals" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Shipping License</label>
-                                        <input name="license" type="text" class="form-control" placeholder="" />
+                                        <input name="license" type="text" class="form-control license" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Local Port</label>
-                                        <input name="port" type="text" class="form-control" placeholder="" />
+                                        <input name="port" type="text" class="form-control port" placeholder="" />
                                     </div>
                                 </div>
-                                
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Ship Company</label>
-                                        <input name="ship_company" type="text" class="form-control" placeholder="" />
+                                        <input name="ship_company" type="text" class="form-control ship_company" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Captain Name</label>
-                                        <input name="captain_name" type="text" class="form-control" placeholder="" />
+                                        <input name="captain_name" type="text" class="form-control captain_name" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Berth/Wharf</label>
-                                        <input name="berth_wharf" type="text" class="form-control" placeholder="" />
+                                        <input name="berth_wharf" type="text" class="form-control berth_wharf" placeholder="" />
                                     </div>
                                 </div>
-                                
-                                 <div class="col-md-4 col-12">
+                                <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Remarks</label>
-                                        <textarea name="remarks" class="form-control" placeholder=""></textarea>
+                                        <textarea name="remarks" class="form-control remarks" placeholder=""></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Same Bottom Cargo</label>
-                                        <textarea name="same_bottom_cargo" class="form-control" placeholder=""></textarea>
+                                        <textarea name="same_bottom_cargo" class="form-control same_bottom_cargo" placeholder=""></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Manifest Ref#</label>
-                                        <input name="manifest_ref" type="text" class="form-control" placeholder="" />
+                                        <input name="manifest_ref" type="text" class="form-control manifest_ref" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Shad No</label>
-                                        <input name="shad_no" type="text" class="form-control" placeholder="" />
+                                        <input name="shad_no" type="text" class="form-control shad_no" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Ground Date</label>
-                                        <input name="ground_date" type="date" class="form-control" placeholder="" />
+                                        <input name="ground_date" type="date" class="form-control ground_date" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Docs Rcvd From S/Line</label>
-                                        <input name="docs_rcvd" type="date" class="form-control" placeholder="" />
+                                        <input name="docs_rcvd" type="date" class="form-control docs_rcvd" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Time</label>
-                                        <input name="time" type="time" class="form-control" placeholder="" />
+                                        <input name="time" type="time" class="form-control time" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Agent Code</label>
-                                        <input name="agent_code" type="text" class="form-control" placeholder="" />
+                                        <input name="agent_code" type="text" class="form-control agent_code" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Line Code</label>
-                                        <input name="line_code" type="text" class="form-control" placeholder="" />
+                                        <input name="line_code" type="text" class="form-control line_code" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Cost Center</label>
-                                        <select name="cost_center" class="form-select">
+                                        <select name="cost_center" class="form-select cost_center">
                                             <option value="">Head Office</option>
                                         </select>
                                     </div>
@@ -215,7 +213,7 @@
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Custom Report</label>
-                                        <select name="custom_report" class="form-select">
+                                        <select name="custom_report" class="form-select custom_report">
                                             <option value="Manifest">Manifest</option>
                                             <option value="Loading List">Loading List</option>
                                             <option value="Manifest Summary">Manifest Summary</option>
@@ -223,6 +221,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </form>
@@ -338,10 +337,16 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -471,7 +476,7 @@ $(document).ready(function(){
         "pageLength": 15,
         "scrollX": true,
         "ajax": {
-            "url": "{{ route('admin.manifest') }}",
+            "url": "{{ route('admin.manifest.create') }}",
             "type": "get",
             "data": function(d) {
                 var frm_data = $('#result_report_form').serializeArray();
@@ -486,27 +491,79 @@ $(document).ready(function(){
                 title: 'Sr No'
             },
             {
-                data: 'name',
-                title: 'Name'
+                data: 'tran',
+                title: 'Tran'
             },
             {
-                data: 'address',
-                title: 'Address'
+                data: 'doc',
+                title: 'Doc'
             },
             {
-                data: 'email',
-                title: 'Email'
+                data: 'year',
+                title: 'Year'
             },
             {
-                data: 'phone',
-                title: 'Phone'
+                data: 'vessel',
+                title: 'Vessel'
+            },
+            {
+                data: 'terminals',
+                title: 'Terminals'
+            },
+            {
+                data: 'ship_company',
+                title: 'Ship Company'
+            },
+            {
+                data: 'captain_name',
+                title: 'Captain Name'
             },
         ],          
-         "rowCallback": function(row, data) {}
+         "rowCallback": function(row, data) {
+             $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
+         }
     });
 });
 
+function edit_row(e,data){
+    data = JSON.parse(data);
+    if(data){
+        $(".tran input[name='tran']").val(data.tran);
+        $(".doc input[name='doc']").val(data.doc);
+        $(".year input[name='year']").val(data.year);
+        $(".agent input[name='agent']").val(data.agent);
+        $(".vessel input[name='vessel']").val(data.vessel);
+        $(".voy input[name='voy']").val(data.voy);
+        $(".port_of_discharge input[name='port_of_discharge']").val(data.port_of_discharge);
+        $(".port_of_loading input[name='port_of_loading']").val(data.port_of_loading);
+        $(".terminals input[name='terminals']").val(data.terminals);
+        $(".license input[name='license']").val(data.license);
+        $(".port input[name='port']").val(data.port);
+        $(".ship_company input[name='ship_company']").val(data.ship_company);
+        $(".captain_name input[name='captain_name']").val(data.captain_name);
+        $(".berth_wharf input[name='berth_wharf']").val(data.berth_wharf);
+        $(".remarks textarea[name='remarks']").val(data.remarks);
+        $(".same_bottom_cargo textarea[name='same_bottom_cargo']").val(data.same_bottom_cargo);
+        $(".manifest_ref input[name='manifest_ref']").val(data.manifest_ref);
+        $(".shad_no input[name='shad_no']").val(data.shad_no);
+        $(".ground_date input[name='ground_date']").val(data.ground_date);
+        $(".docs_rcvd input[name='docs_rcvd']").val(data.docs_rcvd);
+        $(".time input[name='time']").val(data.time);
+        $(".agent_code input[name='agent_code']").val(data.agent_code);
+        $(".line_code input[name='line_code']").val(data.line_code);
+        $(".cost_center select[name='cost_center']").val(data.cost_center);
+        $(".custom_report select[name='custom_report']").val(data.custom_report);
+        $("#myForm").attr("action","{{ route('admin.manifest.update') }}")
+        $("input[name=id]").val(data.id);
+    }
+    
+}
 
+
+$('#submitButton').click(function(){
+    // Trigger form submission
+    $('#myForm').submit();
+});
 
 
 

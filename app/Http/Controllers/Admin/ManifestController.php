@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PartyBasicInfo;
-use App\Models\PartyOtherInfo;
-use App\Models\PartyAccountDetail;
-use App\Models\PartyAchBankDetail;
-use App\Models\PartyLocalizeKyc;
+use App\Models\Manifest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,13 +18,34 @@ use File;
 
 class ManifestController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Manifest";
-        $data['seo_desc']       = "Manifest";
-        $data['seo_keywords']   = "Manifest";
-        $data['page_title'] = "Manifest";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Manifest";
+    //     $data['seo_desc']       = "Manifest";
+    //     $data['seo_keywords']   = "Manifest";
+    //     $data['page_title'] = "Manifest";
 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Manifest::Query();
+    //         $totalCount=$query->count(); 
+            
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+            
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.manifest.index', $data);
+    // }
+    
+    
+    public function create(Request $request)
+    {
         if ($request->ajax()) {
             $totalCount=0;
             $recordsFiltered=0;
@@ -44,12 +61,7 @@ class ManifestController extends Controller
                 ->with(['recordsTotal'=>$totalCount])
                 ->make(true);
         }
-        return view('admin.manifest.index', $data);
-    }
-    
-    
-    public function create(Request $request)
-    {
+        
         $data['seo_title']      = "Manifest";
         $data['seo_desc']       = "Manifest";
         $data['seo_keywords']   = "Manifest";
@@ -75,24 +87,37 @@ class ManifestController extends Controller
         return redirect()->route('admin.manifest')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'short_name' => 'required',
-    //         'reg_date' => 'required',
-    //         'license_no' => 'required',
-    //         'contact_person' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'tran' => 'required',
+            'doc' => 'required',
+            'year' => 'required',
+        ]);
         
-    //     $partybasicinfo = new PartyBasicInfo();
-    //     $partybasicinfo->short_name = $request->short_name;
-    //     $partybasicinfo->reg_date = $request->reg_date;
-    //     $partybasicinfo->license_no = $request->license_no;
-    //     $partybasicinfo->save();
+        $manifest = new Manifest();
+        $manifest->fill($request->all());
+        $manifest->save();
       
-    //     $notify[] = ['success', 'Party Added Successfully.'];
-    //     return redirect()->route('admin.party')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Manifest Added Successfully.'];
+        return redirect()->route('admin.manifest.create')->withNotify($notify);
+    }
+    
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'tran' => 'required',
+            'doc' => 'required',
+            'year' => 'required',
+        ]);
+        
+        $manifest = Manifest::where("id", $request->id)->first();
+        $manifest->fill($request->all());
+        $manifest->save();
+        
+        $notify[] = ['success', 'Manifest Updated Successfully.'];
+        return redirect()->route('admin.manifest.create')->withNotify($notify);
+    }
    
     
 }

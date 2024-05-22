@@ -378,8 +378,18 @@ Route::namespace('Admin')
                 Route::post('shipping_instruction/store',[ShippingInstructionController::class ,'store'])->name('shipping_instruction.store');
                 Route::post('shipping_instruction/update',[ShippingInstructionController::class ,'update'])->name('shipping_instruction.update');
 
-                //  JOB BALANCING
+                //  SE EXPORT REPORTS
                 Route::get('job_balancing',[SeExportController::class ,'index'])->name('job_balancing');
+                Route::get('job_list',[SeExportController::class ,'joblist'])->name('job_list');
+                Route::get('job_wise_cont_list',[SeExportController::class ,'jobwisecontainerlist'])->name('job_wise_cont_list');
+                Route::get('charges_wise_job_report',[SeExportController::class ,'chargeswisejobreport'])->name('charges_wise_job_report');
+                Route::get('loading_list',[SeExportController::class ,'loadinglist'])->name('loading_list');
+                Route::get('job_statistics',[SeExportController::class ,'jobstatistics'])->name('job_statistics');   
+                Route::get('booking_list',[SeExportController::class ,'bookinglist'])->name('booking_list');   
+                Route::get('bl_release_status',[SeExportController::class ,'blreleasestatus'])->name('bl_release_status');   
+                Route::get('debit_credit',[SeExportController::class ,'debitcredit'])->name('debit_credit');   
+                Route::get('cargo_movement',[SeExportController::class ,'cargomovement'])->name('cargo_movement');   
+                Route::get('job_profit_loss',[SeExportController::class ,'jobprofitloss'])->name('job_profit_loss');    
            
             });
 
