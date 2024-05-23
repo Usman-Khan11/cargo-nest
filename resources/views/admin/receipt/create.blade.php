@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-2 mt-4">
-                                        <input name="refund" type="checkbox" style="width:16px; height:16px;"><span>&nbsp;&nbsp;Settle multiple CC Invoices</span>
+                                        <input name="cc_invoice" type="checkbox" style="width:16px; height:16px;"><span>&nbsp;&nbsp;Settle multiple CC Invoices</span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -233,7 +233,7 @@
                                            <input name="exchange_rate" type="text" class="form-control"> 
                                         </div>
                                         <div class="mt-4">
-                                            <input name="continue" type="checkbox" style="width:16px; height:16px;"><span>&nbsp;&nbsp;Multi Currency</span>
+                                            <input name="multi_currency" type="checkbox" style="width:16px; height:16px;"><span>&nbsp;&nbsp;Multi Currency</span>
                                         </div>
                                     </div>
                                 </div>
@@ -272,7 +272,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-2">
                                         <label class="form-label">Code</label>
-                                        <input name="code" type="text" class="form-control">
+                                        <input name="code2" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -345,7 +345,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-2">
                                         <label class="form-label">Invoice#</label>
-                                        <input name="invoice" type="text" class="form-control">
+                                        <input name="invoice_no" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">

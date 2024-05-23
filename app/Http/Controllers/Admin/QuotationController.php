@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quotation;
 use App\Models\Customer;
+use App\Models\Commodity;
+use App\Models\Vessel;
+use App\Models\Voyage;
+use App\Models\Currency;
+use App\Models\Equipment;
+use App\Models\Incoterm;
+use App\Models\QuotationDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +59,12 @@ class QuotationController extends Controller
         $data['seo_keywords']   = "Quotation";
         $data['page_title'] = "Quotation";
         $data['customers'] = Customer::get();
+        $data['commodities'] = Commodity::get();
+        $data['vessels'] = Vessel::get();
+        $data['voyages'] = Voyage::get();
+        $data['currencies'] = Currency::get();
+        $data['sizes'] = Equipment::get();
+        $data['incoterms'] = Incoterm::get();
         return view('admin.quotation.create', $data);
     }
     
@@ -85,8 +98,41 @@ class QuotationController extends Controller
         $quotation->fill($request->all());
         $quotation->save();
         
+        $units = $request->units;
+        foreach($units as $key => $value) {
+            $quotation_details = new QuotationDetail();
+            $quotation_details->quotation_id = $quotation->id;
+            $quotation_details->charges_code = $request->charges_code[$key];
+            $quotation_details->charges = $request->charges[$key];
+            $quotation_details->charges_desc = $request->charges_desc[$key];
+            $quotation_details->charges_category = $request->charges_category[$key];
+            $quotation_details->units = $request->units[$key];
+            $quotation_details->size_type = $request->size_type[$key];
+            $quotation_details->good_unit = $request->good_unit[$key];
+            $quotation_details->rate_group = $request->rate_group[$key];
+            $quotation_details->mode = $request->modee[$key];
+            $quotation_details->manual = $request->manual[$key];
+            $quotation_details->dg_type = $request->dg_type[$key];
+            $quotation_details->qty = $request->qty[$key];
+            $quotation_details->rate = $request->rate[$key];
+            $quotation_details->currency = $request->detail_currency[$key];
+            $quotation_details->ex_rate = $request->detail_ex_rate[$key];
+            $quotation_details->amount = $request->amount[$key];
+            $quotation_details->local_amount = $request->local_amount[$key];
+            $quotation_details->tax = $request->tax[$key];
+            $quotation_details->inc_tax_amount = $request->inc_tax_amount[$key];
+            $quotation_details->buying_rate = $request->buying_rate[$key];
+            $quotation_details->remarks = $request->remarks[$key];
+            $quotation_details->payable_to = $request->payable_to[$key];
+            $quotation_details->buying_remarks = $request->buying_remarks[$key];
+            $quotation_details->ord = $request->ord[$key];
+            $quotation_details->tariff_code = $request->tariff_code[$key];
+            $quotation_details->save();
+        }
+        
+        
         $notify[] = ['success', 'Quotation Added Successfully.'];
-        return redirect()->route('admin.quotation')->withNotify($notify);
+        return redirect()->route('admin.quotation.create')->withNotify($notify);
     }
     
     public function update(Request $request)

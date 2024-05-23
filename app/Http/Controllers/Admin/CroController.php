@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PartyBasicInfo;
-use App\Models\PartyOtherInfo;
-use App\Models\PartyAccountDetail;
-use App\Models\PartyAchBankDetail;
-use App\Models\PartyLocalizeKyc;
+use App\Models\Cro;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -75,24 +71,113 @@ class CroController extends Controller
         return redirect()->route('admin.cro')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'short_name' => 'required',
-    //         'reg_date' => 'required',
-    //         'license_no' => 'required',
-    //         'contact_person' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'cro_no' => 'required',
+            'cro_type' => 'required',
+            'job_number' => 'required',
+            'client' => 'required',
+            'issue_date' => 'required',
+        ]);
         
-    //     $partybasicinfo = new PartyBasicInfo();
-    //     $partybasicinfo->short_name = $request->short_name;
-    //     $partybasicinfo->reg_date = $request->reg_date;
-    //     $partybasicinfo->license_no = $request->license_no;
-    //     $partybasicinfo->save();
+        $cro = new Cro();
+        $cro->cro_no = $request->cro_no;
+        $cro->cro_type = $request->cro_type;
+        $cro->job_number = $request->job_number;
+        $cro->client = $request->client;
+        $cro->issue_date = $request->issue_date;
+        $cro->cro_valid_for = $request->cro_valid_for;
+        $cro->ref_number = $request->ref_number;
+        $cro->equip_qty = $request->equip_qty;
+        $cro->size_type = $request->size_type;
+        $cro->overseas_agent = $request->overseas_agent;
+        $cro->clearing_agent = $request->clearing_agent;
+        $cro->shipper = $request->shipper;
+        $cro->pickup_location = $request->pickup_location;
+        $cro->port_of_loading = $request->port_of_loading;
+        $cro->port_of_discharge = $request->port_of_discharge;
+        $cro->final_destination = $request->final_destination;
+        $cro->commodity = $request->commodity;
+        $cro->terminal = $request->terminal;
+        $cro->empty_depot = $request->empty_depot;
+        $cro->transporter = $request->transporter;
+        $cro->book_no = $request->book_no;
+        $cro->gate_pass = $request->gate_pass;
+        $cro->date = $request->date;
+        $cro->letter_no = $request->letter_no;
+        $cro->licence_no = $request->licence_no;
+        $cro->job_no = $request->job_no;
+        $cro->expiry_date = $request->expiry_date;
+        $cro->shipping_agent = $request->shipping_agent;
+        $cro->cargo_type = $request->cargo_type;
+        $cro->vessel = $request->vessel;
+        $cro->voyage = $request->voyage;
+        $cro->sailing_date = $request->sailing_date;
+        $cro->manual = $request->manual;
+        $cro->upload = $request->upload;
+        $cro->print_logo = $request->print_logo;
+        $cro->continue_mode = $request->continue_mode;
+        $cro->haulage = $request->haulage;
+        $cro->save();
       
-    //     $notify[] = ['success', 'Party Added Successfully.'];
-    //     return redirect()->route('admin.party')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'CRO Added Successfully.'];
+        return redirect()->route('admin.cro.create')->withNotify($notify);
+    }
+    
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'cro_no' => 'required',
+            'cro_type' => 'required',
+            'job_number' => 'required',
+            'client' => 'required',
+            'issue_date' => 'required',
+        ]);
+        
+        $cro = Cro::where("id", $request->id)->first();
+        $cro->cro_no = $request->cro_no;
+        $cro->cro_type = $request->cro_type;
+        $cro->job_number = $request->job_number;
+        $cro->client = $request->client;
+        $cro->issue_date = $request->issue_date;
+        $cro->cro_valid_for = $request->cro_valid_for;
+        $cro->ref_number = $request->ref_number;
+        $cro->equip_qty = $request->equip_qty;
+        $cro->size_type = $request->size_type;
+        $cro->overseas_agent = $request->overseas_agent;
+        $cro->clearing_agent = $request->clearing_agent;
+        $cro->shipper = $request->shipper;
+        $cro->pickup_location = $request->pickup_location;
+        $cro->port_of_loading = $request->port_of_loading;
+        $cro->port_of_discharge = $request->port_of_discharge;
+        $cro->final_destination = $request->final_destination;
+        $cro->commodity = $request->commodity;
+        $cro->terminal = $request->terminal;
+        $cro->empty_depot = $request->empty_depot;
+        $cro->transporter = $request->transporter;
+        $cro->book_no = $request->book_no;
+        $cro->gate_pass = $request->gate_pass;
+        $cro->date = $request->date;
+        $cro->letter_no = $request->letter_no;
+        $cro->licence_no = $request->licence_no;
+        $cro->job_no = $request->job_no;
+        $cro->expiry_date = $request->expiry_date;
+        $cro->shipping_agent = $request->shipping_agent;
+        $cro->cargo_type = $request->cargo_type;
+        $cro->vessel = $request->vessel;
+        $cro->voyage = $request->voyage;
+        $cro->sailing_date = $request->sailing_date;
+        $cro->manual = $request->manual;
+        $cro->upload = $request->upload;
+        $cro->print_logo = $request->print_logo;
+        $cro->continue_mode = $request->continue_mode;
+        $cro->haulage = $request->haulage;
+        $cro->save();
+        
+        $notify[] = ['success', 'CRO Updated Successfully.'];
+        return redirect()->route('admin.cro.create')->withNotify($notify);
+    }
    
     
 }

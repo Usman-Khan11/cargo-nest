@@ -7,7 +7,7 @@
             <i class="fa fa-square-plus"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save"></i>
+            <i class="fa fa-save" id="submitButton"></i>
         </div>
         <div class="xmark">
             <i class="fa fa-circle-xmark"></i>
@@ -35,7 +35,6 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-4">
     <div class="row">
         <div class="col-md-7">
@@ -52,7 +51,6 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-4">
     <div class="d-flex">
         <div class="check">
@@ -71,7 +69,7 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form method="post" action="{{ route('admin.quotation.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.quotation.store') }}" enctype="multipart/form-data" id="myForm">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -250,9 +248,11 @@
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label"><a href="">Commodity:</a></label>
-                                 <select name="commodity" class="form-select">
-                                    <option value="">Select</option>
-                                    <option value="textile-foods">Textile Food</option>
+                                <select name="commodity" class="form-select">
+                                    <option selected disabled></option>
+                                    @foreach($commodities as $commodity)
+                                        <option value="{{ $commodity->id }}">{{ $commodity->name }}</option> 
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -261,8 +261,10 @@
                             <div class="mb-2">
                                 <label class="form-label">Inco Term:</label>
                                  <select name="inco_term" class="form-select">
-                                    <option value="">Select</option>
-                                    <option value=""></option>
+                                   <option selected disabled></option>
+                                    @foreach($incoterms as $incoterm)
+                                        <option value="{{ $incoterm->id }}">{{ $incoterm->name }}</option> 
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -303,20 +305,45 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label"><a href="">Vessel:</a></label>
-                                <input name="vessel" type="text" class="form-control" placeholder="Vessel" />
+                                <select name="vessel" class="form-select">
+                                    <option selected disabled></option>
+                                    @foreach($vessels as $vessel)
+                                        <option value="{{ $vessel->id }}">{{ $vessel->vessel_name }}</option> 
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         
                         <div class="col-md-2 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Voyage/Flight No:</label>
-                                <input name="voyage" type="text" class="form-control" placeholder="Voyage/Flight No" />
+                                <select name="voyage" class="form-select">
+                                    <option selected disabled></option>
+                                    @foreach($voyages as $voyage)
+                                        <option value="{{ $voyage->id }}">{{ $voyage->voy }}</option> 
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2 col-12">
+                            <div class="mb-2">
+                                <label class="form-label">Currency:</label>
+                                <select name="currency" class="form-select">
+                                    <option selected disabled></option>
+                                    @foreach($currencies as $currency)
+                                        <option value="{{ $currency->id }}">{{ $currency->name }}</option> 
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <div class="mb-2">
+                                <label class="form-label">Exchange Rate:</label>
+                                <input name="ex_rate" type="text" class="form-control" placeholder="" />
                             </div>
                         </div>
                        
-                        <div class="col-md-2 col-12 mt-4">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -340,10 +367,9 @@
                   </li>
                 </ul>
                 <div class="tab-content">
-                    
                       <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
                         <div class="card-datatable table-responsive pt-0">
-                          <table class="datatables-basic table" style="width:350%;">
+                          <table class="datatables-basic table" style="width:450%;">
                             <thead>
                               <tr>
                                 <th>...</th>
@@ -352,7 +378,7 @@
                                 <th>Charges</th>
                                 <th>Charges Description</th>
                                 <th>Charges Category</th>
-                                <th>Unit</th>
+                                <th>--- Unit ---</th>
                                 <th>Size Type</th>
                                 <th>Goods Unit</th>
                                 <th>Rate Group</th>
@@ -375,34 +401,84 @@
                                 <th>Tariff Code</th>
                               </tr>
                             </thead>
-                            <tbody>
-                                <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                <td><i class="fa fa-print fa-lg text-info"></i></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
+                            <tbody class="detail_repeater">
+                                <tr>
+                                    <td><i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
+                                    <td><i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info"></i></td>
+                                    <td><input type="text" style="width: 100%;" name="charges_code[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="charges[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="charges_desc[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="charges_category[]" /></td>
+                                    <td>
+                                        <select name="units[]" style="width: 100%;">
+                                            <option selected disabled></option>
+                                            <option value="Unit">Unit</option>
+                                            <option value="Ship">Ship</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="size_type[]" style="width: 100%;">
+                                            <option selected disabled></option>
+                                            @foreach($sizes as $size)
+                                                <option value="{{ $size->id }}">{{ $size->size }}</option> 
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    
+                                     <td>
+                                        <select name="good_unit[]" style="width: 100%;">
+                                            <option selected disabled></option>
+                                            <option value="Kg/S">Kg/S</option>
+                                            <option value="PC/S">PC/S</option>
+                                            <option value="Pallet/S">Pallet/S</option>
+                                            <option value="TON/S">TON/S</option>
+                                            <option value="CBM">CBM</option>
+                                            <option value="Truck">Truck</option>
+                                            <option value="Trailer">Trailer</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" style="width: 100%;" name="rate_group[]" /></td>
+                                    <td>
+                                        <select name="modee[]" style="width: 100%;">
+                                            <option selected disabled></option>
+                                            <option value="Received From Client">Received From Client</option>
+                                            <option value="Pay To Vendor">Pay To Vendor</option>
+                                            <option value="Rec Pay From Client/Vendor">Rec Pay From Client/Vendor</option>
+                                            <option value="Rec From O/Agent">Rec From O/Agent</option>
+                                            <option value="Pay To O/Agent">Pay To O/Agent</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="checkbox" style="width: 100%;" name="manual[]"/></td>
+                                     <td>
+                                        <select name="dg_type[]" style="width: 100%;">
+                                            <option selected disabled></option>
+                                            <option value="DG">DG</option>
+                                            <option value="Non-DG">Non-DG</option>
+                                            <option value="All">All</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="qty" name="qty[]" /></td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="rate" name="rate[]" /></td>
+                                    <td>
+                                        <select name="detail_currency[]" style="width: 100%;">
+                                            <option selected disabled></option>
+                                            @foreach($currencies as $currency)
+                                                <option value="{{ $currency->id }}">{{ $currency->name }}</option> 
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="detail_ex_rate" name="detail_ex_rate[]" /></td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="amount" name="amount[]" /></td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="local_amount" name="local_amount[]" /></td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="tax" name="tax[]" /></td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="inc_tax_amount" name="inc_tax_amount[]" /></td>
+                                    <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="buying_rate" name="buying_rate[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="remarks[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="payable_to[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="buying_remarks[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="ord[]" /></td>
+                                    <td><input type="text" style="width: 100%;" name="tariff_code[]" /></td>
+                                </tr>
                             </tbody>
                           </table>
                         </div>
@@ -658,3 +734,42 @@
         </form>
     </div>
 @endsection
+
+
+@push('script')
+<script>
+    $('#submitButton').click(function(){
+        $('#myForm').submit();
+    });
+
+    function addNewRow(e){
+        $(e).parent().parent().clone().prependTo(".detail_repeater");
+    }
+    
+    function delRow(e){
+        if($(".detail_repeater tr").length <= 1) return;
+        $(e).parent().parent().remove();
+    }
+    
+    function detailCalculation(e){
+        let total = 0;
+        let qty = parseFloat($(e).parent().parent().find("input.qty").val()) || 0;
+        let rate = parseFloat($(e).parent().parent().find("input.rate").val()) || 0;
+        let detail_ex_rate = parseFloat($(e).parent().parent().find("input.detail_ex_rate").val()) || 0;
+        let amount = parseFloat($(e).parent().parent().find("input.amount").val()) || 0;
+        let local_amount = parseFloat($(e).parent().parent().find("input.local_amount").val()) || 0;
+        let tax = parseFloat($(e).parent().parent().find("input.tax").val()) || 0;
+        let inc_tax_amount = parseFloat($(e).parent().parent().find("input.inc_tax_amount").val()) || 0;
+        let buying_rate = parseFloat($(e).parent().parent().find("input.buying_rate").val()) || 0;
+        let total_receivable = parseFloat($("input[name=total_receivable]").val()) || 0;
+        
+        total = rate * qty;
+        tax = tax / 100;
+        tax = total * tax;
+        $(e).parent().parent().find("input.amount").val(total);
+        $(e).parent().parent().find("input.local_amount").val(total * detail_ex_rate);
+        $(e).parent().parent().find("input.inc_tax_amount").val(total + tax);
+        $("input[name=total_receivable]").val(total + tax)
+    }
+</script>
+@endpush

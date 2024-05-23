@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PartyBasicInfo;
-use App\Models\PartyOtherInfo;
-use App\Models\PartyAccountDetail;
-use App\Models\PartyAchBankDetail;
-use App\Models\PartyLocalizeKyc;
+use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -75,24 +71,39 @@ class InvoiceController extends Controller
         return redirect()->route('admin.invoice')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'short_name' => 'required',
-    //         'reg_date' => 'required',
-    //         'license_no' => 'required',
-    //         'contact_person' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'tran_number' => 'required',
+            'inv_date' => 'required',
+            'reference' => 'required',
+            'status' => 'required',
+        ]);
         
-    //     $partybasicinfo = new PartyBasicInfo();
-    //     $partybasicinfo->short_name = $request->short_name;
-    //     $partybasicinfo->reg_date = $request->reg_date;
-    //     $partybasicinfo->license_no = $request->license_no;
-    //     $partybasicinfo->save();
+        $invoice = new Invoice();
+        $invoice->fill($request->all());
+        $invoice->save();
       
-    //     $notify[] = ['success', 'Party Added Successfully.'];
-    //     return redirect()->route('admin.party')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Invoice Added Successfully.'];
+        return redirect()->route('admin.invoice.create')->withNotify($notify);
+    }
+    
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'tran_number' => 'required',
+            'inv_date' => 'required',
+            'reference' => 'required',
+            'status' => 'required',
+        ]);
+        
+        $invoice = Invoice::where("id", $request->id)->first();
+        $invoice->fill($request->all());
+        $invoice->save();
+        
+        $notify[] = ['success', 'Invoice Updated Successfully.'];
+        return redirect()->route('admin.invoice.create')->withNotify($notify);
+    }
    
     
 }

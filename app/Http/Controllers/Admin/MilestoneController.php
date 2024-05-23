@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PartyBasicInfo;
-use App\Models\PartyOtherInfo;
-use App\Models\PartyAccountDetail;
-use App\Models\PartyAchBankDetail;
-use App\Models\PartyLocalizeKyc;
+use App\Models\Milestone;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,30 +65,47 @@ class MilestoneController extends Controller
     
     public function delete($id)
     {
-        $developer = MileStone::where("id", $id);
+        $developer = Milestone::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'MileStone Deleted Successfully.'];
         return redirect()->route('admin.milestone')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'short_name' => 'required',
-    //         'reg_date' => 'required',
-    //         'license_no' => 'required',
-    //         'contact_person' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => 'required',
+            'job_no' => 'required',
+            'job_date' => 'required',
+        ]);
         
-    //     $partybasicinfo = new PartyBasicInfo();
-    //     $partybasicinfo->short_name = $request->short_name;
-    //     $partybasicinfo->reg_date = $request->reg_date;
-    //     $partybasicinfo->license_no = $request->license_no;
-    //     $partybasicinfo->save();
+        $milestone = new Milestone();
+        $milestone->type = $request->type;
+        $milestone->job_no = $request->job_no;
+        $milestone->job_date = $request->job_date;
+        $milestone->save();
       
-    //     $notify[] = ['success', 'Party Added Successfully.'];
-    //     return redirect()->route('admin.party')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Milestone Added Successfully.'];
+        return redirect()->route('admin.milestone.create')->withNotify($notify);
+    }
+    
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => 'required',
+            'job_no' => 'required',
+            'job_date' => 'required',
+        ]);
+        
+        $milestone = Milestone::where("id", $request->id)->first();
+        $milestone->type = $request->type;
+        $milestone->job_no = $request->job_no;
+        $milestone->job_date = $request->job_date;
+        $milestone->save();
+        
+        $notify[] = ['success', 'Milestone Updated Successfully.'];
+        return redirect()->route('admin.milestone.create')->withNotify($notify);
+    }
    
     
 }

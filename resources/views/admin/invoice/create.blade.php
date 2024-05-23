@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-12">
-                <form method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.invoice.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -104,9 +104,9 @@
                                     <div class="mb-2">
                                         <label class="form-label">Status</label>
                                         <select name="status" class="form-select">
-                                            <option>Active</option>
-                                            <option>Incomplete</option>
-                                            <option>Void</option>
+                                            <option value="active">Active</option>
+                                            <option value="incomplete">Incomplete</option>
+                                            <option value="void">Void</option>
                                         </select>
                                     </div>
                                 </div>
@@ -114,8 +114,8 @@
                                     <div class="mb-2">
                                         <label class="form-label">Category</label>
                                         <select name="category" class="form-select">
-                                            <option>Regular</option>
-                                            <option>Security Deposite</option>
+                                            <option value="regular">Regular</option>
+                                            <option value="securityDeposit">Security Deposit</option>
                                         </select>
                                     </div>
                                 </div>
@@ -179,13 +179,13 @@
                                     <div class="mb-2">
                                         <label class="form-label">Currency</label>
                                         <select name="currency" class="form-select">
-                                            <option>PKR</option>
-                                            <option>USD</option>
-                                            <option>AED</option>
-                                            <option>GPB</option>
-                                            <option>EUR</option>
-                                            <option>BDT</option>
-                                            <option>OMR</option>
+                                            <option value="PKR">PKR</option>
+                                            <option value="USD">USD</option>
+                                            <option value="AED">AED</option>
+                                            <option value="GBP">GBP</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="BDT">BDT</option>
+                                            <option value="OMR">OMR</option>
                                         </select>
                                     </div>
                                 </div>
@@ -193,28 +193,28 @@
                                     <div class="mb-2">
                                         <label class="form-label">Cost Center</label>
                                         <select name="cost_center" class="form-select">
-                                            <option>Head Office</option>
+                                            <option value="Head Office">Head Office</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2">
                                         <label class="form-label">Invoice To</label>
-                                        <select name="operation" class="form-select">
-                                            <option>Invoice To</option>
-                                            <option>Clearing Agent</option>
-                                            <option>Importer</option>
-                                            <option>Coloader</option>
-                                            <option>Client</option>
-                                            <option>Client/Importer</option>
-                                            <option>Shipper</option>
-                                            <option>Other</option>
+                                        <select name="invoice_to" class="form-select">
+                                            <option value="invoiceTo">Invoice To</option>
+                                            <option value="clearingAgent">Clearing Agent</option>
+                                            <option value="importer">Importer</option>
+                                            <option value="coloader">Coloader</option>
+                                            <option value="client">Client</option>
+                                            <option value="clientImporter">Client/Importer</option>
+                                            <option value="shipper">Shipper</option>
+                                            <option value="other">Other</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2 mt-4">
-                                        <input name="manual" type="checkbox" style="width:16px; height:16px;"><span>&nbsp;&nbsp;Manual</span>
+                                        <input name="manual" type="checkbox" value="Manual"><span>&nbsp;&nbsp;Manual</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -231,7 +231,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2 mt-4">
-                                        <input name="auto_round_off" type="checkbox" style="width:16px; height:16px;"><span>&nbsp;&nbsp;Auto Round Off</span>
+                                        <input name="auto_round_off" type="checkbox" value="Auto Round Off"><span>&nbsp;&nbsp;Auto Round Off</span>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -242,15 +242,15 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2 mt-4">
-                                        <input name="tax_charges" type="checkbox" style="width:16px; height:16px;"><span>&nbsp;&nbsp;Tax Charges</span>
+                                        <input name="tax_charges" type="checkbox" value="Tax Charges"><span>&nbsp;&nbsp;Tax Charges</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-2">
                                         <label class="form-label">Invoice Title</label>
                                         <select name="invoice_title" class="form-select">
-                                            <option></option>
-                                            <option></option>
+                                            <option value=""></option>
+                                            <option value=""></option>
                                         </select>
                                     </div>
                                 </div>
@@ -402,3 +402,15 @@
         </div>
     </div>
 @endsection
+
+
+@push('script')
+
+<script>
+    $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
+</script>
+
+@endpush

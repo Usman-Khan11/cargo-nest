@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-6">
-                <form method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.milestone.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -85,11 +85,11 @@
                                 <div class="col-md-12">
                                     <div class="mb-3 d-flex">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="option" id="job_wise" value="job_wise">
+                                            <input class="form-check-input" type="radio" name="type" id="job_wise" value="Job wise">
                                             <label class="form-check-label" for="job_wise">Job wise</label>
                                         </div>
                                         <div class="form-check mx-3">
-                                            <input class="form-check-input" type="radio" name="option" id="milestone_wise" value="milestone_wise">
+                                            <input class="form-check-input" type="radio" name="type" id="milestone_wise" value="Milestone wise">
                                             <label class="form-check-label" for="milestone_wise">Milestone wise</label>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                 
             </div>
             <div class="col-md-6">
-                <div class="card mt-3">
+                <div class="card">
                     <div class="card-body">
                         <div class="responsive text-nowrap">
                             <table class="table table-bordered table-sm quotation_record">
@@ -124,12 +124,10 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -259,25 +257,27 @@ $(document).ready(function(){
                 title: 'Sr No'
             },
             {
-                data: 'name',
-                title: 'Name'
+                data: 'type',
+                title: 'Type'
             },
             {
-                data: 'address',
-                title: 'Address'
+                data: 'job_no',
+                title: 'Job No'
             },
             {
-                data: 'email',
-                title: 'Email'
+                data: 'job_date',
+                title: 'Job Date'
             },
-            {
-                data: 'phone',
-                title: 'Phone'
-            },
+           
         ],          
          "rowCallback": function(row, data) {}
     });
 });
+
+$('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
 
 
 </script>

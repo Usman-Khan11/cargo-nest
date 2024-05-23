@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 22, 2024 at 08:59 AM
+-- Generation Time: May 23, 2024 at 10:01 AM
 -- Server version: 10.3.39-MariaDB
 -- PHP Version: 8.1.27
 
@@ -306,6 +306,7 @@ CREATE TABLE `currencies` (
   `id` int(11) NOT NULL,
   `code` varchar(100) NOT NULL,
   `name` varchar(225) NOT NULL,
+  `ex_rate` varchar(20) DEFAULT NULL,
   `main_symbol` varchar(155) NOT NULL,
   `unit_symbol` varchar(155) NOT NULL,
   `decimal_portion_digits` varchar(155) DEFAULT NULL,
@@ -317,8 +318,8 @@ CREATE TABLE `currencies` (
 -- Dumping data for table `currencies`
 --
 
-INSERT INTO `currencies` (`id`, `code`, `name`, `main_symbol`, `unit_symbol`, `decimal_portion_digits`, `created_at`, `updated_at`) VALUES
-(1, '123', 'United State', 'Dollor', '$', '0.00', '2024-05-11 11:16:36', '2024-05-14 10:52:27');
+INSERT INTO `currencies` (`id`, `code`, `name`, `ex_rate`, `main_symbol`, `unit_symbol`, `decimal_portion_digits`, `created_at`, `updated_at`) VALUES
+(1, '123', 'United State', '1.00', 'Dollor', '$', '0.00', '2024-05-11 11:16:36', '2024-05-14 10:52:27');
 
 -- --------------------------------------------------------
 
@@ -496,6 +497,29 @@ CREATE TABLE `general_settings` (
 
 INSERT INTO `general_settings` (`id`, `sitename`, `footer_desc`, `logo`, `phone`, `whatsapp`, `email`, `address`, `iframe`, `copyright`, `facebook`, `twitter`, `linkedin`, `youtube`, `instagram`, `pinterest`, `privacy_policy`, `meta_title`, `meta_desc`, `meta_keywords`, `cur_text`, `cur_sym`, `email_from`, `email_template`, `base_color`, `secondary_color`, `mail_config`, `secure_password`, `currency`, `created_at`, `updated_at`) VALUES
 (1, 'Modern Group Of Company', 'Contra and layouts, in content of dummy text is nonsensical.typefaces of dummy text is appearance of different general the content of dummy text is nonsensical. typefaces of dummy text is nonsensical.', 'logo.png', '123 456 789', NULL, 'info@modern_group.com', NULL, NULL, '© Copyright 2023 Signature luxury Real Estate', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Modern Group Of Company', 'Modern Group Of Company', 'Modern Group Of Company', 'USD', '$', 'info@signatureluxuryrealestate.com', '<table style=\"color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(0, 23, 54); text-decoration-style: initial; text-decoration-color: initial;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" bgcolor=\"#001736\"><tbody><tr><td valign=\"top\" align=\"center\"><table class=\"mobile-shell\" width=\"650\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"td container\" style=\"width: 650px; min-width: 650px; font-size: 0pt; line-height: 0pt; margin: 0px; font-weight: normal; padding: 55px 0px;\"><div style=\"text-align: center;\"><img src=\"https://globaldezigns.com/images/logo.png\" style=\"height: 240 !important;width: 338px;margin-bottom: 20px;\"></div><table style=\"width: 650px; margin: 0px auto;\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-bottom: 10px;\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"tbrr p30-15\" style=\"padding: 60px 30px; border-radius: 26px 26px 0px 0px;\" bgcolor=\"#000036\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"color: rgb(255, 255, 255); font-family: Muli, Arial, sans-serif; font-size: 20px; line-height: 46px; padding-bottom: 25px; font-weight: bold;\">Hi {{name}} ,</td></tr><tr><td style=\"color: rgb(193, 205, 220); font-family: Muli, Arial, sans-serif; font-size: 20px; line-height: 30px; padding-bottom: 25px;\">{{message}}</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table><table style=\"width: 650px; margin: 0px auto;\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"p30-15 bbrr\" style=\"padding: 50px 30px; border-radius: 0px 0px 26px 26px;\" bgcolor=\"#000036\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"text-footer1 pb10\" style=\"color: rgb(0, 153, 255); font-family: Muli, Arial, sans-serif; font-size: 18px; line-height: 30px; text-align: center; padding-bottom: 10px;\">© 2023 HamZa. All Rights Reserved.</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>', 'ff7149', '36274c', '{\"name\":\"php\"}', 0, 21, NULL, '2024-05-01 15:37:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `incoterms`
+--
+
+CREATE TABLE `incoterms` (
+  `id` int(11) NOT NULL,
+  `code` text DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `incoterms`
+--
+
+INSERT INTO `incoterms` (`id`, `code`, `name`, `created_at`, `updated_at`) VALUES
+(1, '789', 'eqwewer', '2024-05-23 12:10:07', '2024-05-23 12:23:57'),
+(2, '456', 'wgerg', '2024-05-23 12:11:37', '2024-05-23 12:24:12'),
+(3, '123', 'bb vbnn', '2024-05-23 12:12:07', '2024-05-23 12:24:26');
 
 -- --------------------------------------------------------
 
@@ -1014,6 +1038,8 @@ CREATE TABLE `quotations` (
   `voyage` varchar(225) DEFAULT NULL,
   `grt` varchar(225) DEFAULT NULL,
   `nrt` varchar(225) DEFAULT NULL,
+  `currency` varchar(10) DEFAULT NULL,
+  `ex_rate` varchar(10) DEFAULT NULL,
   `cwt_client` varchar(225) DEFAULT NULL,
   `cwt_line` varchar(225) DEFAULT NULL,
   `approval_status` varchar(225) DEFAULT NULL,
@@ -1029,8 +1055,54 @@ CREATE TABLE `quotations` (
 -- Dumping data for table `quotations`
 --
 
-INSERT INTO `quotations` (`id`, `quotation_no`, `date`, `expire_date`, `route_type`, `mode`, `operation_type`, `cost_center`, `file`, `sale_rep`, `book_rep`, `customer_type`, `client`, `stage`, `pkgs`, `unit`, `attn_person`, `from_person`, `gross_wt`, `net_wt`, `vol_cbm`, `commodity`, `shipment_size`, `inco_term`, `wt_unit`, `subject`, `job_type`, `sub_type`, `bill_vol`, `manual_vol`, `vessel`, `voyage`, `grt`, `nrt`, `cwt_client`, `cwt_line`, `approval_status`, `bank_detail`, `total_receivable`, `total_payable`, `total_profit`, `created_at`, `updated_at`) VALUES
-(1, '123', '2024-05-29', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-03 12:09:26', '2024-05-03 12:09:26');
+INSERT INTO `quotations` (`id`, `quotation_no`, `date`, `expire_date`, `route_type`, `mode`, `operation_type`, `cost_center`, `file`, `sale_rep`, `book_rep`, `customer_type`, `client`, `stage`, `pkgs`, `unit`, `attn_person`, `from_person`, `gross_wt`, `net_wt`, `vol_cbm`, `commodity`, `shipment_size`, `inco_term`, `wt_unit`, `subject`, `job_type`, `sub_type`, `bill_vol`, `manual_vol`, `vessel`, `voyage`, `grt`, `nrt`, `currency`, `ex_rate`, `cwt_client`, `cwt_line`, `approval_status`, `bank_detail`, `total_receivable`, `total_payable`, `total_profit`, `created_at`, `updated_at`) VALUES
+(1, '123', '2024-05-29', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-03 12:09:26', '2024-05-03 12:09:26'),
+(3, '1001', '2024-05-04', '2024-05-14', 'single', NULL, 'air import', 'head office', NULL, 2, '11', '1', 0, '01', '123', '12', 'test', 'ttt', NULL, NULL, NULL, '12', NULL, '2', NULL, 'hhhhfasdf', 'coloaded', 'fcl', NULL, NULL, '14', '3', NULL, NULL, '1', '1', NULL, NULL, NULL, NULL, '500', '250', '250', '2024-05-23 13:23:13', '2024-05-23 13:23:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quotation_details`
+--
+
+CREATE TABLE `quotation_details` (
+  `id` int(11) NOT NULL,
+  `quotation_id` int(11) NOT NULL,
+  `charges_code` varchar(50) DEFAULT NULL,
+  `charges` varchar(50) DEFAULT NULL,
+  `charges_desc` varchar(200) DEFAULT NULL,
+  `charges_category` varchar(50) DEFAULT NULL,
+  `units` varchar(50) DEFAULT NULL,
+  `size_type` varchar(50) DEFAULT NULL,
+  `good_unit` varchar(50) DEFAULT NULL,
+  `rate_group` varchar(50) DEFAULT NULL,
+  `mode` varchar(50) DEFAULT NULL,
+  `manual` varchar(50) DEFAULT NULL,
+  `dg_type` varchar(10) DEFAULT NULL,
+  `qty` varchar(10) DEFAULT NULL,
+  `rate` varchar(20) DEFAULT NULL,
+  `currency` text DEFAULT NULL,
+  `ex_rate` varchar(20) DEFAULT NULL,
+  `amount` varchar(20) DEFAULT NULL,
+  `local_amount` varchar(20) DEFAULT NULL,
+  `tax` varchar(20) DEFAULT NULL,
+  `inc_tax_amount` varchar(20) DEFAULT NULL,
+  `buying_rate` varchar(20) DEFAULT NULL,
+  `remarks` varchar(200) DEFAULT NULL,
+  `payable_to` varchar(50) DEFAULT NULL,
+  `buying_remarks` varchar(200) DEFAULT NULL,
+  `ord` varchar(20) DEFAULT NULL,
+  `tariff_code` varchar(10) DEFAULT NULL,
+  `created_at` varchar(20) DEFAULT NULL,
+  `updated_at` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `quotation_details`
+--
+
+INSERT INTO `quotation_details` (`id`, `quotation_id`, `charges_code`, `charges`, `charges_desc`, `charges_category`, `units`, `size_type`, `good_unit`, `rate_group`, `mode`, `manual`, `dg_type`, `qty`, `rate`, `currency`, `ex_rate`, `amount`, `local_amount`, `tax`, `inc_tax_amount`, `buying_rate`, `remarks`, `payable_to`, `buying_remarks`, `ord`, `tariff_code`, `created_at`, `updated_at`) VALUES
+(1, 3, 'N/A', '0', '-', '-', 'Unit', '2', 'Pallet/S', '-', 'Pay To Vendor', 'on', 'Non-DG', '10', '50', '1', '1', '500', '500', '0', '500', '25', '-', '-', '-', '-', '-', '2024-05-23 13:23:13', '2024-05-23 13:23:13');
 
 -- --------------------------------------------------------
 
@@ -1372,6 +1444,12 @@ ALTER TABLE `general_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `incoterms`
+--
+ALTER TABLE `incoterms`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `invoices`
 --
 ALTER TABLE `invoices`
@@ -1479,6 +1557,12 @@ ALTER TABLE `proposal_qties`
 -- Indexes for table `quotations`
 --
 ALTER TABLE `quotations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `quotation_details`
+--
+ALTER TABLE `quotation_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1637,6 +1721,12 @@ ALTER TABLE `general_settings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `incoterms`
+--
+ALTER TABLE `incoterms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
@@ -1736,7 +1826,13 @@ ALTER TABLE `proposal_qties`
 -- AUTO_INCREMENT for table `quotations`
 --
 ALTER TABLE `quotations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `quotation_details`
+--
+ALTER TABLE `quotation_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reminders`

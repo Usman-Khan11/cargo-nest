@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-5">
-                <form id="myForm" method="post" action="{{ route('admin.currency.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.inco_term.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -96,35 +96,7 @@
                                 <input name="name" type="text" class="form-control name" placeholder="" />
                             </div>
                         </div>
-                        <div class="col-md-6 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Main Symbol:</label>
-                                <input name="main_symbol" type="text" class="form-control main_symbol" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Sub Unit Symbol:</label>
-                                <input name="unit_symbol" type="text" class="form-control unit_symbol" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-md-5 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Decimal Portion Digits:</label>
-                                <input name="decimal_portion_digits" type="text" class="form-control decimal_portion_digits" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Ex Rate:</label>
-                                <input name="ex_rate" type="text" class="form-control decimal_portion_digits" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <div class="mb-2 mt-4">
-                                <button class="btn btn-primary">Bulk Upload</button>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -142,10 +114,7 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -153,10 +122,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                       
                                     </tr>
                                 </tbody>
                             </table>
@@ -190,7 +156,7 @@
                 "pageLength": 15,
                 "scrollX": true,
                 "ajax": {
-                    "url": "{{ route('admin.currency.create') }}",
+                    "url": "{{ route('admin.inco_term.create') }}",
                     "type": "get",
                     "data": function(d) {
                         var frm_data = $('#result_report_form').serializeArray();
@@ -212,22 +178,6 @@
                         data: 'name',
                         title: 'Name'
                     },
-                    {
-                        data: 'ex_rate',
-                        title: 'Ex. Rate'
-                    },
-                    {
-                        data: 'main_symbol',
-                        title: 'Main Symbol'
-                    },
-                    {
-                        data: 'unit_symbol',
-                        title: 'Unit Symbol'
-                    },
-                    {
-                        data: 'decimal_portion_digits',
-                        title: 'Decimal Digits'
-                    },
                     
                 ],          
                  "rowCallback": function(row, data) {
@@ -242,11 +192,8 @@ function edit_row(e,data){
     if(data){
         $(".code").val(data.code);
         $(".name").val(data.name);
-        $(".main_symbol").val(data.main_symbol);
-        $(".unit_symbol").val(data.unit_symbol);
-        $(".decimal_portion_digits").val(data.decimal_portion_digits);
-        
-        $("#myForm").attr("action","{{ route('admin.currency.update') }}")
+       
+        $("#myForm").attr("action","{{ route('admin.inco_term.update') }}")
         $("input[name=id]").val(data.id);
     }
     

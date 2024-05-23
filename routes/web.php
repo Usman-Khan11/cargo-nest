@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\QuotationController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\CommodityController;
+use App\Http\Controllers\Admin\IncoTermController;
 use App\Http\Controllers\Admin\VesselController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\VoyageController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\Admin\ChargesController;
 use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PartyController;
 use App\Http\Controllers\Admin\ManifestController;
 use App\Http\Controllers\Admin\CroController;
@@ -146,6 +148,14 @@ Route::namespace('Admin')
                 Route::post('commodity/store',[CommodityController::class ,'store'])->name('commodity.store');
                 Route::post('commodity/update',[CommodityController::class ,'update'])->name('commodity.update');
                 
+                // COMMODITY ROUTES
+                Route::get('inco_term',[IncoTermController::class ,'index'])->name('inco_term');
+                Route::get('inco_term/create',[IncoTermController::class ,'create'])->name('inco_term.create');
+                Route::get('inco_term/edit/{id}',[IncoTermController::class ,'edit'])->name('inco_term.edit');
+                Route::get('inco_term/delete/{id}',[IncoTermController::class ,'delete'])->name('inco_term.delete');
+                Route::post('inco_term/store',[IncoTermController::class ,'store'])->name('inco_term.store');
+                Route::post('inco_term/update',[IncoTermController::class ,'update'])->name('inco_term.update');
+                
                 // VESSEL ROUTES
                 Route::get('vessel',[VesselController::class ,'index'])->name('vessel');
                 Route::get('vessel/create',[VesselController::class ,'create'])->name('vessel.create');
@@ -209,6 +219,14 @@ Route::namespace('Admin')
                 Route::get('party/delete/{id}',[PartyController::class ,'delete'])->name('party.delete');
                 Route::post('party/store',[PartyController::class ,'store'])->name('party.store');
                 Route::post('party/update',[PartyController::class ,'update'])->name('party.update');
+
+                // EMPLOYEE ROUTES
+                Route::get('employee',[EmployeeController::class ,'index'])->name('employee');
+                Route::get('employee/create',[EmployeeController::class ,'create'])->name('employee.create');
+                Route::get('employee/edit/{id}',[EmployeeController::class ,'edit'])->name('employee.edit');
+                Route::get('employee/delete/{id}',[EmployeeController::class ,'delete'])->name('employee.delete');
+                Route::post('employee/store',[EmployeeController::class ,'store'])->name('employee.store');
+                Route::post('employee/update',[EmployeeController::class ,'update'])->name('employee.update');
                 
                 // MANIFEST ROUTES
                 Route::get('manifest',[ManifestController::class ,'index'])->name('manifest');

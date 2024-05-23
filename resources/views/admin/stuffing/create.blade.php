@@ -72,8 +72,8 @@
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            <div class="col-md-6">
-                <form method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
+            <div class="col-md-7">
+                <form id="myForm" method="post" action="{{ route('admin.stuffing.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -157,92 +157,86 @@
                                 </div>
                                 
                             </div>
-
+                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Stuffing Date</label>
+                                        <input name="stuffing_date" type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Cut Off Date</label>
+                                        <input name="cut_off_date" type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Port of Discharge</label>
+                                        <input name="port_of_discharge" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Size Type</label>
+                                        <select name="size_type" class="form-select">
+                                            <option value=""></option>
+                                            <option value=""></option>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Job#</label>
+                                        <input name="job_number" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Voyage</label>
+                                        <input name="voyage" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Sailing Date</label>
+                                        <input name="sailing_date" type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Delivery</label>
+                                        <input name="delivery" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Print</label>
+                                        <input name="print" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Serial No</label>
+                                        <input name="serial_number" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary btn-sm mb-2">Update Details On Booking</button>
+                                        <button class="btn btn-primary btn-sm">Vessel And Voyage Update</button>
+                                        <button class="btn btn-primary btn-sm">Excel Upload</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
                 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Stuffing Date</label>
-                                    <input name="stuffing_date" type="date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Cut Off Date</label>
-                                    <input name="cut_off_date" type="date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Port of Discharge</label>
-                                    <input name="port_of_discharge" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Size Type</label>
-                                    <select name="type1" class="form-select">
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Job#</label>
-                                    <input name="job_number" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Voyage</label>
-                                    <input name="voyage" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Sailing Date</label>
-                                    <input name="sailing_date" type="date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Delivery</label>
-                                    <input name="delivery" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Print</label>
-                                    <input name="print" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Serial No</label>
-                                    <input name="serial_number" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="mb-3">
-                                    <button class="btn btn-primary btn-sm mb-2">Update Details On Booking</button>
-                                    <button class="btn btn-primary btn-sm">Vessel And Voyage Update</button>
-                                    <button class="btn btn-primary btn-sm">Excel Upload</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="card mt-3">
                     <div class="card-body">
                         <div class="responsive text-nowrap">
                             <table class="table table-bordered table-sm quotation_record">
@@ -253,10 +247,12 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -339,7 +335,7 @@ $(document).ready(function(){
         "pageLength": 15,
         "scrollX": true,
         "ajax": {
-            "url": "{{ route('admin.stuffing') }}",
+            "url": "{{ route('admin.stuffing.create') }}",
             "type": "get",
             "data": function(d) {
                 var frm_data = $('#result_report_form').serializeArray();
@@ -354,26 +350,34 @@ $(document).ready(function(){
                 title: 'Sr No'
             },
             {
-                data: 'name',
-                title: 'Name'
+                data: 'tran_number',
+                title: 'Tran #'
             },
             {
-                data: 'address',
-                title: 'Address'
+                data: 'date',
+                title: 'Date'
             },
             {
-                data: 'email',
-                title: 'Email'
+                data: 'seal_number',
+                title: 'Seal #'
             },
             {
-                data: 'phone',
-                title: 'Phone'
+                data: 'vessel',
+                title: 'Vessel'
+            },
+            {
+                data: 'overseas_agent',
+                title: 'Overseas Agent'
             },
         ],          
          "rowCallback": function(row, data) {}
     });
 });
 
+$('#submitButton').click(function(){
+    // Trigger form submission
+    $('#myForm').submit();
+});
 
 </script>
 

@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-6">
-                <form method="post" action="{{ route('admin.cro.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.cro.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -85,7 +85,7 @@
                                 <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">CRO No</label>
-                                        <input name="trans" type="text" class="form-control" placeholder="" />
+                                        <input name="cro_no" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -311,28 +311,28 @@
                                         <input name="sailing_date" type="date" class="form-control" />
                                     </div>
                                 </div>
-                                <div class="col-md-7 col-12">
-                                    <div class="mb-3 d-flex">
+                                <div class="col-md-8 col-12">
+                                    <div class="mb-3 mt-4 d-flex">
                                         <div>
-                                            <input name="manual" type="checkbox" /><span>&nbsp;&nbsp;Manual</span>
+                                            <input name="manual" value="Manual" type="checkbox" class="form-check-input" /><span>&nbsp;&nbsp;Manual</span>
                                         </div>
                                         <div class="mx-2">
                                             <input name="manual" type="text" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5 col-12">
-                                    <div class="mb-3">
-                                        <input name="upload" type="file" class="form-control" />
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-3 mt-4">
+                                        <button class="btn btn-primary btn-sm">Upload</button>
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-12">
                                     <div class="mb-3 d-flex justify-content-between">
                                         <div>
-                                            <input name="manual" type="checkbox" /><span>&nbsp;&nbsp;Print Logo</span>
+                                            <input name="print_logo" value="Print Logo" type="checkbox" class="form-check-input" class="form-check-input" /><span>&nbsp;&nbsp;Print Logo</span>
                                         </div>
                                         <div class="mx-2">
-                                            <input name="manual" type="checkbox" /><span>&nbsp;&nbsp;Continue Mode</span>
+                                            <input name="continue_mode" Value="Continue Mode" type="checkbox" class="form-check-input" /><span>&nbsp;&nbsp;Continue Mode</span>
                                         </div>
                                     </div>
                                 </div>
@@ -360,10 +360,12 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -431,27 +433,34 @@ $(document).ready(function(){
                 title: 'Sr No'
             },
             {
-                data: 'name',
-                title: 'Name'
+                data: 'cro_no',
+                title: 'Cro No'
             },
             {
-                data: 'address',
-                title: 'Address'
+                data: 'cro_type',
+                title: 'Cro Type'
             },
             {
-                data: 'email',
-                title: 'Email'
+                data: 'job_number',
+                title: 'Job Number'
             },
             {
-                data: 'phone',
-                title: 'Phone'
+                data: 'client',
+                title: 'Client'
+            },
+            {
+                data: 'issue_date',
+                title: 'Issue Date'
             },
         ],          
          "rowCallback": function(row, data) {}
     });
 });
 
-
+ $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
 
 
 </script>

@@ -443,8 +443,8 @@
                         <div data-i18n="General Setting">Se Letter List</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.quotation.create')}}">
+                    <a href="{{route('admin.quotation.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Quotation</div>
                     </a>
@@ -1600,8 +1600,8 @@
                                 <div data-i18n="General Setting">Employee Designation</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.employee.create')}}">
+                            <a href="{{route('admin.employee.create')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Employee</div>
                             </a>
@@ -2024,8 +2024,8 @@
                         <div data-i18n="BANK DETAIL REGISTER">Bank Detail Register</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.inco_term.create')}}">
+                    <a href="{{route('admin.inco_term.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-map-alt"></i>
                         <div data-i18n="INCO TERM">Incoterm</div>
                     </a>
@@ -2219,8 +2219,8 @@
                         <div data-i18n="JOB SETTLEMENT">Job Settlement</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.quotation.create')}}">
-                    <a href="{{route('admin.quotation.create')}}" class="menu-link">
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-book"></i>
                         <div data-i18n="QUOTATION">Quotation</div>
                     </a>
