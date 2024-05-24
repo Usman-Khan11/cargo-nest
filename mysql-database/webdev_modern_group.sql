@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 23, 2024 at 10:01 AM
+-- Generation Time: May 23, 2024 at 06:05 PM
 -- Server version: 10.3.39-MariaDB
 -- PHP Version: 8.1.27
 
@@ -1107,6 +1107,93 @@ INSERT INTO `quotation_details` (`id`, `quotation_id`, `charges_code`, `charges`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `receipts`
+--
+
+CREATE TABLE `receipts` (
+  `id` int(11) NOT NULL,
+  `tran_no` varchar(100) NOT NULL,
+  `tran_date` varchar(100) NOT NULL,
+  `status` varchar(155) NOT NULL,
+  `sequence` text DEFAULT NULL,
+  `refund` varchar(155) DEFAULT NULL,
+  `hbl_no` varchar(155) DEFAULT NULL,
+  `advance_balance` varchar(155) DEFAULT NULL,
+  `cost_center` varchar(155) DEFAULT NULL,
+  `cc_invoice` varchar(225) DEFAULT NULL,
+  `total_amount` varchar(225) DEFAULT NULL,
+  `client` varchar(225) DEFAULT NULL,
+  `code` varchar(225) DEFAULT NULL,
+  `currency` varchar(155) DEFAULT NULL,
+  `operation` varchar(255) DEFAULT NULL,
+  `job_number` varchar(155) DEFAULT NULL,
+  `terminal_inv_number` varchar(225) DEFAULT NULL,
+  `continue` text DEFAULT NULL,
+  `exchange_rate` text DEFAULT NULL,
+  `multi_currency` varchar(225) DEFAULT NULL,
+  `payment_type` varchar(225) DEFAULT NULL,
+  `account` varchar(255) DEFAULT NULL,
+  `code2` varchar(155) DEFAULT NULL,
+  `reversal` text DEFAULT NULL,
+  `rev_tran_number` text DEFAULT NULL,
+  `on_account` text DEFAULT NULL,
+  `tax` text DEFAULT NULL,
+  `tax_amt` varchar(225) DEFAULT NULL,
+  `sub_type` varchar(255) DEFAULT NULL,
+  `cheque_no` text DEFAULT NULL,
+  `date` varchar(155) DEFAULT NULL,
+  `account_no` varchar(255) DEFAULT NULL,
+  `draw_at` text DEFAULT NULL,
+  `invoice_no` varchar(155) DEFAULT NULL,
+  `pay_to` text DEFAULT NULL,
+  `bank_charges` text DEFAULT NULL,
+  `gain_loss_fc` varchar(225) DEFAULT NULL,
+  `account1` varchar(225) DEFAULT NULL,
+  `account2` varchar(225) DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `t_amount` varchar(225) DEFAULT NULL,
+  `advance` text DEFAULT NULL,
+  `voucher_number` varchar(225) DEFAULT NULL,
+  `rf` text DEFAULT NULL,
+  `net_received` text DEFAULT NULL,
+  `normal` text DEFAULT NULL,
+  `security` text DEFAULT NULL,
+  `detension` text DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `receipt_details`
+--
+
+CREATE TABLE `receipt_details` (
+  `id` int(11) NOT NULL,
+  `receipt_id` varchar(255) NOT NULL,
+  `job_no` varchar(100) DEFAULT NULL,
+  `invoice_no` varchar(100) DEFAULT NULL,
+  `invoice_date` varchar(100) DEFAULT NULL,
+  `ref_no` varchar(100) DEFAULT NULL,
+  `hbl_no` varchar(100) DEFAULT NULL,
+  `mbl_no` varchar(100) DEFAULT NULL,
+  `inv_curr` varchar(255) DEFAULT NULL,
+  `inv_bal` varchar(255) DEFAULT NULL,
+  `rcvd_amount` varchar(255) DEFAULT NULL,
+  `balance` varchar(255) DEFAULT NULL,
+  `checkbox` varchar(100) DEFAULT NULL,
+  `file_no` varchar(255) DEFAULT NULL,
+  `container` varchar(255) DEFAULT NULL,
+  `index_no` varchar(100) DEFAULT NULL,
+  `igm_no` varchar(100) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reminders`
 --
 
@@ -1566,6 +1653,18 @@ ALTER TABLE `quotation_details`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `receipts`
+--
+ALTER TABLE `receipts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `receipt_details`
+--
+ALTER TABLE `receipt_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `reminders`
 --
 ALTER TABLE `reminders`
@@ -1833,6 +1932,18 @@ ALTER TABLE `quotations`
 --
 ALTER TABLE `quotation_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `receipts`
+--
+ALTER TABLE `receipts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `receipt_details`
+--
+ALTER TABLE `receipt_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reminders`

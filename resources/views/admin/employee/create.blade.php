@@ -250,12 +250,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 text-center">
             <h5>Image</h5>
-            <img src="blank-profile-picture-973460_960_720.webp" alt=""style="width: 100%;" class="mb-2">
+            <img src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png" width="75%" class="mb-2">
             <div class="main-image" >
-                <button>Upload</button>
-                <button>Remove</button>
+                <button class="btn btn-primary btn-sm">Upload</button>
+                <button class="btn btn-danger btn-sm mx-3">Remove</button>
             </div>
             </div>
         </div>

@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-12">
-                <form method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.manifest.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -401,11 +401,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                
-            </div>
-            <div class="col-md-12">
-                <div class="card mt-3">
+                    <div class="card mt-3">
                     <div class="card-body">
                         <div class="card-datatable table-responsive pt-0">
                                     <table class="datatables-basic table" style="width: 220%;">
@@ -453,9 +449,7 @@
                                 </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card mt-3">
+                    <div class="card mt-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -468,7 +462,7 @@
                             <div class="col-md-2">
                                 <div class="mb-2">
                                     <label class="form-label">Total Amount</label>
-                                    <input name="total_amount" type="text" class="form-control">
+                                    <input name="t_amount" type="text" class="form-control">
                                 </div>
                             </div>
                             
@@ -524,7 +518,23 @@
                         </div>
                     </div>
                 </div>
+                </form>
+                
             </div>
         </div>
     </div>
 @endsection
+
+
+
+
+@push('script')
+
+<script>
+    $('#submitButton').click(function(){
+        // Trigger form submission
+        $('#myForm').submit();
+      });
+</script>
+
+@endpush

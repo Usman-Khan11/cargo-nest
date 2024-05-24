@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PartyBasicInfo;
-use App\Models\PartyOtherInfo;
-use App\Models\PartyAccountDetail;
-use App\Models\PartyAchBankDetail;
-use App\Models\PartyLocalizeKyc;
+use App\Models\Receipt;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -75,29 +71,104 @@ class ReceiptController extends Controller
         return redirect()->route('admin.receipt')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'short_name' => 'required',
-    //         'reg_date' => 'required',
-    //         'license_no' => 'required',
-    //         'contact_person' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'tran_number' => 'required',
+            'tran_date' => 'required',
+            'status' => 'required',
+        ]);
         
-    //     $partybasicinfo = new PartyBasicInfo();
-    //     $partybasicinfo->short_name = $request->short_name;
-    //     $partybasicinfo->reg_date = $request->reg_date;
-    //     $partybasicinfo->license_no = $request->license_no;
-    //     $partybasicinfo->contact_person = $request->contact_person;
-    //     $partybasicinfo->ntn = $request->ntn;
-    //     $partybasicinfo->strn = $request->strn;
-    //     $partybasicinfo->address1 = $request->address1;
-    //     $partybasicinfo->address2 = $request->address2;
-    //     $partybasicinfo->save();
+        $receipt = new Receipt();
+        $receipt->tran_number = $request->tran_number;
+        $receipt->tran_date = $request->tran_date;
+        $receipt->status = $request->status;
+        $receipt->sequence = $request->sequence;
+        $receipt->refund = $request->refund;
+        $receipt->hbl_number = $request->hbl_number;
+        $receipt->advance_balance = $request->advance_balance;
+        $receipt->cost_center = $request->cost_center;
+        $receipt->cc_invoice = $request->cc_invoice;
+        $receipt->total_amount = $request->total_amount;
+        $receipt->client = $request->client;
+        $receipt->code = $request->code;
+        $receipt->currency = $request->currency;
+        $receipt->operation = $request->operation;
+        $receipt->job_number = $request->job_number;
+        $receipt->terminal_inv_number = $request->terminal_inv_number;
+        $receipt->continue = $request->continue;
+        $receipt->exchange_rate = $request->exchange_rate;
+        $receipt->multi_currency = $request->multi_currency;
+        $receipt->payment_type = $request->payment_type;
+        $receipt->account = $request->account;
+        $receipt->code2 = $request->code2;
+        $receipt->reversal = $request->reversal;
+        $receipt->rev_tran_number = $request->rev_tran_number;
+        $receipt->on_account = $request->on_account;
+        $receipt->tax = $request->tax;
+        $receipt->tax_amt = $request->tax_amt;
+        $receipt->sub_type = $request->sub_type;
+        $receipt->cheque_no = $request->cheque_no;
+        $receipt->date = $request->date;
+        $receipt->Account = $request->Account;
+        $receipt->draw_at = $request->draw_at;
+        $receipt->invoice_no = $request->invoice_no;
+        $receipt->pay_to = $request->pay_to;
+        $receipt->bank_charges = $request->bank_charges;
+        $receipt->gain_loss_fc = $request->gain_loss_fc;
+        $receipt->account1 = $request->account1;
+        $receipt->account2 = $request->account2;
+        $receipt->remarks = $request->remarks;
+        $receipt->t_amount = $request->t_amount;
+        $receipt->advance = $request->advance;
+        $receipt->voucher_number = $request->voucher_number;
+        $receipt->rf = $request->rf;
+        $receipt->net_received = $request->net_received;
+        $receipt->normal = $request->normal;
+        $receipt->security = $request->security;
+        $receipt->detension = $request->detension;
+        $receipt->save();
+        
+        $job_no = $request->job_no;
+        foreach($job_no as $key => $value) {
+            $receipt_details = new Receiptdetails();
+            $receipt_details->receipt_id = $receipt->id;
+            $receipt_details->job_no = $request->job_no[$key];
+            $receipt_details->invoice_no = $request->invoice_no[$key];
+            $receipt_details->invoice_date = $request->invoice_date[$key];
+            $receipt_details->ref_no = $request->ref_no[$key];
+            $receipt_details->hbl_no = $request->hbl_no[$key];
+            $receipt_details->mbl_no = $request->mbl_no[$key];
+            $receipt_details->inv_curr = $request->inv_curr[$key];
+            $receipt_details->inv_bal = $request->inv_bal[$key];
+            $receipt_details->rcvd_amount = $request->rcvd_amount[$key];
+            $receipt_details->balance = $request->balance[$key];
+            $receipt_details->checkbox = $request->checkbox[$key];
+            $receipt_details->file_no = $request->file_no[$key];
+            $receipt_details->container = $request->container[$key];
+            $receipt_details->index_no = $request->index_no[$key];
+            $receipt_details->igm_no = $request->igm_no[$key];
+            $receipt_details->save();
+        }
      
-    //     $notify[] = ['success', 'Party Added Successfully.'];
-    //     return redirect()->route('admin.party')->withNotify($notify);
-    // }
+        $notify[] = ['success', 'Party Added Successfully.'];
+        return redirect()->route('admin.party')->withNotify($notify);
+    }
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'tran_number' => 'required',
+            'tran_date' => 'required',
+            'status' => 'required',
+        ]);
+        
+        $receipt = Receipt::where("id", $request->id)->first();
+        $receipt->fill($request->all());
+        $receipt->save();
+        
+        $notify[] = ['success', 'Receipt Updated Successfully.'];
+        return redirect()->route('admin.receipt')->withNotify($notify);
+    }
     
     
 }
