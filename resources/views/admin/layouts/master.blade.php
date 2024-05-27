@@ -90,6 +90,27 @@
             
             $('#navbar_search_result_area').css('display', 'block');
           });
+          
+          
+         function getList(route, type, id) {
+          let data = null;
+          $.ajax({
+            url: route,
+            type: "POST",
+            data: {
+              id: id,
+              type: type,
+              _token: "{{ csrf_token() }}",
+            },
+            async: false,
+            success: function (res) {
+              if (res) {
+                data = res;
+              }
+            },
+          });
+          return data;
+        }
     </script>
   </body>
 </html>

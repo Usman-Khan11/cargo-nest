@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Voyage;
+use App\Models\Vessel;
+use App\Models\VoyageDetail;
+use App\Models\VoyageLocal;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,27 +49,19 @@ class VoyageController extends Controller
     
     public function create(Request $request)
     {
-        
         if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Voyage::Query();
-            $totalCount=$query->count(); 
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = Voyage::Query();
+            $query = $query->with('vessel');
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
+        
         
         $data['seo_title']      = "Voyage";
         $data['seo_desc']       = "Voyage";
         $data['seo_keywords']   = "Voyage";
         $data['page_title'] = "Voyage";
+        $data['vessels'] = Vessel::get();
         return view('admin.voyage.create', $data);
     }
     
@@ -92,12 +87,44 @@ class VoyageController extends Controller
     {
         $validated = $request->validate([
             'vessel' => 'required',
-            'voy' => 'required',
+            'voy' => ['required', 'string', 'max:255', 'unique:voyages'],
         ]);
         
         $voyage = new Voyage();
         $voyage->fill($request->all());
         $voyage->save();
+        
+        $currency = $request->currency;
+        foreach($currency as $key => $value) {
+            $voyage_detail = new VoyageDetail();
+            $voyage_detail->voyage_id = $voyage->id;
+            $voyage_detail->currency = $request->currency[$key];
+            $voyage_detail->selling = $request->selling[$key];
+            $voyage_detail->buying = $request->buying[$key];
+            $voyage_detail->save();
+        }  
+        
+        $code = $request->code;
+        foreach($code as $key => $value) {
+            $voyage_local = new VoyageLocal();
+            $voyage_local->voyage_id = $voyage->id;
+            $voyage_local->code = $request->code[$key];
+            $voyage_local->local_port = $request->local_port[$key];
+            $voyage_local->arrival_date = $request->arrival_date[$key];
+            $voyage_local->sailing_date = $request->sailing_date[$key];
+            $voyage_local->vir_no = $request->vir_no[$key];
+            $voyage_local->egm_no = $request->egm_no[$key];
+            $voyage_local->egm_date = $request->egm_date[$key];
+            $voyage_local->code2 = $request->code2[$key];
+            $voyage_local->slot_operator = $request->slot_operator[$key];
+            $voyage_local->scn = $request->scn[$key];
+            $voyage_local->sa_code = $request->sa_code[$key];
+            $voyage_local->opening_date = $request->opening_date[$key];
+            $voyage_local->opening_time = $request->opening_time[$key];
+            $voyage_local->closing_date = $request->closing_date[$key];
+            $voyage_local->closing_time = $request->closing_time[$key];
+            $voyage_local->save();
+        }    
         
         $notify[] = ['success', 'Voyage Added Successfully.'];
         return redirect()->route('admin.voyage.create')->withNotify($notify);
@@ -116,6 +143,28 @@ class VoyageController extends Controller
         
         $notify[] = ['success', 'Voyage Updated Successfully.'];
         return redirect()->route('admin.voyage.create')->withNotify($notify);
+    }
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Voyage::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Voyage::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Voyage::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Voyage::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
 }

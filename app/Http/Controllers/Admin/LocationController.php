@@ -47,19 +47,9 @@ class LocationController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Location::Query();
-            $totalCount=$query->count(); 
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = Location::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
         $data['seo_title']      = "Location";
@@ -128,5 +118,28 @@ class LocationController extends Controller
         $notify[] = ['success', 'Location Updated Successfully.'];
         return redirect()->route('admin.location.create')->withNotify($notify);
     }
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Location::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Location::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Location::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Location::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
+    }
+    
     
 }

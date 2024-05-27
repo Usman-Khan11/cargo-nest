@@ -3,35 +3,35 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+        <div class="plus" onclick="document.getElementById('myForm').reset()">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save" id="submitButton"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
         <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -81,12 +81,12 @@
                     <!--<hr />-->
                 </div>
                 <div class="card-body">
-                    <input name="id" type="hidden" />
+                    <input name="id" type="hidden" value="0" />
                     <div class="row">
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Vessel Code:</label>
-                                <input name="vessel_code" type="text" value="{{$code}}" class="form-control vessel_code" placeholder="" />
+                                <input name="vessel_code" type="text" value="{{$code}}" class="form-control vessel_code" placeholder="" readonly />
                             </div>
                         </div>
                         <div class="col-md-8 col-12">
@@ -95,7 +95,13 @@
                                 <input name="vessel_name" type="text" class="form-control vessel_name" placeholder="" />
                             </div>
                         </div>
-                        <div class="col-md-8 col-12">
+                        <div class="col-md-4 col-12">
+                            <div class="mb-2">
+                                <label class="form-label">Ship Id:</label>
+                                <input name="ship_id" type="text" class="form-control ship_id" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Owner:</label>
                                 <input name="owner" type="text" class="form-control owner" placeholder="" />
@@ -145,9 +151,10 @@
                         
                         <div class="col-md-12">
                             <div class="mb-2 mt-2">
-                                <a><button class="btn btn-primary btn-sm">Show Voyage</button></a>
-                                <a><button class="btn btn-primary btn-sm">Download</button></a>
-                                <a><button class="btn btn-primary btn-sm">Bulk Upload</button></a>
+                                <a class="btn btn-primary btn-sm" href="/admin/voyage/create">Show Voyage</a>
+                                <a class="btn btn-primary btn-sm" href="{{ asset('assets/vessels.csv') }}" download>Download</a>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('sortExcel').click()">Bulk Upload</button>
+                                <input type="file" id="sortExcel" hidden class="form-control" onchange="excelFileImporter(this)" accept=".csv" />
                             </div>
                         </div>
                         
@@ -203,107 +210,136 @@
 
 @push('script')
 <script>
-    $('#submitButton').click(function(){
-        // Trigger form submission
-        $('#myForm').submit();
-      });
-      
-$(document).ready(function(){
-    var datatable = $('.quotation_record').DataTable({
-        select: {
-            style: 'api'
-        },
-        "processing": true,
-        "serverSide": true,
-        "lengthChange": false,
-        "pageLength": 15,
-        "scrollX": true,
-        "ajax": {
-            "url": "{{ route('admin.vessel.create') }}",
-            "type": "get",
-            "data": function(d) {
-                var frm_data = $('#result_report_form').serializeArray();
-                $.each(frm_data, function(key, val) {
-                    d[val.name] = val.value;
-                });
-            },
-        },
-        columns: [
-            
-            {
-                data: 'DT_RowIndex',
-                title: 'Sr No'
-            },
-            {
-                data: 'vessel_code',
-                title: 'Vessel Code'
-            },
-            {
-                data: 'vessel_name',
-                title: 'Vessel Name:'
-            },
-            {
-                data: 'owner',
-                title: 'Owner'
-            },
-            {
-                data: 'principle_code',
-                title: 'Principle Code'
-            },
-            {
-                data: 'call_sign',
-                title: 'Call Sign'
-            },
-            {
-                data: 'grt',
-                title: 'GRT'
-            },
-            {
-                data: 'nrt',
-                title: 'NRT'
-            },
-            {
-                data: 'imo_no',
-                title: 'IMO No'
-            },
-            {
-                data: 'country_registered',
-                title: 'Country of Registered'
-            },
-           
-        ],          
-         "rowCallback": function(row, data) {
-             $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
-         }
-    });
+$("#submitButton").click(function () {
+  $("#myForm").submit();
 });
 
-function edit_row(e,data){
-    data = JSON.parse(data);
-    if(data){
-        $(".vessel_code").val(data.vessel_code);
-        $(".vessel_name").val(data.vessel_name);
-        $(".owner").val(data.owner);
-        $(".principle_code").val(data.principle_code);
-        $(".call_sign").val(data.call_sign);
-        $(".grt").val(data.grt);
-        $(".nrt").val(data.nrt);
-        $(".imo_no").val(data.imo_no);
-        $(".country_registered").val(data.country_registered);
-        $("#myForm").attr("action","{{ route('admin.vessel.update') }}")
-         $("input[name=id]").val(data.id);
-    }
-    
+var datatable = null;
+
+$(document).ready(function () {
+  datatable = $(".quotation_record").DataTable({
+    select: {
+      style: "api",
+    },
+    processing: true,
+    serverSide: true,
+    lengthChange: false,
+    pageLength: 10,
+    scrollX: true,
+    ajax: {
+      url: "{{ route('admin.vessel.create') }}",
+      type: "get",
+      data: function (d) {
+        var frm_data = $("#result_report_form").serializeArray();
+        $.each(frm_data, function (key, val) {
+          d[val.name] = val.value;
+        });
+      },
+    },
+    columns: [
+      {
+        data: "vessel_code",
+        title: "Vessel Code",
+      },
+      {
+        data: "vessel_name",
+        title: "Vessel Name:",
+      },
+      {
+        data: "ship_id",
+        title: "Ship ID:",
+      },
+      {
+        data: "owner",
+        title: "Owner",
+      },
+      {
+        data: "principle_code",
+        title: "Principle Code",
+      },
+      {
+        data: "call_sign",
+        title: "Call Sign",
+      },
+      {
+        data: "grt",
+        title: "GRT",
+      },
+      {
+        data: "nrt",
+        title: "NRT",
+      },
+      {
+        data: "imo_no",
+        title: "IMO No",
+      },
+      {
+        data: "country_registered",
+        title: "Country of Registered",
+      },
+    ],
+    rowCallback: function (row, data) {
+      $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`);
+    },
+  });
+});
+
+function edit_row(e, data) {
+  data = JSON.parse(data);
+  if (data) {
+    $(".vessel_code").val(data.vessel_code);
+    $(".vessel_name").val(data.vessel_name);
+    $(".ship_id").val(data.ship_id);
+    $(".owner").val(data.owner);
+    $(".principle_code").val(data.principle_code);
+    $(".call_sign").val(data.call_sign);
+    $(".grt").val(data.grt);
+    $(".nrt").val(data.nrt);
+    $(".imo_no").val(data.imo_no);
+    $(".country_registered").val(data.country_registered);
+    $("#myForm").attr("action", "{{ route('admin.vessel.update') }}");
+    $("input[name=id]").val(data.id);
+  }
 }
 
+$(".navigation").click(function () {
+  let id = $("input[name=id]").val();
+  let route = "/admin/vessel/get";
+  let type = $(this).attr("data-type");
+  let data = getList(route, type, id);
+  if (data != null) {
+    edit_row("", JSON.stringify(data));
+  }
+});
 
+function excelFileImporter(e) {
+  let file = $(e).val();
+  if (file) {
+    var file_data = $("#sortExcel").prop("files")[0];
+    var form_data = new FormData();
+    form_data.append("_token", "{{ csrf_token() }}");
+    form_data.append("import_file", file_data);
+    form_data.append("excelFileImporter", "true");
 
-
-
-
-
+    $.ajax({
+      url: "/admin/vessel/import",
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data,
+      type: "post",
+      success: function (res) {
+        if (res[0] == "success") {
+          iziToast.success({ message: res[1], position: "topRight" });
+          datatable.ajax.reload();
+        } else {
+          iziToast.error({ message: res[1], position: "topRight" });
+        }
+      },
+    });
+  }
+}
 </script>
-
 @endpush
 
 

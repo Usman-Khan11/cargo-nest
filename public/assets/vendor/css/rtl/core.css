@@ -6619,10 +6619,6 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
   padding-top: 0.88rem;
   padding-bottom: 0.88rem;
 }
-.table td input{
-    border:0;
-    outline:none;
-}
 
 .table:not(.table-dark) thead:not(.table-dark) th {
   color: #5d596c;
@@ -23333,6 +23329,7 @@ a.bg-vimeo:hover, a.bg-vimeo:focus {
 .topbar_nav i{
     padding: 8px 10px;
     font-size: 18px;
+    cursor:pointer;
 }
 
 .topbar_nav .plus{
@@ -23388,6 +23385,12 @@ ul.navbar_search_result{
 
 
 
+table.table-bordered.dataTable thead tr:first-child th, table.table-bordered.dataTable thead tr:first-child td {
+    border-top-width: 1px;
+    padding: 8px 20px;
+    background-color: #71bf45;
+    color: #fff;
+}
 
 
 

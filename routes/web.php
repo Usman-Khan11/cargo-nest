@@ -163,6 +163,8 @@ Route::namespace('Admin')
                 Route::get('vessel/delete/{id}',[VesselController::class ,'delete'])->name('vessel.delete');
                 Route::post('vessel/store',[VesselController::class ,'store'])->name('vessel.store');
                 Route::post('vessel/update',[VesselController::class ,'update'])->name('vessel.update');
+                Route::post('vessel/import',[VesselController::class ,'bulkUpload'])->name('vessel.import');
+                Route::post('vessel/get',[VesselController::class ,'get_data'])->name('vessel.get');
                 
                 // LOCATION ROUTES
                 Route::get('location',[LocationController::class ,'index'])->name('location');
@@ -171,6 +173,7 @@ Route::namespace('Admin')
                 Route::get('location/delete/{id}',[LocationController::class ,'delete'])->name('location.delete');
                 Route::post('location/store',[LocationController::class ,'store'])->name('location.store');
                 Route::post('location/update',[LocationController::class ,'update'])->name('location.update');
+                Route::post('location/get',[LocationController::class ,'get_data'])->name('location.get');
                 
                 // VOYAGE ROUTES
                 Route::get('voyage',[VoyageController::class ,'index'])->name('voyage');
@@ -179,6 +182,7 @@ Route::namespace('Admin')
                 Route::get('voyage/delete/{id}',[VoyageController::class ,'delete'])->name('voyage.delete');
                 Route::post('voyage/store',[VoyageController::class ,'store'])->name('voyage.store');
                 Route::post('voyage/update',[VoyageController::class ,'update'])->name('voyage.update');
+                Route::post('voyage/get',[VoyageController::class ,'get_data'])->name('voyage.get');
                 
                 // CHARGES ROUTES
                 Route::get('charges',[ChargesController::class ,'index'])->name('charges');

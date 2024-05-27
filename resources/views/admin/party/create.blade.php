@@ -35,7 +35,6 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-4">
     <div class="row">
         <div class="col-md-7">
@@ -52,7 +51,6 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-4">
     <div class="d-flex">
         <div class="check">
@@ -273,131 +271,139 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-12">
-                                <label class="form-check-label mb-2">Type:</label>
-                                <div class="d-flex justify-content-between">
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Shipper</span>
+                                    <label class="form-check-label mb-2">Type:</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="mb-2">
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="shipper" value="Shipper" class="form-check-input">
+                                                    Shipper
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="consignee" value="Consignee" class="form-check-input">
+                                                    Consignee
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="notify" value="Notify" class="form-check-input">
+                                                    Notify
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="potential_customer" value="Potential Customer" class="form-check-input">
+                                                    Potential Customer
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="forwarder_calender" value="Forwarder/Calender" class="form-check-input">
+                                                    Forwarder/Calender
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="local_vendor" value="Local Vendor" class="form-check-input">
+                                                    Local Vendor
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="overseas_agent" value="Overseas Agent" class="form-check-input">
+                                                    Overseas Agent
+                                                </label><br>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-2">
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="shipper" value="Shipper" class="form-check-input">
+                                                    Commision Agent
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="consignee" value="Consignee" class="form-check-input">
+                                                    Indentor
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="potential_customer" value="Potential Customer" class="form-check-input">
+                                                    Transporter
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="forwarder_calender" value="Forwarder/Calender" class="form-check-input">
+                                                    CHA/CHB
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="local_vendor" value="Local Vendor" class="form-check-input">
+                                                    Shipping Line
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="overseas_agent" value="Overseas Agent" class="form-check-input">
+                                                    Delivery Agent
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="overseas_agent" value="warehouse" class="form-check-input">
+                                                    Warehouse
+                                                </label><br>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-2">
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="buying_house" value="Buying House" class="form-check-input">
+                                                    Buying House
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="airline" value="Airline" class="form-check-input">
+                                                    Airline
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="trucking" value="Trucking" class="form-check-input">
+                                                    Trucking
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="drayman" value="Drayman" class="form-check-input">
+                                                    Drayman
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="cartage" value="Cartage" class="form-check-input">
+                                                    Cartage
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="stevedore" value="Stevedore" class="form-check-input">
+                                                    Stevedore
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="principal" value="Principal" class="form-check-input">
+                                                    Principal
+                                                </label><br>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-2">
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="Depot" value="Depot" class="form-check-input">
+                                                    Depot
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="terminal" value="Terminal" class="form-check-input">
+                                                    Terminal
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="buyer" value="Buyer" class="form-check-input">
+                                                    Buyer
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="invoice_Party" value="Invoice Party" class="form-check-input">
+                                                    Invoice Party
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="slot_operator" value="Slot Operator" class="form-check-input">
+                                                    Slot Operator
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="Investor" value="Investor" class="form-check-input">
+                                                    Investor
+                                                </label><br>
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="non_operational_party" value="Non Operational Party" class="form-check-input">
+                                                    Non Operational Party
+                                                </label><br>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Consignee</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Notify</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Potential Customer</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Forwarder/Calender</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Local Vendor</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Overseas Agent</span>
-                                    </div>
-                                   
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Commision Agent</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Indentor</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Transporter</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;CHA/CHB</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Shipping Line</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Delivery Agent</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Warehouse</span>
-                                    </div>
-                                    
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Buying House</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Air line</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Trucking</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Drayman</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Cartage</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Stevedore</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Principal</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Depot</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Terminal</span>
-                                    </div>
-                                    
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Buyer</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Invoice Party</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Slot Operator</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Investor</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" style="width:16px; height:16px;" disabled/><span>&nbsp;&nbsp;Non Operational Party</span>
-                                    </div>
-                                </div>
-                            </div>
                                 <div class="col-md-4 col-12 mt-5">
                                     <div class="d-flex">
                                         <div class="mb-2">

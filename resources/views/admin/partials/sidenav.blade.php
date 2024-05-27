@@ -1790,8 +1790,8 @@
                         <div data-i18n="General Setting">Stamp</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="" class="menu-link">
+                <li class="menu-item {{menuActive('admin.location.create')}}">
+                    <a href="{{route('admin.location.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Un location</div>
                     </a>
@@ -1976,8 +1976,8 @@
                         <div data-i18n="PRINCIPAL MANUAL SOA">Principal Manual SOA</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.location.create')}}">
-                    <a href="{{route('admin.location.create')}}" class="menu-link">
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-location-pin"></i>
                         <div data-i18n="PARTY LOCATIONS">Party Locations</div>
                     </a>
