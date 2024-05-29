@@ -4,35 +4,35 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+        <div class="plus" onclick="document.getElementById('myForm').reset()">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save" id="submitButton"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
         <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -81,17 +81,18 @@
                             <!--<hr />-->
                         </div>
                         <div class="card-body">
+                            <input name="id" type="hidden" />
                             <div class="row">
                                 <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">CRO No</label>
-                                        <input name="cro_no" type="text" class="form-control" placeholder="" />
+                                        <input name="cro_no" type="text" class="form-control cro_no" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">CRO Type</label>
-                                        <select name="cro_type" class="form-select">
+                                        <select name="cro_type" class="form-select cro_type">
                                             <option value="job_booking">Against Job Booking</option>
                                             <option value="empty_movement">For Empty Movement</option>
                                             <option value="sale_off_hire">For Sale/Off-Hire</option>
@@ -101,43 +102,43 @@
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Job#</label>
-                                        <input name="job_number" type="text" class="form-control" />
+                                        <input name="job_number" type="text" class="form-control job_number" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Client</label>
-                                        <input name="client" type="text" class="form-control" />
+                                        <input name="client" type="text" class="form-control client" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Issue Date</label>
-                                        <input name="issue_date" type="date" class="form-control" />
+                                        <input name="issue_date" type="date" class="form-control issue_date" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">CRO Valid For</label>
-                                        <input name="cro_valid_for" type="text" class="form-control" />
+                                        <input name="cro_valid_for" type="text" class="form-control cro_valid_for" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Ref No</label>
-                                        <input name="ref_number" type="text" class="form-control" />
+                                        <input name="ref_number" type="text" class="form-control ref_number" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Equip Qty</label>
-                                        <input name="equip_qty" type="text" class="form-control" />
+                                        <input name="equip_qty" type="text" class="form-control equip_qty" />
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Size Type</label>
-                                        <input name="size_type" type="text" class="form-control" />
+                                        <input name="size_type" type="text" class="form-control size_type" />
                                     </div>
                                 </div>
                             </div>
@@ -296,13 +297,23 @@
                                 <div class="col-md-12 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Vessel</label>
-                                        <input name="vessel" type="text" class="form-control" />
+                                        <select name="vessel" class="form-select">
+                                            <option selected disabled></option>
+                                            @foreach($vessels as $vessel)
+                                                <option value="{{ $vessel->id }}">{{ $vessel->vessel_name }}</option> 
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Voyage</label>
-                                        <input name="voyage" type="text" class="form-control" />
+                                        <select name="voyage" class="form-select">
+                                            <option selected disabled></option>
+                                            @foreach($voyages as $voyage)
+                                                <option value="{{ $voyage->id }}">{{ $voyage->voy }}</option> 
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
@@ -453,14 +464,73 @@ $(document).ready(function(){
                 title: 'Issue Date'
             },
         ],          
-         "rowCallback": function(row, data) {}
+         "rowCallback": function(row, data) {
+             $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
+         }
     });
 });
+
+function edit_row(e, data) {
+  data = JSON.parse(data);
+  if (data) {
+    $(".cro_no").val(data.cro_no);
+    $(".cro_type").val(data.cro_type);
+    $(".job_number").val(data.job_number);
+    $(".client").val(data.client);
+    $(".issue_date").val(data.issue_date);
+    $(".cro_valid_for").val(data.cro_valid_for);
+    $(".ref_number").val(data.ref_number);
+    $(".equip_qty").val(data.equip_qty);
+    $(".size_type").val(data.size_type);
+    $(".overseas_agent").val(data.overseas_agent);
+    $(".clearing_agent").val(data.clearing_agent);
+    $(".shipper").val(data.shipper);
+    $(".pickup_location").val(data.pickup_location);
+    $(".port_of_loading").val(data.port_of_loading);
+    $(".port_of_discharge").val(data.port_of_discharge);
+    $(".final_destination").val(data.final_destination);
+    $(".commodity").val(data.commodity);
+    $(".terminal").val(data.terminal);
+    $(".empty_depot").val(data.empty_depot);
+    $(".transporter").val(data.transporter);
+    $(".book_no").val(data.book_no);
+    $(".gate_pass").val(data.gate_pass);
+    $(".date").val(data.date);
+    $(".letter_no").val(data.letter_no);
+    $(".licence_no").val(data.licence_no);
+    $(".job_no").val(data.job_no);
+    $(".expiry_date").val(data.expiry_date);
+    $(".shipping_agent").val(data.shipping_agent);
+    
+    $(".cargo_type").removeAttr('checked');
+    $(`.cargo_type[value=${data.cargo_type}]`).attr('checked',true);
+        
+    $(".vessel").val(data.vessel);
+    $(".voyage").val(data.voyage);
+    $(".sailing_date").val(data.sailing_date);
+    $(".manual").val(data.manual);
+    $(".print_logo").val(data.print_logo);
+    $(".continue_mode").val(data.continue_mode);
+    $(".haulage").val(data.haulage);
+    $("#myForm").attr("action", "{{ route('admin.cro.update') }}");
+    $("input[name=id]").val(data.id);
+  }
+}
 
  $('#submitButton').click(function(){
         // Trigger form submission
         $('#myForm').submit();
       });
+
+$(".navigation").click(function () {
+  let id = $("input[name=id]").val();
+  let route = "/admin/cro/get";
+  let type = $(this).attr("data-type");
+  let data = getList(route, type, id);
+  if (data != null) {
+    edit_row("", JSON.stringify(data));
+  }
+});
 
 
 </script>

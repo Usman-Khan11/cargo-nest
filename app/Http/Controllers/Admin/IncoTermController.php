@@ -47,19 +47,9 @@ class IncoTermController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Incoterm::Query();
-            $totalCount=$query->count(); 
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = Incoterm::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
         $data['seo_title']      = "Inco Term";
@@ -118,6 +108,28 @@ class IncoTermController extends Controller
         
         $notify[] = ['success', 'Inco Term Updated Successfully.'];
         return redirect()->route('admin.inco_term.create')->withNotify($notify);
+    }
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Incoterm::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Incoterm::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Incoterm::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Incoterm::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
 }

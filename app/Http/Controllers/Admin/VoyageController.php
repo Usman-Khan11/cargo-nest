@@ -8,6 +8,7 @@ use App\Models\Voyage;
 use App\Models\Vessel;
 use App\Models\VoyageDetail;
 use App\Models\VoyageLocal;
+use App\Models\Currency;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,6 +63,7 @@ class VoyageController extends Controller
         $data['seo_keywords']   = "Voyage";
         $data['page_title'] = "Voyage";
         $data['vessels'] = Vessel::get();
+        $data['currencies'] = Currency::get();
         return view('admin.voyage.create', $data);
     }
     

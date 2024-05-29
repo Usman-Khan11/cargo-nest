@@ -3,35 +3,35 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+        <div class="plus" onclick="document.getElementById('myForm').reset()">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
         <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -233,44 +233,44 @@
                                         <input name="acc_dept_email" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-12">
-                                    <label class="form-check-label mb-2"><input name="operation" value="Operation" type="checkbox" width="25px" height="25px"/><span>&nbsp;Operation:</span></label>
+                                <div class="col-md-12 col-12 mt-3">
+                                    <label class="form-check-label mb-2"><input name="operation" value="Operation" type="checkbox" class="form-check-input"/><span>&nbsp;Operation:</span></label>
                                     <div class="d-flex">
                                         <div class="mb-2">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Sea Export</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Sea Export</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Sea Import</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Sea Import</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Air Export</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Air Export</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Air Import</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Air Import</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Logistics</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Logistics</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Warehouse</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Warehouse</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Depot</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Depot</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Other</span>
+                                            <input name="operation_check[]" type="checkbox" class="form-check-input"/><span>&nbsp;Other</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-12">
+                                <div class="col-md-12 col-12 mt-3">
                                     <label class="form-check-label mb-2">Type:</label>
                                     <div class="row">
                                         <div class="col-md-3">
@@ -408,11 +408,11 @@
                                     <div class="d-flex">
                                         <div class="mb-2">
                                             <label class="form-label"></label>
-                                            <input name="nomination[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Import Nomination</span>
+                                            <input name="nomination[]" type="checkbox" class="form-check-input"/><span>&nbsp;Import Nomination</span>
                                         </div>
                                         <div class="mb-2 px-3">
                                             <label class="form-label"></label>
-                                            <input name="nomination[]" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Export Nomination</span>
+                                            <input name="nomination[]" type="checkbox" class="form-check-input"/><span>&nbsp;Export Nomination</span>
                                         </div>
                                     </div>
                                 </div>
@@ -425,11 +425,11 @@
                                 <div class="col-md-5 mt-4">
                                     <div class="mb-2">
                                         <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Apply Company Restriction</span>
+                                        <input name="inactive" type="checkbox" class="form-check-input"/><span>&nbsp;Apply Company Restriction</span>
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label"></label>
-                                        <input name="inactive" type="checkbox" width="25px" height="25px"/><span>&nbsp;&nbsp;Apply Cost Center Restriction</span>
+                                        <input name="inactive" type="checkbox" class="form-check-input"/><span>&nbsp;Apply Cost Center Restriction</span>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mt-4">
@@ -781,20 +781,22 @@
                                     </thead>
                                     <tbody>
                                         <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><input type="checkbox" disabled style="width: 16px; height:16px;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><select style="width: 100%; border:none; outline:none;">
-                                            <option>Air Export</option>
-                                            <option>Air Import</option>
-                                            <option>Sea Export</option>
-                                            <option>Sea Import</option>
-                                            <option>Logistics</option>
-                                            <option>Warehouse</option>
-                                            <option>Other</option>
-                                            <option>All</option>
-                                        </select></td>
+                                        <td><input name="" type="text" style="width: 100%;"/></td>
+                                        <td><input name="notification[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="disabled[]" type="checkbox" disabled style="width: 16px; height:16px;"/></td>
+                                        <td><input name="email_address[]" type="text" style="width: 100%;"/></td>
+                                        <td>
+                                            <select name="operation_type[]" style="width: 100%;">
+                                                <option value="air_export">Air Export</option>
+                                                <option value="air_import">Air Import</option>
+                                                <option value="sea_export">Sea Export</option>
+                                                <option value="sea_import">Sea Import</option>
+                                                <option value="logistics">Logistics</option>
+                                                <option value="warehouse">Warehouse</option>
+                                                <option value="other">Other</option>
+                                                <option value="all">All</option>
+                                            </select>
+                                        </td>
                                     </tbody>
                                 </table>
                             </div>
@@ -815,12 +817,12 @@
                                     </thead>
                                     <tbody>
                                         <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><select style="width: 100%; border:none; outline:none;"> </select></td>
-                                        <td><select style="width: 100%; border:none; outline:none;"> </select></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
+                                        <td><input name="" type="text" style="width: 100%;"/></td>
+                                        <td><select name="insurace_company[]" style="width: 100%;"> </select></td>
+                                        <td><select name="insurance_type[]" style="width: 100%;"> </select></td>
+                                        <td><input name="policy_value[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="policy_no[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="expiry_date[]" type="text" style="width: 100%;"/></td>
                                     </tbody>
                                 </table>
                             </div>
@@ -839,8 +841,8 @@
                                     </thead>
                                     <tbody>
                                         <td><input type="checkbox" style="width: 16px; height:16px;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
+                                        <td><input name="company[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="default[]" type="text" style="width: 100%;"/></td>
                                     </tbody>
                                 </table>
                             </div>
@@ -857,8 +859,8 @@
                                     </thead>
                                     <tbody>
                                         <td><input type="checkbox" style="width: 16px; height:16px;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
-                                        <td><input type="text" style="width: 100%;"/></td>
+                                        <td name="cost_center[]"><input type="text" style="width: 100%;"/></td>
+                                        <td name="distribution[]"><input type="text" style="width: 100%;"/></td>
                                     </tbody>
                                 </table>
                             </div>
@@ -892,7 +894,7 @@
                                 <div class="col-md-12 col-12">
                                     <div class="mb-2 mt-4">
                                         <label class="form-label"></label>
-                                        <input name="kyc" type="checkbox" style="width:15px; height:15px;"/><span>&nbsp;&nbsp;KYC Verification Done</span>
+                                        <input name="kyc" type="checkbox" style="width:15px; height:15px;"/><span>&nbsp;KYC Verification Done</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">

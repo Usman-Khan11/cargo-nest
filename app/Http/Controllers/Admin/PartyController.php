@@ -9,6 +9,9 @@ use App\Models\PartyOtherInfo;
 use App\Models\PartyAccountDetail;
 use App\Models\PartyAchBankDetail;
 use App\Models\PartyLocalizeKyc;
+use App\Models\PartyNotification;
+use App\Models\PartyInsurance;
+use App\Models\partyCenter;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -188,6 +191,46 @@ class PartyController extends Controller
         $partylocalizekyc->kyc_date = $request->kyc_date;
         $partylocalizekyc->kyc_remarks = $request->kyc_remarks;
         $partylocalizekyc->save();
+    }
+    
+    public function notifications($request,$id){
+        $notification = $request->notification;
+        foreach($notification as $key => $value) {
+            $party_notification = new PartyNotification();
+            $party_notification->party_basic_id = $id;
+            $party_notification->notification = $request->notification[$key];
+            $party_notification->disabled = $request->disabled[$key];
+            $party_notification->email_address = $request->email_address[$key];
+            $party_notification->operation_type = $request->operation_type[$key];
+            $party_notification->save();
+        }    
+    }
+    
+    public function insurance($request,$id){
+        $insurace_company = $request->insurace_company;
+        foreach($insurace_company as $key => $value) {
+            $party_insurance = new PartyInsurance();
+            $party_insurance->party_basic_id = $id;
+            $party_insurance->insurace_company = $request->insurace_company[$key];
+            $party_insurance->insurance_type = $request->insurance_type[$key];
+            $party_insurance->policy_value = $request->policy_value[$key];
+            $party_insurance->policy_no = $request->policy_no[$key];
+            $party_insurance->expiry_date = $request->expiry_date[$key];
+            $party_insurance->save();
+        }    
+    }
+    
+    public function cost_center($request,$id){
+        $company = $request->company;
+        foreach($company as $key => $value) {
+            $party_center = new partyCenter();
+            $party_center->party_basic_id = $id;
+            $party_center->company = $request->company[$key];
+            $party_center->default = $request->default[$key];
+            $party_center->cost_center = $request->cost_center[$key];
+            $party_center->distribution = $request->distribution[$key];
+            $party_center->save();
+        }    
     }
     
     

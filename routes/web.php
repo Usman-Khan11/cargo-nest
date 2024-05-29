@@ -147,14 +147,16 @@ Route::namespace('Admin')
                 Route::get('commodity/delete/{id}',[CommodityController::class ,'delete'])->name('commodity.delete');
                 Route::post('commodity/store',[CommodityController::class ,'store'])->name('commodity.store');
                 Route::post('commodity/update',[CommodityController::class ,'update'])->name('commodity.update');
+                Route::post('commodity/get',[CommodityController::class ,'get_data'])->name('commodity.get');
                 
-                // COMMODITY ROUTES
+                // INCO TERM ROUTES
                 Route::get('inco_term',[IncoTermController::class ,'index'])->name('inco_term');
                 Route::get('inco_term/create',[IncoTermController::class ,'create'])->name('inco_term.create');
                 Route::get('inco_term/edit/{id}',[IncoTermController::class ,'edit'])->name('inco_term.edit');
                 Route::get('inco_term/delete/{id}',[IncoTermController::class ,'delete'])->name('inco_term.delete');
                 Route::post('inco_term/store',[IncoTermController::class ,'store'])->name('inco_term.store');
                 Route::post('inco_term/update',[IncoTermController::class ,'update'])->name('inco_term.update');
+                Route::post('inco_term/get',[IncoTermController::class ,'get_data'])->name('inco_term.get');
                 
                 // VESSEL ROUTES
                 Route::get('vessel',[VesselController::class ,'index'])->name('vessel');
@@ -247,6 +249,7 @@ Route::namespace('Admin')
                 Route::get('cro/delete/{id}',[CroController::class ,'delete'])->name('cro.delete');
                 Route::post('cro/store',[CroController::class ,'store'])->name('cro.store');
                 Route::post('cro/update',[CroController::class ,'update'])->name('cro.update');
+                Route::post('cro/get',[CroController::class ,'get_data'])->name('cro.get');
                 
                 // B/L ROUTES
                 Route::get('bl',[BlController::class ,'index'])->name('bl');

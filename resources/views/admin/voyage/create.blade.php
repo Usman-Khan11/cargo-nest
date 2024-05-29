@@ -149,7 +149,14 @@
                                         <td><i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
                                         <td><i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info"></i></td>
                                         <td><input name="" type="text" style="width: 100%;"/></td>
-                                        <td><input name="currency[]" type="text" style="width: 100%;"/></td>
+                                        <td>
+                                            <select name="currency[]" style="width: 100%;">
+                                                <option selected disabled></option>
+                                                @foreach($currencies as $currency)
+                                                    <option value="{{ $currency->id }}">{{ $currency->name }}</option> 
+                                                @endforeach
+                                            </select>
+                                        </td>
                                         <td><input name="selling[]" type="text" style="width: 100%;"/></td>
                                         <td><input name="buying[]" type="text" style="width: 100%;"/></td>
                                         

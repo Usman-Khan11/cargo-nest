@@ -46,19 +46,9 @@ class CommodityController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Commodity::Query();
-            $totalCount=$query->count(); 
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = Commodity::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
         $data['seo_title']      = "Commodity";
@@ -115,6 +105,29 @@ class CommodityController extends Controller
         
         $notify[] = ['success', 'Commodity Updated Successfully.'];
         return redirect()->route('admin.commodity.create')->withNotify($notify);
+    }
+    
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Commodity::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Commodity::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Commodity::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Commodity::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
 }

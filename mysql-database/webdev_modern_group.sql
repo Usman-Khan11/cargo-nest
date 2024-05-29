@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 27, 2024 at 09:14 AM
+-- Generation Time: May 29, 2024 at 12:25 AM
 -- Server version: 10.3.39-MariaDB
 -- PHP Version: 8.1.28
 
@@ -161,6 +161,14 @@ CREATE TABLE `commodities` (
   `updated_at` varchar(55) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `commodities`
+--
+
+INSERT INTO `commodities` (`id`, `code`, `name`, `short_code`, `hs_code`, `cargo_type`, `commodity_group`, `inactive`, `hazmat_product`, `packing_group`, `hazmat_code`, `hazmat_class`, `chemical_name`, `uno_code`, `sro`, `insurance`, `i_tax`, `rd`, `landing_insurance`, `s_itax`, `cd%`, `fed%`, `add_stax`, `fine`, `add_cd`, `eto`, `item`, `created_at`, `updated_at`) VALUES
+(1, '92', 'bebainb', '4543', '315', 'CAR', NULL, 'inactive', 'Yes', 'i(high-danger)', NULL, NULL, NULL, NULL, 'iuhjnbm', NULL, '232', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 09:25:09', '2024-05-28 09:45:09'),
+(2, '2315', 'eiueyiwq', '4543', '55', 'GI', NULL, '', 'No', 'ii(med-danger)', NULL, 'Class4SolidDivisionNotSpecified', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 09:28:22', '2024-05-28 09:45:23');
+
 -- --------------------------------------------------------
 
 --
@@ -247,6 +255,13 @@ CREATE TABLE `cros` (
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `cros`
+--
+
+INSERT INTO `cros` (`id`, `cro_no`, `cro_type`, `job_number`, `client`, `issue_date`, `cro_valid_for`, `ref_number`, `equip_qty`, `size_type`, `overseas_agent`, `clearing_agent`, `shipper`, `pickup_location`, `port_of_loading`, `port_of_discharge`, `final_destination`, `commodity`, `terminal`, `empty_depot`, `transporter`, `book_no`, `gate_pass`, `date`, `letter_no`, `licence_no`, `job_no`, `expiry_date`, `shipping_agent`, `cargo_type`, `vessel`, `voyage`, `sailing_date`, `Manual`, `upload`, `print_logo`, `continue_mode`, `haulage`, `created_at`, `updated_at`) VALUES
+(1, '23', 'job_booking', '33', 'cfhgv', '2024-05-29', 're6cr', '12', '65', 'XXL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'general', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 10:45:52', '2024-05-28 12:18:00');
+
 -- --------------------------------------------------------
 
 --
@@ -264,6 +279,13 @@ CREATE TABLE `currencies` (
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `currencies`
+--
+
+INSERT INTO `currencies` (`id`, `code`, `name`, `ex_rate`, `main_symbol`, `unit_symbol`, `decimal_portion_digits`, `created_at`, `updated_at`) VALUES
+(1, '123', 'PKR', NULL, 'Rs', 'rs', '0.00', '2024-05-28 07:36:31', '2024-05-28 07:36:31');
 
 -- --------------------------------------------------------
 
@@ -431,6 +453,15 @@ CREATE TABLE `incoterms` (
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `incoterms`
+--
+
+INSERT INTO `incoterms` (`id`, `code`, `name`, `created_at`, `updated_at`) VALUES
+(1, '123', 'jbhjb', '2024-05-28 09:52:37', '2024-05-28 09:52:37'),
+(2, '92', 'bjkuykj', '2024-05-28 09:52:48', '2024-05-28 09:52:48'),
+(3, '9255', 'jhbjh ub', '2024-05-28 09:52:56', '2024-05-28 09:52:56');
 
 -- --------------------------------------------------------
 
@@ -710,6 +741,41 @@ CREATE TABLE `party_basic_info` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `party_center`
+--
+
+CREATE TABLE `party_center` (
+  `id` int(11) NOT NULL,
+  `party_basic_id` int(11) NOT NULL,
+  `company` varchar(225) DEFAULT NULL,
+  `default` varchar(100) DEFAULT NULL,
+  `cost_center` varchar(255) DEFAULT NULL,
+  `distribution` varchar(255) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `party_insurance`
+--
+
+CREATE TABLE `party_insurance` (
+  `id` int(11) NOT NULL,
+  `party_basic_id` int(11) NOT NULL,
+  `insurace_company` varchar(255) DEFAULT NULL,
+  `insurance_type` varchar(255) DEFAULT NULL,
+  `policy_value` varchar(225) DEFAULT NULL,
+  `policy_no` varchar(225) DEFAULT NULL,
+  `expiry_date` varchar(155) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `party_localize_kyc`
 --
 
@@ -723,6 +789,23 @@ CREATE TABLE `party_localize_kyc` (
   `kyc_verification` varchar(255) DEFAULT NULL,
   `kyc_date` varchar(255) DEFAULT NULL,
   `kyc_remarks` text DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `party_notifications`
+--
+
+CREATE TABLE `party_notifications` (
+  `id` int(11) NOT NULL,
+  `party_basic_id` int(11) NOT NULL,
+  `notification` text DEFAULT NULL,
+  `disabled` varchar(100) DEFAULT NULL,
+  `email_address` varchar(255) DEFAULT NULL,
+  `operation_type` varchar(225) DEFAULT NULL,
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -1223,7 +1306,7 @@ CREATE TABLE `voyages` (
 --
 
 INSERT INTO `voyages` (`id`, `vessel`, `voy`, `port_of_discharge`, `port_of_loading`, `type`, `created_at`, `updated_at`) VALUES
-(3, '2', '071W', NULL, NULL, 'Import', '2024-05-27 08:04:02', '2024-05-27 10:00:14'),
+(3, '31', '071W', NULL, NULL, 'Import', '2024-05-27 08:04:02', '2024-05-28 11:49:06'),
 (4, '1', '065W', NULL, NULL, NULL, '2024-05-27 11:03:00', '2024-05-27 11:37:24'),
 (5, '6', '012W', NULL, NULL, NULL, '2024-05-27 11:04:40', '2024-05-27 11:40:38'),
 (6, '1', '065W', NULL, NULL, 'Export', '2024-05-27 11:06:08', '2024-05-27 11:40:46'),
@@ -1462,9 +1545,27 @@ ALTER TABLE `party_basic_info`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `party_center`
+--
+ALTER TABLE `party_center`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `party_insurance`
+--
+ALTER TABLE `party_insurance`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `party_localize_kyc`
 --
 ALTER TABLE `party_localize_kyc`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `party_notifications`
+--
+ALTER TABLE `party_notifications`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1634,7 +1735,7 @@ ALTER TABLE `charges`
 -- AUTO_INCREMENT for table `commodities`
 --
 ALTER TABLE `commodities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -1652,13 +1753,13 @@ ALTER TABLE `complains`
 -- AUTO_INCREMENT for table `cros`
 --
 ALTER TABLE `cros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -1700,7 +1801,7 @@ ALTER TABLE `general_settings`
 -- AUTO_INCREMENT for table `incoterms`
 --
 ALTER TABLE `incoterms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `invoices`
@@ -1763,9 +1864,27 @@ ALTER TABLE `party_basic_info`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `party_center`
+--
+ALTER TABLE `party_center`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `party_insurance`
+--
+ALTER TABLE `party_insurance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `party_localize_kyc`
 --
 ALTER TABLE `party_localize_kyc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `party_notifications`
+--
+ALTER TABLE `party_notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

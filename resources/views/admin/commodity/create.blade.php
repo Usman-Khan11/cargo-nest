@@ -3,35 +3,35 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+        <div class="plus" onclick="document.getElementById('myForm').reset()">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save" id="submitButton"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
         <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -446,7 +446,15 @@ function edit_row(e,data){
     
 }
 
-
+$(".navigation").click(function () {
+  let id = $("input[name=id]").val();
+  let route = "/admin/commodity/get";
+  let type = $(this).attr("data-type");
+  let data = getList(route, type, id);
+  if (data != null) {
+    edit_row("", JSON.stringify(data));
+  }
+});
 
 
 
