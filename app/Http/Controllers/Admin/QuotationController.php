@@ -13,6 +13,7 @@ use App\Models\Currency;
 use App\Models\Equipment;
 use App\Models\Incoterm;
 use App\Models\QuotationDetail;
+use App\Models\QuotationEquipment;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -128,6 +129,19 @@ class QuotationController extends Controller
             $quotation_details->ord = $request->ord[$key];
             $quotation_details->tariff_code = $request->tariff_code[$key];
             $quotation_details->save();
+        }
+        
+        $equip_size_type = $request->equip_size_type;
+        foreach($equip_size_type as $key => $value) {
+            $quotation_equipments = new QuotationEquipment();
+            $quotation_equipments->quotation_id = $quotation->id;
+            $quotation_equipments->size_type = $request->equip_size_type[$key];
+            $quotation_equipments->rate_group = $request->equip_rate_group[$key];
+            $quotation_equipments->qty = $request->equip_qty[$key];
+            $quotation_equipments->dg_type = $request->equip_dg_type[$key];
+            $quotation_equipments->gross = $request->equip_gross[$key];
+            $quotation_equipments->tue = $request->equip_tue[$key];
+            $quotation_equipments->save();
         }
         
         

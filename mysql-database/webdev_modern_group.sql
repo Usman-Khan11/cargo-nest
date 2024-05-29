@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 29, 2024 at 12:25 AM
+-- Generation Time: May 29, 2024 at 09:15 AM
 -- Server version: 10.3.39-MariaDB
 -- PHP Version: 8.1.28
 
@@ -166,8 +166,20 @@ CREATE TABLE `commodities` (
 --
 
 INSERT INTO `commodities` (`id`, `code`, `name`, `short_code`, `hs_code`, `cargo_type`, `commodity_group`, `inactive`, `hazmat_product`, `packing_group`, `hazmat_code`, `hazmat_class`, `chemical_name`, `uno_code`, `sro`, `insurance`, `i_tax`, `rd`, `landing_insurance`, `s_itax`, `cd%`, `fed%`, `add_stax`, `fine`, `add_cd`, `eto`, `item`, `created_at`, `updated_at`) VALUES
-(1, '92', 'bebainb', '4543', '315', 'CAR', NULL, 'inactive', 'Yes', 'i(high-danger)', NULL, NULL, NULL, NULL, 'iuhjnbm', NULL, '232', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 09:25:09', '2024-05-28 09:45:09'),
-(2, '2315', 'eiueyiwq', '4543', '55', 'GI', NULL, '', 'No', 'ii(med-danger)', NULL, 'Class4SolidDivisionNotSpecified', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 09:28:22', '2024-05-28 09:45:23');
+(2, '2', 'eiueyiwq', '4543', '55', 'GI', NULL, '', 'No', 'ii(med-danger)', NULL, 'Class4SolidDivisionNotSpecified', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 09:28:22', '2024-05-28 09:45:23'),
+(3, '3', 'Textiles and Apparel', 'Tex', NULL, NULL, NULL, '', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 05:46:55', '2024-05-29 10:12:57'),
+(5, '5', 'abc', 'abc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:02:11', '2024-05-29 06:02:11'),
+(6, '6', 'asd', 'asd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:02:47', '2024-05-29 06:02:47'),
+(9, '9', 'asjdnqi', 'aiosda', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:03:08', '2024-05-29 06:03:08'),
+(10, '10', 'laksnd', 'asdnad', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:03:16', '2024-05-29 06:03:16'),
+(11, '11', 'aljsndalsdn', 'asildnew', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:03:22', '2024-05-29 06:03:22'),
+(12, '12', 'asiqjwe', 'apoier', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:03:28', '2024-05-29 06:03:28'),
+(13, '13', 'qwopej', 'pwoejq', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:03:34', '2024-05-29 06:03:34'),
+(14, '14', 'qwpoejqwe', 'pqiwej', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:03:39', '2024-05-29 06:03:39'),
+(15, '15', 'qlwej', 'qwpoejq', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:03:45', '2024-05-29 06:03:45'),
+(19, '16', 'alksdna;skd', 'aklsd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:10:36', '2024-05-29 06:10:36'),
+(20, '17', 'lkaslaksd', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 06:10:43', '2024-05-29 06:10:43'),
+(24, '18', 'IRON', 'IRON', '720449', NULL, NULL, '', 'Yes', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 10:14:19', '2024-05-29 10:14:29');
 
 -- --------------------------------------------------------
 
@@ -260,7 +272,8 @@ CREATE TABLE `cros` (
 --
 
 INSERT INTO `cros` (`id`, `cro_no`, `cro_type`, `job_number`, `client`, `issue_date`, `cro_valid_for`, `ref_number`, `equip_qty`, `size_type`, `overseas_agent`, `clearing_agent`, `shipper`, `pickup_location`, `port_of_loading`, `port_of_discharge`, `final_destination`, `commodity`, `terminal`, `empty_depot`, `transporter`, `book_no`, `gate_pass`, `date`, `letter_no`, `licence_no`, `job_no`, `expiry_date`, `shipping_agent`, `cargo_type`, `vessel`, `voyage`, `sailing_date`, `Manual`, `upload`, `print_logo`, `continue_mode`, `haulage`, `created_at`, `updated_at`) VALUES
-(1, '23', 'job_booking', '33', 'cfhgv', '2024-05-29', 're6cr', '12', '65', 'XXL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'general', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-28 10:45:52', '2024-05-28 12:18:00');
+(1, '23', 'job_booking', '33', 'cfhgv', '2024-05-29', 're6cr', '12', '65', 'XXL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'general', NULL, NULL, NULL, NULL, NULL, 'Print-Logo', NULL, NULL, '2024-05-28 10:45:52', '2024-05-29 10:18:23'),
+(2, '23', 'sale_off_hire', '33', 'cfhgv', '2024-05-30', 're6cr', '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'hazardous', NULL, NULL, NULL, NULL, NULL, 'Print-Logo', 'Continue-Mode', NULL, '2024-05-29 10:01:30', '2024-05-29 10:19:16');
 
 -- --------------------------------------------------------
 
@@ -524,6 +537,7 @@ CREATE TABLE `leads` (
 
 CREATE TABLE `locations` (
   `id` int(11) NOT NULL,
+  `code` int(11) NOT NULL,
   `location` varchar(225) NOT NULL,
   `location_check` text NOT NULL,
   `co_ordinates` varchar(255) DEFAULT NULL,
@@ -542,9 +556,9 @@ CREATE TABLE `locations` (
 -- Dumping data for table `locations`
 --
 
-INSERT INTO `locations` (`id`, `location`, `location_check`, `co_ordinates`, `inactive`, `latitude`, `state`, `longitude`, `phone_prefix`, `epass_code`, `country_region`, `created_at`, `updated_at`) VALUES
-(1, 'Azizabad,Karachi', '[\"city\"]', 'abc', 'In-Active', '150000', 'A', '250000', '3216556515', '535', 'Islam', '2024-05-27 12:11:47', '2024-05-27 12:11:47'),
-(2, 'Gulshan Block 14', '[\"airport\",\"seaport\"]', 'kldvnsdl', NULL, '65465', 'sindh', '5651', '3216556515', '568', NULL, '2024-05-27 12:12:44', '2024-05-27 12:12:44');
+INSERT INTO `locations` (`id`, `code`, `location`, `location_check`, `co_ordinates`, `inactive`, `latitude`, `state`, `longitude`, `phone_prefix`, `epass_code`, `country_region`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Azizabad,Karachi', '[\"airport\",\"seaport\"]', 'abc', 'In-Active', '150000', 'A', '250000', '3216556515', '535', 'Islam', '2024-05-27 12:11:47', '2024-05-29 10:22:50'),
+(2, 2, 'Gulshan Block 14', '[\"airport\",\"seaport\"]', 'kldvnsdl', NULL, '65465', 'sindh', '5651', '3216556515', '568', NULL, '2024-05-27 12:12:44', '2024-05-27 12:12:44');
 
 -- --------------------------------------------------------
 
@@ -973,6 +987,8 @@ CREATE TABLE `quotations` (
   `total_receivable` varchar(225) DEFAULT NULL,
   `total_payable` varchar(225) DEFAULT NULL,
   `total_profit` varchar(225) DEFAULT NULL,
+  `header_footer` text DEFAULT NULL,
+  `internal` text DEFAULT NULL,
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -1011,6 +1027,25 @@ CREATE TABLE `quotation_details` (
   `buying_remarks` varchar(200) DEFAULT NULL,
   `ord` varchar(20) DEFAULT NULL,
   `tariff_code` varchar(10) DEFAULT NULL,
+  `created_at` varchar(20) DEFAULT NULL,
+  `updated_at` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quotation_equipments`
+--
+
+CREATE TABLE `quotation_equipments` (
+  `id` int(11) NOT NULL,
+  `quotation_id` int(11) NOT NULL,
+  `size_type` varchar(100) DEFAULT NULL,
+  `rate_group` varchar(100) DEFAULT NULL,
+  `qty` varchar(100) DEFAULT NULL,
+  `dg_type` varchar(100) DEFAULT NULL,
+  `gross` varchar(100) DEFAULT NULL,
+  `tue` varchar(100) DEFAULT NULL,
   `created_at` varchar(20) DEFAULT NULL,
   `updated_at` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -1195,6 +1230,13 @@ CREATE TABLE `stuffings` (
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `stuffings`
+--
+
+INSERT INTO `stuffings` (`id`, `tran_number`, `date`, `type1`, `type2`, `container`, `seal_number`, `vessel`, `overseas_agent`, `shipping_line`, `sales_rep`, `remarks`, `stuffing_date`, `cut_off_date`, `port_of_discharge`, `size_type`, `job_number`, `voyage`, `sailing_date`, `delivery`, `print`, `serial_number`, `created_at`, `updated_at`) VALUES
+(1, '5543', '2024-05-30', NULL, NULL, 'nnkmmk', NULL, 'nnlkn', 'mklm', 'nlknmkn', 'mnmkl;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 10:46:12', '2024-05-29 10:46:12');
 
 -- --------------------------------------------------------
 
@@ -1619,6 +1661,12 @@ ALTER TABLE `quotation_details`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `quotation_equipments`
+--
+ALTER TABLE `quotation_equipments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `receipts`
 --
 ALTER TABLE `receipts`
@@ -1735,7 +1783,7 @@ ALTER TABLE `charges`
 -- AUTO_INCREMENT for table `commodities`
 --
 ALTER TABLE `commodities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `companies`
@@ -1753,7 +1801,7 @@ ALTER TABLE `complains`
 -- AUTO_INCREMENT for table `cros`
 --
 ALTER TABLE `cros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `currencies`
@@ -1930,6 +1978,12 @@ ALTER TABLE `quotation_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `quotation_equipments`
+--
+ALTER TABLE `quotation_equipments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `receipts`
 --
 ALTER TABLE `receipts`
@@ -1969,7 +2023,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `stuffings`
 --
 ALTER TABLE `stuffings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

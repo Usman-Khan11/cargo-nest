@@ -79,46 +79,50 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-center mb-3">
                         <div class="mb-2 px-3">
-                            <input name="calculation_type" type="radio" class="form-check-input" value="customer" id="defaultRadio1"/>
+                            <input name="calculation_type" type="radio" class="form-check-input" value="customer" id="defaultRadio1" onclick="cusType(this)" checked/>
                             <label class="form-check-label" for="defaultRadio1">Customer</label>
                         </div>
                         <div class="mb-2 px-3">
-                            <input name="calculation_type" type="radio" class="form-check-input" value="vendor" id="defaultRadio2" />
+                            <input name="calculation_type" type="radio" class="form-check-input" value="vendor" id="defaultRadio2" onclick="cusType(this)" />
                             <label class="form-check-label" for="defaultRadio2">Vendor</label>
                         </div>
                         <div class="mb-2 px-3">
-                            <input name="calculation_type" type="radio" class="form-check-input" value="customer/vendor" id="defaultRadio2" />
-                            <label class="form-check-label" for="defaultRadio2">Customer/Vendor</label>
+                            <input name="calculation_type" type="radio" class="form-check-input" value="customer-vendor" id="defaultRadio3" onclick="cusType(this)" />
+                            <label class="form-check-label" for="defaultRadio3">Customer/Vendor</label>
                         </div>
                         <div class="mb-2 px-3">
-                            <input name="calculation_type" type="radio" class="form-check-input" value="non gl parties" id="defaultRadio2" />
-                            <label class="form-check-label" for="defaultRadio2">Non GL Parties</label>
+                            <input name="calculation_type" type="radio" class="form-check-input" value="non-gl-parties" id="defaultRadio4" onclick="cusType(this)" />
+                            <label class="form-check-label" for="defaultRadio4">Non GL Parties</label>
+                        </div>
+                        <div class="mb-2 px-3">
+                            <input name="calculation_type" type="radio" class="form-check-input" value="factorating-Country" id="defaultRadio5" onclick="cusType(this)" />
+                            <label class="form-check-label" for="defaultRadio5">Factorating Country</label>
                         </div>
                     </div>
 
                    <ul class="nav nav-tabs" role="tablist">
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_1">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-basic_info" aria-controls="navs-top-basic_info" aria-selected="true">Basic Info</button>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_2">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-other_info" aria-controls="navs-top-other_info" aria-selected="false"> Other Info</button>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_3">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-account" aria-controls="navs-top-account" aria-selected="false"> Account Detail</button>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_4">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-bank_details" aria-controls="navs-top-bank_details" aria-selected="false"> ACH / Bank Details</button>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_5">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-notification" aria-controls="navs-top-notification" aria-selected="false"> Notifications</button>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_6">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-insurance" aria-controls="navs-top-insurance" aria-selected="false"> Insurance Detail</button>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_7">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-company" aria-controls="navs-top-company" aria-selected="false"> Company/CostCenter</button>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item" id="tab_8">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-localize" aria-controls="navs-top-localize" aria-selected="false"> Localize/KYC</button>
                       </li>
                     </ul>
@@ -931,6 +935,82 @@
             }
             
         })
+        
+        function cusType(e)
+        {
+            let val = $(e).val();
+            let tab_1 = $("#tab_1");
+            let tab_2 = $("#tab_2");
+            let tab_3 = $("#tab_3");
+            let tab_4 = $("#tab_4");
+            let tab_5 = $("#tab_5");
+            let tab_6 = $("#tab_6");
+            let tab_7 = $("#tab_7");
+            let tab_8 = $("#tab_8");
+            
+            if(val == "customer") {
+                $(tab_1).show();
+                $(tab_2).show();
+                $(tab_3).show();
+                $(tab_4).show();
+                $(tab_5).show();
+                $(tab_6).hide();
+                $(tab_7).show();
+                $(tab_8).show();
+            }
+            else if(val == "vendor") {
+                $(tab_1).show();
+                $(tab_2).show();
+                $(tab_3).show();
+                $(tab_4).show();
+                $(tab_5).show();
+                $(tab_6).show();
+                $(tab_7).show();
+                $(tab_8).show();
+            }
+            else if(val == "customer-vendor") {
+                $(tab_1).show();
+                $(tab_2).show();
+                $(tab_3).show();
+                $(tab_4).show();
+                $(tab_5).show();
+                $(tab_6).show();
+                $(tab_7).show();
+                $(tab_8).show();
+            }
+            else if(val == "non-gl-parties") {
+                $(tab_1).show();
+                $(tab_2).hide();
+                $(tab_3).show();
+                $(tab_4).hide();
+                $(tab_5).show();
+                $(tab_6).hide();
+                $(tab_7).show();
+                $(tab_8).show();
+            }
+            else if(val == "factorating-Country") {
+                $(tab_1).show();
+                $(tab_2).hide();
+                $(tab_3).show();
+                $(tab_4).hide();
+                $(tab_5).show();
+                $(tab_6).hide();
+                $(tab_7).show();
+                $(tab_8).show();
+            }
+            else {
+                $(tab_1).show();
+                $(tab_2).show();
+                $(tab_3).show();
+                $(tab_4).show();
+                $(tab_5).show();
+                $(tab_6).show();
+                $(tab_7).show();
+                $(tab_8).show();
+            }
+        }
+        
+        cusType($("#defaultRadio1"));
     </script>
 @endpush
 

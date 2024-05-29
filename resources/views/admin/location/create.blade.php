@@ -3,7 +3,7 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus" onclick="document.getElementById('myForm').reset()">
+        <div class="plus" onclick="formReset('/admin/location/store')">
             <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
@@ -70,7 +70,7 @@
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <form id="myForm" method="post" action="{{ route('admin.location.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-4">
@@ -81,7 +81,13 @@
                         <div class="card-body">
                             <input name="id" type="hidden" />
                             <div class="row">
-                                <div class="col-md-12 col-12">
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Code:</label>
+                                        <input name="code" type="text" class="form-control code" value="{{ $location_num }}" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Location:</label>
                                         <input name="location" type="text" class="form-control locate" placeholder="" />
@@ -92,27 +98,27 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-2">
-                                                <input style="width:14px; height:14px;" name="location_check[]" class="location_check" type="checkbox" value="country" /><span>&nbsp;&nbsp;Country</span>
+                                                <input name="location_check[]" class="form-check-input location_check" type="checkbox" value="country" /><span>&nbsp;&nbsp;Country</span>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-2">
-                                                <input style="width:14px; height:14px;" name="location_check[]" class="location_check" type="checkbox" value="city" /><span>&nbsp;&nbsp;City</span>
+                                                <input name="location_check[]" class="form-check-input location_check" type="checkbox" value="city" /><span>&nbsp;&nbsp;City</span>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-2">
-                                                <input style="width:14px; height:14px;" name="location_check[]" class="location_check" type="checkbox" value="airport" /><span>&nbsp;&nbsp;Airport</span>
+                                                <input name="location_check[]" class="form-check-input location_check" type="checkbox" value="airport" /><span>&nbsp;&nbsp;Airport</span>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-2">
-                                                <input style="width:14px; height:14px;" name="location_check[]" class="location_check" type="checkbox" value="seaport" /><span>&nbsp;&nbsp;Seaport</span>
+                                                <input name="location_check[]" class="form-check-input location_check" type="checkbox" value="seaport" /><span>&nbsp;&nbsp;Seaport</span>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-2">
-                                                <input style="width:14px; height:14px;" name="location_check[]" class="location_check" type="checkbox" value="terminals" /><span>&nbsp;&nbsp;Terminals</span>
+                                                <input name="location_check[]" class="form-check-input location_check" type="checkbox" value="terminals" /><span>&nbsp;&nbsp;Terminals</span>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +133,7 @@
                                 </div> 
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2 mt-4">
-                                        <input style="width:15px; height:15px;" name="inactive" class="inactive" type="checkbox" value="In-Active" /><span>&nbsp;&nbsp;In-Active</span>
+                                        <input name="inactive" class="form-check-input inactive" type="checkbox" value="In-Active" /><span>&nbsp;&nbsp;In-Active</span>
                                     </div>
                                 </div> 
                                 <div class="col-md-5 col-12">
@@ -192,7 +198,7 @@
                     </div> 
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="responsive text-nowrap">
@@ -274,8 +280,8 @@
         },
         columns: [
             {
-                data: 'DT_RowIndex',
-                title: 'Sr No'
+                data: 'code',
+                title: 'Code'
             },
             {
                 data: 'location',
@@ -307,7 +313,11 @@
 function edit_row(e,data){
     data = JSON.parse(data);
     if(data){
+        $(".code").val(data.code);
         $(".locate").val(data.location);
+        $(".location_check").removeAttr('checked');
+        $(`.location_check[value=${data.location_check}]`).attr('checked',true);
+        
         $(".co_ordinates").val(data.co_ordinates);
         $(".inactive").removeAttr('checked');
         $(`.inactive[value=${data.inactive}]`).attr('checked',true);

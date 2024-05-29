@@ -53,6 +53,12 @@ class VoyageController extends Controller
         if ($request->ajax()) {
             $query = Voyage::Query();
             $query = $query->with('vessel');
+            if(isset($request->vessel_id)){
+                $query = $query->where('vessel', $request->vessel_id);
+            }
+            if(isset($request->voyage_name)){
+                $query = $query->where('voy', 'like', '%'.$request->voyage_name.'%');
+            }
             $query = $query->orderby('id','asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }

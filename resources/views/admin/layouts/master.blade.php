@@ -111,6 +111,21 @@
           });
           return data;
         }
+        
+        function deleteData(route) {
+            let c = confirm('Are you sure?');
+            let id = $("#myForm input[name=id]").val();
+            if(id && c && route){
+                window.location.assign(route + '/' + id);
+            } else if(!id || !route) {
+                iziToast.error({ message: 'Something went wrong!', position: "topRight" });
+            }
+        }
+        
+        function formReset(route) {
+            document.getElementById('myForm').reset();
+            $("#myForm").attr('action', route);
+        }
     </script>
   </body>
 </html>

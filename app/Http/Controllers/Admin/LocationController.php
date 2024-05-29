@@ -52,6 +52,13 @@ class LocationController extends Controller
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
+        $data['location_num'] = Location::orderby('id','desc')->first();
+        if($data['location_num']) {
+            $data['location_num'] = $data['location_num']->code + 1;
+        } else {
+            $data['location_num'] = 1;
+        }
+        
         $data['seo_title']      = "Location";
         $data['seo_desc']       = "Location";
         $data['seo_keywords']   = "Location";
@@ -85,6 +92,7 @@ class LocationController extends Controller
         ]);
         
         $location = new Location();
+        $location->code = $request->code;
         $location->location = $request->location;
         $location->location_check=json_encode($request->location_check);
         $location->co_ordinates = $request->co_ordinates;

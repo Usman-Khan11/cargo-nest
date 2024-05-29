@@ -151,7 +151,7 @@
                         
                         <div class="col-md-12">
                             <div class="mb-2 mt-2">
-                                <a class="btn btn-primary btn-sm" href="/admin/voyage/create">Show Voyage</a>
+                                <button class="btn btn-primary btn-sm show_voyage" type="button">Show Voyage</button>
                                 <a class="btn btn-primary btn-sm" href="{{ asset('assets/vessels.csv') }}" download>Download</a>
                                 <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('sortExcel').click()">Bulk Upload</button>
                                 <input type="file" id="sortExcel" hidden class="form-control" onchange="excelFileImporter(this)" accept=".csv" />
@@ -205,6 +205,23 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div class="modal fade" id="voyageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Voyages</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered table-sm voyage_table"></table>
+          </div>
+          <!--<div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>-->
+        </div>
+      </div>
     </div>
 @endsection
 
@@ -339,6 +356,69 @@ function excelFileImporter(e) {
     });
   }
 }
+
+
+let voyage_table = null;
+$(".show_voyage").click(function(){
+    
+    let id = $("#myForm input[name=id]").val();
+    if(id > 0){
+        window.location.assign('/admin/voyage/create?vessel_id=' + id);
+    }
+    return;
+    
+    voyage_table = $(".voyage_table").DataTable({
+    select: {
+      style: "api",
+    },
+    processing: true,
+    serverSide: true,
+    lengthChange: false,
+    searching: false,
+    pageLength: 10,
+    scrollX: true,
+    ajax: {
+      url: "{{ route('admin.vessel') }}",
+      type: "get",
+      data: function (d) {
+        d.vessel = $("#myForm input[name=id]").val();
+      },
+    },
+    columns: [
+      {
+        title: 'Vessel',
+        "render": function(data, type, full, meta) {
+            if(full.vessel){
+                return full.vessel.vessel_name;
+            } else {
+                return '-';
+            }
+        }
+    },
+    {
+        data: 'voy',
+        title: 'Voyage'
+    },
+    {
+        data: 'port_of_discharge',
+        title: 'Port of Dischage'
+    },
+    {
+        data: 'port_of_loading',
+        title: 'Port of Loading'
+    },
+    {
+        data: 'type',
+        title: 'Type'
+    },
+    ],
+  });
+})
+
+$('#voyageModal').on('hidden.bs.modal', function () {
+    voyage_table.destroy();
+});
+
 </script>
 @endpush
 

@@ -67,11 +67,15 @@
 </div>
 @endsection
 
+@php
+$vessel_id = @$_GET["vessel_id"];
+@endphp
+
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <form id="myForm" method="post" action="{{ route('admin.voyage.store') }}" enctype="multipart/form-data">
             @csrf
-            <div class="row">
+            <div class="row match-height">
                 <div class="col-md-6">
                     <div class="card mb-4">
                             <div class="card-header">
@@ -85,8 +89,9 @@
                                         <div class="mb-2">
                                             <label class="form-label">Vessel:</label>
                                             <select name="vessel" class="form-select vessel">
+                                                <option selected></option>
                                                 @foreach($vessels as $value)
-                                                <option value="{{ $value->id }}">{{ $value->vessel_name }}</option>
+                                                <option @if($vessel_id == $value->id) selected @endif value="{{ $value->id }}">{{ $value->vessel_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -97,13 +102,25 @@
                                             <input name="voy" type="text" class="form-control voy" placeholder="" />
                                         </div>    
                                     </div>
-                                    <div class="col-md-6 col-12">
+                                    <div class="col-md-3 col-12">
+                                        <div class="mb-2">
+                                            <label class="form-label">Code</label>
+                                            <input name="discharge_code" type="text" class="form-control discharge_code" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 col-12">
                                         <div class="mb-2">
                                             <label class="form-label">Port of Dischage</label>
                                             <input name="port_of_discharge" type="text" class="form-control port_of_discharge" placeholder="" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-12">
+                                    <div class="col-md-3 col-12">
+                                        <div class="mb-2">
+                                            <label class="form-label">Code</label>
+                                            <input name="loading_code" type="text" class="form-control loading_code" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 col-12">
                                         <div class="mb-2">
                                             <label class="form-label">Port of Loading</label>
                                             <input name="port_of_loading" type="text" class="form-control port_of_loading" placeholder="" />
@@ -134,7 +151,7 @@
                     <div class="card mb-4">
                         <div class="p-3">
                             <div class="card-datatable table-responsive pt-0">
-                                <table class="datatables-basic table" style="width:150%;">
+                                <table class="datatables-basic table" style="width:100%;">
                                     <thead>
                                       <tr>
                                         <th>...</th>
@@ -173,9 +190,10 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Vessel:</label>
-                                        <select name="" class="form-select vessel">
+                                        <select name="vessel_search" class="form-select ">
+                                            <option selected value=''></option>
                                             @foreach($vessels as $value)
-                                            <option value="{{ $value->id }}">{{ $value->vessel_name }}</option>
+                                            <option @if($vessel_id == $value->id) selected @endif value="{{ $value->id }}">{{ $value->vessel_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -183,7 +201,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Voyage</label>
-                                        <input name="" type="text" class="form-control voy" placeholder="" />
+                                        <input name="voyage_name" type="text" class="form-control" placeholder="" />
                                     </div>    
                                 </div>
                             </div>      
@@ -219,7 +237,7 @@
                     <div class="p-3">
                         <h4 class="text-center bg-primary text-white">Local Port</h4>
                         <div class="card-datatable table-responsive pt-0">
-                            <table class="datatables-basic table" style="width:350%;">
+                            <table class="datatables-basic table" style="width:200%;">
                                 <thead>
                                   <tr>
                                     <th>...</th>
@@ -280,7 +298,7 @@
         $('#myForm').submit();
       });
       
-
+    let vessel_id = $("select[name=vessel_search]").val();
 
     $(document).ready(function(){
     var datatable = $('.quotation_record').DataTable({
@@ -297,10 +315,8 @@
             "url": "{{ route('admin.voyage.create') }}",
             "type": "get",
             "data": function(d) {
-                var frm_data = $('#result_report_form').serializeArray();
-                $.each(frm_data, function(key, val) {
-                    d[val.name] = val.value;
-                });
+                d.vessel_id = $("select[name=vessel_search]").val();
+                d.voyage_name = $("input[name=voyage_name]").val();
             },
         },
         columns: [
@@ -336,6 +352,13 @@
              $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
          }
     });
+    
+    $("select[name=vessel_search]").change(function(){
+        datatable.ajax.reload();
+    })
+    $("input[name=voyage_name]").keyup(function(){
+        datatable.ajax.reload();
+    })
 });
 
     function addNewRow(e){

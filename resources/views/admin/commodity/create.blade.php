@@ -3,13 +3,13 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus" onclick="document.getElementById('myForm').reset()">
+        <div class="plus" onclick="formReset('/admin/commodity/store')">
             <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
             <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
+        <div class="xmark" onclick="deleteData('/admin/commodity/delete')">
             <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
@@ -69,7 +69,7 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row">
+        <div class="row row-match-height">
             <div class="col-md-6">
                 <form method="post" action="{{ route('admin.commodity.store') }}" id="myForm" enctype="multipart/form-data">
             @csrf
@@ -83,7 +83,7 @@
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Code:</label>
-                                <input name="code" type="text" class="form-control code" placeholder="" />
+                                <input name="code" type="text" class="form-control code" value="{{ $commodity_num }}" readonly/>
                             </div>
                         </div>
                         <div class="col-md-8 col-12">
@@ -138,7 +138,7 @@
                             <label class="form-label">Hazmat Product?</label>
                             <div class="d-flex">
                                 <div class="mb-2">
-                                    <input name="hazmat_product" type="radio" class="form-check-input hazmat_product" value="No" id="defaultRadio1" />
+                                    <input name="hazmat_product" type="radio" class="form-check-input hazmat_product" value="No" id="defaultRadio1" checked />
                                     <label class="form-check-label" for="defaultRadio1">No</label>
                                 </div>
                                 <div class="mb-2 px-3">
@@ -218,14 +218,16 @@
                     </div>
                     
                     <div class="row mt-3">
-                        <h5>Duty Detail:</h5>
-                        <div class="col-md-8 col-12">
+                        <div class="col-md-4 col-12">
+                            <h5>Duty Detail:</h5>
+                        </div>
+                        <div class="col-md-5 col-12">
                             <div class="mb-2">
                                 <label class="form-label">SRO</label>
                                 <input name="sro" type="text" class="form-control sro"/>
                             </div>
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-3 col-12">
                             <div class="mb-2">
                                 <label class="form-label">Insurance</label>
                                 <input name="insurance" type="text" class="form-control insurance" placeholder="0.00"/>
@@ -294,12 +296,12 @@
                         <div class="col-md-6 col-12">
                             <div class="d-flex mt-4">
                                 <div class="mb-2">
-                                    <input name="item" type="radio" class="form-check-input atom" value="Shipping Item" id="defaultRadio1" />
-                                    <label class="form-check-label" for="defaultRadio1" style="font-size:13px;">Shipping Item</label>
+                                    <input name="item" type="radio" class="form-check-input atom" value="Shipping Item" id="shipping_term" />
+                                    <label class="form-check-label" for="shipping_term" style="font-size:13px;">Shipping Item</label>
                                 </div>
                                 <div class="mb-2 px-3">
-                                    <input name="item" type="radio" class="form-check-input atom" value="Warehouse Item" id="defaultRadio2" />
-                                    <label class="form-check-label" for="defaultRadio2" style="font-size:13px;">Warehouse Item</label>
+                                    <input name="item" type="radio" class="form-check-input atom" value="Warehouse Item" id="warehouse_item" />
+                                    <label class="form-check-label" for="warehouse_item" style="font-size:13px;">Warehouse Item</label>
                                 </div>
                             </div>
                         </div>
@@ -323,10 +325,16 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -373,10 +381,6 @@
         },
         columns: [
             {
-                data: 'DT_RowIndex',
-                title: 'Sr No'
-            },
-            {
                 data: 'code',
                 title: 'Code'
             },
@@ -387,6 +391,22 @@
             {
                 data: 'cargo_type',
                 title: 'Cargo Type'
+            },
+            {
+                data: 'short_code',
+                title: 'Short Code'
+            },
+            {
+                data: 'hs_code',
+                title: 'HS Code'
+            },
+            {
+                data: 'cargo_type',
+                title: 'Cargo Type'
+            },
+            {
+                data: 'inactive',
+                title: 'Activity'
             },
             {
                 data: 'commodity_group',
@@ -455,9 +475,6 @@ $(".navigation").click(function () {
     edit_row("", JSON.stringify(data));
   }
 });
-
-
-
 
 </script>
 

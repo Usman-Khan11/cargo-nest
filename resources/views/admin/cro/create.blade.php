@@ -4,7 +4,7 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus" onclick="document.getElementById('myForm').reset()">
+        <div class="plus" onclick="formReset('/admin/cro/store')"">
             <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
@@ -285,11 +285,11 @@
                                     <label class="form-label">Cargo Type:</label><br>
                                     <div class="mb-3 d-flex">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cargo_type" id="general" value="general">
+                                            <input class="form-check-input cargo_type" type="radio" name="cargo_type" id="general" value="general">
                                             <label class="form-check-label" for="general">General</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cargo_type" id="hazardous" value="hazardous">
+                                            <input class="form-check-input cargo_type" type="radio" name="cargo_type" id="hazardous" value="hazardous">
                                             <label class="form-check-label" for="hazardous">Hazardous</label>
                                         </div>
                                     </div>
@@ -325,10 +325,10 @@
                                 <div class="col-md-8 col-12">
                                     <div class="mb-3 mt-4 d-flex">
                                         <div>
-                                            <input name="manual" value="Manual" type="checkbox" class="form-check-input" /><span>&nbsp;&nbsp;Manual</span>
+                                            <input name="manual" value="Manual" type="checkbox" class="form-check-input Manual" /><span>&nbsp;&nbsp;Manual</span>
                                         </div>
                                         <div class="mx-2">
-                                            <input name="manual" type="text" class="form-control" />
+                                            <input name="manual_box" type="text" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -340,10 +340,10 @@
                                 <div class="col-md-12 col-12">
                                     <div class="mb-3 d-flex justify-content-between">
                                         <div>
-                                            <input name="print_logo" value="Print Logo" type="checkbox" class="form-check-input" class="form-check-input" /><span>&nbsp;&nbsp;Print Logo</span>
+                                            <input name="print_logo" value="Print-Logo" type="checkbox" class="form-check-input print_logo" class="form-check-input" /><span>&nbsp;&nbsp;Print Logo</span>
                                         </div>
                                         <div class="mx-2">
-                                            <input name="continue_mode" Value="Continue Mode" type="checkbox" class="form-check-input" /><span>&nbsp;&nbsp;Continue Mode</span>
+                                            <input name="continue_mode" Value="Continue-Mode" type="checkbox" class="form-check-input continue_mode" /><span>&nbsp;&nbsp;Continue Mode</span>
                                         </div>
                                     </div>
                                 </div>
@@ -429,7 +429,7 @@ $(document).ready(function(){
         "pageLength": 15,
         "scrollX": true,
         "ajax": {
-            "url": "{{ route('admin.cro') }}",
+            "url": "{{ route('admin.cro.create') }}",
             "type": "get",
             "data": function(d) {
                 var frm_data = $('#result_report_form').serializeArray();
@@ -508,9 +508,16 @@ function edit_row(e, data) {
     $(".vessel").val(data.vessel);
     $(".voyage").val(data.voyage);
     $(".sailing_date").val(data.sailing_date);
-    $(".manual").val(data.manual);
-    $(".print_logo").val(data.print_logo);
-    $(".continue_mode").val(data.continue_mode);
+
+    $(".manual").removeAttr('checked');
+    $(`.manual[value=${data.manual}]`).attr('checked',true);
+
+    $(".print_logo").removeAttr('checked');
+    $(`.print_logo[value=${data.print_logo}]`).attr('checked',true);
+    
+    $(".continue_mode").removeAttr('checked');
+    $(`.continue_mode[value=${data.continue_mode}]`).attr('checked',true);
+    
     $(".haulage").val(data.haulage);
     $("#myForm").attr("action", "{{ route('admin.cro.update') }}");
     $("input[name=id]").val(data.id);

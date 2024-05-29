@@ -411,14 +411,14 @@
                                     <td><input type="text" style="width: 100%;" name="charges_category[]" /></td>
                                     <td>
                                         <select name="units[]" style="width: 100%;">
-                                            <option selected disabled></option>
+                                            <option selected></option>
                                             <option value="Unit">Unit</option>
                                             <option value="Ship">Ship</option>
                                         </select>
                                     </td>
                                     <td>
                                         <select name="size_type[]" style="width: 100%;">
-                                            <option selected disabled></option>
+                                            <option selected></option>
                                             @foreach($sizes as $size)
                                                 <option value="{{ $size->id }}">{{ $size->size }}</option> 
                                             @endforeach
@@ -427,7 +427,7 @@
                                     
                                      <td>
                                         <select name="good_unit[]" style="width: 100%;">
-                                            <option selected disabled></option>
+                                            <option selected></option>
                                             <option value="Kg/S">Kg/S</option>
                                             <option value="PC/S">PC/S</option>
                                             <option value="Pallet/S">Pallet/S</option>
@@ -440,7 +440,7 @@
                                     <td><input type="text" style="width: 100%;" name="rate_group[]" /></td>
                                     <td>
                                         <select name="modee[]" style="width: 100%;">
-                                            <option selected disabled></option>
+                                            <option selected></option>
                                             <option value="Received From Client">Received From Client</option>
                                             <option value="Pay To Vendor">Pay To Vendor</option>
                                             <option value="Rec Pay From Client/Vendor">Rec Pay From Client/Vendor</option>
@@ -451,7 +451,7 @@
                                     <td><input type="checkbox" style="width: 100%;" name="manual[]"/></td>
                                      <td>
                                         <select name="dg_type[]" style="width: 100%;">
-                                            <option selected disabled></option>
+                                            <option selected></option>
                                             <option value="DG">DG</option>
                                             <option value="Non-DG">Non-DG</option>
                                             <option value="All">All</option>
@@ -461,7 +461,7 @@
                                     <td><input type="text" style="width: 100%;" onkeyup="detailCalculation(this)" class="rate" name="rate[]" /></td>
                                     <td>
                                         <select name="detail_currency[]" style="width: 100%;">
-                                            <option selected disabled></option>
+                                            <option selected></option>
                                             @foreach($currencies as $currency)
                                                 <option value="{{ $currency->id }}">{{ $currency->name }}</option> 
                                             @endforeach
@@ -484,10 +484,10 @@
                         </div>
                       </div>
                       <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
-                        <textarea type="text" rows="6" class="form-control"></textarea>
+                        <textarea rows="6" class="form-control" name="header_footer"></textarea>
                       </div>
                       <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
-                        <textarea type="text" rows="6" class="form-control"></textarea>
+                        <textarea rows="6" class="form-control" name="internal"></textarea>
                       </div>
                       
                       <div class="tab-pane fade" id="navs-top-routing" role="tabpanel">
@@ -682,12 +682,26 @@
                             </thead>
                             <tbody>
                                 <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
-                                <td><input type="text" style="width: 100%;"/></td>
+                                <td>
+                                    <select name="equip_size_type[]" style="width: 100%;">
+                                        <option selected></option>
+                                        @foreach($sizes as $size)
+                                            <option value="{{ $size->id }}">{{ $size->size }}</option> 
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%;" name="equip_rate_group[]" /></td>
+                                <td><input type="text" style="width: 100%;" name="equip_qty[]" /></td>
+                                <td>
+                                    <select name="equip_dg_type[]" style="width: 100%;">
+                                        <option selected></option>
+                                        <option value="DG">DG</option>
+                                        <option value="Non-DG">Non-DG</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" style="width: 100%;" name="equip_gross[]" /></td>
+                                <td><input type="text" style="width: 100%;" name="equip_tue[]" /></td>
                             </tbody>
                         </table>
                       </div>

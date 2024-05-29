@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vessel;
+use App\Models\Voyage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,30 +19,22 @@ use File;
 
 class VesselController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $data['seo_title']      = "Vessel";
-    //     $data['seo_desc']       = "Vessel";
-    //     $data['seo_keywords']   = "Vessel";
-    //     $data['page_title'] = "All Vessel";
+    public function index(Request $request)
+    {
+        $data['seo_title']      = "Vessel";
+        $data['seo_desc']       = "Vessel";
+        $data['seo_keywords']   = "Vessel";
+        $data['page_title'] = "All Vessel";
 
-    //     if ($request->ajax()) {
-    //         $totalCount=0;
-    //         $recordsFiltered=0;
-    //         $pageSize = (int)($request->length) ? $request->length : 10;
-    //         $start=(int)($request->start) ? $request->start : 0;
-    //         $query=Vessel::Query();
-    //         $totalCount=$query->count(); 
-            
-    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-    //         return Datatables::of($query)
-    //             ->setOffset($start)->addIndexColumn()
-    //             ->with(['recordsTotal'=>$totalCount])
-    //             ->make(true);
-    //     }
-    //     return view('admin.vessel.index', $data);
-    // }
+        if ($request->ajax()) {
+            $query = Voyage::Query();
+            $query = $query->with('vessel');
+            $query = $query->where('vessel', $request->vessel);
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
+        }
+        return view('admin.vessel.index', $data);
+    }
     
     
     public function create(Request $request)

@@ -51,6 +51,13 @@ class CommodityController extends Controller
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
+        $data['commodity_num'] = Commodity::orderby('id','desc')->first();
+        if($data['commodity_num']) {
+            $data['commodity_num'] = $data['commodity_num']->code + 1;
+        } else {
+            $data['commodity_num'] = 1;
+        }
+        
         $data['seo_title']      = "Commodity";
         $data['seo_desc']       = "Commodity";
         $data['seo_keywords']   = "Commodity";
@@ -73,15 +80,22 @@ class CommodityController extends Controller
         $developer = Commodity::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Commodity Deleted Successfully.'];
-        return redirect()->route('admin.commodity')->withNotify($notify);
+        return back()->withNotify($notify);
     }
     
     public function store(Request $request)
     {
         $validated = $request->validate([
             'code' => 'required',
-            'name' => 'required',
+            'name' => ['required', 'string', 'max:255', 'alpha', 'unique:commodities'],
         ]);
+        
+        if($request->hazmat_product == "Yes") {
+            $validated = $request->validate([
+                'hazmat_code' => 'required',
+                'hazmat_class' => 'required'
+            ]);
+        }
         
         $commodity = new Commodity();
         $commodity->fill($request->all());
