@@ -61,26 +61,26 @@
                         <div data-i18n="General Setting">Setup</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.chart_account.create')}}">
+                            <a href="{{route('admin.chart_account.create')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Chart of Account</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.voucher.create')}}">
+                            <a href="{{route('admin.voucher.create')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Voucher Properties</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.opening_balance.create')}}">
+                            <a href="{{route('admin.opening_balance.create')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Opening Balance</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.account_integrate.create')}}">
+                            <a href="{{route('admin.account_integrate.create')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Account Integration</div>
                             </a>
@@ -1102,10 +1102,10 @@
                                 <div data-i18n="General Setting">Container Stock Report</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
+                        <li class="menu-item {{menuActive('admin.ctrk.create')}}">
+                            <a href="{{route('admin.ctrk.create')}}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
-                                <div data-i18n="General Setting">Ctrk Container List</div>
+                                <div data-i18n="General Setting">Ctrk Container</div>
                             </a>
                         </li>
                         <li class="menu-item">
@@ -1910,10 +1910,16 @@
                         <div data-i18n="General Setting">Active In-active Reason</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-user"></i>
+                        <div data-i18n="General Setting">Currency Market Rate</div>
+                    </a>
+                </li>
                 <li class="menu-item {{menuActive('admin.currency.create')}}">
                     <a href="{{route('admin.currency.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
-                        <div data-i18n="General Setting">Currency Market Rate</div>
+                        <div data-i18n="General Setting">Currency</div>
                     </a>
                 </li>
                 <li class="menu-item">
@@ -1976,8 +1982,8 @@
                         <div data-i18n="PRINCIPAL MANUAL SOA">Principal Manual SOA</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item {{menuActive('admin.party_location.create')}}">
+                    <a href="{{route('admin.party_location.create')}}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-location-pin"></i>
                         <div data-i18n="PARTY LOCATIONS">Party Locations</div>
                     </a>

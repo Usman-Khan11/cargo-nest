@@ -48,19 +48,9 @@ class CurrencyController extends Controller
     {
         
         if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Currency::Query();
-            $totalCount=$query->count(); 
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = Currency::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
         $data['seo_title']      = "Currency";
@@ -85,17 +75,23 @@ class CurrencyController extends Controller
         $developer = Currency::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Currency Deleted Successfully.'];
-        return redirect()->route('admin.currency')->withNotify($notify);
+        return back()->withNotify($notify);
     }
     
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'code' => 'required',
-            'name' => 'required',
+            'code' => ['required', 'string', 'max:100', 'unique:currencies'],
+            'name' => ['required', 'string', 'max:100', 'unique:currencies'],
             'main_symbol' => 'required',
             'unit_symbol' => 'required',
         ]);
+        
+        $chk = Currency::where('code', $request->code)->where('name', $request->name)->where('main_symbol', $request->main_symbol)->where('unit_symbol', $request->unit_symbol)->count();
+        if($chk > 0){
+            $notify[] = ['error', 'code, name, unit_symbol & main_symbol duplicate not allowed!'];
+            return back()->withNotify($notify);
+        }
         
         $currency = new Currency();
         $currency->fill($request->all());
@@ -120,6 +116,67 @@ class CurrencyController extends Controller
         
         $notify[] = ['success', 'Currency Updated Successfully.'];
         return redirect()->route('admin.currency.create')->withNotify($notify);
+    }
+    
+     public function bulkUpload(Request $request)
+    {
+        $file = $request->file('import_file');
+        $tempPath = $file->getPathname();
+        $extension = $file->getClientOriginalExtension();
+        $i = 0;
+
+        if ($extension == "csv"){
+            $handle = fopen($tempPath, 'r');
+            while (($line = fgetcsv($handle, 10000, ",")) !== FALSE) {
+                if($i > 0) {
+                    
+                    
+                    $chk = Currency::where('name', strtolower($line[1]))->count();
+                    $chk_1 = Currency::where('code', strtolower($line[0]))->count();
+                    if($chk == 0 && $chk_1 == 0){
+                        $currency = new Currency();
+                        $currency->code = $line[0];
+                        $currency->name = $line[1];
+                        $currency->main_symbol = $line[2];
+                        $currency->unit_symbol = $line[3];
+                        $currency->decimal_portion_digits = $line[4];
+                        $currency->save();
+                    }
+                }
+                $i++;
+            }
+            fclose($handle);
+            return ['success', 'Upload Successfully.'];
+        } else {
+            return ['error', 'Only csv file allowed.'];
+        }
+        
+        return ['error', 'Something went wrong!'];
+    }
+    
+    
+    
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Currency::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Currency::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Currency::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Currency::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
 }

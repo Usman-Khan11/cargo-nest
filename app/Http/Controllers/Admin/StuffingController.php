@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Stuffing;
+use App\Models\Vessel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +67,7 @@ class StuffingController extends Controller
         $data['seo_desc']       = "Stuffing";
         $data['seo_keywords']   = "Stuffing";
         $data['page_title'] = "Stuffing";
+        $data['vessels'] = Vessel::get();
         return view('admin.stuffing.create', $data);
     }
     
@@ -115,6 +117,29 @@ class StuffingController extends Controller
         
         $notify[] = ['success', 'Stuffing Updated Successfully.'];
         return redirect()->route('admin.stuffing.create')->withNotify($notify);
+    }
+    
+     
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Stuffing::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Stuffing::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Stuffing::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Stuffing::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
     

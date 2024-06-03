@@ -2,36 +2,36 @@
 
 @section('top_nav_panel')
 <div class="col-md-4">
-    <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+     <div class="d-flex">
+        <div class="plus" onclick="formReset('/admin/packages/store')">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save" id="submitButton"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+        <div class="xmark" onclick="deleteData('/admin/packages/delete')">
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -79,7 +79,7 @@
                             <!--<hr />-->
                         </div>
                         <div class="card-body">
-                            <input name="id" type="hidden" />
+                            <input name="id" type="hidden" value="0" />
                             <div class="row">
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
@@ -118,7 +118,6 @@
                                     </div>
                                 </div>
         
-                                
         
                             </div>
                         </div>
@@ -138,12 +137,10 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -178,23 +175,16 @@
             "processing": true,
             "serverSide": true,
             "lengthChange": false,
-            "pageLength": 15,
+            "pageLength": 10,
             "scrollX": true,
             "ajax": {
                 "url": "{{ route('admin.packages.create') }}",
                 "type": "get",
                 "data": function(d) {
-                    var frm_data = $('#result_report_form').serializeArray();
-                    $.each(frm_data, function(key, val) {
-                        d[val.name] = val.value;
-                    });
+                    
                 },
             },
             columns: [
-                {
-                    data: 'DT_RowIndex',
-                    title: 'Sr No'
-                },
                 {
                     data: 'pack_code',
                     title: 'Package Code'
@@ -239,7 +229,22 @@
          $("input[name=id]").val(data.id);
     }
     
-}     
+} 
+
+
+
+
+$(".navigation").click(function () {
+  let id = $("input[name=id]").val();
+  let route = "/admin/packages/get";
+  let type = $(this).attr("data-type");
+  let data = getList(route, type, id);
+  if (data != null) {
+    edit_row("", JSON.stringify(data));
+  }
+});
+
+
       
 </script>
 @endpush

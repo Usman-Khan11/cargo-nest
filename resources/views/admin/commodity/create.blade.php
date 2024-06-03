@@ -221,90 +221,108 @@
                         <div class="col-md-4 col-12">
                             <h5>Duty Detail:</h5>
                         </div>
-                        <div class="col-md-5 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">SRO</label>
-                                <input name="sro" type="text" class="form-control sro"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Insurance</label>
-                                <input name="insurance" type="text" class="form-control insurance" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">I. Tax %</label>
-                                <input name="i_tax" type="text" class="form-control i_tax" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">RD %</label>
-                                <input name="rd" type="text" class="form-control rd" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Landing/Ins. %</label>
-                                <input name="landing_insurance" type="text" class="form-control landing_insurance" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">S.ITax %</label>
-                                <input name="s_itax" type="text" class="form-control s_itax" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">CD %</label>
-                                <input name="cd%" type="text" class="form-control cd" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">FED %</label>
-                                <input name="fed%" type="text" class="form-control fed" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Add.STax %</label>
-                                <input name="add_stax" type="text" class="form-control add_stax" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Fine</label>
-                                <input name="fine" type="text" class="form-control fine" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Add.CD %</label>
-                                <input name="add_cd" type="text" class="form-control add_cd" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">E.T.O</label>
-                                <input name="eto" type="text" class="form-control eto" placeholder="0.00"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex mt-4">
+                        <div class="col-md-4 col-12">
+                            <!--<label class="form-label">Hazmat Product?</label>-->
+                            <div class="d-flex">
                                 <div class="mb-2">
-                                    <input name="item" type="radio" class="form-check-input atom" value="Shipping Item" id="shipping_term" />
-                                    <label class="form-check-label" for="shipping_term" style="font-size:13px;">Shipping Item</label>
+                                    <input name="duty_detail" type="radio" class="form-check-input" value="No" id="duty_detail_1" checked />
+                                    <label class="form-check-label" for="duty_detail_1">No</label>
                                 </div>
                                 <div class="mb-2 px-3">
-                                    <input name="item" type="radio" class="form-check-input atom" value="Warehouse Item" id="warehouse_item" />
-                                    <label class="form-check-label" for="warehouse_item" style="font-size:13px;">Warehouse Item</label>
+                                    <input name="duty_detail" type="radio" class="form-check-input" value="Yes" id="duty_detail_2" />
+                                    <label class="form-check-label" for="duty_detail_2">Yes</label>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 duty_detail" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-5 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">SRO</label>
+                                        <input name="sro" type="text" class="form-control sro"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Insurance</label>
+                                        <input name="insurance" type="text" class="form-control insurance" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">I. Tax %</label>
+                                        <input name="i_tax" type="text" class="form-control i_tax" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">RD %</label>
+                                        <input name="rd" type="text" class="form-control rd" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Landing/Ins. %</label>
+                                        <input name="landing_insurance" type="text" class="form-control landing_insurance" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">S.ITax %</label>
+                                        <input name="s_itax" type="text" class="form-control s_itax" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">CD %</label>
+                                        <input name="cd%" type="text" class="form-control cd" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">FED %</label>
+                                        <input name="fed%" type="text" class="form-control fed" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Add.STax %</label>
+                                        <input name="add_stax" type="text" class="form-control add_stax" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Fine</label>
+                                        <input name="fine" type="text" class="form-control fine" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">Add.CD %</label>
+                                        <input name="add_cd" type="text" class="form-control add_cd" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <div class="mb-2">
+                                        <label class="form-label">E.T.O</label>
+                                        <input name="eto" type="text" class="form-control eto" placeholder="0.00"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="d-flex mt-4">
+                                        <div class="mb-2">
+                                            <input name="item" type="radio" class="form-check-input atom" value="Shipping Item" id="shipping_term" />
+                                            <label class="form-check-label" for="shipping_term" style="font-size:13px;">Shipping Item</label>
+                                        </div>
+                                        <div class="mb-2 px-3">
+                                            <input name="item" type="radio" class="form-check-input atom" value="Warehouse Item" id="warehouse_item" />
+                                            <label class="form-check-label" for="warehouse_item" style="font-size:13px;">Warehouse Item</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         
                         
                     </div>
@@ -367,16 +385,13 @@
         "processing": true,
         "serverSide": true,
         "lengthChange": false,
-        "pageLength": 15,
+        "pageLength": 10,
         "scrollX": true,
         "ajax": {
             "url": "{{ route('admin.commodity.create') }}",
             "type": "get",
             "data": function(d) {
-                var frm_data = $('#result_report_form').serializeArray();
-                $.each(frm_data, function(key, val) {
-                    d[val.name] = val.value;
-                });
+                
             },
         },
         columns: [
@@ -476,6 +491,15 @@ $(".navigation").click(function () {
   }
 });
 
+
+$("input[name=duty_detail]").click(function () {
+    let val = $(this).val();
+    if(val === "Yes"){
+        $(".duty_detail").show();
+    } else {
+        $(".duty_detail").hide();
+    }
+})
 </script>
 
 @endpush

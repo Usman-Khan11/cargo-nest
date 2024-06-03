@@ -3,13 +3,13 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
+        <div class="plus" onclick="formReset('/admin/voyage/store')">
             <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
             <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
+        <div class="xmark" onclick="deleteData('/admin/voyage/delete')">
             <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
@@ -168,9 +168,9 @@ $vessel_id = @$_GET["vessel_id"];
                                         <td><input name="" type="text" style="width: 100%;"/></td>
                                         <td>
                                             <select name="currency[]" style="width: 100%;">
-                                                <option selected disabled></option>
+                                                <option selected disabled value=""></option>
                                                 @foreach($currencies as $currency)
-                                                    <option value="{{ $currency->id }}">{{ $currency->name }}</option> 
+                                                    <option value="{{ $currency->id }}">{{ $currency->code }}</option> 
                                                 @endforeach
                                             </select>
                                         </td>
@@ -260,9 +260,9 @@ $vessel_id = @$_GET["vessel_id"];
                                     <th>Yard Closing Time</th>
                                   </tr>
                                 </thead>
-                                <tbody class="detail_repeater">
-                                    <td><i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                    <td><i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info"></i></td>
+                                <tbody class="local_repeater">
+                                    <td><i onclick="dellocalRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
+                                    <td><i onclick="addlocalRow(this)" class="fa fa-print fa-lg text-info"></i></td>
                                     <td><input name="" type="text" style="width: 100%;"/></td>
                                     <td><input name="code[]" type="text" style="width: 100%;"/></td>
                                     <td><input name="local_port[]" type="text" style="width: 100%;"/></td>
@@ -363,10 +363,23 @@ $vessel_id = @$_GET["vessel_id"];
 
     function addNewRow(e){
         $(e).parent().parent().clone().prependTo(".detail_repeater");
+        $(".detail_repeater tr:last").find("input").val(null);
+        $(".detail_repeater tr:last select").find("option").attr("selected",false);
     }
     
     function delRow(e){
         if($(".detail_repeater tr").length <= 1) return;
+        $(e).parent().parent().remove();
+    }
+
+    function addlocalRow(e){
+        $(e).parent().parent().clone().prependTo(".local_repeater");
+        $(".local_repeater tr:last").find("input").val(null);
+        $(".local_repeater tr:last select").find("option").attr("selected",false);
+    }
+    
+    function dellocalRow(e){
+        if($(".local_repeater tr").length <= 1) return;
         $(e).parent().parent().remove();
     }
 

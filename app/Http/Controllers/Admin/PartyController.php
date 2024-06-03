@@ -25,34 +25,47 @@ use File;
 
 class PartyController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Party";
-        $data['seo_desc']       = "Party";
-        $data['seo_keywords']   = "Party";
-        $data['page_title'] = "All Party";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Party";
+    //     $data['seo_desc']       = "Party";
+    //     $data['seo_keywords']   = "Party";
+    //     $data['page_title'] = "All Party";
 
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Party::Query();
-            $totalCount=$query->count(); 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Party::Query();
+    //         $totalCount=$query->count(); 
             
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
             
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-        return view('admin.party.index', $data);
-    }
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.party.index', $data);
+    // }
     
     
     public function create(Request $request)
     {
+        if ($request->ajax()) {
+            $query = PartyBasicInfo::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
+        }
+        
+        $data['party_num'] = PartyBasicInfo::orderby('id','desc')->first();
+        if($data['party_num']) {
+            $data['party_num'] = $data['party_num']->code + 1;
+        } else {
+            $data['party_num'] = 1;
+        }
+        
         $data['seo_title']      = "Party";
         $data['seo_desc']       = "Party";
         $data['seo_keywords']   = "Party";
@@ -66,28 +79,32 @@ class PartyController extends Controller
         $data['seo_desc']       = "Edit Party";
         $data['seo_keywords']   = "Edit Party";
         $data['page_title'] = "Edit Party";
-        $data['party'] = Party::where("id", $id)->first();
+        $data['party'] = PartyBasicInfo::where("id", $id)->first();
         return view('admin.party.edit', $data);
     }
     
     public function delete($id)
     {
-        $developer = Party::where("id", $id);
+        $developer = PartyBasicInfo::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Party Deleted Successfully.'];
-        return redirect()->route('admin.party')->withNotify($notify);
+        return back()->withNotify($notify);
     }
     
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'short_name' => 'required',
-            'reg_date' => 'required',
-            'license_no' => 'required',
-            'contact_person' => 'required',
+            'party_code' => 'required',
+            'party_name' => ['required', 'string', 'max:255', 'unique:party_basic_infos'],
+            'city' => 'required',
+            'operation_check' => 'required',
+            'Type' => 'required',
         ]);
         
         $partybasicinfo = new PartyBasicInfo();
+        $partybasicinfo->party_code = $request->party_code;
+        $partybasicinfo->party_name = $request->party_name;
+        $partybasicinfo->party_inactive = $request->party_inactive;
         $partybasicinfo->short_name = $request->short_name;
         $partybasicinfo->reg_date = $request->reg_date;
         $partybasicinfo->license_no = $request->license_no;
@@ -119,14 +136,14 @@ class PartyController extends Controller
         $this->localize_kyc_store($request,$partybasicinfo->id);
         
         $notify[] = ['success', 'Party Added Successfully.'];
-        return redirect()->route('admin.party')->withNotify($notify);
+        return redirect()->route('admin.party.create')->withNotify($notify);
     }
     
     public function other_info_store($request,$id)
     {
         $partyotherinfo = new PartyOtherInfo();
         $partyotherinfo->party_basic_id = $id;
-        $partyotherinfo->ownership = $request->ownership;
+        $partyotherinfo->ownership=json_encode($request->ownership);
         $partyotherinfo->affiliated_companies = $request->affiliated_companies;
         $partyotherinfo->fed_id = $request->fed_id;
         $partyotherinfo->business_type = $request->business_type;
@@ -139,7 +156,7 @@ class PartyController extends Controller
         $partyotherinfo->specific_credit_card = $request->specific_credit_card;
         $partyotherinfo->due_days = $request->due_days;
         $partyotherinfo->credit_unit = $request->credit_unit;
-        $partyotherinfo->expiry_date = $request->expiry_date;
+        $partyotherinfo->expiry_date = $request->expiry_dates;
         $partyotherinfo->save();
     }
     
@@ -157,6 +174,7 @@ class PartyController extends Controller
         $partyaccountdetail->currency = $request->currency;
         $partyaccountdetail->customer_grp = $request->customer_grp;
         $partyaccountdetail->sub_type = $request->sub_type;
+        $partyaccountdetail->sub_type_input=json_encode($request->sub_type_input);;
         $partyaccountdetail->save();
     }
     
@@ -241,12 +259,60 @@ class PartyController extends Controller
             'date' => 'required',
         ]);
         
-        $quotation = Quotation::where("id", $request->id)->first();
-        $quotation->fill($request->all());
+        $partybasicinfo = PartyBasicInfo::where("id", $request->id)->first();
+        $partybasicinfo->party_code = $request->party_code;
+        $partybasicinfo->party_name = $request->party_name;
+        $partybasicinfo->party_inactive = $request->party_inactive;
+        $partybasicinfo->short_name = $request->short_name;
+        $partybasicinfo->reg_date = $request->reg_date;
+        $partybasicinfo->license_no = $request->license_no;
+        $partybasicinfo->contact_person = $request->contact_person;
+        $partybasicinfo->ntn = $request->ntn;
+        $partybasicinfo->strn = $request->strn;
+        $partybasicinfo->address1 = $request->address1;
+        $partybasicinfo->address2 = $request->address2;
+        $partybasicinfo->address3 = $request->address3;
+        $partybasicinfo->city = $request->city;
+        $partybasicinfo->zipcode = $request->zipcode;
+        $partybasicinfo->tel_1 = $request->tel_1;
+        $partybasicinfo->tel_2 = $request->tel_2;
+        $partybasicinfo->facsimile = $request->facsimile;
+        $partybasicinfo->mobile = $request->mobile;
+        $partybasicinfo->website = $request->website;
+        $partybasicinfo->email = $request->email;
+        $partybasicinfo->acc_dept_email = $request->acc_dept_email;
+        $partybasicinfo->operation = $request->operation;
+        $partybasicinfo->operation_check=json_encode($request->operation_check);
+        $partybasicinfo->Type=json_encode($request->Type);
+        $partybasicinfo->nomination=json_encode($request->nomination);
+        $partybasicinfo->scac_iata_code = $request->scac_iata_code;
+        $partybasicinfo->restriction=json_encode($request->restriction);
         $quotation->save();
         
-        $notify[] = ['success', 'Quotation Updated Successfully.'];
-        return redirect()->route('admin.quotation')->withNotify($notify);
+        $notify[] = ['success', 'Party Updated Successfully.'];
+        return redirect()->route('admin.party.create')->withNotify($notify);
+    }
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = PartyBasicInfo::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = PartyBasicInfo::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = PartyBasicInfo::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = PartyBasicInfo::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
 }

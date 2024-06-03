@@ -114,8 +114,8 @@
         
         function deleteData(route) {
             let c = confirm('Are you sure?');
-            let id = $("#myForm input[name=id]").val();
-            if(id && c && route){
+            let id = parseInt($("#myForm input[name=id]").val());
+            if(id > 0 && c && route){
                 window.location.assign(route + '/' + id);
             } else if(!id || !route) {
                 iziToast.error({ message: 'Something went wrong!', position: "topRight" });

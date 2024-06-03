@@ -9,7 +9,7 @@
         <div class="save">
             <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
+        <div class="xmark" onclick="deleteData('/admin/location/delete')">
             <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
@@ -79,7 +79,7 @@
                             <!--<hr />-->
                         </div>
                         <div class="card-body">
-                            <input name="id" type="hidden" />
+                            <input name="id" type="hidden" value="0" />
                             <div class="row">
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
@@ -315,8 +315,11 @@ function edit_row(e,data){
     if(data){
         $(".code").val(data.code);
         $(".locate").val(data.location);
+        
         $(".location_check").removeAttr('checked');
-        $(`.location_check[value=${data.location_check}]`).attr('checked',true);
+        $(data.location_check).each(function(i, v){
+            $(`.location_check[value=${v}]`).attr("checked", true);
+        })
         
         $(".co_ordinates").val(data.co_ordinates);
         $(".inactive").removeAttr('checked');

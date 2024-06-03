@@ -392,7 +392,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 d-none">
                 <div class="card">
                     
                     <div class="card-body">

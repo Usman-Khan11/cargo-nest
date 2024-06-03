@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 29, 2024 at 09:15 AM
+-- Generation Time: Jun 03, 2024 at 09:33 AM
 -- Server version: 10.3.39-MariaDB
 -- PHP Version: 8.1.28
 
@@ -278,6 +278,39 @@ INSERT INTO `cros` (`id`, `cro_no`, `cro_type`, `job_number`, `client`, `issue_d
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ctrk`
+--
+
+CREATE TABLE `ctrk` (
+  `id` int(11) NOT NULL,
+  `container_no` varchar(225) NOT NULL,
+  `size_type` varchar(225) NOT NULL,
+  `yom` text DEFAULT NULL,
+  `weight_limit` varchar(225) DEFAULT NULL,
+  `principal` varchar(255) DEFAULT NULL,
+  `principal_code` varchar(155) DEFAULT NULL,
+  `top` varchar(100) DEFAULT NULL,
+  `right` varchar(100) DEFAULT NULL,
+  `left` varchar(100) DEFAULT NULL,
+  `front` varchar(100) DEFAULT NULL,
+  `back` varchar(100) DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `ctrk`
+--
+
+INSERT INTO `ctrk` (`id`, `container_no`, `size_type`, `yom`, `weight_limit`, `principal`, `principal_code`, `top`, `right`, `left`, `front`, `back`, `remarks`, `created_at`, `updated_at`) VALUES
+(8, 'FCIU2617753', '20SD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MAXX', '2024-06-01 18:07:37', '2024-06-01 18:13:31'),
+(9, 'MAXU6249801', '40HC', '', '', '', '', '', '', '', '', '', '', '2024-06-01 18:08:41', '2024-06-01 18:08:41'),
+(10, 'EMCU3475141', '20SD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-01 18:10:59', '2024-06-01 18:10:59');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `currencies`
 --
 
@@ -298,7 +331,7 @@ CREATE TABLE `currencies` (
 --
 
 INSERT INTO `currencies` (`id`, `code`, `name`, `ex_rate`, `main_symbol`, `unit_symbol`, `decimal_portion_digits`, `created_at`, `updated_at`) VALUES
-(1, '123', 'PKR', NULL, 'Rs', 'rs', '0.00', '2024-05-28 07:36:31', '2024-05-28 07:36:31');
+(20, 'USD', 'UNITED STATE', NULL, 'DOLLAR', '$', '0', '2024-06-01 12:24:57', '2024-06-01 12:24:57');
 
 -- --------------------------------------------------------
 
@@ -357,6 +390,16 @@ CREATE TABLE `equipment` (
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `equipment`
+--
+
+INSERT INTO `equipment` (`id`, `code`, `size`, `type`, `teu`, `old_iso`, `iso`, `weight`, `created_at`, `updated_at`) VALUES
+(4, '20SD', '20', 'Dry Container', '1', NULL, '22G1', '2350.00', '2024-05-31 07:04:11', '2024-05-31 08:00:17'),
+(8, '20OT', '20', 'Open Top', '1', NULL, '20UT', NULL, '2024-05-31 12:52:37', '2024-05-31 12:52:37'),
+(9, '20FR', '20', 'Flat Rack', '1', NULL, '20U5', NULL, '2024-05-31 12:53:01', '2024-05-31 12:53:33'),
+(11, '20RF', '20', 'Refrigerated Container', '1', NULL, NULL, NULL, '2024-05-31 13:00:22', '2024-05-31 13:17:36');
 
 -- --------------------------------------------------------
 
@@ -506,6 +549,57 @@ CREATE TABLE `invoices` (
   `storage_end_date` varchar(100) DEFAULT NULL,
   `tax_charges` varchar(100) DEFAULT NULL,
   `invoice_title` varchar(225) DEFAULT NULL,
+  `remarks` text DEFAULT NULL,
+  `total_amount` varchar(225) DEFAULT NULL,
+  `net_amount` varchar(225) DEFAULT NULL,
+  `voucher_no` varchar(225) DEFAULT NULL,
+  `discount` varchar(225) DEFAULT NULL,
+  `tax_amount` varchar(225) DEFAULT NULL,
+  `bank_detail` varchar(225) DEFAULT NULL,
+  `net_amount_inc_tax` varchar(225) DEFAULT NULL,
+  `local_amount` varchar(225) DEFAULT NULL,
+  `settled_amount` varchar(225) DEFAULT NULL,
+  `invoice_balance` varchar(225) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `tran_number`, `inv_date`, `reference`, `status`, `category`, `option`, `client`, `sequence`, `invoice_type`, `ref_tran_number`, `operation`, `job_number`, `currency`, `cost_center`, `invoice_to`, `manual`, `due_days`, `invoice_ac`, `auto_round_off`, `storage_end_date`, `tax_charges`, `invoice_title`, `remarks`, `total_amount`, `net_amount`, `voucher_no`, `discount`, `tax_amount`, `bank_detail`, `net_amount_inc_tax`, `local_amount`, `settled_amount`, `invoice_balance`, `created_at`, `updated_at`) VALUES
+(1, '5543', '2024-06-25', 'jhjhhuj', 'incomplete', 'securityDeposit', 'milestone_wise', 'cfhgv', NULL, NULL, NULL, 'air import', NULL, 'GBP', 'Head Office', 'invoiceTo', NULL, NULL, NULL, NULL, '2024-06-25', NULL, NULL, 'mkclkcm', '989883484', '45897489', 'wclklclq', '55901235', '8420948', 'nckdfniniqddjnanjn', '80909', '809', '898', '090', '2024-06-03 06:52:38', '2024-06-03 06:52:38'),
+(2, '231', '2024-06-12', 'buhjmj', 'void', 'regular', 'job_wise', 'fifjkz', 'nbkjfn', 'cnjdf', 'zxm sdma', 'sea export', 'CNSF', 'AED', 'Head Office', 'clearingAgent', 'Manual', NULL, NULL, NULL, NULL, 'Tax Charges', NULL, 'utfghvnvhj', '3532', '3233', '23556', '23', NULL, NULL, '56', '23', '23532', '98', '2024-06-03 07:02:15', '2024-06-03 07:02:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_details`
+--
+
+CREATE TABLE `invoice_details` (
+  `id` int(11) NOT NULL,
+  `invoice_id` int(11) NOT NULL,
+  `charges_code` varchar(155) DEFAULT NULL,
+  `charges_name` varchar(255) DEFAULT NULL,
+  `charges_description` text DEFAULT NULL,
+  `size_type` varchar(155) DEFAULT NULL,
+  `rate_group` varchar(155) DEFAULT NULL,
+  `dg_nondg` varchar(155) DEFAULT NULL,
+  `container` text DEFAULT NULL,
+  `qty` varchar(255) DEFAULT NULL,
+  `rate` varchar(155) DEFAULT NULL,
+  `currency` varchar(255) DEFAULT NULL,
+  `amount` varchar(255) DEFAULT NULL,
+  `discount` varchar(255) DEFAULT NULL,
+  `net_amount` varchar(255) DEFAULT NULL,
+  `margin` varchar(255) DEFAULT NULL,
+  `tax` varchar(255) DEFAULT NULL,
+  `tax_amount` varchar(155) DEFAULT NULL,
+  `inc_tax` varchar(155) DEFAULT NULL,
+  `ex_rate` varchar(255) DEFAULT NULL,
+  `local_amount` varchar(155) DEFAULT NULL,
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -648,6 +742,62 @@ CREATE TABLE `milestones` (
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `milestones`
+--
+
+INSERT INTO `milestones` (`id`, `type`, `job_no`, `job_date`, `created_at`, `updated_at`) VALUES
+(1, 'Job-wise', '54', '2024-06-19', '2024-06-03 04:57:48', '2024-06-03 04:57:48'),
+(2, 'Job-wise', '77', '2024-06-10', '2024-06-03 04:58:06', '2024-06-03 04:58:06'),
+(3, 'Job-wise', '23', '2024-06-28', '2024-06-03 04:58:18', '2024-06-03 04:58:18'),
+(4, 'Milestone-wise', '56', '2024-06-28', '2024-06-03 04:58:33', '2024-06-03 04:58:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `milestone_documents`
+--
+
+CREATE TABLE `milestone_documents` (
+  `id` int(11) NOT NULL,
+  `milestone_id` int(11) NOT NULL,
+  `d_code` varchar(100) DEFAULT NULL,
+  `d_name` varchar(225) DEFAULT NULL,
+  `d_anticipated` varchar(155) DEFAULT NULL,
+  `d_done` varchar(155) DEFAULT NULL,
+  `d_date` varchar(155) DEFAULT NULL,
+  `d_remarks` text DEFAULT NULL,
+  `d_action` text DEFAULT NULL,
+  `d_update_on` varchar(225) DEFAULT NULL,
+  `d_update_by` varchar(225) DEFAULT NULL,
+  `d_update_log` varchar(255) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `milestone_operationals`
+--
+
+CREATE TABLE `milestone_operationals` (
+  `id` int(11) NOT NULL,
+  `milestone_id` int(11) NOT NULL,
+  `o_code` varchar(155) DEFAULT NULL,
+  `o_name` varchar(225) DEFAULT NULL,
+  `o_anticipated` varchar(155) DEFAULT NULL,
+  `o_done` varchar(155) DEFAULT NULL,
+  `o_date` varchar(155) DEFAULT NULL,
+  `o_remarks` text DEFAULT NULL,
+  `o_action` text DEFAULT NULL,
+  `o_update_on` varchar(225) DEFAULT NULL,
+  `o_update_by` varchar(255) DEFAULT NULL,
+  `o_update_log` varchar(255) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -665,6 +815,16 @@ CREATE TABLE `packages` (
   `updated_at` varchar(50) DEFAULT NULL,
   `created_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `packages`
+--
+
+INSERT INTO `packages` (`id`, `pack_code`, `default`, `pack_name`, `std_2digit`, `std_3digit`, `epas_code`, `updated_at`, `created_at`) VALUES
+(7, 'BAL', NULL, 'BALES', 'BL', 'BAL', NULL, '2024-05-31 06:39:57', '2024-05-31 06:39:57'),
+(10, 'BAG', NULL, 'BAGS', 'BG', 'BAG', NULL, '2024-05-31 06:50:43', '2024-05-31 06:50:43'),
+(11, 'BDL', '', 'BUNDLES', 'BE', 'BDL', NULL, '2024-05-31 07:19:19', '2024-05-31 06:51:22'),
+(12, 'BK', '', 'BULK', 'BK', 'BLK', NULL, '2024-05-31 12:32:17', '2024-05-31 12:32:07');
 
 -- --------------------------------------------------------
 
@@ -685,9 +845,17 @@ CREATE TABLE `party_account_detail` (
   `currency` varchar(155) DEFAULT NULL,
   `customer_grp` varchar(225) DEFAULT NULL,
   `sub_type` varchar(225) DEFAULT NULL,
+  `sub_type_input` text NOT NULL,
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `party_account_detail`
+--
+
+INSERT INTO `party_account_detail` (`id`, `party_basic_id`, `manual_account`, `parent_account`, `account`, `sale_rep`, `doc_rep`, `account_rep`, `referred_by`, `currency`, `customer_grp`, `sub_type`, `sub_type_input`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'PKR', NULL, NULL, 'null', '2024-06-01 09:00:00', '2024-06-01 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -716,18 +884,28 @@ CREATE TABLE `party_ach_bank_detail` (
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `party_ach_bank_detail`
+--
+
+INSERT INTO `party_ach_bank_detail` (`id`, `party_basic_id`, `ach_authority`, `account_title`, `bank`, `bank_name`, `account_no`, `iban`, `branch_code`, `swift_code`, `routing_no`, `ifsc_code`, `micr_code`, `remarks`, `auth_date`, `auth_by`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-01 09:00:00', '2024-06-01 09:00:00');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `party_basic_info`
+-- Table structure for table `party_basic_infos`
 --
 
-CREATE TABLE `party_basic_info` (
+CREATE TABLE `party_basic_infos` (
   `id` int(11) NOT NULL,
-  `short_name` varchar(225) NOT NULL,
-  `reg_date` varchar(225) NOT NULL,
-  `license_no` varchar(225) NOT NULL,
-  `contact_person` varchar(155) NOT NULL,
+  `party_code` varchar(225) NOT NULL,
+  `party_name` varchar(225) NOT NULL,
+  `party_inactive` varchar(100) DEFAULT NULL,
+  `short_name` varchar(225) DEFAULT NULL,
+  `reg_date` varchar(225) DEFAULT NULL,
+  `license_no` varchar(225) DEFAULT NULL,
+  `contact_person` varchar(155) DEFAULT NULL,
   `ntn` varchar(155) DEFAULT NULL,
   `strn` varchar(155) DEFAULT NULL,
   `address1` text DEFAULT NULL,
@@ -751,6 +929,13 @@ CREATE TABLE `party_basic_info` (
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `party_basic_infos`
+--
+
+INSERT INTO `party_basic_infos` (`id`, `party_code`, `party_name`, `party_inactive`, `short_name`, `reg_date`, `license_no`, `contact_person`, `ntn`, `strn`, `address1`, `address2`, `address3`, `city`, `zipcode`, `tel_1`, `tel_2`, `facsimile`, `mobile`, `website`, `email`, `acc_dept_email`, `operation`, `operation_check`, `Type`, `nomination`, `scac_iata_code`, `restriction`, `created_at`, `updated_at`) VALUES
+(1, '1', 'test', NULL, 'test', '2024-06-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'karachi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Operation', '[\"Sea-Export\"]', '[\"Non Operational Party\"]', 'null', NULL, 'null', '2024-06-01 09:00:00', '2024-06-01 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -807,6 +992,13 @@ CREATE TABLE `party_localize_kyc` (
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `party_localize_kyc`
+--
+
+INSERT INTO `party_localize_kyc` (`id`, `party_basic_id`, `name`, `address1`, `address2`, `address3`, `kyc_verification`, `kyc_date`, `kyc_remarks`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-01 09:00:00', '2024-06-01 09:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -850,6 +1042,13 @@ CREATE TABLE `party_other_info` (
   `created_at` varchar(50) DEFAULT NULL,
   `updated_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `party_other_info`
+--
+
+INSERT INTO `party_other_info` (`id`, `party_basic_id`, `ownership`, `affiliated_companies`, `fed_id`, `business_type`, `year_company_establised`, `no_of_employee`, `est_annual_sales`, `d_b`, `ntn_name`, `buyer_type`, `specific_credit_card`, `due_days`, `credit_unit`, `expiry_date`, `created_at`, `updated_at`) VALUES
+(1, 1, 'null', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-06-01 09:00:00', '2024-06-01 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -1053,6 +1252,43 @@ CREATE TABLE `quotation_equipments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `quotation_routings`
+--
+
+CREATE TABLE `quotation_routings` (
+  `id` int(11) NOT NULL,
+  `quotation_id` int(11) NOT NULL,
+  `po_num` text DEFAULT NULL,
+  `ready_date` varchar(100) DEFAULT NULL,
+  `ship_date` varchar(100) DEFAULT NULL,
+  `arrive_date` varchar(100) DEFAULT NULL,
+  `s_c` varchar(155) DEFAULT NULL,
+  `service_type` varchar(255) DEFAULT NULL,
+  `transit_time` varchar(255) DEFAULT NULL,
+  `free_days` text DEFAULT NULL,
+  `vendor` varchar(255) DEFAULT NULL,
+  `overseas` varchar(255) DEFAULT NULL,
+  `sline_carrier` varchar(255) DEFAULT NULL,
+  `principal` varchar(255) DEFAULT NULL,
+  `other_instruct` text DEFAULT NULL,
+  `terminals` text DEFAULT NULL,
+  `shipper` varchar(255) DEFAULT NULL,
+  `pickup_location` varchar(255) DEFAULT NULL,
+  `auto_address` text DEFAULT NULL,
+  `custom_clearance` text DEFAULT NULL,
+  `port_of_loading` varchar(255) DEFAULT NULL,
+  `port_of_discharge` varchar(255) DEFAULT NULL,
+  `final_destination` text DEFAULT NULL,
+  `drop_off_location` text DEFAULT NULL,
+  `auto_address2` text DEFAULT NULL,
+  `transportation` text DEFAULT NULL,
+  `created_at` varchar(50) DEFAULT NULL,
+  `updated_at` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `receipts`
 --
 
@@ -1236,7 +1472,8 @@ CREATE TABLE `stuffings` (
 --
 
 INSERT INTO `stuffings` (`id`, `tran_number`, `date`, `type1`, `type2`, `container`, `seal_number`, `vessel`, `overseas_agent`, `shipping_line`, `sales_rep`, `remarks`, `stuffing_date`, `cut_off_date`, `port_of_discharge`, `size_type`, `job_number`, `voyage`, `sailing_date`, `delivery`, `print`, `serial_number`, `created_at`, `updated_at`) VALUES
-(1, '5543', '2024-05-30', NULL, NULL, 'nnkmmk', NULL, 'nnlkn', 'mklm', 'nlknmkn', 'mnmkl;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 10:46:12', '2024-05-29 10:46:12');
+(1, '5543', '2024-05-30', NULL, NULL, 'nnkmmk', NULL, 'nnlkn', 'mklm', 'nlknmkn', 'mnmkl;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 10:46:12', '2024-05-29 10:46:12'),
+(2, '5543', '2024-06-07', NULL, NULL, 'vfdfghg', '14', 'vgff', 'c vfbaX DVQ C', 'VVDF', NULL, 'dfgrtyujttyj c dfbfgb', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-31 05:55:35', '2024-05-31 05:55:35');
 
 -- --------------------------------------------------------
 
@@ -1478,6 +1715,12 @@ ALTER TABLE `cros`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ctrk`
+--
+ALTER TABLE `ctrk`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `currencies`
 --
 ALTER TABLE `currencies`
@@ -1533,6 +1776,12 @@ ALTER TABLE `invoices`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `invoice_details`
+--
+ALTER TABLE `invoice_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `leads`
 --
 ALTER TABLE `leads`
@@ -1563,6 +1812,18 @@ ALTER TABLE `milestones`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `milestone_documents`
+--
+ALTER TABLE `milestone_documents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `milestone_operationals`
+--
+ALTER TABLE `milestone_operationals`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `packages`
 --
 ALTER TABLE `packages`
@@ -1581,9 +1842,9 @@ ALTER TABLE `party_ach_bank_detail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `party_basic_info`
+-- Indexes for table `party_basic_infos`
 --
-ALTER TABLE `party_basic_info`
+ALTER TABLE `party_basic_infos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1664,6 +1925,12 @@ ALTER TABLE `quotation_details`
 -- Indexes for table `quotation_equipments`
 --
 ALTER TABLE `quotation_equipments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `quotation_routings`
+--
+ALTER TABLE `quotation_routings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1804,10 +2071,16 @@ ALTER TABLE `cros`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `ctrk`
+--
+ALTER TABLE `ctrk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `currencies`
 --
 ALTER TABLE `currencies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -1825,7 +2098,7 @@ ALTER TABLE `emails`
 -- AUTO_INCREMENT for table `equipment`
 --
 ALTER TABLE `equipment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `extensions`
@@ -1855,6 +2128,12 @@ ALTER TABLE `incoterms`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `invoice_details`
+--
+ALTER TABLE `invoice_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1885,31 +2164,43 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `milestones`
 --
 ALTER TABLE `milestones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `milestone_documents`
+--
+ALTER TABLE `milestone_documents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `milestone_operationals`
+--
+ALTER TABLE `milestone_operationals`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `party_account_detail`
 --
 ALTER TABLE `party_account_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `party_ach_bank_detail`
 --
 ALTER TABLE `party_ach_bank_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `party_basic_info`
+-- AUTO_INCREMENT for table `party_basic_infos`
 --
-ALTER TABLE `party_basic_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `party_basic_infos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `party_center`
@@ -1927,7 +2218,7 @@ ALTER TABLE `party_insurance`
 -- AUTO_INCREMENT for table `party_localize_kyc`
 --
 ALTER TABLE `party_localize_kyc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `party_notifications`
@@ -1939,7 +2230,7 @@ ALTER TABLE `party_notifications`
 -- AUTO_INCREMENT for table `party_other_info`
 --
 ALTER TABLE `party_other_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1984,6 +2275,12 @@ ALTER TABLE `quotation_equipments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `quotation_routings`
+--
+ALTER TABLE `quotation_routings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `receipts`
 --
 ALTER TABLE `receipts`
@@ -2023,7 +2320,7 @@ ALTER TABLE `statuses`
 -- AUTO_INCREMENT for table `stuffings`
 --
 ALTER TABLE `stuffings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -2047,7 +2344,7 @@ ALTER TABLE `vessels`
 -- AUTO_INCREMENT for table `voyages`
 --
 ALTER TABLE `voyages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `voyage_details`

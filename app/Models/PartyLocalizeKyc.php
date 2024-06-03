@@ -9,4 +9,5 @@ class PartyLocalizeKyc extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'party_localize_kyc';
 }

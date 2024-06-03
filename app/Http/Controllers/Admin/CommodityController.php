@@ -112,6 +112,13 @@ class CommodityController extends Controller
             'name' => 'required',
         ]);
         
+        if($request->hazmat_product == "Yes") {
+            $validated = $request->validate([
+                'hazmat_code' => 'required',
+                'hazmat_class' => 'required'
+            ]);
+        }
+        
         $commodity = Commodity::where("id", $request->id)->first();
         $commodity->inactive = $request->inactive ? $request->inactive : '';
         $commodity->fill($request->all());

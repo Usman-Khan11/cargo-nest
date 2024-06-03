@@ -75,7 +75,7 @@ class VesselController extends Controller
         $developer = Vessel::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Vessel Deleted Successfully.'];
-        return redirect()->route('admin.vessel')->withNotify($notify);
+        return back()->withNotify($notify);
     }
     
     public function store(Request $request)

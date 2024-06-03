@@ -88,7 +88,7 @@ class VoyageController extends Controller
         $developer = Voyage::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Voyage Deleted Successfully.'];
-        return redirect()->route('admin.voyage')->withNotify($notify);
+        return back()->withNotify($notify);
     }
     
     public function store(Request $request)
@@ -98,11 +98,16 @@ class VoyageController extends Controller
             'voy' => ['required', 'string', 'max:255', 'unique:voyages'],
         ]);
         
+        $currency = $request->currency;
+        /*if(!$currency || count($currency) <= 0){
+            $notify[] = ['error', 'Currency Required.'];
+            return back()->withNotify($notify);
+        }*/
+        
         $voyage = new Voyage();
         $voyage->fill($request->all());
         $voyage->save();
         
-        $currency = $request->currency;
         foreach($currency as $key => $value) {
             $voyage_detail = new VoyageDetail();
             $voyage_detail->voyage_id = $voyage->id;

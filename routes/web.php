@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PartyController;
+use App\Http\Controllers\Admin\PartyLocationController;
 use App\Http\Controllers\Admin\ManifestController;
 use App\Http\Controllers\Admin\CroController;
 use App\Http\Controllers\Admin\BlController;
@@ -49,9 +50,17 @@ use App\Http\Controllers\Admin\AgentReceiptController;
 use App\Http\Controllers\Admin\AgentPaymentRequisitionController;
 use App\Http\Controllers\Admin\PaymentRequisitionController;
 use App\Http\Controllers\Admin\ShippingInstructionController;
+use App\Http\Controllers\Admin\CtrkController;
+
 
 //    SE EXPORT REPORTS
 use App\Http\Controllers\Admin\SeExportController;
+
+
+use App\Http\Controllers\Admin\ChartAccountController;
+use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\OpeningBalanceController;
+use App\Http\Controllers\Admin\AccountIntegrateController;
 
 
 
@@ -201,6 +210,8 @@ Route::namespace('Admin')
                 Route::get('equipment/delete/{id}',[EquipmentController::class ,'delete'])->name('equipment.delete');
                 Route::post('equipment/store',[EquipmentController::class ,'store'])->name('equipment.store');
                 Route::post('equipment/update',[EquipmentController::class ,'update'])->name('equipment.update');
+                Route::post('equipment/get',[EquipmentController::class ,'get_data'])->name('equipment.get');
+                Route::post('equipment/import',[EquipmentController::class ,'bulkUpload'])->name('equipment.import');
                 
                 // PACKAGES ROUTES
                 Route::get('packages',[PackagesController::class ,'index'])->name('packages');
@@ -209,6 +220,7 @@ Route::namespace('Admin')
                 Route::get('packages/delete/{id}',[PackagesController::class ,'delete'])->name('packages.delete');
                 Route::post('packages/store',[PackagesController::class ,'store'])->name('packages.store');
                 Route::post('packages/update',[PackagesController::class ,'update'])->name('packages.update');
+                Route::post('packages/get',[PackagesController::class ,'get_data'])->name('packages.get');
                 
                 // CURRENCY ROUTES
                 Route::get('currency',[CurrencyController::class ,'index'])->name('currency');
@@ -217,6 +229,8 @@ Route::namespace('Admin')
                 Route::get('currency/delete/{id}',[CurrencyController::class ,'delete'])->name('currency.delete');
                 Route::post('currency/store',[CurrencyController::class ,'store'])->name('currency.store');
                 Route::post('currency/update',[CurrencyController::class ,'update'])->name('currency.update');
+                Route::post('currency/import',[CurrencyController::class ,'bulkUpload'])->name('currency.import');
+                Route::post('currency/get',[CurrencyController::class ,'get_data'])->name('currency.get');
 
                 // PARTY ROUTES
                 Route::get('party',[PartyController::class ,'index'])->name('party');
@@ -225,6 +239,15 @@ Route::namespace('Admin')
                 Route::get('party/delete/{id}',[PartyController::class ,'delete'])->name('party.delete');
                 Route::post('party/store',[PartyController::class ,'store'])->name('party.store');
                 Route::post('party/update',[PartyController::class ,'update'])->name('party.update');
+                Route::post('party/get',[PartyController::class ,'get_data'])->name('party.get');
+
+                // PARTY LOCATION ROUTES
+                Route::get('party_location',[PartyLocationController::class ,'index'])->name('party_location');
+                Route::get('party_location/create',[PartyLocationController::class ,'create'])->name('party_location.create');
+                Route::get('party_location/edit/{id}',[PartyLocationController::class ,'edit'])->name('party_location.edit');
+                Route::get('party_location/delete/{id}',[PartyLocationController::class ,'delete'])->name('party_location.delete');
+                Route::post('party_location/store',[PartyLocationController::class ,'store'])->name('party_location.store');
+                Route::post('party_location/update',[PartyLocationController::class ,'update'])->name('party_location.update');
 
                 // EMPLOYEE ROUTES
                 Route::get('employee',[EmployeeController::class ,'index'])->name('employee');
@@ -282,6 +305,7 @@ Route::namespace('Admin')
                 Route::get('stuffing/delete/{id}',[StuffingController::class ,'delete'])->name('stuffing.delete');
                 Route::post('stuffing/store',[StuffingController::class ,'store'])->name('stuffing.store');
                 Route::post('stuffing/update',[StuffingController::class ,'update'])->name('stuffing.update');
+                Route::post('stuffing/get',[StuffingController::class ,'get_data'])->name('stuffing.get');
                 
                 // MILESTONE ROUTES
                 Route::get('milestone',[MilestoneController::class ,'index'])->name('milestone');
@@ -290,6 +314,7 @@ Route::namespace('Admin')
                 Route::get('milestone/delete/{id}',[MilestoneController::class ,'delete'])->name('milestone.delete');
                 Route::post('milestone/store',[MilestoneController::class ,'store'])->name('milestone.store');
                 Route::post('milestone/update',[MilestoneController::class ,'update'])->name('milestone.update');
+                Route::post('milestone/get',[MilestoneController::class ,'get_data'])->name('milestone.get');
                 
                 // INVOICE ROUTES
                 Route::get('invoice',[InvoiceController::class ,'index'])->name('invoice');
@@ -298,6 +323,7 @@ Route::namespace('Admin')
                 Route::get('invoice/delete/{id}',[InvoiceController::class ,'delete'])->name('invoice.delete');
                 Route::post('invoice/store',[InvoiceController::class ,'store'])->name('invoice.store');
                 Route::post('invoice/update',[InvoiceController::class ,'update'])->name('invoice.update');
+                Route::post('invoice/get',[InvoiceController::class ,'get_data'])->name('invoice.get');
                 
                 // RECEIPT ROUTES
                 Route::get('receipt',[ReceiptController::class ,'index'])->name('receipt');
@@ -402,6 +428,17 @@ Route::namespace('Admin')
                 Route::get('shipping_instruction/delete/{id}',[ShippingInstructionController::class ,'delete'])->name('shipping_instruction.delete');
                 Route::post('shipping_instruction/store',[ShippingInstructionController::class ,'store'])->name('shipping_instruction.store');
                 Route::post('shipping_instruction/update',[ShippingInstructionController::class ,'update'])->name('shipping_instruction.update');
+                
+                 // CTRK ROUTES
+                Route::get('ctrk',[CtrkController::class ,'index'])->name('ctrk');
+                Route::get('ctrk/create',[CtrkController::class ,'create'])->name('ctrk.create');
+                Route::get('ctrk/edit/{id}',[CtrkController::class ,'edit'])->name('ctrk.edit');
+                Route::get('ctrk/delete/{id}',[CtrkController::class ,'delete'])->name('ctrk.delete');
+                Route::post('ctrk/store',[CtrkController::class ,'store'])->name('ctrk.store');
+                Route::post('ctrk/update',[CtrkController::class ,'update'])->name('ctrk.update');
+                Route::post('ctrk/import',[CtrkController::class ,'bulkUpload'])->name('ctrk.import');
+                Route::post('ctrk/get',[CtrkController::class ,'get_data'])->name('ctrk.get');
+                
 
                 //  SE EXPORT REPORTS
                 Route::get('job_balancing',[SeExportController::class ,'index'])->name('job_balancing');
@@ -414,7 +451,40 @@ Route::namespace('Admin')
                 Route::get('bl_release_status',[SeExportController::class ,'blreleasestatus'])->name('bl_release_status');   
                 Route::get('debit_credit',[SeExportController::class ,'debitcredit'])->name('debit_credit');   
                 Route::get('cargo_movement',[SeExportController::class ,'cargomovement'])->name('cargo_movement');   
-                Route::get('job_profit_loss',[SeExportController::class ,'jobprofitloss'])->name('job_profit_loss');    
+                Route::get('job_profit_loss',[SeExportController::class ,'jobprofitloss'])->name('job_profit_loss');   
+                
+                  
+                //  CHART OF ACCOUNT INSTRUCTION
+                Route::get('chart_account',[ChartAccountController::class ,'index'])->name('chart_account');
+                Route::get('chart_account/create',[ChartAccountController::class ,'create'])->name('chart_account.create');
+                Route::get('chart_account/edit/{id}',[ChartAccountController::class ,'edit'])->name('chart_account.edit');
+                Route::get('chart_account/delete/{id}',[ChartAccountController::class ,'delete'])->name('chart_account.delete');
+                Route::post('chart_account/store',[ChartAccountController::class ,'store'])->name('chart_account.store');
+                Route::post('chart_account/update',[ChartAccountController::class ,'update'])->name('chart_account.update');
+                  
+                //  VOUCHER PROPERTIES INSTRUCTION
+                Route::get('voucher',[VoucherController::class ,'index'])->name('voucher');
+                Route::get('voucher/create',[VoucherController::class ,'create'])->name('voucher.create');
+                Route::get('voucher/edit/{id}',[VoucherController::class ,'edit'])->name('voucher.edit');
+                Route::get('voucher/delete/{id}',[VoucherController::class ,'delete'])->name('voucher.delete');
+                Route::post('voucher/store',[VoucherController::class ,'store'])->name('voucher.store');
+                Route::post('voucher/update',[VoucherController::class ,'update'])->name('voucher.update');
+           
+                //  OPENING BALANCE INSTRUCTION
+                Route::get('opening_balance',[OpeningBalanceController::class ,'index'])->name('opening_balance');
+                Route::get('opening_balance/create',[OpeningBalanceController::class ,'create'])->name('opening_balance.create');
+                Route::get('opening_balance/edit/{id}',[OpeningBalanceController::class ,'edit'])->name('opening_balance.edit');
+                Route::get('opening_balance/delete/{id}',[OpeningBalanceController::class ,'delete'])->name('opening_balance.delete');
+                Route::post('opening_balance/store',[OpeningBalanceController::class ,'store'])->name('opening_balance.store');
+                Route::post('opening_balance/update',[OpeningBalanceController::class ,'update'])->name('opening_balance.update');
+           
+                //  OPENING BALANCE INSTRUCTION
+                Route::get('account_integrate',[AccountIntegrateController::class ,'index'])->name('account_integrate');
+                Route::get('account_integrate/create',[AccountIntegrateController::class ,'create'])->name('account_integrate.create');
+                Route::get('account_integrate/edit/{id}',[AccountIntegrateController::class ,'edit'])->name('account_integrate.edit');
+                Route::get('account_integrate/delete/{id}',[AccountIntegrateController::class ,'delete'])->name('account_integrate.delete');
+                Route::post('account_integrate/store',[AccountIntegrateController::class ,'store'])->name('account_integrate.store');
+                Route::post('account_integrate/update',[AccountIntegrateController::class ,'update'])->name('account_integrate.update');
            
             });
 

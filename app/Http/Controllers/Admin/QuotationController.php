@@ -14,6 +14,7 @@ use App\Models\Equipment;
 use App\Models\Incoterm;
 use App\Models\QuotationDetail;
 use App\Models\QuotationEquipment;
+use App\Models\QuotationRouting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -98,6 +99,10 @@ class QuotationController extends Controller
         $quotation = new Quotation();
         $quotation->fill($request->all());
         $quotation->save();
+        
+        $quotation_routings = new QuotationRouting();
+        $quotation_routings->fill($request->all());
+        
         
         $units = $request->units;
         foreach($units as $key => $value) {

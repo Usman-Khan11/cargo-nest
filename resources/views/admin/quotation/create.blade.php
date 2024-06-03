@@ -493,46 +493,40 @@
                       <div class="tab-pane fade" id="navs-top-routing" role="tabpanel">
                         <div style="height:170px; overflow-y:scroll; overflow-x:hidden;">
                             <div class="row">
-                                <div class="col-md-3 col-12">
+                                <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Po #:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="po_num" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-12">
+                                <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Ready Date:</label>
-                                        <select class="form-select">
-                                            <option>04-05-2024</option>
-                                        </select>
+                                        <input type="date" name="ready_date" class="form-control"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-12">
+                                <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Ship By Date:</label>
-                                        <select class="form-select">
-                                            <option>04-05-2024</option>
-                                        </select>
+                                        <input type="date" name="ship_date" class="form-control"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-12">
+                                <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Arrive No Later Than:</label>
-                                        <select class="form-select">
-                                            <option>04-05-2024</option>
-                                        </select>
+                                        <input type="date" name="arrive_date" class="form-control"/>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-12">
+                                <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">S/C #:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="s_c" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-12">
+                                <div class="col-md-2 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Service Type:</label>
-                                        <select class="form-select">
+                                        <select name[="service_type" class="form-select">
                                             <option selected disabled>Select</option>
                                             <option>A</option>
                                             <option>b</option>
@@ -543,49 +537,49 @@
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Transit Time:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="transit_time" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Detention Free Days:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="free_days" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Vendor:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="vendor" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Overseas Agent:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="overseas" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Sline Carrier:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="sline_carrier" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
-                                        <label class="form-label">Principle:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <label class="form-label">Principal:</label>
+                                        <input name="principal" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Other Instruction:</label>
-                                        <textarea type="text" rows="3" class="form-control"></textarea>
+                                        <textarea name="other_instruct" type="text" rows="3" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Terminals:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input name="terminals" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                             </div>
@@ -598,25 +592,25 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Shipper:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="shipper" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Pickup Location:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="pickup_location" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Auto Address:</label>
-                                                <textarea type="text" rows="3" class="form-control"></textarea>
+                                                <textarea name="auto_address" type="text" rows="3" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Custom Clearance:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="custom_clearance" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                     </div>
@@ -626,37 +620,37 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Port of Loading:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="port_of_loading" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Port of Discharge:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="port_of_discharge" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Final Destination:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="final_destination" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Drop off Location:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="drop_off_location" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Auto Address:</label>
-                                                <textarea type="text" rows="3" class="form-control"></textarea>
+                                                <textarea name="auto_address2" type="text" rows="3" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Transportation:</label>
-                                                <input name="" type="text" class="form-control" placeholder="" />
+                                                <input name="transportation" type="text" class="form-control" placeholder="" />
                                             </div>
                                         </div>
                                     </div>

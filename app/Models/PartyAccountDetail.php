@@ -9,4 +9,5 @@ class PartyAccountDetail extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'party_account_detail';
 }

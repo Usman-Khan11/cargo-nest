@@ -3,13 +3,13 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus" onclick="document.getElementById('myForm').reset()">
+        <div class="plus" onclick="formReset('/admin/vessel/store')">
             <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
             <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
+        <div class="xmark" onclick="deleteData('/admin/vessel/delete')">
             <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
