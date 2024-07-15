@@ -12,6 +12,14 @@ use App\Models\Voyage;
 use App\Models\Currency;
 use App\Models\Equipment;
 use App\Models\Incoterm;
+use App\Models\Packages;
+use App\Models\Employee;
+use App\Models\PartyBasicInfo;
+use App\Models\PartyLocation;
+use App\Models\Location;
+use App\Models\Job;
+use App\Models\Charges;
+
 use App\Models\QuotationDetail;
 use App\Models\QuotationEquipment;
 use App\Models\QuotationRouting;
@@ -28,45 +36,131 @@ use File;
 
 class QuotationController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Quotations";
-        $data['seo_desc']       = "Quotations";
-        $data['seo_keywords']   = "Quotations";
-        $data['page_title'] = "All Quotations";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Quotations";
+    //     $data['seo_desc']       = "Quotations";
+    //     $data['seo_keywords']   = "Quotations";
+    //     $data['page_title'] = "All Quotations";
 
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Quotation::Query();
-            $totalCount=$query->count(); 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Quotation::Query();
+    //         $totalCount=$query->count(); 
             
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
             
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-        return view('admin.quotation.index', $data);
-    }
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.quotation.index', $data);
+    // }
     
     
     public function create(Request $request)
     {
+        if ($request->ajax()) {
+            
+            if(isset($request->fetch_vessel_voyages)){
+                $voyages = Voyage::where('vessel', $request->fetch_vessel_voyages)->select(["id", "voy as text"])->latest()->get();
+                return $voyages->toArray();
+            }
+            
+            if(isset($request->fetch_charges_code)){
+                $fetch_charges_code = Charges::where('code', $request->fetch_charges_code)->first();
+                return $fetch_charges_code;
+            }
+            
+            if(isset($request->fetch_charges_currency)){
+                $fetch_charges_currency = Charges::where('id', $request->fetch_charges_currency)->first();
+                return $fetch_charges_currency;
+            }
+            
+            $query = Quotation::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
+        }
+        
+        $data['quotation_no'] = Quotation::orderby('id','desc')->first();
+        if($data['quotation_no']) {
+            $str = $data['quotation_no']->quotation_no;
+            $str = explode('-', $str);
+            $str = explode('/', $str[2]);
+            $str = $str[0] + 1;
+            $data['quotation_no'] = $str;
+        } else {
+            $data['quotation_no'] = 1;
+        }
+        
         $data['seo_title']      = "Quotation";
         $data['seo_desc']       = "Quotation";
         $data['seo_keywords']   = "Quotation";
         $data['page_title'] = "Quotation";
         $data['customers'] = Customer::get();
-        $data['commodities'] = Commodity::get();
-        $data['vessels'] = Vessel::get();
-        $data['voyages'] = Voyage::get();
-        $data['currencies'] = Currency::get();
-        $data['sizes'] = Equipment::get();
-        $data['incoterms'] = Incoterm::get();
+        
+        $data['commodities'] = Commodity::select(["id", "name as text"])->get();
+        $data['commodities'] = $data['commodities']->toArray();
+        
+        $data['vessels'] = Vessel::select(["id", "vessel_name as text"])->get();
+        $data['vessels'] = $data['vessels']->toArray();
+        
+        $data['voyages'] = Voyage::select(["id", "voy as text"])->take(0)->get();
+        $data['voyages'] = $data['voyages']->toArray();
+        
+        $data['currencies'] = Currency::select(["id", "code as text"])->orderBy('id','desc')->get();
+        $data['currencies'] = $data['currencies']->toArray();
+        
+        $data['sizes'] = Equipment::select(["id", "code as text"])->get();
+        $data['sizes'] = $data['sizes']->toArray();
+
+        $data['incoterms'] = Incoterm::select(["id", "name as text"])->get();
+        $data['incoterms'] = $data['incoterms']->toArray();
+        
+        $data['packages'] = Packages::select(["id", "pack_code as text"])->get();
+        $data['packages'] = $data['packages']->toArray();
+        
+        $data['employees'] = Employee::where('rep', 'like', '%Sales-Rep%')->select(["id", "emp_name as text"])->get();
+        $data['employees'] = $data['employees']->toArray();
+        
+        $data['parties'] = PartyBasicInfo::select(["id", "party_name as text"])->get();
+        $data['parties'] = $data['parties']->toArray();
+        
+        $data['vendors'] = PartyBasicInfo::where('Type', 'like', '%Local-Vendor%')->select(["id", "party_name as text"])->get();
+        $data['vendors'] = $data['vendors']->toArray();
+        
+        $data['overseas'] = PartyBasicInfo::where('Type', 'like', '%Overseas-Agent%')->select(["id", "party_name as text"])->get();
+        $data['overseas'] = $data['overseas']->toArray();
+        
+        $data['principals'] = PartyBasicInfo::where('Type', 'like', '%Principal%')->select(["id", "party_name as text"])->get();
+        $data['principals'] = $data['principals']->toArray();
+        
+        $data['shipping_lines'] = PartyBasicInfo::where('Type', 'like', '%Shipping-Line%')->select(["id", "party_name as text"])->get();
+        $data['shipping_lines'] = $data['shipping_lines']->toArray();
+        
+        $data['shippers'] = PartyBasicInfo::where('Type', 'like', '%Shipper%')->select(["id", "party_name as text"])->get();
+        $data['shippers'] = $data['shippers']->toArray();
+        
+        $data['consignees'] = PartyBasicInfo::where('Type', 'like', '%Consignee%')->select(["id", "party_name as text"])->get();
+        $data['consignees'] = $data['consignees']->toArray();
+        
+        $data['terminals'] = PartyLocation::where('Type', 'like', '%Terminel%')->select(["id", "location_name as text"])->get();
+        $data['terminals'] = $data['terminals']->toArray();
+        
+        // $data['locations'] = Location::where('Type', 'like', '%Terminel%')->select(["id", "location as text"])->get();
+        $data['locations'] = Location::select('id', DB::raw('CONCAT(location) as text'))->get();
+        $data['locations'] = $data['locations']->toArray();
+        
+        // $data['charges'] = Charges::select(["id", "code as text"])->get();
+        // $data['charges'] = $data['charges']->toArray();
+        
+        $data['charges'] = Charges::select(["id", "name as text"])->get();
+        $data['charges'] = $data['charges']->toArray();
+        
         return view('admin.quotation.create', $data);
     }
     
@@ -92,17 +186,47 @@ class QuotationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'quotation_no' => 'required',
-            'date' => 'required',
+            'operation_type' => 'required',
+            'cost_center' => 'required',
+            'client' => 'required',
+            'port_of_loading' => 'required',
+            'port_of_discharge' => 'required',
         ]);
         
         $quotation = new Quotation();
+        $quotation->approval_status = "Pending";
         $quotation->fill($request->all());
         $quotation->save();
         
         $quotation_routings = new QuotationRouting();
-        $quotation_routings->fill($request->all());
-        
+        $quotation_routings->quotation_id = $quotation->id;
+        $quotation_routings->po_num = $request->po_num;
+        $quotation_routings->ready_date = $request->ready_date;
+        $quotation_routings->ship_date = $request->ship_date;
+        $quotation_routings->arrive_date = $request->arrive_date;
+        $quotation_routings->s_c = $request->s_c;
+        $quotation_routings->service_type = $request->service_type;
+        $quotation_routings->transit_time = $request->transit_time;
+        $quotation_routings->free_days = $request->free_days;
+        $quotation_routings->vendor = $request->vendor;
+        $quotation_routings->overseas = $request->overseas;
+        $quotation_routings->sline_carrier = $request->sline_carrier;
+        $quotation_routings->principal = $request->principal;
+        $quotation_routings->other_instruct = $request->other_instruct;
+        $quotation_routings->terminals = $request->terminals;
+        $quotation_routings->shipper = $request->shipper;
+        $quotation_routings->consignee = $request->consignee;
+        $quotation_routings->pickup_location = $request->pickup_location;
+        $quotation_routings->auto_address = $request->auto_address;
+        $quotation_routings->custom_clearance = $request->custom_clearance;
+        $quotation_routings->place_of_receipt = $request->place_of_receipt;
+        $quotation_routings->port_of_loading = $request->port_of_loading;
+        $quotation_routings->port_of_discharge = $request->port_of_discharge;
+        $quotation_routings->final_destination = $request->final_destination;
+        $quotation_routings->drop_off_location = $request->drop_off_location;
+        $quotation_routings->auto_address2 = $request->auto_address2;
+        $quotation_routings->transportation = $request->transportation;
+        $quotation_routings->save();
         
         $units = $request->units;
         foreach($units as $key => $value) {
@@ -117,7 +241,9 @@ class QuotationController extends Controller
             $quotation_details->good_unit = $request->good_unit[$key];
             $quotation_details->rate_group = $request->rate_group[$key];
             $quotation_details->mode = $request->modee[$key];
-            $quotation_details->manual = $request->manual[$key];
+            
+            $quotation_details->manual = (!empty($request->manual[$key])) ? $request->manual[$key] : '';
+            
             $quotation_details->dg_type = $request->dg_type[$key];
             $quotation_details->qty = $request->qty[$key];
             $quotation_details->rate = $request->rate[$key];
@@ -157,8 +283,9 @@ class QuotationController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'quotation_no' => 'required',
-            'date' => 'required',
+            'operation_type' => 'required',
+            'cost_center' => 'required',
+            
         ]);
         
         $quotation = Quotation::where("id", $request->id)->first();
@@ -166,7 +293,50 @@ class QuotationController extends Controller
         $quotation->save();
         
         $notify[] = ['success', 'Quotation Updated Successfully.'];
-        return redirect()->route('admin.quotation')->withNotify($notify);
+        return redirect()->route('admin.quotation.create')->withNotify($notify);
     }
     
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        $arr = ["quotation" => null, "quotation_routing" => null, "quotation_detail" => null, "quotation_equipment" => null];
+        
+        if($type == "first") {
+            $arr["quotation"] = Quotation::orderBy('id', 'asc')->first();
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->first();
+            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        }
+        else if($type == "last") {
+            $arr["quotation"] = Quotation::orderBy('id', 'desc')->first();
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->first();
+            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        }
+        else if($type == "forward") {
+            $arr["quotation"] = Quotation::where('id', '>', $id)->first();
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->first();
+            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        }
+        else if($type == "backward") {
+            $arr["quotation"] = Quotation::where('id', '<', $id)->orderBy('id', 'desc')->first();
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->first();
+            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        }
+        
+        return $arr;
+    }
+    
+    
 }
+
+
+
+
+
+

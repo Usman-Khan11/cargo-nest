@@ -412,12 +412,12 @@
               <div class="col-md-3 col-12">
                 <div class="mb-2">
                   <label class="form-label">City:</label>
-                  <input
-                    name="city"
-                    type="text"
-                    class="form-control city"
-                    placeholder=""
-                  />
+                  <select name="city" class="city custom_select">
+                        <option selected disabled></option>
+                        {{--@foreach($locations as $value)
+                        <option value="{{ $value->id }}">{{ $value->location }}</option>
+                        @endforeach--}}
+                  </select>
                 </div>
               </div>
               <div class="col-md-3 col-12">
@@ -592,280 +592,288 @@
                   </div>
                 </div>
               </div>
+              
+              
               <div class="col-md-12 col-12 mt-3">
                 <label class="form-check-label mb-2">Type:</label>
                 <div class="row type_row">
+                    
                   <div class="col-md-3">
-                    <div class="mb-2">
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Shipper"
-                          class="form-check-input"
-                        />
-                        Shipper </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Consignee"
-                          class="form-check-input"
-                        />
-                        Consignee </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Notify"
-                          class="form-check-input"
-                        />
-                        Notify </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Potential-Customer"
-                          class="form-check-input"
-                        />
-                        Potential Customer </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Forwarder-Calender"
-                          class="form-check-input"
-                        />
-                        Forwarder/Calender </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Local-Vendor"
-                          class="form-check-input"
-                        />
-                        Local Vendor </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Overseas-Agent"
-                          class="form-check-input"
-                          disabled
-                        />
-                        Overseas Agent </label
-                      ><br />
+                      <div class="mb-2">
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Shipper"
+                            class="form-check-input Type"
+                          />
+                          Shipper
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Consignee"
+                            class="form-check-input Type"
+                          />
+                          Consignee
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Notify"
+                            class="form-check-input Type"
+                          />
+                          Notify
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Potential-Customer"
+                            class="form-check-input Type"
+                          />
+                          Potential Customer
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Forwarder-Coloader"
+                            class="form-check-input Type"
+                          />
+                          Forwarder/Coloader
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Local-Vendor"
+                            class="form-check-input Type"
+                          />
+                          Local Vendor
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Overseas-Agent"
+                            class="form-check-input Type"
+                            disabled
+                          />
+                          Overseas Agent
+                        </label><br />
+                      </div>
                     </div>
-                  </div>
                   <div class="col-md-3">
-                    <div class="mb-2">
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Commision-Agent"
-                          class="form-check-input"
-                        />
-                        Commision Agent </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Indentor"
-                          class="form-check-input"
-                        />
-                        Indentor </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Transporter"
-                          class="form-check-input"
-                        />
-                        Transporter </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="CHA-CHB"
-                          class="form-check-input"
-                        />
-                        CHA/CHB </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Shipping-Line"
-                          class="form-check-input"
-                        />
-                        Shipping Line </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Delivery-Agent"
-                          class="form-check-input"
-                        />
-                        Delivery Agent </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Warehouse"
-                          class="form-check-input"
-                        />
-                        Warehouse </label
-                      ><br />
+                      <div class="mb-2">
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Commision-Agent"
+                            class="form-check-input Type"
+                          />
+                          Commision Agent
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Indentor"
+                            class="form-check-input Type"
+                          />
+                          Indentor
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Transporter"
+                            class="form-check-input Type"
+                          />
+                          Transporter
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="CHA-CHB"
+                            class="form-check-input Type"
+                          />
+                          CHA/CHB
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Shipping-Line"
+                            class="form-check-input Type"
+                          />
+                          Shipping Line
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Delivery-Agent"
+                            class="form-check-input Type"
+                          />
+                          Delivery Agent
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Warehouse"
+                            class="form-check-input Type"
+                          />
+                          Warehouse
+                        </label><br />
+                      </div>
                     </div>
-                  </div>
                   <div class="col-md-3">
-                    <div class="mb-2">
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Buying-House"
-                          class="form-check-input"
-                        />
-                        Buying House </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Airline"
-                          class="form-check-input"
-                        />
-                        Airline </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Trucking"
-                          class="form-check-input"
-                        />
-                        Trucking </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Drayman"
-                          class="form-check-input"
-                        />
-                        Drayman </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Cartage"
-                          class="form-check-input"
-                        />
-                        Cartage </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Stevedore"
-                          class="form-check-input"
-                        />
-                        Stevedore </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Principal"
-                          class="form-check-input"
-                        />
-                        Principal </label
-                      ><br />
+                      <div class="mb-2">
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Buying-House"
+                            class="form-check-input Type"
+                          />
+                          Buying House
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Airline"
+                            class="form-check-input Type"
+                          />
+                          Airline
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Trucking"
+                            class="form-check-input Type"
+                          />
+                          Trucking
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Drayman"
+                            class="form-check-input Type"
+                          />
+                          Drayman
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Cartage"
+                            class="form-check-input Type"
+                          />
+                          Cartage
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Stevedore"
+                            class="form-check-input Type"
+                          />
+                          Stevedore
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Principal"
+                            class="form-check-input Type"
+                          />
+                          Principal
+                        </label><br />
+                      </div>
                     </div>
-                  </div>
                   <div class="col-md-3">
-                    <div class="mb-2">
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Depot"
-                          class="form-check-input"
-                        />
-                        Depot </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Terminal"
-                          class="form-check-input"
-                        />
-                        Terminal </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Buyer"
-                          class="form-check-input"
-                        />
-                        Buyer </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Invoice-Party"
-                          class="form-check-input"
-                        />
-                        Invoice Party </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Slot Operator"
-                          class="form-check-input"
-                        />
-                        Slot Operator </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Investor"
-                          class="form-check-input"
-                        />
-                        Investor </label
-                      ><br />
-                      <label class="form-check-label mb-2">
-                        <input
-                          type="checkbox"
-                          name="Type[]"
-                          value="Non-Operational-Party"
-                          class="form-check-input"
-                        />
-                        Non Operational Party </label
-                      ><br />
+                      <div class="mb-2">
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Depot"
+                            class="form-check-input Type"
+                          />
+                          Depot
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Terminal"
+                            class="form-check-input Type"
+                          />
+                          Terminal
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Buyer"
+                            class="form-check-input Type"
+                          />
+                          Buyer
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Invoice-Party"
+                            class="form-check-input Type"
+                          />
+                          Invoice Party
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Slot-Operator"
+                            class="form-check-input Type"
+                          />
+                          Slot Operator
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Investor"
+                            class="form-check-input Type"
+                          />
+                          Investor
+                        </label><br />
+                        <label class="form-check-label mb-2">
+                          <input
+                            type="checkbox"
+                            name="Type[]"
+                            value="Non-Operational-Party"
+                            class="form-check-input Type"
+                          />
+                          Non Operational Party
+                        </label><br />
+                      </div>
                     </div>
-                  </div>
+
+                  
                 </div>
               </div>
+              
+              
+              
               <div class="col-md-4 col-12 mt-5">
                 <div class="d-flex">
                   <div class="mb-2">
@@ -873,6 +881,7 @@
                     <input
                       name="nomination[]"
                       type="checkbox"
+                      value="Import-Nomination"
                       class="form-check-input"
                     /><span>&nbsp;Import Nomination</span>
                   </div>
@@ -881,6 +890,7 @@
                     <input
                       name="nomination[]"
                       type="checkbox"
+                      value="Export-Nomination"
                       class="form-check-input"
                     /><span>&nbsp;Export Nomination</span>
                   </div>
@@ -903,6 +913,7 @@
                   <input
                     name="restriction"
                     type="checkbox"
+                    value="Apply-Company-Restriction"
                     class="form-check-input"
                   /><span>&nbsp;Apply Company Restriction</span>
                 </div>
@@ -911,6 +922,7 @@
                   <input
                     name="restriction"
                     type="checkbox"
+                    value="Apply-CostCenter-Restriction"
                     class="form-check-input"
                   /><span>&nbsp;Apply Cost Center Restriction</span>
                 </div>
@@ -1141,6 +1153,7 @@
                   <input
                     type="checkbox"
                     name="manual_account"
+                    value="Manual-Account"
                     style="width: 16px; height: 16px"
                   /><span>&nbsp;Manual Account</span>
                 </div>
@@ -1241,6 +1254,7 @@
                   <input
                     name=""
                     class="sub_type sub_check form-check-input"
+                    value="Show-Sub-type"
                     type="checkbox"
                   /><span>&nbsp; &nbsp;Show Sub Type</span>
                 </div>
@@ -1252,6 +1266,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="ACH"
                         class="form-check-input"
                       /><span>&nbsp;ACH</span>
                     </div>
@@ -1259,6 +1274,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Wire-Transfer"
                         class="form-check-input"
                       /><span>&nbsp;Wire Transfer</span>
                     </div>
@@ -1266,6 +1282,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Online-Transfer"
                         class="form-check-input"
                       /><span>&nbsp;Online Transfer</span>
                     </div>
@@ -1273,6 +1290,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Credit-Card"
                         class="form-check-input"
                       /><span>&nbsp;Credit Card</span>
                     </div>
@@ -1280,6 +1298,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Cheque"
                         class="form-check-input"
                       /><span>&nbsp;Cheque</span>
                     </div>
@@ -1287,6 +1306,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="PO"
                         class="form-check-input"
                       /><span>&nbsp;PO</span>
                     </div>
@@ -1294,6 +1314,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="TT"
                         class="form-check-input"
                       /><span>&nbsp;TT</span>
                     </div>
@@ -1301,6 +1322,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Cash"
                         class="form-check-input"
                       /><span>&nbsp;Cash</span>
                     </div>
@@ -1308,6 +1330,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Party"
                         class="form-check-input"
                       /><span>&nbsp;Party</span>
                     </div>
@@ -1317,6 +1340,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Online-Personal-AC"
                         class="form-check-input"
                       /><span>&nbsp;Online Personal A/C</span>
                     </div>
@@ -1324,6 +1348,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Personal-Cheque"
                         class="form-check-input"
                       /><span>&nbsp;Personal Cheque</span>
                     </div>
@@ -1331,6 +1356,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Digital-Wallet"
                         class="form-check-input"
                       /><span>&nbsp;Digital Wallet</span>
                     </div>
@@ -1339,6 +1365,7 @@
                         name="sub_type_input[]"
                         type="checkbox"
                         class="form-check-input"
+                        value="Atm-Transfer"
                       /><span>&nbsp;Atm Transfer</span>
                     </div>
                     <div>
@@ -1346,12 +1373,14 @@
                         name="sub_type_input[]"
                         type="checkbox"
                         class="form-check-input"
+                        value="Open-PO"
                       /><span>&nbsp;Open PO</span>
                     </div>
                     <div>
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
+                        value="Pay-Cargo"
                         class="form-check-input"
                       /><span>&nbsp;Pay Cargo</span>
                     </div>
@@ -1535,6 +1564,7 @@
                     <input
                       name="notification[]"
                       type="text"
+                      value="Notification"
                       style="width: 100%"
                     />
                   </td>
@@ -1542,6 +1572,7 @@
                     <input
                       name="disabled[]"
                       type="checkbox"
+                      value="Disabled"
                       disabled
                       style="width: 16px; height: 16px"
                     />
@@ -1625,6 +1656,7 @@
               <input
                 name="inactive"
                 type="checkbox"
+                value="Apply-Company-Restriction"
                 style="width: 15px; height: 15px"
               /><span>&nbsp;Apply Company Restriction:</span>
               <table class="datatables-basic table">
@@ -1658,6 +1690,7 @@
               <input
                 name="inactive"
                 type="checkbox"
+                value="Apply-CostCenter-Restriction"
                 style="width: 15px; height: 15px"
               /><span>&nbsp;Apply Cost Center Restriction:</span>
               <table class="datatables-basic table">
@@ -1739,6 +1772,7 @@
                   <input
                     name="kyc"
                     type="checkbox"
+                    value="KYC-Verification-Done"
                     style="width: 15px; height: 15px"
                   /><span>&nbsp;KYC Verification Done</span>
                 </div>
@@ -1792,41 +1826,48 @@
         ></button>
       </div>
       <div class="modal-body">
-        <div class="responsive text-nowrap">
+        <div class="table-responsive w-100">
           <table class="table table-bordered table-sm quotation_record">
-            <thead class="table-primary">
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+                <thead class="table-primary">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
       </div>
-      <!--<div class="modal-footer">-->
-      <!--  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-      <!--  <button type="button" class="btn btn-primary">Save changes</button>-->
-      <!--</div>-->
     </div>
   </div>
 </div>
-@endsection @push('script')
+@endsection 
+
+@push('script')
 <script>
   var datatable = null;
 
   $(document).ready(function () {
+      
+    $(".custom_select").select2({
+      data: @json($locations)
+    });  
+      
     datatable = $(".quotation_record").DataTable({
       select: {
         style: "api",
@@ -1836,7 +1877,7 @@
       serverSide: true,
       lengthChange: false,
       pageLength: 10,
-      scrollX: true,
+    //   scrollX: true,
       ajax: {
         url: "{{ route('admin.party.create') }}",
         type: "get",
@@ -1845,19 +1886,34 @@
       columns: [
         {
           data: "party_code",
-          title: "code",
+          title: "Code",
         },
         {
           data: "party_name",
-          title: "Name:",
+          title: "Name",
         },
         {
           data: "short_name",
-          title: "Short Name:",
+          title: "Short Name",
+        },
+        {
+          data: "reg_date",
+          title: "Registration Date",
+        },
+        {
+          data: "city",
+          title: "City",
+          "render": function(data, type, full, meta) {
+                if(full.city){
+                    return full.city.location;
+                } else {
+                    return '-';
+                }
+            }
         },
         {
           data: "operation_check",
-          title: "Operation Type",
+          title: "OperationType",
         },
         {
           data: "Type",
@@ -2000,23 +2056,31 @@
       $(".email").val(data.email);
       $(".acc_dept_email").val(data.acc_dept_email);
       $(".operation").val(data.operation);
+      
+      $(".operation_check").removeAttr('checked');
+        $(data.operation_check).each(function(i, v){
+            $(`.operation_check[value=${v}]`).attr("checked", true);
+        })
+      
+      $(".Type").removeAttr('checked');
+        $(data.Type).each(function(i, v){
+            $(`.Type[value=${v}]`).attr("checked", true);
+        })
+      
 
-      $(".operation_check").removeAttr("checked");
-      $(`.operation_check[value=${data.operation_check}]`).attr(
-        "checked",
-        true
-      );
+        $(".nomination").removeAttr('checked');
+        $(data.nomination).each(function(i, v){
+            $(`.nomination[value=${v}]`).attr("checked", true);
+        })
 
-      $(".Type").removeAttr("checked");
-      $(`.Type[value=${data.Type}]`).attr("checked", true);
-
-      $(".nomination").removeAttr("checked");
-      $(`.nomination[value=${data.nomination}]`).attr("checked", true);
 
       $(".scac_iata_code").val(data.scac_iata_code);
 
-      $(".restriction").removeAttr("checked");
-      $(`.restriction[value=${data.restriction}]`).attr("checked", true);
+        $(".restriction").removeAttr('checked');
+        $(data.restriction).each(function(i, v){
+            $(`.restriction[value=${v}]`).attr("checked", true);
+        })
+
       // PARTY BASIC INFO END
 
       // PARTY OTHER INFO

@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PartyBasicInfo;
-use App\Models\PartyOtherInfo;
-use App\Models\PartyAccountDetail;
-use App\Models\PartyAchBankDetail;
-use App\Models\PartyLocalizeKyc;
+use App\Models\SeQuery;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,34 +18,40 @@ use File;
 
 class QueryController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data['seo_title']      = "Se Query";
-        $data['seo_desc']       = "Se Query";
-        $data['seo_keywords']   = "Se Query";
-        $data['page_title'] = "Se Query";
+    // public function index(Request $request)
+    // {
+    //     $data['seo_title']      = "Se Query";
+    //     $data['seo_desc']       = "Se Query";
+    //     $data['seo_keywords']   = "Se Query";
+    //     $data['page_title'] = "Se Query";
 
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Query::Query();
-            $totalCount=$query->count(); 
+    //     if ($request->ajax()) {
+    //         $totalCount=0;
+    //         $recordsFiltered=0;
+    //         $pageSize = (int)($request->length) ? $request->length : 10;
+    //         $start=(int)($request->start) ? $request->start : 0;
+    //         $query=Query::Query();
+    //         $totalCount=$query->count(); 
             
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
+    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
             
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-        return view('admin.query.index', $data);
-    }
+    //         return Datatables::of($query)
+    //             ->setOffset($start)->addIndexColumn()
+    //             ->with(['recordsTotal'=>$totalCount])
+    //             ->make(true);
+    //     }
+    //     return view('admin.query.index', $data);
+    // }
     
     
     public function create(Request $request)
     {
+        if ($request->ajax()) {
+            $query = SeQuery::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
+        }
+        
         $data['seo_title']      = "Se Query";
         $data['seo_desc']       = "Se Query";
         $data['seo_keywords']   = "Se Query";
@@ -63,36 +65,70 @@ class QueryController extends Controller
         $data['seo_desc']       = "Edit Se Query";
         $data['seo_keywords']   = "Edit Se Query";
         $data['page_title'] = "Edit Se Query";
-        $data['query'] = Letter::where("id", $id)->first();
+        $data['query'] = SeQuery::where("id", $id)->first();
         return view('admin.query.edit', $data);
     }
     
     public function delete($id)
     {
-        $developer = Query::where("id", $id);
+        $developer = SeQuery::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Se Query Deleted Successfully.'];
-        return redirect()->route('admin.query')->withNotify($notify);
+        return redirect()->route('admin.query.create')->withNotify($notify);
     }
     
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'short_name' => 'required',
-    //         'reg_date' => 'required',
-    //         'license_no' => 'required',
-    //         'contact_person' => 'required',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'operation_type' => 'required',
+            'file' => ['required', 'string', 'max:255', 'alpha', 'unique:se_query'],
+        ]);
         
-    //     $partybasicinfo = new PartyBasicInfo();
-    //     $partybasicinfo->short_name = $request->short_name;
-    //     $partybasicinfo->reg_date = $request->reg_date;
-    //     $partybasicinfo->license_no = $request->license_no;
-    //     $partybasicinfo->save();
-      
-    //     $notify[] = ['success', 'Party Added Successfully.'];
-    //     return redirect()->route('admin.party')->withNotify($notify);
-    // }
+        
+        $se_query = new SeQuery();
+        $se_query->fill($request->all());
+        $se_query->save();
+        
+        $notify[] = ['success', 'Se Query Added Successfully.'];
+        return redirect()->route('admin.query.create')->withNotify($notify);
+    }
+    
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'operation_type' => 'required',
+            'file' => 'required',
+        ]);
+        
+        $se_query = SeQuery::where("id", $request->id)->first();
+        $se_query->fill($request->all());
+        $se_query->update();
+        
+        $notify[] = ['success', 'Se Query Updated Successfully.'];
+        return redirect()->route('admin.query.create')->withNotify($notify);
+    }
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = SeQuery::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = SeQuery::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = SeQuery::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = SeQuery::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
+    }
    
     
 }

@@ -710,4 +710,3 @@ function GenerateSlug($value)
     $value = strtolower($value);
     return $value;
 }
-

@@ -68,7 +68,8 @@ class VoyageController extends Controller
         $data['seo_desc']       = "Voyage";
         $data['seo_keywords']   = "Voyage";
         $data['page_title'] = "Voyage";
-        $data['vessels'] = Vessel::get();
+        $data['vessels'] = Vessel::select(["id", "vessel_name as text"])->get();
+        $data['vessels'] = $data['vessels']->toArray();
         $data['currencies'] = Currency::get();
         return view('admin.voyage.create', $data);
     }
@@ -108,14 +109,16 @@ class VoyageController extends Controller
         $voyage->fill($request->all());
         $voyage->save();
         
-        foreach($currency as $key => $value) {
-            $voyage_detail = new VoyageDetail();
-            $voyage_detail->voyage_id = $voyage->id;
-            $voyage_detail->currency = $request->currency[$key];
-            $voyage_detail->selling = $request->selling[$key];
-            $voyage_detail->buying = $request->buying[$key];
-            $voyage_detail->save();
-        }  
+        if($currency){
+            foreach($currency as $key => $value) {
+                $voyage_detail = new VoyageDetail();
+                $voyage_detail->voyage_id = $voyage->id;
+                $voyage_detail->currency = $request->currency[$key];
+                $voyage_detail->selling = $request->selling[$key];
+                $voyage_detail->buying = $request->buying[$key];
+                $voyage_detail->save();
+            }  
+        }
         
         $code = $request->code;
         foreach($code as $key => $value) {

@@ -47,22 +47,37 @@ class LocationController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
+            $length = (int)($request->limit) ? $request->limit : 15;
+            $start  = (int)($request->offset) ? $request->offset : 0;
+            
             $query = Location::Query();
-            $query = $query->orderby('id','asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            
+            if(isset($request->search_country)){
+                $country = Location::find($request->search_country);
+                $query = $query->where('code','like', $country->code.'%');
+            }
+            if(isset($request->search_city)){
+                $query = $query->where('location', 'like', '%'.$request->search_city.'%');
+            } 
+            
+            $totalCount = $query->count();
+            $query = $query->orderBy('id','asc')->skip($start)->take($length)->get();
+            return Datatables::of($query)->addIndexColumn()->setTotalRecords($totalCount)->make(true);
         }
         
-        $data['location_num'] = Location::orderby('id','desc')->first();
-        if($data['location_num']) {
-            $data['location_num'] = $data['location_num']->code + 1;
-        } else {
-            $data['location_num'] = 1;
-        }
+        // $data['location_num'] = Location::orderby('id','desc')->first();
+        // if($data['location_num']) {
+        //     $data['location_num'] = $data['location_num']->code + 1;
+        // } else {
+        //     $data['location_num'] = 1;
+        // }
         
         $data['seo_title']      = "Location";
         $data['seo_desc']       = "Location";
         $data['seo_keywords']   = "Location";
         $data['page_title'] = "Location";
+        $data['countries'] = Location::where('location_check','like','%country%')->select(["id", "location as text"])->get();
+        $data['countries'] = $data['countries']->toArray();
         return view('admin.location.create', $data);
     }
     
@@ -81,7 +96,7 @@ class LocationController extends Controller
         $developer = Location::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Location Deleted Successfully.'];
-        return redirect()->route('admin.location')->withNotify($notify);
+        return redirect()->route('admin.location.create')->withNotify($notify);
     }
     
     public function store(Request $request)
@@ -94,7 +109,7 @@ class LocationController extends Controller
         $location = new Location();
         $location->code = $request->code;
         $location->location = $request->location;
-        $location->location_check=json_encode($request->location_check);
+        $location->location_check=($request->location_check);
         $location->co_ordinates = $request->co_ordinates;
         $location->inactive = $request->inactive;
         $location->latitude = $request->latitude;
@@ -125,6 +140,48 @@ class LocationController extends Controller
         
         $notify[] = ['success', 'Location Updated Successfully.'];
         return redirect()->route('admin.location.create')->withNotify($notify);
+    }
+    
+    public function bulkUpload(Request $request)
+    {
+        $file = $request->file('import_file');
+        $tempPath = $file->getPathname();
+        $extension = $file->getClientOriginalExtension();
+        $i = 0;
+
+        if ($extension == "csv"){
+            $handle = fopen($tempPath, 'r');
+            while (($line = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                if($i >= 0) {
+    
+                    $chk = Location::where('location', strtolower($line[3]))->count();
+                    if($chk == 0){
+                        
+                        $code = $line[1].$line[2];
+                        $loc = null;
+                        if(!empty($line[2])){
+                            $loc = json_encode(["city"]);
+                        }else{
+                            $loc = json_encode(["country"]);
+                        }
+                        
+                        $location = new Location();
+                        $location->code = $code;
+                        $location->location = $line[3];
+                        $location->location_check = $loc;
+                        $location->co_ordinates = $line[10];
+                        $location->save();
+                    }
+                }
+                $i++;
+            }
+            fclose($handle);
+            return ['success', 'Upload Successfully.'];
+        } else {
+            return ['error', 'Only csv file allowed.'];
+        }
+        
+        return ['error', 'Something went wrong!'];
     }
     
     public function get_data(Request $request)

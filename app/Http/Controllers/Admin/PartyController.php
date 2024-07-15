@@ -12,6 +12,7 @@ use App\Models\PartyLocalizeKyc;
 use App\Models\PartyNotification;
 use App\Models\PartyInsurance;
 use App\Models\partyCenter;
+use App\Models\Location;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,13 +56,14 @@ class PartyController extends Controller
     {
         if ($request->ajax()) {
             $query = PartyBasicInfo::Query();
+            $query = $query->with('city');
             $query = $query->orderby('id','asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
         $data['party_num'] = PartyBasicInfo::orderby('id','desc')->first();
         if($data['party_num']) {
-            $data['party_num'] = $data['party_num']->code + 1;
+            $data['party_num'] = $data['party_num']->party_code + 1;
         } else {
             $data['party_num'] = 1;
         }
@@ -70,6 +72,9 @@ class PartyController extends Controller
         $data['seo_desc']       = "Party";
         $data['seo_keywords']   = "Party";
         $data['page_title'] = "Party";
+        // $data['locations'] = Location::where('location_check','like','%city%')->select(["id", "location as text"])->get();
+        $data['locations'] = Location::select('id', DB::raw('CONCAT(location, code) as text'))->where('location_check', 'like', '%city%')->get();
+        $data['locations'] = $data['locations']->toArray();
         return view('admin.party.create', $data);
     }
     
@@ -96,7 +101,6 @@ class PartyController extends Controller
         $validated = $request->validate([
             'party_code' => 'required',
             'party_name' => ['required', 'string', 'max:255', 'unique:party_basic_infos'],
-            'city' => 'required',
             'operation_check' => 'required',
             'Type' => 'required',
         ]);
@@ -124,11 +128,11 @@ class PartyController extends Controller
         $partybasicinfo->email = $request->email;
         $partybasicinfo->acc_dept_email = $request->acc_dept_email;
         $partybasicinfo->operation = $request->operation;
-        $partybasicinfo->operation_check=json_encode($request->operation_check);
-        $partybasicinfo->Type=json_encode($request->Type);
-        $partybasicinfo->nomination=json_encode($request->nomination);
+        $partybasicinfo->operation_check=($request->operation_check);
+        $partybasicinfo->Type=($request->Type);
+        $partybasicinfo->nomination=($request->nomination);
         $partybasicinfo->scac_iata_code = $request->scac_iata_code;
-        $partybasicinfo->restriction=json_encode($request->restriction);
+        $partybasicinfo->restriction=($request->restriction);
         $partybasicinfo->save();
         $this->other_info_store($request,$partybasicinfo->id);
         $this->account_detail_store($request,$partybasicinfo->id);
@@ -255,8 +259,9 @@ class PartyController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'quotation_no' => 'required',
-            'date' => 'required',
+            'party_code' => 'required',
+            'party_name' => 'required',
+            
         ]);
         
         $partybasicinfo = PartyBasicInfo::where("id", $request->id)->first();
@@ -282,12 +287,12 @@ class PartyController extends Controller
         $partybasicinfo->email = $request->email;
         $partybasicinfo->acc_dept_email = $request->acc_dept_email;
         $partybasicinfo->operation = $request->operation;
-        $partybasicinfo->operation_check=json_encode($request->operation_check);
-        $partybasicinfo->Type=json_encode($request->Type);
-        $partybasicinfo->nomination=json_encode($request->nomination);
+        $partybasicinfo->operation_check=($request->operation_check);
+        $partybasicinfo->Type=($request->Type);
+        $partybasicinfo->nomination=($request->nomination);
         $partybasicinfo->scac_iata_code = $request->scac_iata_code;
-        $partybasicinfo->restriction=json_encode($request->restriction);
-        $quotation->save();
+        $partybasicinfo->restriction=($request->restriction);
+        $partybasicinfo->save();
         
         $notify[] = ['success', 'Party Updated Successfully.'];
         return redirect()->route('admin.party.create')->withNotify($notify);

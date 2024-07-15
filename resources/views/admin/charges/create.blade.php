@@ -3,35 +3,35 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+        <div class="plus" onclick="formReset('/admin/charges/store')">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save" id="submitButton"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+        <div class="xmark" onclick="deleteData('/admin/charges/delete')">
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -79,7 +79,7 @@
                             <!--<hr />-->
                         </div>
                         <div class="card-body">
-                            <input name="id" type="hidden" />
+                            <input name="id" type="hidden" value="0" />
                             <div class="row">
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
@@ -90,15 +90,8 @@
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Currency:</label>
-                                        <select name="currency" class="form-select currency">
-                                            <option selected disabled value="">Select Currency</option>
-                                            <option value="PKR">PKR</option>
-                                            <option value="USD">USD</option>
-                                            <option value="AED">AED</option>
-                                            <option value="GBP">GBP</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="BDT">BDT</option>
-                                            <option value="OMR">OMR</option>
+                                        <select name="currency" class="currency">
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -200,11 +193,11 @@
                                     <label class="form-check-label mb-2">Calculation Type:</label>
                                     <div class="d-flex">
                                         <div class="mb-2">
-                                            <input name="calculation_type" type="radio" class="form-check-input calculation_type" value="Per Unit" id="defaultRadio1" />
+                                            <input name="calculation_type" type="radio" class="form-check-input calculation_type" value="Per-Unit" id="defaultRadio1" />
                                             <label class="form-check-label" for="defaultRadio1">Per Unit</label>
                                         </div>
                                         <div class="mb-2 px-3">
-                                            <input name="calculation_type" type="radio" class="form-check-input calculation_type" value="Per Shipment" id="defaultRadio2" />
+                                            <input name="calculation_type" type="radio" class="form-check-input calculation_type" value="Per-Shipment" id="defaultRadio2" />
                                             <label class="form-check-label" for="defaultRadio2">Per Shipment</label>
                                         </div>
                                     </div>
@@ -214,19 +207,19 @@
                                     <div class="d-flex mt-4">
                                         <div class="mb-3">
                                             <label class="form-label"></label>
-                                            <input name="tax[]" type="checkbox" value="Tax-Receivable" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Tax-Receivable</span>
+                                            <input name="tax[]" type="checkbox" value="Tax-Receivable" class="form-check-input tax"/><span>&nbsp;&nbsp;Tax-Receivable</span>
                                         </div>
                                         <div class="mb-3 px-3">
                                             <label class="form-label"></label>
-                                            <input name="tax[]" type="checkbox" value="Tax-Payable" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Tax-Payable</span>
+                                            <input name="tax[]" type="checkbox" value="Tax-Payable" class="form-check-input tax"/><span>&nbsp;&nbsp;Tax-Payable</span>
                                         </div>
                                         <div class="mb-3 px-3">
                                             <label class="form-label"></label>
-                                            <input name="tax[]" type="checkbox" value="Tax On Principal Payment" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Tax On Principal Payment</span>
+                                            <input name="tax[]" type="checkbox" value="Tax-On-Principal-Payment" class="form-check-input tax" /><span>&nbsp;&nbsp;Tax On Principal Payment</span>
                                         </div>
                                         <div class="mb-3 px-3">
                                             <label class="form-label"></label>
-                                            <input name="tax[]" type="checkbox" value="Apply Company Restriction" style="width:16px; height:16px;"/><span>&nbsp;&nbsp;Apply Company Restriction</span>
+                                            <input name="tax[]" type="checkbox" value="Apply-Company-Restriction" class="form-check-input tax"/><span>&nbsp;&nbsp;Apply Company Restriction</span>
                                         </div>
                                     </div>
                                 </div>
@@ -445,7 +438,20 @@
         $('#myForm').submit();
       });
       
-    $(document).ready(function(){
+var datatable = null; 
+      
+$(document).ready(function(){
+        
+    $(".currency").select2({
+      data: @json($currencies)
+    });    
+        
+        
+        
+        
+        
+        
+        
     var datatable = $('.quotation_record').DataTable({
         select: {
             style: 'api'
@@ -475,8 +481,15 @@
                 title: 'Code'
             },
             {
-                data: 'currency',
-                title: 'Currency'
+                title: 'Currency',
+                "render": function(data, type, full, meta) {
+                    if(full.currency){
+                        return full.currency.code;
+                    } else {
+                        return '-';
+                    }
+                }
+                
             },
             {
                 data: 'name',
@@ -506,7 +519,7 @@ function edit_row(e,data){
     data = JSON.parse(data);
     if(data){
         $(".code").val(data.code);
-        $(".currency").val(data.currency);
+        $(".currency").val(data.currency.id).trigger("change");
         $(".name").val(data.name);
         $(".localize_name").val(data.localize_name);
         $(".short_name").val(data.short_name);
@@ -516,8 +529,14 @@ function edit_row(e,data){
         $(".reporting_group").val(data.reporting_group);
         $(".tag").val(data.tag);
         $(".printing_name").val(data.printing_name);
+        
         $(".calculation_type").removeAttr('checked');
         $(`.calculation_type[value=${data.calculation_type}]`).attr('checked',true);
+        
+        $(".tax").removeAttr('checked');
+        $(data.tax).each(function(i, v){
+            $(`.tax[value=${v}]`).attr("checked", true);
+        })
         
         $(".payable_party_type").val(data.payable_party_type);
         $(".recevable_party_type").val(data.recevable_party_type);
@@ -531,7 +550,15 @@ function edit_row(e,data){
 
 
 
-      
+$(".navigation").click(function(){
+    let id = $("input[name=id]").val();
+    let route = '/admin/charges/get';
+    let type = $(this).attr('data-type');
+    let data = getList(route, type, id);
+    if(data != null){
+        edit_row('', JSON.stringify(data));
+    }
+})
 </script>
 
 @endpush

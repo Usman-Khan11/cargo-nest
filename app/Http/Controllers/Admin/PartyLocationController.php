@@ -46,6 +46,12 @@ class PartyLocationController extends Controller
     
     public function create(Request $request)
     {
+        if ($request->ajax()) {
+            $query = PartyLocation::Query();
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
+        }
+        
         $data['seo_title']      = "Party Location";
         $data['seo_desc']       = "Party Location";
         $data['seo_keywords']   = "Party Location";
@@ -60,7 +66,7 @@ class PartyLocationController extends Controller
         $data['seo_keywords']   = "Edit Party Location";
         $data['page_title'] = "Edit Party Location";
         $data['party'] = PartyLocation::where("id", $id)->first();
-        return view('admin.party.edit', $data);
+        return view('admin.party_location.edit', $data);
     }
     
     public function delete($id)
@@ -68,20 +74,39 @@ class PartyLocationController extends Controller
         $developer = PartyLocation::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Party Location Deleted Successfully.'];
-        return redirect()->route('admin.party_location')->withNotify($notify);
+        return redirect()->route('admin.party_location.create')->withNotify($notify);
     }
     
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
+            'code' => 'required',
+            'location_name' => ['required', 'string', 'max:255', 'unique:party_location'],
             
         ]);
-        
         $party_location = new PartyLocation();
+        $party_location->code = $request->code;
+        $party_location->location_name = $request->location_name;
         $party_location->short_name = $request->short_name;
-        $party_location->reg_date = $request->reg_date;
-        
+        $party_location->contact_person = $request->contact_person;
+        $party_location->city = $request->city;
+        $party_location->address = $request->address;
+        $party_location->state = $request->state;
+        $party_location->zipcode = $request->zipcode;
+        $party_location->phone = $request->phone;
+        $party_location->mobile = $request->mobile;
+        $party_location->email = $request->email;
+        $party_location->website = $request->website;
+        $party_location->facsimile = $request->facsimile;
+        $party_location->codeco = $request->codeco;
+        $party_location->party_code = $request->party_code;
+        $party_location->party = $request->party;
+        $party_location->Type=($request->Type);
+        $party_location->sender = $request->sender;
+        $party_location->remarks = $request->remarks;
+        $party_location->lp_header = $request->lp_header;
+        $party_location->empty_remarks = $request->empty_remarks;
+        $party_location->save();
         
         $notify[] = ['success', 'Party Location Added Successfully.'];
         return redirect()->route('admin.party_location.create')->withNotify($notify);
@@ -93,16 +118,58 @@ class PartyLocationController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'quotation_no' => 'required',
-            'date' => 'required',
+            'code' => 'required',
+            'location_name' => 'required',
         ]);
         
-        $quotation = Quotation::where("id", $request->id)->first();
-        $quotation->fill($request->all());
-        $quotation->save();
+        $party_location = PartyLocation::where("id", $request->id)->first();
+        $party_location->code = $request->code;
+        $party_location->location_name = $request->location_name;
+        $party_location->short_name = $request->short_name;
+        $party_location->contact_person = $request->contact_person;
+        $party_location->city = $request->city;
+        $party_location->address = $request->address;
+        $party_location->state = $request->state;
+        $party_location->zipcode = $request->zipcode;
+        $party_location->phone = $request->phone;
+        $party_location->mobile = $request->mobile;
+        $party_location->email = $request->email;
+        $party_location->website = $request->website;
+        $party_location->facsimile = $request->facsimile;
+        $party_location->codeco = $request->codeco;
+        $party_location->party_code = $request->party_code;
+        $party_location->party = $request->party;
+        $party_location->Type=($request->Type);
+        $party_location->sender = $request->sender;
+        $party_location->remarks = $request->remarks;
+        $party_location->lp_header = $request->lp_header;
+        $party_location->empty_remarks = $request->empty_remarks;
+        $party_location->update();
         
-        $notify[] = ['success', 'Quotation Updated Successfully.'];
+        $notify[] = ['success', 'Party Location Updated Successfully.'];
         return redirect()->route('admin.party_location.create')->withNotify($notify);
+    }
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = PartyLocation::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = PartyLocation::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = PartyLocation::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = PartyLocation::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
 }

@@ -3,35 +3,35 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+        <div class="plus" onclick="formReset('/admin/lettertemplate/store')">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save" id="submitButton"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+        <div class="xmark" onclick="deleteData('/admin/lettertemplate/delete')">
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-7">
-                <form id="myForm" method="post" action="{{ route('admin.vessel.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.lettertemplate.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -81,19 +81,19 @@
                     <!--<hr />-->
                 </div>
                 <div class="card-body">
-                    <input name="id" type="hidden" />
+                    <input type="hidden" name="id" value="0">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Letter Code</label>
-                                <input name="letter_code" type="text" class="form-control">
+                                <input name="letter_code" type="text" class="form-control letter_code">
                             </div>
                         </div>
                         
                         <div class="col-md-5">
                             <div class="mb-2">
                                 <label class="form-label">Name</label>
-                                <input name="name" type="text" class="form-control">
+                                <input name="name" type="text" class="form-control name">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -101,11 +101,11 @@
                                 <label class="form-label">Type:</label>
                                 <div class="mb-3 d-flex">
                                     <label class="form-check-label">
-                                        <input type="radio" name="radio_option" value="template" class="form-check-input">
+                                        <input type="radio" name="radio_option" value="template" class="form-check-input radio_option">
                                         Template
                                     </label>
                                     <label class="form-check-label px-3">
-                                        <input type="radio" name="radio_option" value="manual" class="form-check-input">
+                                        <input type="radio" name="radio_option" value="manual" class="form-check-input radio_option">
                                         Manual
                                     </label>
                                 </div>
@@ -115,14 +115,15 @@
                         <div class="col-md-4">
                             <div class="mb-2">
                                 <label class="form-label">Operation Type</label>
-                                <select name="operation_type" class="form-control">
-                                    <option value="">Air Import</option>
-                                    <option value="">Air Export</option>
-                                    <option value="">Sea Import</option>
-                                    <option value="">Sea Export</option>
-                                    <option value="">Logistics</option>
-                                    <option value="">Warehouse</option>
-                                    <option value="">Other</option>
+                                <select name="operation_type" class="form-control operation_type">
+                                    <option Selected></option>
+                                    <option value="sea-import">Sea Import</option>
+                                    <option value="sea-export">Sea Export</option>
+                                    <option value="air-import">Air Import</option>
+                                    <option value="air-export">Air Export</option>
+                                    <option value="logistics">Logistics</option>
+                                    <option value="warehouse">Warehouse</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
                         </div>
@@ -130,13 +131,13 @@
                         <div class="col-md-5">
                             <div class="mb-2">
                                 <label class="form-label">Path</label>
-                                <input name="Path" type="text" class="form-control">
+                                <input name="path" type="text" class="form-control path">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="mb-2">
-                                <button class="btn btn-primary btn-sm mb-2">Show Tags</button>
-                                <button class="btn btn-primary btn-sm">Download Tags</button>
+                                <button type="button" class="btn btn-primary btn-sm mb-2">Show Tags</button>
+                                <button type="button" class="btn btn-primary btn-sm">Download Tags</button>
                             </div>
                         </div>
 
@@ -149,42 +150,42 @@
                         <div class="col">
                             <div class="mb-2">
                                 <label class="form-label">Prefix</label>
-                                <input name="prefix" type="text" class="form-control">
+                                <input name="prefix" type="text" class="form-control prefix">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">P-Seperate</label>
-                                <input name="p_separate" type="text" class="form-control">
+                                <input name="p_separate" type="text" class="form-control p_separate">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Number</label>
-                                <input name="number" type="text" class="form-control">
+                                <input name="number" type="text" class="form-control number">
                             </div>
                         </div>
                         
                         <div class="col-md-2">
                             <div class="mb-2">
                                 <label class="form-label">S-Seperator</label>
-                                <input name="s_separator" type="text" class="form-control">
+                                <input name="s_separator" type="text" class="form-control s_separator">
                             </div>
                         </div>
                         
                         <div class="col-md-2">
                             <div class="mb-2">
                                 <label class="form-label">Suffix</label>
-                                <input name="suffix" type="text" class="form-control">
+                                <input name="suffix" type="text" class="form-control suffix">
                             </div>
                         </div>
                         
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label class="form-label">Type</label>
-                                <select name="type" class="form-select">
+                                <select name="type" class="form-select type">
                                     <option value=""></option>
                                     <option value=""></option>
                                 </select>
@@ -194,7 +195,7 @@
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label class="form-label">Based On</label>
-                                <select name="based_On" class="form-select">
+                                <select name="based_On" class="form-select based_On">
                                     <option value=""></option>
                                     <option value=""></option>
                                 </select>
@@ -206,11 +207,11 @@
                                 <label class="form-label">Type:</label>
                                 <div class="mb-3 d-flex">
                                     <label class="form-check-label">
-                                        <input type="checkbox" name="radio_option" value="template" class="form-check-input">
+                                        <input type="radio" name="job_option" value="Available-For-Job" class="form-check-input job_option">
                                         Available For Job
                                     </label>
                                     <label class="form-check-label px-3">
-                                        <input type="checkbox" name="radio_option" value="manual" class="form-check-input">
+                                        <input type="radio" name="job_option" value="Available-For-Manifest-Header" class="form-check-input job_option">
                                         Available For Manifest Header
                                     </label>
                                 </div>
@@ -240,15 +241,11 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
-                                        <th></th>
                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -287,7 +284,7 @@ $(document).ready(function(){
         "pageLength": 15,
         "scrollX": true,
         "ajax": {
-            "url": "{{ route('admin.letter.create') }}",
+            "url": "{{ route('admin.lettertemplate.create') }}",
             "type": "get",
             "data": function(d) {
                 var frm_data = $('#result_report_form').serializeArray();
@@ -299,45 +296,38 @@ $(document).ready(function(){
         columns: [
             
             {
-                data: 'DT_RowIndex',
-                title: 'Sr No'
+                data: 'letter_code',
+                title: 'Letter Code'
             },
             {
-                data: 'vessel_code',
-                title: 'Vessel Code'
+                data: 'name',
+                title: 'Name:'
             },
             {
-                data: 'vessel_name',
-                title: 'Vessel Name:'
+                data: 'radio_option',
+                title: 'Type'
             },
             {
-                data: 'owner',
-                title: 'Owner'
+                data: 'operation_type',
+                title: 'Operation'
             },
             {
-                data: 'principle_code',
-                title: 'Principle Code'
+                data: 'path',
+                title: 'Path'
             },
             {
-                data: 'call_sign',
-                title: 'Call Sign'
+                data: 'prefix',
+                title: 'Prefix'
             },
             {
-                data: 'grt',
-                title: 'GRT'
+                data: 'suffix',
+                title: 'Suffix'
             },
             {
-                data: 'nrt',
-                title: 'NRT'
+                data: 'job_option',
+                title: 'Job Type'
             },
-            {
-                data: 'imo_no',
-                title: 'IMO No'
-            },
-            {
-                data: 'country_registered',
-                title: 'Country of Registered'
-            },
+            
            
         ],          
          "rowCallback": function(row, data) {
@@ -349,23 +339,35 @@ $(document).ready(function(){
 function edit_row(e,data){
     data = JSON.parse(data);
     if(data){
-        $(".vessel_code").val(data.vessel_code);
-        $(".vessel_name").val(data.vessel_name);
-        $(".owner").val(data.owner);
-        $(".principle_code").val(data.principle_code);
-        $(".call_sign").val(data.call_sign);
-        $(".grt").val(data.grt);
-        $(".nrt").val(data.nrt);
-        $(".imo_no").val(data.imo_no);
-        $(".country_registered").val(data.country_registered);
-        $("#myForm").attr("action","{{ route('admin.vessel.update') }}")
+        $(".letter_code").val(data.letter_code);
+        $(".name").val(data.name);
+        $(`.radio_option[value=${data.radio_option}]`).prop("checked", true);
+        $(".operation_type").val(data.operation_type);
+        $(".path").val(data.path);
+        $(".prefix").val(data.prefix);
+        $(".p_separate").val(data.p_separate);
+        $(".number").val(data.number);
+        $(".s_separator").val(data.s_separator);
+        $(".suffix").val(data.suffix);
+        $(".type").val(data.type);
+        $(".based_On").val(data.based_On);
+        $(`.job_option[value=${data.job_option}]`).prop("checked", true);
+        $("#myForm").attr("action","{{ route('admin.lettertemplate.update') }}")
          $("input[name=id]").val(data.id);
     }
     
 }
 
 
-
+$(".navigation").click(function () {
+  let id = $("input[name=id]").val();
+  let route = "/admin/lettertemplate/get";
+  let type = $(this).attr("data-type");
+  let data = getList(route, type, id);
+  if (data != null) {
+    edit_row("", JSON.stringify(data));
+  }
+});
 
 
 

@@ -81,20 +81,19 @@
                         <div class="card-body">
                             <input name="id" type="hidden" value="0" />
                             <div class="row">
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
+                                <div class="col-md-5 col-12">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">Code:</label>
-                                        <input name="code" type="text" class="form-control code" value="{{ $location_num }}" readonly />
+                                        <input name="code" type="text" class="form-control code" />
                                     </div>
                                 </div>
-                                <div class="col-md-9 col-12">
-                                    <div class="mb-2">
+                                <div class="col-md-7 col-12">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">Location:</label>
                                         <input name="location" type="text" class="form-control locate" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-12">
-                                    <label class="form-label">.</label>
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-2">
@@ -126,55 +125,57 @@
                                     
                                 </div>
                                 <div class="col-md-4 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">Co-ordinates:</label>
                                         <input name="co_ordinates" type="text" class="form-control co_ordinates" placeholder="" />
                                     </div>
                                 </div> 
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2 mt-4">
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-2 input_flex mt-1">
                                         <input name="inactive" class="form-check-input inactive" type="checkbox" value="In-Active" /><span>&nbsp;&nbsp;In-Active</span>
                                     </div>
                                 </div> 
-                                <div class="col-md-5 col-12">
-                                    <div class="mb-2">
+                                <div class="col-md-4 col-12">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">Latitude:</label>
                                         <input name="latitude" type="number" class="form-control latitude" placeholder="0.000000" />
                                     </div>
                                 </div> 
                                 <div class="col-md-4 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">State:</label>
                                         <input name="state" type="text" class="form-control state" placeholder="" />
                                     </div>
                                 </div> 
                                 <div class="col-md-4 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">Longitude:</label>
                                         <input name="longitude" type="number" class="form-control longitude" placeholder="0.000000" />
                                     </div>
                                 </div> 
                                 <div class="col-md-4 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">Phone Prefix:</label>
                                         <input name="phone_prefix" type="text" class="form-control phone_prefix" placeholder="" />
                                     </div>
                                 </div> 
                                 <div class="col-md-4 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">EPASS Code:</label>
                                         <input name="epass_code" type="text" class="form-control epass_code" placeholder="" />
                                     </div>
                                 </div> 
                                 <div class="col-md-8 col-12">
-                                    <div class="mb-2">
+                                    <div class="mb-2 input_flex">
                                         <label class="form-label">Country/Region:</label>
                                         <textarea name="country_region" type="text" rows="4" class="form-control country_region" placeholder=""></textarea>
                                     </div>
                                 </div> 
                                 <div class="col-md-12 col-12">
-                                    <a><button class="btn btn-primary btn-sm">Change Utility</button></a>
-                                    <a><button class="btn btn-primary btn-sm">Active & Inactive Log</button></a>
+                                    <a><button type="button" class="btn btn-primary btn-sm">Change Utility</button></a>
+                                    <a><button type="button" class="btn btn-primary btn-sm">Active & Inactive Log</button></a>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('sortExcel').click()">Bulk Upload</button>
+                                    <input type="file" id="sortExcel" hidden class="form-control" onchange="excelFileImporter(this)" accept=".csv" />
                                 </div> 
                                 
                             </div>
@@ -189,9 +190,10 @@
                                     <th>Alias</th>
                                   </tr>
                                 </thead>
-                                <tbody>
-                                    <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                    <td><input type="text" style="width: 100%;"/></td>
+                                <tbody class="detail_repeater">
+                                    <td><i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
+                                    <i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info mx-2"></i></td>
+                                    <td><input type="text" class="form-control" style="width: 100%;"/></td>
                                 </tbody>
                             </table>
                         </div>
@@ -205,8 +207,8 @@
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
-                                        <label class="form-label">Country:</label>
-                                        <select name="" class="form-select">
+                                        <label class="form-label">Country:</label><br>
+                                        <select id="search_country" class="custom_select">
                                             <option selected disabled></option>
                                         </select>
                                     </div>
@@ -214,30 +216,11 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">City:</label>
-                                        <input name="" type="text" class="form-control" placeholder="" />
+                                        <input id="search_city" name="" type="text" class="form-control" placeholder="" />
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-bordered table-sm quotation_record">
-                                <thead class="table-primary">
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <table class="table table-bordered table-sm quotation_record"></table>
                         </div>
                     </div>
                 </div>
@@ -258,6 +241,11 @@
     });
     
     $(document).ready(function(){
+          
+    $(".custom_select").select2({
+      data: @json($countries)
+    });   
+        
     var datatable = $('.quotation_record').DataTable({
         select: {
             style: 'api'
@@ -265,18 +253,35 @@
         "processing": true,
         "searching": false,
         "serverSide": true,
+        "info": false,
         "lengthChange": false,
         "pageLength": 15,
         "scrollX": true,
-        "ajax": {
+        /*"ajax": {
             "url": "{{ route('admin.location.create') }}",
             "type": "get",
             "data": function(d) {
-                var frm_data = $('#result_report_form').serializeArray();
-                $.each(frm_data, function(key, val) {
-                    d[val.name] = val.value;
-                });
+               d.search_country = $("#search_country").val();
+               d.search_city = $("#search_city").val();
+               limit: data.length,
+                offset: data.start
             },
+        },*/
+        "ajax": function(data, callback, settings) {
+            console.log(data)
+          $.get("{{ route('admin.location.create') }}?page=1", {
+            limit: data.length,
+            offset: data.start,
+            search_country: $("#search_country").val(),
+            search_city: $("#search_city").val()
+          },
+          function(json) {
+            callback({
+              recordsTotal: json.total,
+              recordsFiltered: json.total,
+              data: json.data
+            });
+          });
         },
         columns: [
             {
@@ -305,14 +310,30 @@
              $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
          }
     });
+    
+     $("#search_country").change(function(){
+        datatable.ajax.reload();
+    })
+    $("#search_city").keyup(function(){
+        datatable.ajax.reload();
+    })
+    
 });
 
-
+function addNewRow(e){
+        $(e).parent().parent().clone().prependTo(".detail_repeater");
+    }
+    
+    function delRow(e){
+        if($(".detail_repeater tr").length <= 1) return;
+        $(e).parent().parent().remove();
+    }
 
 
 function edit_row(e,data){
     data = JSON.parse(data);
     if(data){
+        console.log(data);
         $(".code").val(data.code);
         $(".locate").val(data.location);
         
@@ -322,8 +343,14 @@ function edit_row(e,data){
         })
         
         $(".co_ordinates").val(data.co_ordinates);
-        $(".inactive").removeAttr('checked');
-        $(`.inactive[value=${data.inactive}]`).attr('checked',true);
+        
+        if(data.inactive){
+            $(".inactive").removeAttr('checked');
+            $(`.inactive[value=${data.inactive}]`).attr('checked',true);
+        }
+        else{
+            $(".inactive").removeAttr('checked');
+        }
        
         $(".latitude").val(data.latitude);
         $(".state").val(data.state);
@@ -355,6 +382,33 @@ $(".navigation").click(function () {
 });
 
 
+function excelFileImporter(e) {
+  let file = $(e).val();
+  if (file) {
+    var file_data = $("#sortExcel").prop("files")[0];
+    var form_data = new FormData();
+    form_data.append("_token", "{{ csrf_token() }}");
+    form_data.append("import_file", file_data);
+    form_data.append("excelFileImporter", "true");
+
+    $.ajax({
+      url: "/admin/location/import",
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: form_data,
+      type: "post",
+      success: function (res) {
+        if (res[0] == "success") {
+          iziToast.success({ message: res[1], position: "topRight" });
+          datatable.ajax.reload();
+        } else {
+          iziToast.error({ message: res[1], position: "topRight" });
+        }
+      },
+    });
+  }
+}
 
 </script>
 

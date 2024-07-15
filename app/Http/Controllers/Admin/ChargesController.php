@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Charges;
+use App\Models\Currency;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,25 +48,20 @@ class ChargesController extends Controller
     public function create(Request $request)
     {
          if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Charges::Query();
-            $totalCount=$query->count(); 
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = Charges::Query();
+            $query = $query->with('currency');
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
         
         $data['seo_title']      = "Charges";
         $data['seo_desc']       = "Charges";
         $data['seo_keywords']   = "Charges";
         $data['page_title'] = "Charges";
+        
+        $data['currencies'] = Currency::select(["id", "code as text"])->orderBy('id','desc')->get();
+        $data['currencies'] = $data['currencies']->toArray();
+        
         return view('admin.charges.create', $data);
     }
     
@@ -84,7 +80,7 @@ class ChargesController extends Controller
         $developer = Charges::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Charges Deleted Successfully.'];
-        return redirect()->route('admin.charges')->withNotify($notify);
+        return redirect()->route('admin.charges.create')->withNotify($notify);
     }
     
     public function store(Request $request)
@@ -111,14 +107,14 @@ class ChargesController extends Controller
         $charges->tag = $request->tag;
         $charges->printing_name = $request->printing_name;
         $charges->calculation_type = $request->calculation_type;
-        $charges->tax=json_encode($request->tax);
+        $charges->tax=$request->tax;
         $charges->payable_party_type = $request->payable_party_type;
         $charges->recevable_party_type = $request->recevable_party_type;
         $charges->c_category = $request->c_category;
         $charges->save();
         
         $notify[] = ['success', 'Charges Added Successfully.'];
-        return redirect()->route('admin.charges')->withNotify($notify);
+        return redirect()->route('admin.charges.create')->withNotify($notify);
     }
     
     public function update(Request $request)
@@ -145,14 +141,37 @@ class ChargesController extends Controller
         $charges->tag = $request->tag;
         $charges->printing_name = $request->printing_name;
         $charges->calculation_type = $request->calculation_type;
-        $charges->tax=json_encode($request->tax);
+        $charges->tax=($request->tax);
         $charges->payable_party_type = $request->payable_party_type;
         $charges->recevable_party_type = $request->recevable_party_type;
         $charges->c_category = $request->c_category;
-        $charges->save();
+        $charges->update();
         
         $notify[] = ['success', 'Charges Updated Successfully.'];
         return redirect()->route('admin.charges.create')->withNotify($notify);
+    }
+    
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Charges::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Charges::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Charges::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Charges::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
 }

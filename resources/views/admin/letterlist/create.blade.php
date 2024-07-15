@@ -3,35 +3,35 @@
 @section('top_nav_panel')
 <div class="col-md-4">
     <div class="d-flex">
-        <div class="plus">
-            <i class="fa fa-square-plus"></i>
+        <div class="plus" onclick="formReset('/admin/letterlist/store')">
+            <i class="fa fa-square-plus" title="Add"></i>
         </div>
         <div class="save">
-            <i class="fa fa-save" id="submitButton"></i>
+            <i class="fa fa-save" id="submitButton" title="Save"></i>
         </div>
-        <div class="xmark">
-            <i class="fa fa-circle-xmark"></i>
+        <div class="xmark" onclick="deleteData('/admin/letterlist/delete')">
+            <i class="fa fa-circle-xmark" title="Delete"></i>
         </div>
         <div class="refresh">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" title="Reload"></i>
         </div>
         <div class="lock">
-            <i class="fa fa-lock"></i>
+            <i class="fa fa-lock" title="Lock"></i>
         </div>
         <div class="ban">
-            <i class="fa fa-ban"></i>
+            <i class="fa fa-ban" title="Void"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward-step"></i>
+        <div class="backward navigation" data-type="first">
+            <i class="fa fa-backward-step" title="First"></i>
         </div>
-        <div class="backward">
-            <i class="fa fa-backward"></i>
+        <div class="backward navigation" data-type="backward">
+            <i class="fa fa-backward" title="Backward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward"></i>
+        <div class="forward navigation" data-type="forward">
+            <i class="fa fa-forward" title="Forward"></i>
         </div>
-        <div class="forward">
-            <i class="fa fa-forward-step"></i>
+        <div class="forward navigation" data-type="last">
+            <i class="fa fa-forward-step" title="Last"></i>
         </div>
     </div>
 </div>
@@ -73,7 +73,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-7">
-                <form id="myForm" method="post" action="{{ route('admin.vessel.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.letterlist.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card mb-4">
                 <div class="card-header">
@@ -81,40 +81,41 @@
                     <!--<hr />-->
                 </div>
                 <div class="card-body">
-                    <input name="id" type="hidden" />
+                    <input name="id" type="hidden" value="0"/>
                     <div class="row">
                        
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Trans #</label>
-                                <input name="trans_number" type="text" class="form-control">
+                                <input name="trans_number" type="text" class="form-control trans_number">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Letter</label>
-                                <input name="letter" type="text" class="form-control">
+                                <input name="letter" type="text" class="form-control letter">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Reference #</label>
-                                <input name="reference_number" type="text" class="form-control">
+                                <input name="reference_number" type="text" class="form-control reference_number">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Operation Type</label>
-                                <select name="operation_type" class="form-select">
-                                    <option value="option1">Air Import</option>
-                                    <option value="option2">Air Export</option>
-                                    <option value="option3">Sea Import</option>
-                                    <option value="option3">Sea Export</option>
-                                    <option value="option3">Warehouse</option>
-                                    <option value="option3">Other</option>
+                                <select name="operation_type" class="form-select operation_type" >
+                                    <option value="Air-Import">Air Import</option>
+                                    <option value="Air-Export">Air Export</option>
+                                    <option value="Sea-Import">Sea Import</option>
+                                    <option value="Sea-Export">Sea Export</option>
+                                    <option value="Logistics">Logistics</option>
+                                    <option value="Warehouse">Warehouse</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                         </div>
@@ -122,14 +123,14 @@
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Date From</label>
-                                <input name="date_from" type="date" class="form-control">
+                                <input name="date_from" type="date" class="form-control date_from">
                             </div>
                         </div>
                         
                         <div class="col-md-3">
                             <div class="mb-2">
                                 <label class="form-label">Date To</label>
-                                <input name="date_to" type="date" class="form-control">
+                                <input name="date_to" type="date" class="form-control date_to">
                             </div>
                         </div>
                         
@@ -137,15 +138,15 @@
                             <div class="mb-2">
                                 <label class="form-label">Type</label><br>
                                 <label class="form-check-label">
-                                    <input type="radio" name="type" value="Template" class="form-check-input">
+                                    <input type="radio" name="type" value="Template" class="form-check-input type">
                                     Template
                                 </label>
                                 <label class="form-check-label mx-3">
-                                    <input type="radio" name="type" value="Manual" class="form-check-input">
+                                    <input type="radio" name="type" value="Manual" class="form-check-input type">
                                     Manual
                                 </label>
                                 <label class="form-check-label">
-                                    <input type="radio" name="type" value="Both" class="form-check-input">
+                                    <input type="radio" name="type" value="Both" class="form-check-input type">
                                     Both
                                 </label>
                             </div>
@@ -154,19 +155,19 @@
                         <div class="col-md-6">
                             <div class="mb-2 mt-4">
                                 <div class="mb-2">
-                                    <input type="radio" id="cash" name="type" value="Consignee" class="form-check-input">
+                                    <input type="radio" id="cash" name="consignee_type" value="Consignee" class="form-check-input">
                                     <label for="cash" class="form-check-label">Consignee</label>
                                 </div>
                                 <div class="mb-2">
-                                    <input type="radio" id="bank" name="type" value="Coloader/Forwarder" class="form-check-input">
+                                    <input type="radio" id="bank" name="consignee_type" value="Coloader-Forwarder" class="form-check-input">
                                     <label for="bank" class="form-check-label">Coloader/Forwarder</label>
                                 </div>
                                 <div class="mb-2">
-                                    <input type="radio" id="bank" name="type" value="Client" class="form-check-input">
+                                    <input type="radio" id="bank" name="consignee_type" value="Client" class="form-check-input">
                                     <label for="bank" class="form-check-label">Client</label>
                                 </div>
                                 <div class="mb-2">
-                                    <input type="radio" id="bank" name="type" value="Clearing Agent" class="form-check-input">
+                                    <input type="radio" id="bank" name="consignee_type" value="Clearing-Agent" class="form-check-input">
                                     <label for="bank" class="form-check-label">Clearing Agent</label>
                                 </div>
                             </div>    
@@ -174,8 +175,8 @@
                         
                         <div class="col-md-6">
                             <div class="mb-2 mt-5">
-                                <button class="btn btn-primary btn-sm">Fetch</button>
-                                <button class="btn btn-primary btn-sm mx-3">Clear</button>
+                                <button type="button" class="btn btn-primary btn-sm">Fetch</button>
+                                <button type="button" class="btn btn-primary btn-sm mx-3">Clear</button>
                             </div>
                         </div>
 
@@ -199,19 +200,11 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -258,48 +251,32 @@ $(document).ready(function(){
             },
         },
         columns: [
-            
+         
             {
-                data: 'DT_RowIndex',
-                title: 'Sr No'
+                data: 'trans_number',
+                title: 'Tran Number'
             },
             {
-                data: 'vessel_code',
-                title: 'Vessel Code'
+                data: 'letter',
+                title: 'Letter:'
             },
             {
-                data: 'vessel_name',
-                title: 'Vessel Name:'
-            },
-            {
-                data: 'owner',
-                title: 'Owner'
+                data: 'reference_number',
+                title: 'Ref Number'
             },
             {
                 data: 'principle_code',
                 title: 'Principle Code'
             },
             {
-                data: 'call_sign',
-                title: 'Call Sign'
+                data: 'type',
+                title: 'Type'
             },
             {
-                data: 'grt',
-                title: 'GRT'
+                data: 'consignee_type',
+                title: 'Consignee Type'
             },
-            {
-                data: 'nrt',
-                title: 'NRT'
-            },
-            {
-                data: 'imo_no',
-                title: 'IMO No'
-            },
-            {
-                data: 'country_registered',
-                title: 'Country of Registered'
-            },
-           
+            
         ],          
          "rowCallback": function(row, data) {
              $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
@@ -310,22 +287,31 @@ $(document).ready(function(){
 function edit_row(e,data){
     data = JSON.parse(data);
     if(data){
-        $(".vessel_code").val(data.vessel_code);
-        $(".vessel_name").val(data.vessel_name);
-        $(".owner").val(data.owner);
-        $(".principle_code").val(data.principle_code);
-        $(".call_sign").val(data.call_sign);
-        $(".grt").val(data.grt);
-        $(".nrt").val(data.nrt);
-        $(".imo_no").val(data.imo_no);
-        $(".country_registered").val(data.country_registered);
-        $("#myForm").attr("action","{{ route('admin.vessel.update') }}")
+        $(".trans_number").val(data.trans_number);
+        $(".letter").val(data.letter);
+        $(".reference_number").val(data.reference_number);
+        $(".operation_type").val(data.operation_type);
+        $(".date_from").val(data.date_from);
+        $(".date_to").val(data.date_to);
+        $(`.type[value=${data.type}]`).prop("checked", true);
+        $(`.consignee_type[value=${data.consignee_type}]`).prop("checked", true);
+        
+        $("#myForm").attr("action","{{ route('admin.letterlist.update') }}")
          $("input[name=id]").val(data.id);
     }
     
 }
 
 
+$(".navigation").click(function () {
+  let id = $("input[name=id]").val();
+  let route = "/admin/letterlist/get";
+  let type = $(this).attr("data-type");
+  let data = getList(route, type, id);
+  if (data != null) {
+    edit_row("", JSON.stringify(data));
+  }
+});
 
 
 

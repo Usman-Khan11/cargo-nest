@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class SwitchBlDetail extends Model
+{
+    use HasFactory;
+    protected $guarded = ['id'];
+    protected $table = 'switch_bl_detail';
+}

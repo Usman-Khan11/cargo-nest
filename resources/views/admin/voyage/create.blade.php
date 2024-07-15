@@ -83,16 +83,16 @@ $vessel_id = @$_GET["vessel_id"];
                                 <!--<hr />-->
                             </div>
                             <div class="card-body">
-                                <input name="id" type="hidden" />
+                                <input name="id" type="hidden" value="0" />
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="mb-2">
                                             <label class="form-label">Vessel:</label>
-                                            <select name="vessel" class="form-select vessel">
-                                                <option selected></option>
-                                                @foreach($vessels as $value)
+                                            <select name="vessel" class="vessel custom_select">
+                                                <option selected disabled></option>
+                                                {{--@foreach($vessels as $value)
                                                 <option @if($vessel_id == $value->id) selected @endif value="{{ $value->id }}">{{ $value->vessel_name }}</option>
-                                                @endforeach
+                                                @endforeach--}}
                                             </select>
                                         </div>
                                     </div>
@@ -163,20 +163,21 @@ $vessel_id = @$_GET["vessel_id"];
                                       </tr>
                                     </thead>
                                     <tbody class="detail_repeater">
-                                        <td><i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                        <td><i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info"></i></td>
-                                        <td><input name="" type="text" style="width: 100%;"/></td>
-                                        <td>
-                                            <select name="currency[]" style="width: 100%;">
-                                                <option selected disabled value=""></option>
-                                                @foreach($currencies as $currency)
-                                                    <option value="{{ $currency->id }}">{{ $currency->code }}</option> 
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td><input name="selling[]" type="text" style="width: 100%;"/></td>
-                                        <td><input name="buying[]" type="text" style="width: 100%;"/></td>
-                                        
+                                        <tr>
+                                            <td><i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
+                                            <td><i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info"></i></td>
+                                            <td><input name="" type="text" style="width: 100%;"/></td>
+                                            <td>
+                                                <select name="currency[]" style="width: 100%;">
+                                                    <option selected disabled value=""></option>
+                                                    @foreach($currencies as $currency)
+                                                        <option value="{{ $currency->id }}">{{ $currency->code }}</option> 
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td><input name="selling[]" type="text" style="width: 100%;"/></td>
+                                            <td><input name="buying[]" type="text" style="width: 100%;"/></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -190,11 +191,11 @@ $vessel_id = @$_GET["vessel_id"];
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Vessel:</label>
-                                        <select name="vessel_search" class="form-select ">
-                                            <option selected value=''></option>
-                                            @foreach($vessels as $value)
+                                        <select name="vessel_search" class="custom_select">
+                                            <option selected disabled></option>
+                                            {{--@foreach($vessels as $value)
                                             <option @if($vessel_id == $value->id) selected @endif value="{{ $value->id }}">{{ $value->vessel_name }}</option>
-                                            @endforeach
+                                            @endforeach--}}
                                         </select>
                                     </div>
                                 </div>
@@ -206,32 +207,11 @@ $vessel_id = @$_GET["vessel_id"];
                                 </div>
                             </div>      
                             <div class="responsive text-nowrap">
-                                <table class="table table-bordered table-sm quotation_record">
-                                    <thead class="table-primary">
-                                        <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <table class="table table-bordered table-sm quotation_record"></table>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
                 
                 <div class="card mb-4">
                     <div class="p-3">
@@ -261,31 +241,31 @@ $vessel_id = @$_GET["vessel_id"];
                                   </tr>
                                 </thead>
                                 <tbody class="local_repeater">
-                                    <td><i onclick="dellocalRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                    <td><i onclick="addlocalRow(this)" class="fa fa-print fa-lg text-info"></i></td>
-                                    <td><input name="" type="text" style="width: 100%;"/></td>
-                                    <td><input name="code[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="local_port[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="arrival_date[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="sailing_date[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="vir_no[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="egm_no[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="egm_date[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="code2[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="slot_operator[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="scn[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="sa_code[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="opening_date[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="opening_time[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="closing_date[]" type="text" style="width: 100%;"/></td>
-                                    <td><input name="closing_time[]" type="text" style="width: 100%;"/></td>
+                                    <tr>
+                                        <td><i onclick="dellocalRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
+                                        <td><i onclick="addlocalRow(this)" class="fa fa-print fa-lg text-info"></i></td>
+                                        <td><input name="" type="text" style="width: 100%;"/></td>
+                                        <td><input name="code[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="local_port[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="arrival_date[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="sailing_date[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="vir_no[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="egm_no[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="egm_date[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="code2[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="slot_operator[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="scn[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="sa_code[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="opening_date[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="opening_time[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="closing_date[]" type="text" style="width: 100%;"/></td>
+                                        <td><input name="closing_time[]" type="text" style="width: 100%;"/></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div> 
-                
-                
             </div>
         </form>    
     </div>
@@ -293,14 +273,18 @@ $vessel_id = @$_GET["vessel_id"];
 
 @push('script')
 <script>
-    $('#submitButton').click(function(){
-        // Trigger form submission
-        $('#myForm').submit();
-      });
-      
-    let vessel_id = $("select[name=vessel_search]").val();
+$('#submitButton').click(function(){
+    $('#myForm').submit();
+});
+  
+let vessel_id = $("select[name=vessel_search]").val();
 
-    $(document).ready(function(){
+$(document).ready(function(){
+        
+    $(".custom_select").select2({
+      data: @json($vessels)
+    });
+        
     var datatable = $('.quotation_record').DataTable({
         select: {
             style: 'api'
@@ -361,28 +345,27 @@ $vessel_id = @$_GET["vessel_id"];
     })
 });
 
-    function addNewRow(e){
-        $(e).parent().parent().clone().prependTo(".detail_repeater");
-        $(".detail_repeater tr:last").find("input").val(null);
-        $(".detail_repeater tr:last select").find("option").attr("selected",false);
-    }
-    
-    function delRow(e){
-        if($(".detail_repeater tr").length <= 1) return;
-        $(e).parent().parent().remove();
-    }
+function addNewRow(e){
+    $(e).parent().parent().clone().prependTo(".detail_repeater");
+    $(".detail_repeater tr:last").find("input").val(null);
+    $(".detail_repeater tr:last").find("option").removeAttr("selected");
+}
 
-    function addlocalRow(e){
-        $(e).parent().parent().clone().prependTo(".local_repeater");
-        $(".local_repeater tr:last").find("input").val(null);
-        $(".local_repeater tr:last select").find("option").attr("selected",false);
-    }
-    
-    function dellocalRow(e){
-        if($(".local_repeater tr").length <= 1) return;
-        $(e).parent().parent().remove();
-    }
+function delRow(e){
+    if($(".detail_repeater tr").length <= 1) return;
+    $(e).parent().parent().remove();
+}
 
+function addlocalRow(e){
+    $(e).parent().parent().clone().prependTo(".local_repeater");
+    $(".local_repeater tr:last").find("input").val(null);
+    $(".local_repeater tr:last select").find("option").attr("selected",false);
+}
+
+function dellocalRow(e){
+    if($(".local_repeater tr").length <= 1) return;
+    $(e).parent().parent().remove();
+}
 
 function edit_row(e,data){
     data = JSON.parse(data);

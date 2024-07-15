@@ -2028,7 +2028,7 @@ progress {
 .form-control::placeholder {
   color: #b7b5be;
   opacity: 1;
-  font-size:0.625rem;
+  font-size:0.925rem;
 }
 .form-select {
   font-size:0.825rem !important;
@@ -9331,6 +9331,10 @@ html:not([dir=rtl]) .nav-align-left .nav-tabs {
   text-transform: inherit;
   letter-spacing: inherit;
 }
+.form-label span{
+    font-size:20px !important; 
+}
+
 
 .form-label-lg {
   font-size: 1.125rem;
@@ -23394,4 +23398,18 @@ table.table-bordered.dataTable thead tr:first-child th, table.table-bordered.dat
 
 
 
+.light-style .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 2.25rem;
+    color: #6f6b7d;
+    padding-left: 0.575rem;
+    font-size: 13px;
+}
 
+.input_flex{
+    display:flex !important;
+    align-items:center;
+}
+.form-label{
+    width:65%;
+    margin-right:10px;
+}

@@ -49,7 +49,7 @@ class CurrencyController extends Controller
         
         if ($request->ajax()) {
             $query = Currency::Query();
-            $query = $query->orderby('id','asc')->get();
+            $query = $query->orderBy('id','asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
         

@@ -71,7 +71,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-7">
-                <form id="myForm" method="post" action="{{ route('admin.equipment.store') }}" enctype="multipart/form-data">
+                <form id="myForm" method="post" action="{{ route('admin.party_location.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-4">
                         <div class="card-header">
@@ -83,98 +83,98 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Code:</label>
-                                       <input  name="code" type="text" class="form-control" required>
+                                       <label class="form-label">Code:</label>
+                                       <input name="code" type="text" class="form-control code" >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Loc Name:</label>
-                                       <input  name="location_name" type="text" class="form-control" required>
+                                       <label class="form-label">Loc Name:</label>
+                                       <input name="location_name" type="text" class="form-control location_name" >
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Short Name:</label>
-                                       <input  name="short_name" type="text" class="form-control" required>
+                                       <label class="form-label">Short Name:</label>
+                                       <input name="short_name" type="text" class="form-control short_name" >
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">contact Person:</label>
-                                       <input  name="contact_person" type="text" class="form-control" required>
+                                       <label class="form-label">contact Person:</label>
+                                       <input name="contact_person" type="text" class="form-control contact_person" >
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">City:</label>
-                                       <input  name="city" type="text" class="form-control" required>
+                                       <label class="form-label">City:</label>
+                                       <input name="city" type="text" class="form-control city" >
                                     </div>
                                 </div>
                                 <div class="col-md-7">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Address:</label>
-                                       <textarea name="address" class="form-control"></textarea>
+                                       <label class="form-label">Address:</label>
+                                       <textarea name="address" class="form-control address"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">State:</label>
-                                       <input  name="state" type="text" class="form-control" required>
+                                       <label class="form-label">State:</label>
+                                       <input name="state" type="text" class="form-control state" >
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Zip Code:</label>
-                                       <input  name="zipcode" type="text" class="form-control" required>
+                                       <label class="form-label">Zip Code:</label>
+                                       <input name="zipcode" type="text" class="form-control zipcode" >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Phone:</label>
-                                       <input  name="phone" type="text" class="form-control" required>
+                                       <label class="form-label">Phone:</label>
+                                       <input name="phone" type="text" class="form-control phone" >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Mobile:</label>
-                                       <input  name="mobile" type="text" class="form-control" required>
+                                       <label class="form-label">Mobile:</label>
+                                       <input name="mobile" type="text" class="form-control mobile" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Email:</label>
-                                       <input  name="email" type="email" class="form-control" required>
+                                       <label class="form-label">Email:</label>
+                                       <input name="email" type="email" class="form-control email" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Website:</label>
-                                       <input  name="website" type="text" class="form-control" required>
+                                       <label class="form-label">Website:</label>
+                                       <input name="website" type="text" class="form-control website" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Facsimile:</label>
-                                       <input  name="facsimile" type="text" class="form-control" required>
+                                       <label class="form-label">Facsimile:</label>
+                                       <input name="facsimile" type="text" class="form-control facsimile" >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Codeco EDI Text:</label>
-                                       <input  name="codeco" type="text" class="form-control" required>
+                                       <label class="form-label">Codeco EDI Text:</label>
+                                       <input name="codeco" type="text" class="form-control codeco" >
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Code:</label>
-                                       <input name="party_code" type="text" class="form-control" required>
+                                       <label class="form-label">Code:</label>
+                                       <input name="party_code" type="text" class="form-control party_code" >
                                     </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Party:</label>
-                                       <input name="Party" type="text" class="form-control" required>
+                                       <label class="form-label">Party:</label>
+                                       <input name="party" type="text" class="form-control party" >
                                     </div>
                                 </div>
                             </div>
@@ -183,53 +183,53 @@
                                 <label class="form-check-label mb-2">Location Type: </label>
                                 <div class="col-md-3">
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="sales" value="Sales" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Sales" class="form-check-input Type">
                                         Sales
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Operation" value="Operation" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Operation" class="form-check-input Type">
                                        Operation
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Chasis Pick/Drop" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Chasis-Pick-Drop" class="form-check-input Type">
                                         Chasis Pick/Drop
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Terminel" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Terminel" class="form-check-input Type">
                                         Terminel
                                     </label>
                                 </div>
                                 
                                 <div class="col-md-3">
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Dacumentation" value="Soc" class="form-check-input">
-                                        Dacumentation
+                                        <input type="checkbox" name="Type[]" value="Documentation" class="form-check-input Type">
+                                        Documentation
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Warehouse" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Warehouse" class="form-check-input Type">
                                         Warehouse
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Off Dock Yard" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Off-Dock-Yard" class="form-check-input Type">
                                         Off Dock Yard
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Enable EDo" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Enable EDo" value="Enable-EDO" class="form-check-input Type">
                                         Enable EDo
                                     </label>
                                 </div>
                                 
                                 <div class="col-md-4">
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Factory/Office" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Factory-Office" class="form-check-input Type">
                                         Factory/Office
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name="Container Pick/Drop Loc" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Container-Pick-Drop-Loc" class="form-check-input Type">
                                         Container Pick/Drop Loc
                                     </label><br>
                                     <label class="form-check-label mb-2">
-                                        <input type="checkbox" name=" Container Depot" value="Soc" class="form-check-input">
+                                        <input type="checkbox" name="Type[]" value="Container-Depot" class="form-check-input Type">
                                         Container Depot
                                     </label>
                                     <div class="mb-2">
@@ -238,8 +238,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-2 d-flex">
-                                        <label for="cost" class="form-label">sender: </label>
-                                        <input name="sender" type="text" class="form-control" required>
+                                        <label class="form-label">sender: </label>
+                                        <input name="sender" type="text" class="form-control sender">
                                     </div>
                                 </div>
                             </div>
@@ -248,20 +248,20 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Remarks:</label>
-                                       <textarea name="remarks" rows="4" type="text" class="form-control"></textarea>
+                                       <label class="form-label">Remarks:</label> 
+                                       <textarea name="remarks" rows="4" type="text" class="form-control remarks"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">LP Header:</label>
-                                       <textarea name="lp_header" rows="4" type="text" class="form-control"></textarea>
+                                       <label class="form-label">LP Header:</label>
+                                       <textarea name="lp_header" rows="4" type="text" class="form-control lp_header"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-2">
-                                       <label for="cost" class="form-label">Empty Remarks:</label>
-                                       <textarea name="empty_remarks" rows="4" type="text" class="form-control"></textarea>
+                                       <label class="form-label">Empty Remarks:</label>
+                                       <textarea name="empty_remarks" rows="4" type="text" class="form-control empty_remarks"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -276,13 +276,13 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-2">
-                                   <label for="cost" class="form-label">Code:</label>
+                                   <label class="form-label">Code:</label>
                                    <input name="Code" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-9">
                                 <div class="mb-2">
-                                   <label for="cost" class="form-label">Name:</label>
+                                   <label class="form-label">Name:</label>
                                    <input name="name" type="text" class="form-control">
                                 </div>
                             </div>
@@ -302,12 +302,10 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -346,7 +344,7 @@
         "pageLength": 10,
         "scrollX": true,
         "ajax": {
-            "url": "{{ route('admin.equipment.create') }}",
+            "url": "{{ route('admin.party_location.create') }}",
             "type": "get",
             "data": function(d) {
                 var frm_data = $('#result_report_form').serializeArray();
@@ -358,33 +356,29 @@
         columns: [
             {
                 data: 'code',
-                title: 'LocationCode'
+                title: 'Code'
             },
             {
-                data: 'size',
+                data: 'location_name',
                 title: 'LocationName'
             },
             {
-                data: 'type',
+                data: 'short_name',
                 title: 'ShortNamw'
             },
             {
-                data: 'teu',
-                title: 'Portcode'
+                data: 'city',
+                title: 'City'
             },
             {
-                data: 'old_iso',
-                title: 'Old Iso Code'
+                data: 'address',
+                title: 'Address'
             },
             {
-                data: 'iso',
-                title: 'Iso Code'
+                data: 'phone',
+                title: 'Phone'
             },
-            {
-                data: 'weight',
-                title: 'Weight'
-            },
-        
+            
         ],          
          "rowCallback": function(row, data) {
              $(row).attr("onclick",`edit_row(this,'${JSON.stringify(data)}')`)
@@ -397,15 +391,31 @@ function edit_row(e,data){
     data = JSON.parse(data);
     if(data){
         $(".code").val(data.code);
-        $(".size").val(data.size);
-        $(".type").val(data.type);
-        $(".teu").val(data.teu);
-        $(".old_iso").val(data.old_iso);
-        $(".iso").val(data.iso);
-        $(".weight").val(data.weight);
+        $(".location_name").val(data.location_name);
+        $(".short_name").val(data.short_name);
+        $(".contact_person").val(data.contact_person);
+        $(".city").val(data.city);
+        $(".address").val(data.address);
+        $(".state").val(data.state);
+        $(".zipcode").val(data.zipcode);
+        $(".phone").val(data.phone);
+        $(".mobile").val(data.mobile);
+        $(".email").val(data.email);
+        $(".website").val(data.website);
+        $(".facsimile").val(data.facsimile);
+        $(".codeco").val(data.codeco);
+        $(".party_code").val(data.party_code);
+        $(".party").val(data.party);
         
-        //$(".type").removeAttr('checked');
-        //$(`.type[value=${data.type}]`).attr('checked',true);
+        $(".Type").removeAttr('checked');
+        $(data.Type).each(function(i, v){
+            $(`.Type[value=${v}]`).attr("checked", true);
+        })
+        
+        $(".sender").val(data.sender);
+        $(".remarks").val(data.remarks);
+        $(".lp_header").val(data.lp_header);
+        $(".empty_remarks").val(data.empty_remarks);
         
         $("#myForm").attr("action","{{ route('admin.party_location.update') }}")
          $("input[name=id]").val(data.id);
@@ -425,34 +435,6 @@ $(".navigation").click(function () {
   }
 });
 
-
-// function excelFileImporter(e) {
-//   let file = $(e).val();
-//   if (file) {
-//     var file_data = $("#sortExcel").prop("files")[0];
-//     var form_data = new FormData();
-//     form_data.append("_token", "{{ csrf_token() }}");
-//     form_data.append("import_file", file_data);
-//     form_data.append("excelFileImporter", "true");
-
-//     $.ajax({
-//       url: "/admin/party_location/import",
-//       cache: false,
-//       contentType: false,
-//       processData: false,
-//       data: form_data,
-//       type: "post",
-//       success: function (res) {
-//         if (res[0] == "success") {
-//           iziToast.success({ message: res[1], position: "topRight" });
-//           datatable.ajax.reload();
-//         } else {
-//           iziToast.error({ message: res[1], position: "topRight" });
-//         }
-//       },
-//     });
-//   }
-// }
 
 </script>
 

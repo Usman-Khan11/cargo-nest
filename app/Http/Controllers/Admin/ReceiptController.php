@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Receipt;
+use App\Models\Receiptdetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -68,24 +69,24 @@ class ReceiptController extends Controller
         $developer = Receipt::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Receipt Deleted Successfully.'];
-        return redirect()->route('admin.receipt')->withNotify($notify);
+        return redirect()->route('admin.receipt.create')->withNotify($notify);
     }
     
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'tran_number' => 'required',
+            'tran_no' => 'required',
             'tran_date' => 'required',
             'status' => 'required',
         ]);
         
         $receipt = new Receipt();
-        $receipt->tran_number = $request->tran_number;
+        $receipt->tran_no = $request->tran_no;
         $receipt->tran_date = $request->tran_date;
         $receipt->status = $request->status;
         $receipt->sequence = $request->sequence;
         $receipt->refund = $request->refund;
-        $receipt->hbl_number = $request->hbl_number;
+        $receipt->hbl_no = $request->hbl_number;
         $receipt->advance_balance = $request->advance_balance;
         $receipt->cost_center = $request->cost_center;
         $receipt->cc_invoice = $request->cc_invoice;
@@ -110,14 +111,14 @@ class ReceiptController extends Controller
         $receipt->sub_type = $request->sub_type;
         $receipt->cheque_no = $request->cheque_no;
         $receipt->date = $request->date;
-        $receipt->Account = $request->Account;
+        $receipt->account_no = $request->Account;
         $receipt->draw_at = $request->draw_at;
         $receipt->invoice_no = $request->invoice_no;
         $receipt->pay_to = $request->pay_to;
         $receipt->bank_charges = $request->bank_charges;
         $receipt->gain_loss_fc = $request->gain_loss_fc;
-        $receipt->account1 = $request->account1;
-        $receipt->account2 = $request->account2;
+        $receipt->account_1 = $request->account1;
+        $receipt->account_2 = $request->account2;
         $receipt->remarks = $request->remarks;
         $receipt->t_amount = $request->t_amount;
         $receipt->advance = $request->advance;
@@ -131,10 +132,10 @@ class ReceiptController extends Controller
         
         $job_no = $request->job_no;
         foreach($job_no as $key => $value) {
-            $receipt_details = new Receiptdetails();
+            $receipt_details = new Receiptdetail();
             $receipt_details->receipt_id = $receipt->id;
             $receipt_details->job_no = $request->job_no[$key];
-            $receipt_details->invoice_no = $request->invoice_no[$key];
+            $receipt_details->invoice_number = $request->invoice_number[$key];
             $receipt_details->invoice_date = $request->invoice_date[$key];
             $receipt_details->ref_no = $request->ref_no[$key];
             $receipt_details->hbl_no = $request->hbl_no[$key];
@@ -143,7 +144,7 @@ class ReceiptController extends Controller
             $receipt_details->inv_bal = $request->inv_bal[$key];
             $receipt_details->rcvd_amount = $request->rcvd_amount[$key];
             $receipt_details->balance = $request->balance[$key];
-            $receipt_details->checkbox = $request->checkbox[$key];
+            // $receipt_details->checkbox = $request->check[$key];
             $receipt_details->file_no = $request->file_no[$key];
             $receipt_details->container = $request->container[$key];
             $receipt_details->index_no = $request->index_no[$key];
@@ -151,8 +152,8 @@ class ReceiptController extends Controller
             $receipt_details->save();
         }
      
-        $notify[] = ['success', 'Party Added Successfully.'];
-        return redirect()->route('admin.party')->withNotify($notify);
+        $notify[] = ['success', 'Receipt Added Successfully.'];
+        return redirect()->route('admin.receipt.create')->withNotify($notify);
     }
     public function update(Request $request)
     {
@@ -167,7 +168,29 @@ class ReceiptController extends Controller
         $receipt->save();
         
         $notify[] = ['success', 'Receipt Updated Successfully.'];
-        return redirect()->route('admin.receipt')->withNotify($notify);
+        return redirect()->route('admin.receipt.create')->withNotify($notify);
+    }
+    
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = Receipt::orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Receipt::orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Receipt::where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Receipt::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
     }
     
     

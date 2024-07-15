@@ -123,7 +123,7 @@ if (document.getElementById('layout-menu')) {
     }
   } else {
     // Removed style switcher element if not using template customizer
-    styleSwitcherToggleEl.parentElement.remove();
+    //styleSwitcherToggleEl.parentElement.remove();
   }
 
   // Update light/dark image based on current style
@@ -181,6 +181,7 @@ if (document.getElementById('layout-menu')) {
   }
 
   function localize() {
+      return;
     let i18nList = document.querySelectorAll('[data-i18n]');
     // Set the current language in dd
     let currentLanguageEle = document.querySelector('.dropdown-item[data-language="' + i18next.language + '"]');
