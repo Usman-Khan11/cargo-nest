@@ -227,6 +227,7 @@
                                     <div class="mb-2">
                                         <label class="form-label">Default Payable Party Type:</label>
                                         <select name="payable_party_type" class="form-select payable_party_type">
+                                            <option value="" selected></option>
                                             <option value="l-Agent">l-Agent</option>
                                             <option value="O-Agent">O-Agent</option>
                                             <option value="Terminal">Terminal</option>
@@ -240,6 +241,7 @@
                                     <div class="mb-2">
                                         <label class="form-label">Default Recevable Party Type:</label>
                                         <select name="recevable_party_type" class="form-select recevable_party_type">
+                                            <option value="" selected></option>
                                             <option value="Client">Client</option>
                                             <option value="O-Agent">O-Agent</option>
                                             <option value="Terminal">Terminal</option>
@@ -444,9 +446,7 @@ $(document).ready(function(){
         
     $(".currency").select2({
       data: @json($currencies)
-    });    
-        
-        
+    });
         
         
         
@@ -559,6 +559,7 @@ $(".navigation").click(function(){
         edit_row('', JSON.stringify(data));
     }
 })
+
 </script>
 
 @endpush

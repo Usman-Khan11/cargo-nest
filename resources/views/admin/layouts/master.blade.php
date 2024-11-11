@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/node-waves/node-waves.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/typeahead-js/typeahead.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/jstree/jstree.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}" />
@@ -59,6 +60,7 @@
     <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/jstree/jstree.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/forms-selects.js') }}"></script>
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
@@ -129,13 +131,20 @@
         function formReset(route) {
             document.getElementById('myForm').reset();
             $("#myForm").attr('action', route);
-            $("#myForm").find("select").val(null).trigger("change"); 
+            $("#myForm").find("select option:first").attr("selected", true);
+            $("#myForm").find("select").trigger("change"); 
         }
         
         function initializeSelect2(elem) {
             let arr = elem.join(', ');
             $(arr).select2();
         }
+        
+        $(document).ready(function(){
+            setTimeout(function() { 
+                //$(".navigation[data-type=last]").click();
+            }, 500);
+        })
     </script>
   </body>
 </html>

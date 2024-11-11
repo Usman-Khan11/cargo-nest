@@ -10,4 +10,7 @@ class PartyOtherInfo extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $table = 'party_other_info';
+    protected $casts = [
+        'ownership' => 'array'
+    ];
 }

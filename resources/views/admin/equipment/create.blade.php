@@ -83,42 +83,42 @@
                             <div class="row">
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2">
-                                        <label class="form-label">Code:</label>
-                                        <input name="code" value="" type="text" class="form-control code" />
+                                        <label class="form-label">Code: <span class="text-danger">*</span></label>
+                                        <input name="code" value="{{ old('code') }}" type="text" class="form-control code" />
                                     </div>
                                 </div>
         
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2">
-                                        <label class="form-label">Size</label>
+                                        <label class="form-label">Size <span class="text-danger">*</span></label>
                                         <select name="size" class="form-select size">
-                                            <option Selected Disabled></option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="40">40</option>
-                                            <option value="43">43</option>
-                                            <option value="45">45</option>
-                                            <option value="60">60</option>
+                                            <option selected disabled></option>
+                                            <option @if(old('size') == 10) selected @endif value="10">10</option>
+                                            <option @if(old('size') == 20) selected @endif value="20">20</option>
+                                            <option @if(old('size') == 40) selected @endif value="40">40</option>
+                                            <option @if(old('size') == 43) selected @endif value="43">43</option>
+                                            <option @if(old('size') == 45) selected @endif value="45">45</option>
+                                            <option @if(old('size') == 60) selected @endif value="60">60</option>
                                         </select>
                                     </div>    
                                 </div>
                                 
                                 <div class="col-md-5 col-12">
                                     <div class="mb-2">
-                                        <label class="form-label">Type</label>
+                                        <label class="form-label">Type <span class="text-danger">*</span></label>
                                         <select name="type" class="form-select type">
-                                            <option Selected Disabled></option>
-                                            <option value="Dry Container">Dry Container</option>
-                                            <option value="Flat Rack">Flat Rack</option>
-                                            <option value="High Cube">High Cube</option>
-                                            <option value="Hdc">Hdc</option>
-                                            <option value="Open Top">Open Top</option>
-                                            <option value="Refrigerated Container">Refrigerated Container</option>
-                                            <option value="SRFR">SRFR</option>
-                                            <option value="Tank">Tank</option>
-                                            <option value="Truck & Trailer">Truck & Trailer</option>
-                                            <option value="Ventilated">Ventilated</option>
-                                            <option value="Bulk">Bulk</option>
+                                            <option value="" selected disabled></option>
+                                            <option @if(old('type') == 'Dry Container') selected @endif value="Dry Container">Dry Container</option>
+                                            <option @if(old('type') == 'Flat Rack') selected @endif value="Flat Rack">Flat Rack</option>
+                                            <option @if(old('type') == 'High Cube') selected @endif value="High Cube">High Cube</option>
+                                            <option @if(old('type') == 'Hdc') selected @endif value="Hdc">Hdc</option>
+                                            <option @if(old('type') == 'Open Top') selected @endif value="Open Top">Open Top</option>
+                                            <option @if(old('type') == 'Refrigerated Container') selected @endif value="Refrigerated Container">Refrigerated Container</option>
+                                            <option @if(old('type') == 'SRFR') selected @endif value="SRFR">SRFR</option>
+                                            <option @if(old('type') == 'Tank') selected @endif value="Tank">Tank</option>
+                                            <option @if(old('type') == 'Truck & Trailer') selected @endif value="Truck & Trailer">Truck & Trailer</option>
+                                            <option @if(old('type') == 'Ventilated') selected @endif value="Ventilated">Ventilated</option>
+                                            <option @if(old('type') == 'Bulk') selected @endif value="Bulk">Bulk</option>
                                         </select>
                                     </div>    
                                 </div>
@@ -126,25 +126,25 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">TEU:</label>
-                                        <input name="teu" type="text" class="form-control teu" placeholder="0.00" />
+                                        <input name="teu" type="text" value="{{ old('teu') }}" class="form-control teu" placeholder="0.00" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Old ISO Code:</label>
-                                        <input name="old_iso" type="text" class="form-control old_iso" placeholder="" />
+                                        <input name="old_iso" type="text" value="{{ old('old_iso') }}" class="form-control old_iso" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">ISO Code:</label>
-                                        <input name="iso" type="text" class="form-control iso" placeholder="" />
+                                        <input name="iso" type="text" value="{{ old('iso') }}" class="form-control iso" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Weight:</label>
-                                        <input name="weight" type="text" class="form-control weight" placeholder="0.00" />
+                                        <input name="weight" type="text" value="{{ old('weight') }}" class="form-control weight" placeholder="0.00" />
                                     </div>
                                 </div>
                                 
@@ -165,30 +165,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="responsive text-nowrap">
-                            <table class="table table-bordered table-sm quotation_record">
-                                <thead class="table-primary">
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <table class="table table-bordered table-sm quotation_record"></table>
                         </div>
                     </div>
                 </div>
@@ -216,6 +193,7 @@
         "lengthChange": false,
         "pageLength": 10,
         "scrollX": true,
+        "ordering": false,
         "ajax": {
             "url": "{{ route('admin.equipment.create') }}",
             "type": "get",

@@ -13,6 +13,7 @@ use App\Models\PartyNotification;
 use App\Models\PartyInsurance;
 use App\Models\partyCenter;
 use App\Models\Location;
+use App\Models\ChartAccount;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,58 +27,45 @@ use File;
 
 class PartyController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $data['seo_title']      = "Party";
-    //     $data['seo_desc']       = "Party";
-    //     $data['seo_keywords']   = "Party";
-    //     $data['page_title'] = "All Party";
-
-    //     if ($request->ajax()) {
-    //         $totalCount=0;
-    //         $recordsFiltered=0;
-    //         $pageSize = (int)($request->length) ? $request->length : 10;
-    //         $start=(int)($request->start) ? $request->start : 0;
-    //         $query=Party::Query();
-    //         $totalCount=$query->count(); 
-            
-    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-    //         return Datatables::of($query)
-    //             ->setOffset($start)->addIndexColumn()
-    //             ->with(['recordsTotal'=>$totalCount])
-    //             ->make(true);
-    //     }
-    //     return view('admin.party.index', $data);
-    // }
-    
-    
     public function create(Request $request)
     {
         if ($request->ajax()) {
+
+            if (isset($request->type) && $request->type == 'get_location') {
+                $search_term = $request->search;
+                $data = Location::where('location_check', 'like', '%city%')->orWhere('code', 'like', "%$search_term%")->orWhere('location', 'like', "%$search_term%")->select('id', DB::raw('location as text'))->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_parent_account') {
+                $search_term = $request->search;
+                $data = ChartAccount::where('acc_code', 'like', "%$search_term%")->orWhere('title', 'like', "%$search_term%")->select('id', DB::raw('title as text'))->get();
+                return $data;
+            }
+
             $query = PartyBasicInfo::Query();
             $query = $query->with('city');
-            $query = $query->orderby('id','asc')->get();
+            $query = $query->orderby('id', 'asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
-        
-        $data['party_num'] = PartyBasicInfo::orderby('id','desc')->first();
-        if($data['party_num']) {
+
+        $data['party_num'] = PartyBasicInfo::orderby('id', 'desc')->first();
+        if ($data['party_num']) {
             $data['party_num'] = $data['party_num']->party_code + 1;
         } else {
             $data['party_num'] = 1;
         }
-        
+
         $data['seo_title']      = "Party";
         $data['seo_desc']       = "Party";
         $data['seo_keywords']   = "Party";
         $data['page_title'] = "Party";
         // $data['locations'] = Location::where('location_check','like','%city%')->select(["id", "location as text"])->get();
-        $data['locations'] = Location::select('id', DB::raw('CONCAT(location, code) as text'))->where('location_check', 'like', '%city%')->get();
-        $data['locations'] = $data['locations']->toArray();
+        //$data['locations'] = Location::select('id', DB::raw('CONCAT(location, code) as text'))->where('location_check', 'like', '%city%')->get();
+        //$data['locations'] = $data['locations']->toArray();
         return view('admin.party.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit Party";
@@ -87,7 +75,7 @@ class PartyController extends Controller
         $data['party'] = PartyBasicInfo::where("id", $id)->first();
         return view('admin.party.edit', $data);
     }
-    
+
     public function delete($id)
     {
         $developer = PartyBasicInfo::where("id", $id);
@@ -95,7 +83,7 @@ class PartyController extends Controller
         $notify[] = ['success', 'Party Deleted Successfully.'];
         return back()->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -104,8 +92,9 @@ class PartyController extends Controller
             'operation_check' => 'required',
             'Type' => 'required',
         ]);
-        
+
         $partybasicinfo = new PartyBasicInfo();
+        $partybasicinfo->party_type = $request->calculation_type;
         $partybasicinfo->party_code = $request->party_code;
         $partybasicinfo->party_name = $request->party_name;
         $partybasicinfo->party_inactive = $request->party_inactive;
@@ -128,26 +117,32 @@ class PartyController extends Controller
         $partybasicinfo->email = $request->email;
         $partybasicinfo->acc_dept_email = $request->acc_dept_email;
         $partybasicinfo->operation = $request->operation;
-        $partybasicinfo->operation_check=($request->operation_check);
-        $partybasicinfo->Type=($request->Type);
-        $partybasicinfo->nomination=($request->nomination);
+        $partybasicinfo->operation_check = ($request->operation_check);
+        $partybasicinfo->Type = ($request->Type);
+        $partybasicinfo->nomination = ($request->nomination);
         $partybasicinfo->scac_iata_code = $request->scac_iata_code;
-        $partybasicinfo->restriction=($request->restriction);
+        $partybasicinfo->restriction = ($request->restriction);
         $partybasicinfo->save();
-        $this->other_info_store($request,$partybasicinfo->id);
-        $this->account_detail_store($request,$partybasicinfo->id);
-        $this->ach_bank_detail_store($request,$partybasicinfo->id);
-        $this->localize_kyc_store($request,$partybasicinfo->id);
         
+        $this->other_info_store($request, $partybasicinfo->id);
+        $this->account_detail_store($request, $partybasicinfo->id);
+        $this->ach_bank_detail_store($request, $partybasicinfo->id);
+        $this->localize_kyc_store($request, $partybasicinfo->id);
+        $this->notifications($request, $partybasicinfo->id);
+        $this->insurance($request, $partybasicinfo->id);
+        $this->cost_center($request, $partybasicinfo->id);
+
         $notify[] = ['success', 'Party Added Successfully.'];
         return redirect()->route('admin.party.create')->withNotify($notify);
     }
-    
-    public function other_info_store($request,$id)
+
+    public function other_info_store($request, $id)
     {
+        PartyOtherInfo::where('party_basic_id', $id)->delete();
+        
         $partyotherinfo = new PartyOtherInfo();
         $partyotherinfo->party_basic_id = $id;
-        $partyotherinfo->ownership=json_encode($request->ownership);
+        $partyotherinfo->ownership = $request->ownership;
         $partyotherinfo->affiliated_companies = $request->affiliated_companies;
         $partyotherinfo->fed_id = $request->fed_id;
         $partyotherinfo->business_type = $request->business_type;
@@ -163,26 +158,31 @@ class PartyController extends Controller
         $partyotherinfo->expiry_date = $request->expiry_dates;
         $partyotherinfo->save();
     }
-    
-    public function account_detail_store($request,$id)
+
+    public function account_detail_store($request, $id)
     {
+        PartyAccountDetail::where('party_basic_id', $id)->delete();
+        
         $partyaccountdetail = new PartyAccountDetail();
         $partyaccountdetail->party_basic_id = $id;
-        $partyaccountdetail->manual_account = $request->manual_account	;
-        $partyaccountdetail->parent_account = $request->parent_account	;
-        $partyaccountdetail->account = $request->account	;
-        $partyaccountdetail->sale_rep = $request->sale_rep	;
-        $partyaccountdetail->doc_rep = $request->doc_rep	;
-        $partyaccountdetail->account_rep = $request->account_rep	;
-        $partyaccountdetail->referred_by = $request->referred_by	;
+        $partyaccountdetail->manual_account = $request->manual_account;
+        $partyaccountdetail->parent_account = $request->parent_account;
+        $partyaccountdetail->account = $request->account;
+        $partyaccountdetail->sale_rep = $request->sale_rep;
+        $partyaccountdetail->doc_rep = $request->doc_rep;
+        $partyaccountdetail->account_rep = $request->account_rep;
+        $partyaccountdetail->referred_by = $request->referred_by;
         $partyaccountdetail->currency = $request->currency;
         $partyaccountdetail->customer_grp = $request->customer_grp;
         $partyaccountdetail->sub_type = $request->sub_type;
-        $partyaccountdetail->sub_type_input=json_encode($request->sub_type_input);;
+        $partyaccountdetail->sub_type_input = (!empty($request->sub_type_input)) ? $request->sub_type_input : [];
         $partyaccountdetail->save();
     }
-    
-    public function ach_bank_detail_store($request,$id){
+
+    public function ach_bank_detail_store($request, $id)
+    {
+        PartyAchBankDetail::where('party_basic_id', $id)->delete();
+        
         $partyachbankdetail = new PartyAchBankDetail();
         $partyachbankdetail->party_basic_id = $id;
         $partyachbankdetail->ach_authority = $request->ach_authority;
@@ -201,36 +201,45 @@ class PartyController extends Controller
         $partyachbankdetail->auth_by = $request->auth_by;
         $partyachbankdetail->save();
     }
-    
-    public function localize_kyc_store($request,$id){
+
+    public function localize_kyc_store($request, $id)
+    {
+        PartyLocalizeKyc::where('party_basic_id', $id)->delete();
+        
         $partylocalizekyc = new PartyLocalizeKyc();
         $partylocalizekyc->party_basic_id = $id;
-        $partylocalizekyc->name = $request->name;
-        $partylocalizekyc->address1 = $request->address1;
-        $partylocalizekyc->address2 = $request->address2;
-        $partylocalizekyc->address3 = $request->address3;
+        $partylocalizekyc->name = $request->kyc_name;
+        $partylocalizekyc->address1 = $request->kyc_address1;
+        $partylocalizekyc->address2 = $request->kyc_address2;
+        $partylocalizekyc->address3 = $request->kyc_address3;
         $partylocalizekyc->kyc_verification = $request->kyc_verification;
         $partylocalizekyc->kyc_date = $request->kyc_date;
         $partylocalizekyc->kyc_remarks = $request->kyc_remarks;
         $partylocalizekyc->save();
     }
-    
-    public function notifications($request,$id){
+
+    public function notifications($request, $id)
+    {
         $notification = $request->notification;
-        foreach($notification as $key => $value) {
+        PartyNotification::where('party_basic_id', $id)->delete();
+        
+        foreach ($notification as $key => $value) {
             $party_notification = new PartyNotification();
             $party_notification->party_basic_id = $id;
             $party_notification->notification = $request->notification[$key];
-            $party_notification->disabled = $request->disabled[$key];
+            $party_notification->disabled = (!empty($request->disabled[$key])) ? $request->disabled[$key] : '';
             $party_notification->email_address = $request->email_address[$key];
             $party_notification->operation_type = $request->operation_type[$key];
             $party_notification->save();
-        }    
+        }
     }
-    
-    public function insurance($request,$id){
-        $insurace_company = $request->insurace_company;
-        foreach($insurace_company as $key => $value) {
+
+    public function insurance($request, $id)
+    {
+        $insurace_company = (!empty($request->insurace_company)) ? $request->insurace_company : [];
+        PartyInsurance::where('party_basic_id', $id)->delete();
+        
+        foreach ($insurace_company as $key => $value) {
             $party_insurance = new PartyInsurance();
             $party_insurance->party_basic_id = $id;
             $party_insurance->insurace_company = $request->insurace_company[$key];
@@ -239,12 +248,15 @@ class PartyController extends Controller
             $party_insurance->policy_no = $request->policy_no[$key];
             $party_insurance->expiry_date = $request->expiry_date[$key];
             $party_insurance->save();
-        }    
+        }
     }
-    
-    public function cost_center($request,$id){
+
+    public function cost_center($request, $id)
+    {
         $company = $request->company;
-        foreach($company as $key => $value) {
+        partyCenter::where('party_basic_id', $id)->delete();
+        
+        foreach ($company as $key => $value) {
             $party_center = new partyCenter();
             $party_center->party_basic_id = $id;
             $party_center->company = $request->company[$key];
@@ -252,20 +264,22 @@ class PartyController extends Controller
             $party_center->cost_center = $request->cost_center[$key];
             $party_center->distribution = $request->distribution[$key];
             $party_center->save();
-        }    
+        }
     }
-    
-    
+
+
     public function update(Request $request)
     {
         $validated = $request->validate([
             'party_code' => 'required',
-            'party_name' => 'required',
-            
+            'party_name' => ['required', 'string', 'max:255'],
+            'operation_check' => 'required',
+            'Type' => 'required',
         ]);
-        
+
         $partybasicinfo = PartyBasicInfo::where("id", $request->id)->first();
         $partybasicinfo->party_code = $request->party_code;
+        $partybasicinfo->party_type = $request->calculation_type;
         $partybasicinfo->party_name = $request->party_name;
         $partybasicinfo->party_inactive = $request->party_inactive;
         $partybasicinfo->short_name = $request->short_name;
@@ -287,37 +301,43 @@ class PartyController extends Controller
         $partybasicinfo->email = $request->email;
         $partybasicinfo->acc_dept_email = $request->acc_dept_email;
         $partybasicinfo->operation = $request->operation;
-        $partybasicinfo->operation_check=($request->operation_check);
-        $partybasicinfo->Type=($request->Type);
-        $partybasicinfo->nomination=($request->nomination);
+        $partybasicinfo->operation_check = ($request->operation_check);
+        $partybasicinfo->Type = ($request->Type);
+        $partybasicinfo->nomination = ($request->nomination);
         $partybasicinfo->scac_iata_code = $request->scac_iata_code;
-        $partybasicinfo->restriction=($request->restriction);
+        $partybasicinfo->restriction = ($request->restriction);
         $partybasicinfo->save();
         
+        $this->other_info_store($request, $partybasicinfo->id);
+        $this->account_detail_store($request, $partybasicinfo->id);
+        $this->ach_bank_detail_store($request, $partybasicinfo->id);
+        $this->localize_kyc_store($request, $partybasicinfo->id);
+        $this->notifications($request, $partybasicinfo->id);
+        $this->insurance($request, $partybasicinfo->id);
+        $this->cost_center($request, $partybasicinfo->id);
+
         $notify[] = ['success', 'Party Updated Successfully.'];
         return redirect()->route('admin.party.create')->withNotify($notify);
     }
-    
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
         $data = null;
-        
-        if($type == "first") {
-            $data = PartyBasicInfo::orderBy('id', 'asc')->first();
+
+        $arr = ["quotation" => null, "quotation_routing" => null, "quotation_detail" => null, "quotation_equipment" => null, "jobs" => null];
+
+        if ($type == "first") {
+            $data = PartyBasicInfo::orderBy('id', 'asc')->with('city')->first();
+        } else if ($type == "last") {
+            $data = PartyBasicInfo::orderBy('id', 'desc')->with('city')->first();
+        } else if ($type == "forward") {
+            $data = PartyBasicInfo::where('id', '>', $id)->with('city')->first();
+        } else if ($type == "backward") {
+            $data = PartyBasicInfo::where('id', '<', $id)->orderBy('id', 'desc')->with('city')->first();
         }
-        else if($type == "last") {
-            $data = PartyBasicInfo::orderBy('id', 'desc')->first();
-        }
-        else if($type == "forward") {
-            $data = PartyBasicInfo::where('id', '>', $id)->first();
-        }
-        else if($type == "backward") {
-            $data = PartyBasicInfo::where('id', '<', $id)->orderBy('id', 'desc')->first();
-        }
-        
+
         return $data;
     }
-    
 }

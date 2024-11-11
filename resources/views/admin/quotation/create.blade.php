@@ -91,14 +91,14 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Date:</label>
-                                <input name="date" type="date" value="{{ date('Y-m-d') }}" class="form-control date"/>
+                                <input name="date" type="date" onchange="addDaysAndFormat('{{ date('Y-m-d') }}', 7)" value="{{ date('Y-m-d') }}" class="form-control date"/>
                             </div>
                         </div>
                         
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Expire Date:</label>
-                                <input name="expire_date" type="date" class="form-control expire_date" />
+                                <input name="expire_date" type="date" class="form-control expire_date" value="{{ date('Y-m-d', strtotime(date('Y-m-d'). ' + 7 days')); }}" />
                             </div>
                         </div>
                         
@@ -186,9 +186,9 @@
                         
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
-                                <label class="form-label">Client:</label>
+                                <label class="form-label">Client: <span class="text-danger">*</span></label>
                                  <select name="client" class="client">
-                                    <option selected disabled></option>
+                                    <option></option>
                                 </select>
                             </div>
                         </div>
@@ -344,9 +344,10 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-4 col-12">
                             <div class="mb-2 input_flex mt-1">
-                                <button class="btn btn-primary btn-sm">Quotation Clone</button>
+                                <button class="btn btn-primary btn-sm">Quotation Clone</button> &nbsp;
+                                <button class="btn btn-primary btn-sm" type="button" onclick="copyQuotationNumber()">Copy Quotation Number</button>
                             </div>
                         </div>
                         
@@ -435,7 +436,7 @@
                                     </td>
                                     <td width="4%">
                                         <select name="size_type[]" class="form-select size_type" style="width: 100%;">
-                                            <option selected disabled>Select</option>
+                                            <option value="0" selected disabled>Select</option>
                                         </select>
                                     </td>
                                     
@@ -654,7 +655,8 @@
                                         <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Custom Clearance:</label>
-                                                <input name="custom_clearance" type="text" class="form-control custom_clearance" placeholder="" />
+                                                <!--<input name="custom_clearance" type="text" class="form-control custom_clearance" placeholder="" />-->
+                                                <select name="custom_clearance" class="custom_clearance"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">
@@ -671,45 +673,25 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Place of Receipt:</label>
-                                                <select name="place_of_receipt" class="place_of_receipt">
-                                                    <option selected disabled>Select</option>
-                                                    {{--@foreach($locations as $location)
-                                                        <option value="{{ $location->id }}">{{ $location->location }}</option> 
-                                                    @endforeach--}}
-                                                </select>
+                                                <select name="place_of_receipt" class="place_of_receipt"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Port of Loading: <span class="text-danger">*</span></label>
-                                                <select name="port_of_loading" class="port_of_loading">
-                                                    <option selected disabled>Select</option>
-                                                    {{--@foreach($locations as $location)
-                                                        <option value="{{ $location->id }}">{{ $location->location }}</option> 
-                                                    @endforeach--}}
-                                                </select>
+                                                <select name="port_of_loading" class="port_of_loading"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Port of Discharge: <span class="text-danger">*</span></label>
-                                                <select name="port_of_discharge" class="port_of_discharge">
-                                                    <option selected disabled>Select</option>
-                                                    {{--@foreach($locations as $location)
-                                                        <option value="{{ $location->id }}">{{ $location->location }}</option> 
-                                                    @endforeach--}}
-                                                </select>
+                                                <select name="port_of_discharge" class="port_of_discharge"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Final Destination:</label>
-                                                <select name="final_destination" class="final_destination">
-                                                    <option selected disabled>Select</option>
-                                                    {{--@foreach($locations as $location)
-                                                        <option value="{{ $location->id }}">{{ $location->location }}</option> 
-                                                    @endforeach--}}
-                                                </select>
+                                                <select name="final_destination" class="final_destination"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
@@ -748,7 +730,7 @@
                                 <th>Qty</th>
                                 <th>DG/Non-DG</th>
                                 <th>Gross WT/CNT</th>
-                                <th>TUE</th>
+                                <th>TEU</th>
                               </tr>
                             </thead>
                             <tbody class="eqp_detail_repeater">
@@ -756,8 +738,8 @@
                                     <td><i onclick="eqpdelRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i></td>
                                     <td><i onclick="eqpaddNewRow(this)" class="fa fa-clone fa-lg text-info"></i></td>
                                     <td>
-                                        <select name="equip_size_type[]" class="form-select equip_size_type" style="width: 100%;">
-                                            <option selected disabled> Select Size <option>
+                                        <select name="equip_size_type[]" onchange="equip_size_type(this)" class="form-select equip_size_type" style="width: 100%;">
+                                            <option selected disabled> Select Size </option>
                                         </select>
                                     </td>
                                     <td><input type="text" class="form-control equip_rate_group" style="width: 100%;" name="equip_rate_group[]" /></td>
@@ -781,13 +763,13 @@
             <div class="card mt-4" style="background-color:#f4ffed;">
                 <div class="card-body">
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approvalStatusChange('Approved')">Approved</button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approvalStatusChange('Un-approved')">Un Approved</button>
-                        <button type="button" class="btn btn-primary btn-sm mx-2" disabled id="create_job">Create Job</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="approved_btn" onclick="approvalStatusChange('Approved')">Approved</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="un_approved_btn" onclick="approvalStatusChange('Un-approved')">Un Approved</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="create_job" disabled>Create Job</button>
                     </div>
                     <div class="row">
                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
+                            <div class="my-2 input_flex">
                                 <label class="form-label">Approval Status:</label>
                                  <select name="approval_status" id="status_check" onchange="" class="form-select approval_status" disabled>
                                     <option value="Draft">Draft</option>
@@ -796,17 +778,28 @@
                                     <option value="Pending">Pending</option>
                                 </select>
                             </div>
+                            <div>
+                                <b>Approved By:</b> <span id="approved_by"></span>
+                                <br/>
+                                <b>Approved At:</b> <span id="approved_at"></span>
+                            </div>
                         </div>
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
-                                <label class="form-label">Job Number:</label>
-                                <input name="job_no" type="text" class="form-control job_no" readonly/>
+                                <!--<label class="form-label">Job Number:</label>-->
+                                <!--<input name="job_no" type="text" class="form-control job_no" readonly/>-->
+                                <div class="form-control job_no bg-white"></div>
                             </div>
                         </div>
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Total Receivable:</label>
                                 <input name="total_receivable" type="text" class="form-control total_receivable" readonly/>
+                            </div>
+                            <div>
+                                <b>Created By:</b> <span id="created_by"></span>
+                                <br/>
+                                <b>Last Updated By:</b> <span id="last_updated_by"></span>
                             </div>
                         </div>
                         
@@ -840,26 +833,7 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive w-100">
-                <table class="table table-bordered table-sm quotation_record">
-                    <thead class="table-primary">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <table class="table table-bordered table-sm quotation_record"></table>
             </div>
           </div>
         </div>
@@ -937,21 +911,75 @@ var datatable = null;
     });
     
     $(".terminals").select2({
-      data: @json($terminals)
+        ajax: {
+            url: "/admin/quotation/create",
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    type: 'get_terminal_location'
+                }
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            }
+        },
+        cache: true,
+        allowClear: true,
+        placeholder: 'Search for...',
+        minimumInputLength: 1,
+        minimumResultsForSearch: 50
     });
     
+    $(".place_of_receipt, .port_of_loading, .port_of_discharge, .final_destination").select2({
+        ajax: {
+            url: "/admin/quotation/create",
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    type: 'get_location'
+                }
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            }
+        },
+        cache: true,
+        allowClear: true,
+        placeholder: 'Search for...',
+        minimumInputLength: 1,
+        minimumResultsForSearch: 50
+    });
     
-    $(".place_of_receipt").select2({
-      data: @json($locations)
-    });
-    $(".port_of_loading").select2({
-      data: @json($locations)
-    });
-    $(".port_of_discharge").select2({
-      data: @json($locations)
-    });
-    $(".final_destination").select2({
-      data: @json($locations)
+    $(".custom_clearance").select2({
+        ajax: {
+            url: "/admin/quotation/create",
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    type: 'get_custom_clearance'
+                }
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            }
+        },
+        cache: true,
+        allowClear: true,
+        placeholder: 'Search for...',
+        minimumInputLength: 1,
+        minimumResultsForSearch: 50
     });
     
     $(".charges").select2({
@@ -1016,7 +1044,8 @@ var datatable = null;
             'select.detail_currency'
         ]);
         $(".detail_repeater tr:last").find("input").val(null);
-        $(".detail_repeater tr:last").find("select").val(null).trigger('change');
+        // $(".detail_repeater tr:last").find("select").val(null).trigger('change');
+        $(".detail_repeater tr:last").find("select option:first").attr("selected", true)
     }
     
     function delRow(e){
@@ -1043,236 +1072,269 @@ var datatable = null;
         $(e).parent().parent().find("input.local_amount").val(total * detail_ex_rate);
         $(e).parent().parent().find("input.inc_tax_amount").val((total * detail_ex_rate) + tax);
         $("input[name=total_receivable]").val((total * detail_ex_rate) + tax);
+        $("input[name=total_payable]").val((total * detail_ex_rate) + tax);
+        $("input[name=total_profit]").val((total * detail_ex_rate) + tax);
     }
     
     
     function edit_row(e, data) {
-    data = JSON.parse(data);
-    if (data.quotation) {
-        $(".quotation_no").val(data.quotation.quotation_no);
-        $(".date").val(data.quotation.date);
-        $(".expire_date").val(data.quotation.expire_date);
-        $(".route_type").val(data.quotation.route_type);
+        data = JSON.parse(data);
+        let job_no = $(".job_no");
+        $(job_no).html(null)
         
-        $("input[name='mode'][value='" + data.quotation.mode + "']").prop('checked', true);
-        
-        $(".operation_type").val(data.quotation.operation_type);
-        $(".cost_center").val(data.quotation.cost_center);
-        $(".sale_rep").val(data.quotation.sale_rep).trigger('change');
-        $(".book_rep").val(data.quotation.book_rep);
-        $(".customer_type").val(data.quotation.customer_type);
-        $(".client").val(data.quotation.client).trigger('change');
-        $(".stage").val(data.quotation.stage);
-        $(".pkgs").val(data.quotation.pkgs);
-        $(".unit").val(data.quotation.unit).trigger('change');
-        $(".attn_person").val(data.quotation.attn_person);
-        $(".from_person").val(data.quotation.from_person);
-        $(".vol_cbm").val(data.quotation.vol_cbm);
-        $(".commodity").val(data.quotation.commodity).trigger('change');
-        $(".inco_term").val(data.quotation.inco_term).trigger('change');
-        $(".subject").val(data.quotation.subject);
-        $(".job_type").val(data.quotation.job_type);
-        $(".sub_type").val(data.quotation.sub_type);
-        $(".vessel").val(data.quotation.vessel).trigger('change');
-        $(".voyage").val(data.quotation.voyage).trigger('change');
-        $(".currency").val(data.quotation.currency).trigger('change');
-        $(".ex_rate").val(data.quotation.ex_rate);
-        $(".approval_status").val(data.quotation.approval_status);
-        $(".total_receivable").val(data.quotation.total_receivable);
-        $(".total_payable").val(data.quotation.total_payable);
-        $(".total_profit").val(data.quotation.total_profit);
-        
-        $("#myForm").attr("action", "{{ route('admin.quotation.update') }}");
-        $("#create_job").attr("onclick", `window.location.assign('/admin/job/create?quot_id=${data.quotation.id}')`);
-        $("input[name=id]").val(data.quotation.id);
-    }
-    
-    if(data.quotation_detail){
-        let length = data.quotation_detail.length;
-        $(".detail_repeater tr").each(function(i,v){
-            if (i > 0) { $(v).remove(); }
-        })
-        $(data.quotation_detail).each(function(key, value){
-            if (key > 0) {
-                $(".detail_repeater tr:first").find("i.fa-clone").click();
+        if (data.quotation) {
+            $(".quotation_no").val(data.quotation.quotation_no);
+            $(".date").val(data.quotation.date);
+            $(".expire_date").val(data.quotation.expire_date);
+            $(".route_type").val(data.quotation.route_type);
+            $("input[name='mode'][value='" + data.quotation.mode + "']").prop('checked', true);
+            $(".operation_type").val(data.quotation.operation_type);
+            $(".cost_center").val(data.quotation.cost_center);
+            $(".sale_rep").val(data.quotation.sale_rep).trigger('change');
+            $(".book_rep").val(data.quotation.book_rep);
+            $(".customer_type").val(data.quotation.customer_type);
+            $(".client").val(data.quotation.client).trigger('change');
+            $(".stage").val(data.quotation.stage);
+            $(".pkgs").val(data.quotation.pkgs);
+            $(".unit").val(data.quotation.unit).trigger('change');
+            $(".attn_person").val(data.quotation.attn_person);
+            $(".from_person").val(data.quotation.from_person);
+            $(".vol_cbm").val(data.quotation.vol_cbm);
+            $(".commodity").val(data.quotation.commodity).trigger('change');
+            $(".inco_term").val(data.quotation.inco_term).trigger('change');
+            $(".subject").val(data.quotation.subject);
+            $(".job_type").val(data.quotation.job_type);
+            $(".sub_type").val(data.quotation.sub_type);
+            $(".vessel").val(data.quotation.vessel).trigger('change');
+            $(".voyage").val(data.quotation.voyage).trigger('change');
+            $(".currency").val(data.quotation.currency).trigger('change');
+            $(".ex_rate").val(data.quotation.ex_rate);
+            $(".approval_status").val(data.quotation.approval_status);
+            $(".total_receivable").val(data.quotation.total_receivable);
+            $(".total_payable").val(data.quotation.total_payable);
+            $(".total_profit").val(data.quotation.total_profit);
+            
+            if(data.quotation.created_by){
+                $("#created_by").text(data.quotation.created_by.username);
+            } else {
+                $("#created_by").text(null)
             }
-        })
-        $(data.quotation_detail).each(function(key, value){
-            var charges_code = $(`.charges_code`).get(key);
-            $(charges_code).val(value.charges_code);
             
-            var charges = $(`.charges`).get(key);
-            $(charges).val(value.charges).trigger('change');
-            
-            var charges_desc = $(`.charges_desc`).get(key);
-            $(charges_desc).val(value.charges_desc);
-            
-            var charges_category = $(`.charges_category`).get(key);
-            $(charges_category).val(value.charges_category);
-            
-            var units = $(`.units`).get(key);
-            $(units).val(value.units);
-            
-            var size_type = $(`.size_type`).get(key);
-            $(size_type).val(value.size_type).trigger('change');
-            
-            var good_unit = $(`.good_unit`).get(key);
-            $(good_unit).val(value.good_unit);
-            
-            var rate_group = $(`.rate_group`).get(key);
-            $(rate_group).val(value.rate_group);
-            
-            var mode = $(`.mode`).get(key);
-            $(mode).val(value.modee);
-            
-            var manual = $(`.manual`).get(key);
-            $(manual).val(value.manual);
-            
-            var dg_type = $(`.dg_type`).get(key);
-            $(dg_type).val(value.dg_type);
-            
-            var qty = $(`.qty`).get(key);
-            $(qty).val(value.qty);
-            
-            var rate = $(`.rate`).get(key);
-            $(rate).val(value.rate);
-            
-            var currency = $(`.currency`).get(key);
-            $(currency).val(value.currency).trigger('change');
-            
-            var ex_rate = $(`.ex_rate`).get(key);
-            $(ex_rate).val(value.ex_rate);
-            
-            var amount = $(`.amount`).get(key);
-            $(amount).val(value.amount);
-            
-            var local_amount = $(`.local_amount`).get(key);
-            $(local_amount).val(value.local_amount);
-            
-            var tax = $(`.tax`).get(key);
-            $(tax).val(value.tax);
-            
-            var inc_tax_amount = $(`.inc_tax_amount`).get(key);
-            $(inc_tax_amount).val(value.inc_tax_amount);
-            
-            var buying_rate = $(`.buying_rate`).get(key);
-            $(buying_rate).val(value.buying_rate);
-            
-            var remarks = $(`.remarks`).get(key);
-            $(remarks).val(value.remarks);
-            
-            var payable_to = $(`.payable_to`).get(key);
-            $(payable_to).val(value.payable_to);
-            
-            var buying_remarks = $(`.buying_remarks`).get(key);
-            $(buying_remarks).val(value.buying_remarks);
-            
-            var ord = $(`.ord`).get(key);
-            $(ord).val(value.ord);
-            
-            var tariff_code = $(`.tariff_code`).get(key);
-            $(tariff_code).val(value.tariff_code);
-            
-            // $(".charges_code").val(data.quotation_detail.charges_code);
-            // $(".charges").val(data.quotation_detail.charges).trigger('change');
-            // $(".charges_desc").val(data.quotation_detail.charges_desc);
-            // $(".charges_category").val(data.quotation_detail.charges_category);
-            // $(".units").val(data.quotation_detail.units);
-            // $(".size_type").val(data.quotation_detail.size_type).trigger('change');
-            // $(".good_unit").val(data.quotation_detail.good_unit);
-            // $(".rate_group").val(data.quotation_detail.rate_group);
-            // $(".mode").val(data.quotation_detail.modee);
-            // $(".manual").val(data.quotation_detail.manual);
-            // $(".dg_type").val(data.quotation_detail.dg_type);
-            // $(".qty").val(data.quotation_detail.qty);
-            // $(".rate").val(data.quotation_detail.rate);
-            // $(".currency").val(data.quotation_detail.currency).trigger('change');
-            // $(".ex_rate").val(data.quotation_detail.ex_rate);
-            // $(".amount").val(data.quotation_detail.amount);
-            // $(".local_amount").val(data.quotation_detail.local_amount);
-            // $(".tax").val(data.quotation_detail.tax);
-            // $(".inc_tax_amount").val(data.quotation_detail.inc_tax_amount);
-            // $(".buying_rate").val(data.quotation_detail.buying_rate);
-            // $(".remarks").val(data.quotation_detail.remarks);
-            // $(".payable_to").val(data.quotation_detail.payable_to);
-            // $(".buying_remarks").val(data.quotation_detail.buying_remarks);
-            // $(".ord").val(data.quotation_detail.ord);
-            // $(".tariff_code").val(data.quotation_detail.tariff_code);
-        })
-    }
-    
-    if(data.quotation_routing){
-        $(".po_num").val(data.quotation_routing.po_num);
-        $(".ready_date").val(data.quotation_routing.ready_date);
-        $(".ship_date").val(data.quotation_routing.ship_date);
-        $(".arrive_date").val(data.quotation_routing.arrive_date);
-        $(".s_c").val(data.quotation_routing.s_c);
-        $(".service_type").val(data.quotation_routing.service_type);
-        $(".transit_time").val(data.quotation_routing.transit_time);
-        $(".free_days").val(data.quotation_routing.free_days);
-        $(".vendor").val(data.quotation_routing.vendor).trigger('change');
-        $(".overseas").val(data.quotation_routing.overseas).trigger('change');
-        $(".sline_carrier").val(data.quotation_routing.sline_carrier).trigger('change');
-        $(".principal").val(data.quotation_routing.principal).trigger('change');
-        $(".other_instruct").val(data.quotation_routing.other_instruct);
-        $(".terminals").val(data.quotation_routing.terminals).trigger('change');
-        $(".shipper").val(data.quotation_routing.shipper).trigger('change');
-        $(".consignee").val(data.quotation_routing.consignee).trigger('change');
-        $(".pickup_location").val(data.quotation_routing.pickup_location);
-        $(".auto_address").val(data.quotation_routing.auto_address);
-        $(".custom_clearance").val(data.quotation_routing.custom_clearance);
-        $(".place_of_receipt").val(data.quotation_routing.place_of_receipt).trigger('change');
-        $(".port_of_loading").val(data.quotation_routing.port_of_loading).trigger('change');
-        $(".port_of_discharge").val(data.quotation_routing.port_of_discharge).trigger('change');
-        $(".final_destination").val(data.quotation_routing.final_destination);
-        $(".drop_off_location").val(data.quotation_routing.drop_off_location);
-        $(".auto_address2").val(data.quotation_routing.auto_address2);
-        $(".transportation").val(data.quotation_routing.transportation);
-    }
-    
-    if(data.quotation_equipment){
-        
-        let length = data.quotation_equipment.length;
-        $(".detail_repeater tr").each(function(i,v){
-            if (i > 0) { $(v).remove(); }
-        })
-        $(data.quotation_equipment).each(function(key, value){
-            if (key > 0) {
-                $(".detail_repeater tr:first").find("i.fa-clone").click();
+            if(data.quotation.last_updated_by){
+                $("#last_updated_by").text(data.quotation.last_updated_by.username);
+            } else {
+                $("#last_updated_by").text(null)
             }
-        })
+            
+            $("#approved_at").text(data.quotation.approved_at);
+            if(data.quotation.approved_by){
+                $("#approved_by").text(data.quotation.approved_by.username);
+            } else {
+                $("#approved_by").text(null)
+            }
+            
+            $("#myForm").attr("action", "{{ route('admin.quotation.update') }}");
+            $("#create_job").attr("onclick", `window.location.assign('/admin/job/create?quot_id=${data.quotation.id}')`);
+            $("input[name=id]").val(data.quotation.id);
+            
+            if(data.jobs){
+                $(data.jobs).each(function(key, value){
+                    $(job_no).append(`<div><a href="/admin/job/create?quot_id=${data.quotation.id}">${value.job_number}</a></div>`)
+                })
+            }
+        }
         
-        $(data.quotation_equipment).each(function(key, value){
-            var equip_size_type = $(`.equip_size_type`).get(key);
-            $(equip_size_type).val(value.size_type).trigger('change');
-            
-            var equip_rate_group = $(`.equip_rate_group`).get(key);
-            $(equip_rate_group).val(value.rate_group);
-            
-            var equip_qty = $(`.equip_qty`).get(key);
-            $(equip_qty).val(value.qty);
-            
-            var equip_dg_type = $(`.equip_dg_type`).get(key);
-            $(equip_dg_type).val(value.dg_type);
-            
-            var equip_gross = $(`.equip_gross`).get(key);
-            $(equip_gross).val(value.gross);
-            
-            var equip_tue = $(`.equip_tue`).get(key);
-            $(equip_tue).val(value.tue);
+        if(data.quotation_detail){
+            let length = data.quotation_detail.length;
+            $(".detail_repeater tr").each(function(i,v){
+                if (i > 0) { $(v).remove(); }
+            })
+            $(data.quotation_detail).each(function(key, value){
+                if (key > 0) {
+                    $(".detail_repeater tr:first").find("i.fa-clone").click();
+                }
+            })
+            $(data.quotation_detail).each(function(key, value){
+                var charges_code = $(`.charges_code`).get(key);
+                $(charges_code).val(value.charges_code);
+                
+                var charges = $(`.charges`).get(key);
+                $(charges).val(value.charges).trigger('change');
+                
+                var charges_desc = $(`.charges_desc`).get(key);
+                $(charges_desc).val(value.charges_desc);
+                
+                var charges_category = $(`.charges_category`).get(key);
+                $(charges_category).val(value.charges_category);
+                
+                var units = $(`.units`).get(key);
+                $(units).val(value.units);
+                
+                var size_type = $(`.size_type`).get(key);
+                $(size_type).val(value.size_type).trigger('change');
+                
+                var good_unit = $(`.good_unit`).get(key);
+                $(good_unit).val(value.good_unit);
+                
+                var rate_group = $(`.rate_group`).get(key);
+                $(rate_group).val(value.rate_group);
+                
+                var modee = $(`.modee`).get(key);
+                $(modee).val(value.mode);
+                
+                var manual = $(`.manual`).get(key);
+                $(manual).val(value.manual);
+                
+                var dg_type = $(`.dg_type`).get(key);
+                $(dg_type).val(value.dg_type);
+                
+                var qty = $(`.qty`).get(key);
+                $(qty).val(value.qty);
+                
+                var rate = $(`.rate`).get(key);
+                $(rate).val(value.rate);
+                
+                var currency = $(`.currency`).get(key);
+                $(currency).val(value.currency).trigger('change');
+                
+                var ex_rate = $(`.detail_ex_rate`).get(key);
+                $(ex_rate).val(value.ex_rate);
+                
+                var amount = $(`.amount`).get(key);
+                $(amount).val(value.amount);
+                
+                var local_amount = $(`.local_amount`).get(key);
+                $(local_amount).val(value.local_amount);
+                
+                var tax = $(`.tax`).get(key);
+                $(tax).val(value.tax);
+                
+                var inc_tax_amount = $(`.inc_tax_amount`).get(key);
+                $(inc_tax_amount).val(value.inc_tax_amount);
+                
+                var buying_rate = $(`.buying_rate`).get(key);
+                $(buying_rate).val(value.buying_rate);
+                
+                var remarks = $(`.remarks`).get(key);
+                $(remarks).val(value.remarks);
+                
+                var payable_to = $(`.payable_to`).get(key);
+                $(payable_to).val(value.payable_to);
+                
+                var buying_remarks = $(`.buying_remarks`).get(key);
+                $(buying_remarks).val(value.buying_remarks);
+                
+                var ord = $(`.ord`).get(key);
+                $(ord).val(value.ord);
+                
+                var tariff_code = $(`.tariff_code`).get(key);
+                $(tariff_code).val(value.tariff_code);
+            })
+        }
         
-        // $(".equip_size_type").val(data.quotation_detail.size_type).trigger('change');
-        // $(".equip_rate_group").val(data.quotation_detail.rate_group);
-        // $(".equip_qty").val(data.quotation_detail.qty);
-        // $(".equip_dg_type").val(data.quotation_detail.dg_type);
-        // $(".equip_gross").val(data.quotation_detail.gross);
-        // $(".equip_tue").val(data.quotation_detail.tue);
+        if(data.quotation_routing){
+            $(".po_num").val(data.quotation_routing.po_num);
+            $(".ready_date").val(data.quotation_routing.ready_date);
+            $(".ship_date").val(data.quotation_routing.ship_date);
+            $(".arrive_date").val(data.quotation_routing.arrive_date);
+            $(".s_c").val(data.quotation_routing.s_c);
+            $(".service_type").val(data.quotation_routing.service_type);
+            $(".transit_time").val(data.quotation_routing.transit_time);
+            $(".free_days").val(data.quotation_routing.free_days);
+            $(".vendor").val(data.quotation_routing.vendor).trigger('change');
+            $(".overseas").val(data.quotation_routing.overseas).trigger('change');
+            $(".sline_carrier").val(data.quotation_routing.sline_carrier).trigger('change');
+            $(".principal").val(data.quotation_routing.principal).trigger('change');
+            $(".other_instruct").val(data.quotation_routing.other_instruct);
+            $(".terminals").val(data.quotation_routing.terminals).trigger('change');
+            $(".shipper").val(data.quotation_routing.shipper).trigger('change');
+            $(".consignee").val(data.quotation_routing.consignee).trigger('change');
+            $(".pickup_location").val(data.quotation_routing.pickup_location);
+            $(".auto_address").val(data.quotation_routing.auto_address);
+            
+            if(data.quotation_routing.terminals) {
+                var option = new Option(data.quotation_routing.terminals.location_name, data.quotation_routing.terminals.id, true, true);
+                $(".terminals").append(option).trigger('change');
+            } else {
+                $(".terminals").val(null).trigger('change');
+            }
+
+            if(data.quotation_routing.custom_clearance) {
+                var option = new Option(data.quotation_routing.custom_clearance.party_name, data.quotation_routing.custom_clearance.id, true, true);
+                $(".custom_clearance").append(option).trigger('change');
+            } else {
+                $(".custom_clearance").val(null).trigger('change');
+            }
+            
+            if(data.quotation_routing.place_of_receipt) {
+                var option = new Option(data.quotation_routing.place_of_receipt.location, data.quotation_routing.place_of_receipt.id, true, true);
+                $(".place_of_receipt").append(option).trigger('change');
+            } else {
+                $(".place_of_receipt").val(null).trigger('change');
+            }
+            
+            if(data.quotation_routing.port_of_loading) {
+                var option = new Option(data.quotation_routing.port_of_loading.location, data.quotation_routing.port_of_loading.id, true, true);
+                $(".port_of_loading").append(option).trigger('change');
+            } else {
+                $(".port_of_loading").val(null).trigger('change');
+            }
+            
+            if(data.quotation_routing.port_of_discharge) {
+                var option = new Option(data.quotation_routing.port_of_discharge.location, data.quotation_routing.port_of_discharge.id, true, true);
+                $(".port_of_discharge").append(option).trigger('change');
+            } else {
+                $(".port_of_discharge").val(null).trigger('change');
+            }
+            
+            if(data.quotation_routing.final_destination) {
+                var option = new Option(data.quotation_routing.final_destination.location, data.quotation_routing.final_destination.id, true, true);
+                $(".final_destination").append(option).trigger('change');
+            } else {
+                $(".final_destination").val(null).trigger('change');
+            }
+            
+            
+            $(".drop_off_location").val(data.quotation_routing.drop_off_location);
+            $(".auto_address2").val(data.quotation_routing.auto_address2);
+            $(".transportation").val(data.quotation_routing.transportation);
+        }
         
-        })
+        if(data.quotation_equipment){
+            
+            let length = data.quotation_equipment.length;
+            $(".detail_repeater tr").each(function(i,v){
+                if (i > 0) { $(v).remove(); }
+            })
+            $(data.quotation_equipment).each(function(key, value){
+                if (key > 0) {
+                    $(".detail_repeater tr:first").find("i.fa-clone").click();
+                }
+            })
+            
+            $(data.quotation_equipment).each(function(key, value){
+                var equip_size_type = $(`.equip_size_type`).get(key);
+                $(equip_size_type).val(value.size_type).trigger('change');
+                
+                var equip_rate_group = $(`.equip_rate_group`).get(key);
+                $(equip_rate_group).val(value.rate_group);
+                
+                var equip_qty = $(`.equip_qty`).get(key);
+                $(equip_qty).val(value.qty);
+                
+                var equip_dg_type = $(`.equip_dg_type`).get(key);
+                $(equip_dg_type).val(value.dg_type);
+                
+                var equip_gross = $(`.equip_gross`).get(key);
+                $(equip_gross).val(value.gross);
+                
+                var equip_tue = $(`.equip_tue`).get(key);
+                $(equip_tue).val(value.tue);
+            })
+        }
+        
+        enableJobButton(data.quotation.approval_status ? data.quotation.approval_status : null);
     }
-    
-    enableJobButton(data.quotation.approval_status ? data.quotation.approval_status : null);
-}
 
     $(".navigation").click(function () {
       let id = $("input[name=id]").val();
@@ -1299,10 +1361,10 @@ var datatable = null;
     
     function enableJobButton(status) {
         let date = $(".date").val();
+        let port_loading = $(".port_of_loading").val();
         let port_discharge = $(".port_of_discharge").val();
-        let final_destination = $(".final_destination").val();
         
-        if(status == "Approved" && port_discharge && final_destination && date){
+        if(status == "Approved" && port_loading && port_discharge && date){
             $("#create_job").removeAttr("disabled");
             $("#statusImage").show();
         }
@@ -1310,12 +1372,26 @@ var datatable = null;
             $("#create_job").attr("disabled", true);
             $("#statusImage").hide();
         }
+        
+        if(status == "Approved"){
+            $("#approved_btn").attr("disabled", true);
+        } else {
+            $("#approved_btn").removeAttr("disabled");
+        }
+        
+        if(status == "Un-approved"){
+            $("#un_approved_btn").attr("disabled", true);
+        } else {
+            $("#un_approved_btn").removeAttr("disabled");
+        }
     }
     
     function quotationFormReset(route) {
         document.getElementById('myForm').reset();
         $("#myForm").attr('action', route);
-        $("#myForm").find("select").val(null).trigger("change");
+        $("#myForm").find("select").trigger("change");
+        $("#myForm").find(".terminals, .place_of_receipt, .port_of_loading, .port_of_discharge, .final_destination, .custom_clearance").val(null).trigger("change");
+        $(".job_no").html(null);
         enableJobButton('')
     }
     
@@ -1385,8 +1461,43 @@ var datatable = null;
             $("select[name=approval_status]").find(`option`).attr("selected", false);
             $("select[name=approval_status]").attr("disabled", false);
             $("select[name=approval_status]").find(`option[value=${status}]`).attr("selected", true);
+            $("select[name=approval_status]").val(status);
             $('#myForm').submit();
         }
+    }
+    
+    function addDaysAndFormat(date, days) {
+        date = $(".date").val();
+        let result = new Date(date);
+        result.setDate(result.getDate() + days);
+    
+        let year = result.getFullYear();
+        let month = (result.getMonth() + 1).toString().padStart(2, '0');
+        let day = result.getDate().toString().padStart(2, '0');
+        
+        $(".expire_date").val(`${year}-${month}-${day}`);
+        // return `${year}-${month}-${day}`;
+    }
+    
+    function copyQuotationNumber()
+    {
+        var text = $('.quotation_no').val();
+        navigator.clipboard.writeText(text).then(function() {
+            iziToast.success({message:"Quotation number copied", position: "topRight"});
+        }).catch(function(error) {
+            iziToast.error({message:'Failed to copy text: ' + error, position: "topRight"});
+        });
+    }
+    
+    function equip_size_type(e)
+    {
+        let val = $(e).val();
+        let parent = $(e).parent().parent();
+        
+        $.get("/admin/quotation/create", { fetch_equip_size_type: val }, function (res) {
+            $(parent).find(".equip_gross").val(res.weight);
+            $(parent).find(".equip_tue").val(res.teu);
+        })
     }
     
 </script>

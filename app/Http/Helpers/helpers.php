@@ -2,11 +2,12 @@
 
 use App\Models\Extension;
 use App\Models\GeneralSetting;
+use App\Models\Nav;
+use App\Models\NavKey;
 use App\Models\User;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Carbon\Carbon;
-use Image;
 
 
 function sidebarVariation(){
@@ -700,7 +701,7 @@ function GeneralSetting()
 
 function GenerateSlug($value)
 {
-    $value = str_replace(",", "", $value);
+    $value = str_replace(",", " ", $value);
     $value = str_replace("_", " ", $value);
     $value = str_replace("-", " ", $value);
     $value = str_replace("!", "", $value);
@@ -709,4 +710,54 @@ function GenerateSlug($value)
     $value = str_replace(" ", "-", $value);
     $value = strtolower($value);
     return $value;
+}
+
+
+function fetchAccounts() {
+    $data = \App\Models\ChartAccount::select('id', 'parent_acc', 'title')->get();
+    $accounts = [];
+    foreach($data as $d) {
+        $accounts[] = $d;
+    }
+    return $accounts;
+}
+
+function buildTree(array &$elements, $parentId = 0) {
+    $branch = [];
+
+    foreach ($elements as &$element) {
+        if ($element['parent_acc'] == $parentId) {
+            $children = buildTree($elements, $element['id']);
+            if ($children) {
+                $element['children'] = $children;
+            }
+            $branch[] = $element;
+            unset($element);
+        }
+    }
+    return $branch;
+}
+
+function renderTree($tree) {
+    $html = '<ul>';
+    foreach ($tree as $branch) {
+        $html .= '<li>';
+        if (isset($branch['children'])) {
+            $html .= '<span class="toggle">[+]</span>';
+        }
+        $html .= '<span class="acc_list" data-id="'.$branch["id"].'">'.$branch['title'].'</span>';
+        if (isset($branch['children'])) {
+            $html .= renderTree($branch['children']);
+        }
+        $html .= '</li>';
+    }
+    $html .= '</ul>';
+
+    return $html;
+}
+
+
+function getNav($parent, $type)
+{
+    return Nav::where('parent', $parent)->where('type', $type)->get();
 }

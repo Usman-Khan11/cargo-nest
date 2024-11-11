@@ -10,407 +10,254 @@ use Carbon\Carbon;
 use Session;
 use DataTables;
 use App\Models\User;
-use App\Models\Customer;
-use App\Models\Quotation;
-use App\Models\Order;
-use App\Models\Vector;
-use App\Models\FileTransfer;
+use App\Models\Admin;
+use App\Models\AdminRight;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ManageUserController extends Controller
 {
-    //Customer Data
-    public function index(Request $request)
+    public function create(Request $request)
     {
-        $data['top_title'] = "Customer Records | Digitizing Portal";
-        $data['page_title'] = "Customer Records";
-
         if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=User::Query();
-            $totalCount=$query->count();
-            $query = $query->with('customers');
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->get();
-            
-
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = Admin::Query();
+            $query = $query->where('id', '!=', 1);
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
-
-        return view('admin.users.show',$data);
-    }
-
-    //Quotation Records Starts
-    public function today_quotes(Request $request)
-    {
-        $data['top_title'] = "Today's Quotation Records | Digitizing Portal";
-        $data['page_title'] = "Today's Quotation Records";
-        $today = Carbon::now()->format('Y-m-d');
         
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Quotation::query();
-            $totalCount=$query->count();
-            $query = $query->with('users');
-            $query = $query->whereDate('created_at',$today);
-            
-            $query = $query->orderBy('id','desc')->skip($start)->take($pageSize)->get();
-            
-
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-
-        return view('admin.quote.today',$data);
-    }
-    public function all_quotes(Request $request)
-    {
-        $data['top_title'] = "All Quotation Records | Digitizing Portal";
-        $data['page_title'] = "All Quotation Records";
-
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Quotation::Query();
-            $totalCount=$query->count();
-            $query = $query->with('users');
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->get();
-            
-
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-
-        return view('admin.quote.all',$data);
-    }
-    //Quotation Records Ends
-    //Order Records Starts
-    public function today_orders(Request $request)
-    {
-        $data['top_title'] = "Today's Order Records | Digitizing Portal";
-        $data['page_title'] = "Today's Order Records";
-        $today = Carbon::now()->format('Y-m-d');
-
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Order::Query();
-            $totalCount=$query->count();
-            $query = $query->with('users');
-            $query = $query->whereDate('created_at',$today);
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->get();
-            
-
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-
-        return view('admin.order.today',$data);
-    }
-    public function all_orders(Request $request)
-    {
-        $data['top_title'] = "All Order Records | Digitizing Portal";
-        $data['page_title'] = "All Order Records";
-
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Order::Query();
-            $totalCount=$query->count();
-            $query = $query->with('users');
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->get();
-            
-
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-
-        return view('admin.order.all',$data);
-    }
-    //Order Records Ends
-    //Vector Records Starts
-    public function today_vectors(Request $request)
-    {
-        $data['top_title'] = "Today's Vector Records | Digitizing Portal";
-        $data['page_title'] = "Today's Vector Records";
-        $today = Carbon::now()->format('Y-m-d');
-
-        if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Vector::Query();
-            $totalCount=$query->count();
-            $query = $query->with('users');
-            $query = $query->whereDate('created_at',$today);
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->get();
-            
-
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
-        }
-
-        return view('admin.vector.today',$data);
+        $data['seo_title']      = "User Setup";
+        $data['seo_desc']       = "User Setup";
+        $data['seo_keywords']   = "User Setup";
+        $data['page_title'] = "User Setup";
+        return view('admin.user.create', $data);
     }
     
-    public function all_vectors(Request $request)
+    public function user_right_create(Request $request)
     {
-        $data['top_title'] = "All Vector Records | Digitizing Portal";
-        $data['page_title'] = "All Vector Records";
-
         if ($request->ajax()) {
-            $totalCount=0;
-            $recordsFiltered=0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start=(int)($request->start) ? $request->start : 0;
-            $query=Vector::Query();
-            $totalCount=$query->count();
-            $query = $query->with('users');
-            
-            $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->get();
-            
-
-            return Datatables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal'=>$totalCount])
-                ->make(true);
+            $query = AdminRight::Query();
+            $query = $query->with('admin');
+            $query = $query->orderby('id','asc')->get();
+            return Datatables::of($query)->addIndexColumn()->make(true);
         }
-
-        return view('admin.vector.all',$data);
-    }
-    //Vector Records Ends
-    
-    
-    
-    // ORDER WORK USMAN
-    public function order_detail($id)
-    {
-        $data['top_title'] = "Order Detail | Digitizing Portal";
-        $data['page_title'] = "Order Details";
-        $data['order'] = Order::find(base64_decode($id));
-        $data['order_file'] = FileTransfer::where('source_number', base64_decode($id))->where('type', 'order')->first();
-        return view('admin.order.detail',$data);
+        
+        $data['seo_title']      = "User Right";
+        $data['seo_desc']       = "User Right";
+        $data['seo_keywords']   = "User Right";
+        $data['page_title'] = "User Right";
+        
+        $data['users'] = Admin::where('id', '!=', 1)->select(["id", "name as text"])->orderBy('name', 'asc')->get();
+        $data['users'] = $data['users']->toArray();
+        
+        return view('admin.user.user_right_create', $data);
     }
     
-    public function order_process($id)
-    {
-        $data['top_title'] = "Order Process | Digitizing Portal";
-        $data['page_title'] = "Order Process";
-        $data['order'] = Order::find(base64_decode($id));
-        return view('admin.order.process',$data);
-    }
+    // public function edit($id)
+    // {
+    //     $data['seo_title']      = "Edit User Setup";
+    //     $data['seo_desc']       = "Edit User Setup";
+    //     $data['seo_keywords']   = "Edit User Setup";
+    //     $data['page_title'] = "Edit User Setup";
+    //     $data['chartaccount'] = ChartAccount::where("id", $id)->first();
+    //     return view('admin.user.edit', $data);
+    // }
     
-    public function order_process_info(Request $request)
+    public function delete($id)
     {
-        $order = Order::find($request->id);
-        $order->price = $request->price;
-        $order->admin_instruction = $request->admin_inst;
-        $order->width = $request->width;
-        $order->height = $request->height;
-        $order->status = $request->status;
-        $order->save();
-        $notify[] = ['success', 'Order Updated successfully.'];
+        $developer = Admin::where("id", $id);
+        $developer->delete();
+        $notify[] = ['success', 'User Deleted Successfully.'];
         return back()->withNotify($notify);
     }
     
-    public function order_process_file(Request $request)
+    public function store(Request $request)
     {
-        $order = Order::find($request->id);
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:25', 'unique:admins'],
+            'email' => ['required', 'string', 'max:255', 'unique:admins'],
+            'password' => ['required', 'string', 'max:20'],
+        ]);
+       
+        $user = new Admin();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->security_que = $request->security_que;
+        $user->security_ans = $request->security_ans;
+        $user->status = (isset($request->status)) ? 1 : 0;
+        $user->acount_block = (isset($request->acount_block)) ? 1 : 0;
+        $user->role_id = (isset($request->role_id)) ? 1 : 0;
         
-        FileTransfer::where('source_number', $request->id)->where('type', 'order')->delete();
-        $filename_list = [];
-        if ($request->hasFile('files')) 
-        {
-            $files = $request->file('files');
-            $i = 0;
-            foreach($files as $file)
-            {
-                $i++;
-                $filename = time() . '_' . $i.'.' . $file->getClientOriginalExtension();
-                $directory = 'app-assets/files/order_files/';
-                $filename_list[] = $filename;
-
-                // Store the file with the custom name
-                $path = $file->move($directory, $filename);                
-            }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $directory = 'assets/upload/';
+            $path = $file->move($directory, $filename);
+            $user->image = $path;
         }
         
-        $file = new FileTransfer();
-        $file->type = "order";
-        $file->source_number = $order->id;
-        $file->files = json_encode($filename_list);
-        $file->added_by = Auth::guard('admin')->user()->id;
-        $file->save();
+        $user->save();
         
-        $notify[] = ['success', 'Order Updated successfully.'];
-        return back()->withNotify($notify);
-    }
-    // ORDER WORK USMAN
-    
-    
-    
-    
-    // VECTOR WORK USMAN
-    public function vector_detail($id)
-    {
-        $data['top_title'] = "Vector Detail | Digitizing Portal";
-        $data['page_title'] = "Vector Details";
-        $data['order'] = Vector::find(base64_decode($id));
-        $data['order_file'] = FileTransfer::where('source_number', base64_decode($id))->where('type', 'vector')->first();
-        return view('admin.vector.detail',$data);
+        $notify[] = ['success', 'User Added Successfully.'];
+        return redirect()->route('admin.user.create')->withNotify($notify);
     }
     
-    public function vector_process($id)
+    public function update(Request $request)
     {
-        $data['top_title'] = "Vector Process | Digitizing Portal";
-        $data['page_title'] = "Vector Process";
-        $data['order'] = Vector::find(base64_decode($id));
-        return view('admin.vector.process',$data);
-    }
-    
-    public function vector_process_info(Request $request)
-    {
-        $order = Vector::find($request->id);
-        $order->price = $request->price;
-        $order->admin_instruction = $request->admin_inst;
-        $order->status = $request->status;
-        $order->save();
-        $notify[] = ['success', 'Vector Updated successfully.'];
-        return back()->withNotify($notify);
-    }
-    
-    public function vector_process_file(Request $request)
-    {
-        $order = Vector::find($request->id);
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:25'],
+            'email' => ['required', 'string', 'max:255'],
+            'password' => ['nullable', 'string', 'max:20'],
+        ]);
         
-        FileTransfer::where('source_number', $request->id)->where('type', 'vector')->delete();
-        $filename_list = [];
-        if ($request->hasFile('files')) 
-        {
-            $files = $request->file('files');
-            $i = 0;
-            foreach($files as $file)
-            {
-                $i++;
-                $filename = time() . '_' . $i.'.' . $file->getClientOriginalExtension();
-                $directory = 'app-assets/files/order_files/';
-                $filename_list[] = $filename;
-
-                // Store the file with the custom name
-                $path = $file->move($directory, $filename);                
-            }
+        $user = Admin::where("id", $request->id)->first();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        if(!empty($user->password)){
+            $user->password = Hash::make($request->password);
+        }
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->security_que = $request->security_que;
+        $user->security_ans = $request->security_ans;
+        $user->status = (isset($request->status)) ? 1 : 0;
+        $user->acount_block = (isset($request->acount_block)) ? 1 : 0;
+        $user->role_id = (isset($request->role_id)) ? 1 : 0;
+        
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = $slug . '.' . $file->getClientOriginalExtension();
+            $directory = 'assets/upload/';
+            $path = $file->move($directory, $filename);
+            $user->image = $path;
         }
         
-        $file = new FileTransfer();
-        $file->type = "vector";
-        $file->source_number = $order->id;
-        $file->files = json_encode($filename_list);
-        $file->added_by = Auth::guard('admin')->user()->id;
-        $file->save();
+        $user->save();
         
-        $notify[] = ['success', 'Vector Updated successfully.'];
-        return back()->withNotify($notify);
-    }
-    // VECTOR WORK USMAN
-    
-    
-    
-    
-    // QUOTE WORK USMAN
-    public function quote_detail($id)
-    {
-        $data['top_title'] = "Quotation Detail | Digitizing Portal";
-        $data['page_title'] = "Quotation Details";
-        $data['order'] = Quotation::find(base64_decode($id));
-        $data['order_file'] = FileTransfer::where('source_number', base64_decode($id))->where('type', 'quote')->first();
-        return view('admin.quote.detail',$data);
+        $notify[] = ['success', 'User Updated Successfully.'];
+        return redirect()->route('admin.user.create')->withNotify($notify);
     }
     
-    public function quote_process($id)
+    public function get_data(Request $request)
     {
-        $data['top_title'] = "Quotation Process | Digitizing Portal";
-        $data['page_title'] = "Quotation Process";
-        $data['order'] = Quotation::find(base64_decode($id));
-        return view('admin.quote.process',$data);
-    }
-    
-    public function quote_process_info(Request $request)
-    {
-        $order = Quotation::find($request->id);
-        $order->price = $request->price;
-        $order->admin_instruction = $request->admin_inst;
-        $order->width = $request->width;
-        $order->height = $request->height;
-        $order->status = $request->status;
-        $order->save();
-        $notify[] = ['success', 'Quotation Updated successfully.'];
-        return back()->withNotify($notify);
-    }
-    
-    public function quote_process_file(Request $request)
-    {
-        $order = Quotation::find($request->id);
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
         
-        FileTransfer::where('source_number', $request->id)->where('type', 'quote')->delete();
-        $filename_list = [];
-        if ($request->hasFile('files')) 
-        {
-            $files = $request->file('files');
-            $i = 0;
-            foreach($files as $file)
-            {
-                $i++;
-                $filename = time() . '_' . $i.'.' . $file->getClientOriginalExtension();
-                $directory = 'app-assets/files/quotation_files/';
-                $filename_list[] = $filename;
-
-                // Store the file with the custom name
-                $path = $file->move($directory, $filename);                
-            }
+        if($type == "first") {
+            $data = Admin::where('id', '!=', 1)->orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = Admin::where('id', '!=', 1)->orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = Admin::where('id', '!=', 1)->where('id', '>', $id)->first();
+        }
+        else if($type == "backward") {
+            $data = Admin::where('id', '!=', 1)->where('id', '<', $id)->orderBy('id', 'desc')->first();
         }
         
-        $file = new FileTransfer();
-        $file->type = "quote";
-        $file->source_number = $order->id;
-        $file->files = json_encode($filename_list);
-        $file->added_by = Auth::guard('admin')->user()->id;
-        $file->save();
-        
-        $notify[] = ['success', 'Quotation Updated successfully.'];
-        return back()->withNotify($notify);
+        return $data;
     }
-    // QUOTE WORK USMAN
     
+    public function user_right_store(Request $request)
+    {
+        $validated = $request->validate([
+            'admin_id' => ['required']
+        ]);
+       
+        $user = new AdminRight();
+        $user->admin_id = $request->admin_id;
+        $user->remark = $request->remark;
+        $user->cost_center = $request->cost_center;
+        $user->default_company = $request->default_company;
+        $user->default_departure = $request->default_departure;
+        $user->default_sale_rep = $request->default_sale_rep;
+        $user->restrict_company = (isset($request->restrict_company)) ? 1 : 0;
+        
+        if ($request->hasFile('sign')) {
+            $file = $request->file('sign');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $directory = 'assets/upload/';
+            $path = $file->move($directory, $filename);
+            $user->sign = $path;
+        }
+        
+        if ($request->hasFile('sign_with_img')) {
+            $file = $request->file('sign_with_img');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $directory = 'assets/upload/';
+            $path = $file->move($directory, $filename);
+            $user->sign_with_img = $path;
+        }
+        
+        $user->save();
+        
+        $notify[] = ['success', 'User Right Added Successfully.'];
+        return redirect()->route('admin.user_right.create')->withNotify($notify);
+    }
     
+    public function user_right_update(Request $request)
+    {
+        $validated = $request->validate([
+            'admin_id' => ['required']
+        ]);
+       
+        $user = AdminRight::find($request->id);
+        $user->admin_id = $request->admin_id;
+        $user->remark = $request->remark;
+        $user->cost_center = $request->cost_center;
+        $user->default_company = $request->default_company;
+        $user->default_departure = $request->default_departure;
+        $user->default_sale_rep = $request->default_sale_rep;
+        $user->restrict_company = (isset($request->restrict_company)) ? 1 : 0;
+        
+        if ($request->hasFile('sign')) {
+            $file = $request->file('sign');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $directory = 'assets/upload/';
+            $path = $file->move($directory, $filename);
+            $user->sign = $path;
+        }
+        
+        if ($request->hasFile('sign_with_img')) {
+            $file = $request->file('sign_with_img');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $directory = 'assets/upload/';
+            $path = $file->move($directory, $filename);
+            $user->sign_with_img = $path;
+        }
+        
+        $user->save();
+        
+        $notify[] = ['success', 'User Right Updated Successfully.'];
+        return redirect()->route('admin.user_right.create')->withNotify($notify);
+    }
     
+    public function user_right_get_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = null;
+        
+        if($type == "first") {
+            $data = AdminRight::with('admin')->orderBy('id', 'asc')->first();
+        }
+        else if($type == "last") {
+            $data = AdminRight::with('admin')->orderBy('id', 'desc')->first();
+        }
+        else if($type == "forward") {
+            $data = AdminRight::where('id', '>', $id)->with('admin')->first();
+        }
+        else if($type == "backward") {
+            $data = AdminRight::where('id', '<', $id)->with('admin')->orderBy('id', 'desc')->first();
+        }
+        
+        return $data;
+    }
 }

@@ -9,4 +9,5 @@ class partyCenter extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'party_center';
 }

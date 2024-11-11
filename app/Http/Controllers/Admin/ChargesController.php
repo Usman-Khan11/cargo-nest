@@ -86,10 +86,10 @@ class ChargesController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'code' => 'required',
+            'code' => ['required', 'string', 'max:100', 'unique:charges'],
             'currency' => 'required',
             'name' => 'required',
-            'localize_name' => 'required',
+            // 'localize_name' => 'required',
             'short_name' => 'required',
         ]);
         
@@ -100,7 +100,7 @@ class ChargesController extends Controller
         $charges->localize_name = $request->localize_name;
         $charges->short_name = $request->short_name;
         $charges->charges_type = $request->charges_type;
-        $charges->order = $request->order;
+        $charges->order = number_format($request->order, 2);
         $charges->inactive = $request->inactive;
         $charges->type = $request->type;
         $charges->reporting_group = $request->reporting_group;
@@ -123,7 +123,7 @@ class ChargesController extends Controller
             'code' => 'required',
             'currency' => 'required',
             'name' => 'required',
-            'localize_name' => 'required',
+            // 'localize_name' => 'required',
             'short_name' => 'required',
         ]);
         
@@ -134,7 +134,7 @@ class ChargesController extends Controller
         $charges->localize_name = $request->localize_name;
         $charges->short_name = $request->short_name;
         $charges->charges_type = $request->charges_type;
-        $charges->order = $request->order;
+        $charges->order = number_format($request->order, 2);
         $charges->inactive = $request->inactive;
         $charges->type = $request->type;
         $charges->reporting_group = $request->reporting_group;
@@ -159,16 +159,16 @@ class ChargesController extends Controller
         $data = null;
         
         if($type == "first") {
-            $data = Charges::orderBy('id', 'asc')->first();
+            $data = Charges::orderBy('id', 'asc')->with('currency')->first();
         }
         else if($type == "last") {
-            $data = Charges::orderBy('id', 'desc')->first();
+            $data = Charges::orderBy('id', 'desc')->with('currency')->first();
         }
         else if($type == "forward") {
-            $data = Charges::where('id', '>', $id)->first();
+            $data = Charges::where('id', '>', $id)->with('currency')->first();
         }
         else if($type == "backward") {
-            $data = Charges::where('id', '<', $id)->orderBy('id', 'desc')->first();
+            $data = Charges::where('id', '<', $id)->orderBy('id', 'desc')->with('currency')->first();
         }
         
         return $data;

@@ -6,6 +6,16 @@ Admin Login | Realvisory
 
 @section('content')
 
+<style>
+    .auth-inner {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+</style>
+
     <!-- BEGIN: Content-->
     <div class="app-content">
         <div class="content-wrapper">
@@ -18,8 +28,8 @@ Admin Login | Realvisory
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="#" class="brand-logo text-center mx-auto">
-                                    <img src="{{ asset('assets/img/logo/logo.png') }}" width="50%"/>
-                                    <h2 class="brand-text text-primary ms-1">ADMIN LOGIN</h2>
+                                    <img src="{{ asset('assets/img/logo/logo.png') }}" width="70%"/>
+                                    <h2 class="brand-text text-primary mt-2">LOGIN</h2>
                                 </a>
                                 
                                 <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login') }}">

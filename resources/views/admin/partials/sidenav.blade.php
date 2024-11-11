@@ -14,9 +14,9 @@
 </style>
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo">
+    <div class="app-brand demo mt-2">
         <a href="{{route('admin.dashboard')}}" class="app-brand-link">
-            <img src="{{ asset('assets/img/logo/logo.png') }}" width="85%" />
+            <img src="{{ asset('assets/img/logo/logo.png') }}" width="100%" />
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -1430,7 +1430,7 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('admin.user_right.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">User Rights</div>
                     </a>
@@ -1472,15 +1472,21 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('admin.user.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">User Setup</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('admin.security_role.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Security Role</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('admin.nav.create') }}" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-user"></i>
+                        <div data-i18n="Groups">Groups</div>
                     </a>
                 </li>
                 <li class="menu-item">

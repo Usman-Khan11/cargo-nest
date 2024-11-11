@@ -412,12 +412,7 @@
               <div class="col-md-3 col-12">
                 <div class="mb-2">
                   <label class="form-label">City:</label>
-                  <select name="city" class="city custom_select">
-                        <option selected disabled></option>
-                        {{--@foreach($locations as $value)
-                        <option value="{{ $value->id }}">{{ $value->location }}</option>
-                        @endforeach--}}
-                  </select>
+                  <select name="city" class="city custom_select"></select>
                 </div>
               </div>
               <div class="col-md-3 col-12">
@@ -955,15 +950,16 @@
                     <div>
                       <input
                         type="radio"
-                        value="Corporation"
+                        value="corporation"
                         name="ownership[]"
                         class="form-check-input"
+                        checked
                       /><span>&nbsp;Corporation</span>
                     </div>
                     <div>
                       <input
                         type="radio"
-                        value="Partnership"
+                        value="partnership"
                         name="ownership[]"
                         class="form-check-input"
                       /><span>&nbsp;Partnership</span>
@@ -971,7 +967,7 @@
                     <div>
                       <input
                         type="radio"
-                        value="Sole-Proprietorship"
+                        value="sole-proprietorship"
                         name="ownership[]"
                         class="form-check-input"
                       /><span>&nbsp;Sole Proprietorship</span>
@@ -979,7 +975,7 @@
                     <div>
                       <input
                         type="radio"
-                        value="Others"
+                        value="others"
                         name="ownership[]"
                         class="form-check-input"
                       /><span>&nbsp;Others</span>
@@ -1161,23 +1157,13 @@
               <div class="col-md-6">
                 <div class="mb-2">
                   <label class="form-label">Parent Account:</label>
-                  <input
-                    name="parent_account"
-                    type="text"
-                    class="form-control"
-                    placeholder=""
-                  />
+                  <select name="parent_account" class="parent_account"></select>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-2">
                   <label class="form-label">Account:</label>
-                  <input
-                    name="account"
-                    type="text"
-                    class="form-control"
-                    placeholder=""
-                  />
+                  <select name="account" class="account"></select>
                 </div>
               </div>
               <div class="col-md-6">
@@ -1274,7 +1260,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Wire-Transfer"
+                        value="wire-transfer"
                         class="form-check-input"
                       /><span>&nbsp;Wire Transfer</span>
                     </div>
@@ -1282,7 +1268,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Online-Transfer"
+                        value="online-transfer"
                         class="form-check-input"
                       /><span>&nbsp;Online Transfer</span>
                     </div>
@@ -1290,7 +1276,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Credit-Card"
+                        value="credit-card"
                         class="form-check-input"
                       /><span>&nbsp;Credit Card</span>
                     </div>
@@ -1298,7 +1284,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Cheque"
+                        value="cheque"
                         class="form-check-input"
                       /><span>&nbsp;Cheque</span>
                     </div>
@@ -1306,7 +1292,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="PO"
+                        value="po"
                         class="form-check-input"
                       /><span>&nbsp;PO</span>
                     </div>
@@ -1314,7 +1300,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="TT"
+                        value="tt"
                         class="form-check-input"
                       /><span>&nbsp;TT</span>
                     </div>
@@ -1322,7 +1308,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Cash"
+                        value="cash"
                         class="form-check-input"
                       /><span>&nbsp;Cash</span>
                     </div>
@@ -1330,7 +1316,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Party"
+                        value="party"
                         class="form-check-input"
                       /><span>&nbsp;Party</span>
                     </div>
@@ -1340,7 +1326,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Online-Personal-AC"
+                        value="online-personal-ac"
                         class="form-check-input"
                       /><span>&nbsp;Online Personal A/C</span>
                     </div>
@@ -1348,7 +1334,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Personal-Cheque"
+                        value="personal-cheque"
                         class="form-check-input"
                       /><span>&nbsp;Personal Cheque</span>
                     </div>
@@ -1356,7 +1342,7 @@
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Digital-Wallet"
+                        value="digital-wallet"
                         class="form-check-input"
                       /><span>&nbsp;Digital Wallet</span>
                     </div>
@@ -1365,7 +1351,7 @@
                         name="sub_type_input[]"
                         type="checkbox"
                         class="form-check-input"
-                        value="Atm-Transfer"
+                        value="atm-transfer"
                       /><span>&nbsp;Atm Transfer</span>
                     </div>
                     <div>
@@ -1373,14 +1359,14 @@
                         name="sub_type_input[]"
                         type="checkbox"
                         class="form-check-input"
-                        value="Open-PO"
+                        value="open-po"
                       /><span>&nbsp;Open PO</span>
                     </div>
                     <div>
                       <input
                         name="sub_type_input[]"
                         type="checkbox"
-                        value="Pay-Cargo"
+                        value="pay-cargo"
                         class="form-check-input"
                       /><span>&nbsp;Pay Cargo</span>
                     </div>
@@ -1572,8 +1558,7 @@
                     <input
                       name="disabled[]"
                       type="checkbox"
-                      value="Disabled"
-                      disabled
+                      value="disabled"
                       style="width: 16px; height: 16px"
                     />
                   </td>
@@ -1710,11 +1695,11 @@
                   <td>
                     <input type="checkbox" style="width: 16px; height: 16px" />
                   </td>
-                  <td name="cost_center[]">
-                    <input type="text" style="width: 100%" />
+                  <td>
+                    <input name="cost_center[]" type="text" style="width: 100%" />
                   </td>
-                  <td name="distribution[]">
-                    <input type="text" style="width: 100%" />
+                  <td>
+                    <input name="distribution[]" type="text" style="width: 100%" />
                   </td>
                 </tbody>
               </table>
@@ -1726,7 +1711,7 @@
                 <div class="mb-2">
                   <label class="form-label">Name:</label>
                   <input
-                    name="name"
+                    name="kyc_name"
                     type="text"
                     class="form-control"
                     placeholder=""
@@ -1737,7 +1722,7 @@
                 <div class="mb-2">
                   <label class="form-label">Address 1:</label>
                   <input
-                    name="address1"
+                    name="kyc_address1"
                     type="text"
                     class="form-control"
                     placeholder=""
@@ -1748,7 +1733,7 @@
                 <div class="mb-2">
                   <label class="form-label">Address 2:</label>
                   <input
-                    name="address2"
+                    name="kyc_address2"
                     type="text"
                     class="form-control"
                     placeholder=""
@@ -1759,7 +1744,7 @@
                 <div class="mb-2">
                   <label class="form-label">Address 3:</label>
                   <input
-                    name="address3"
+                    name="kyc_address3"
                     type="text"
                     class="form-control"
                     placeholder=""
@@ -1865,8 +1850,52 @@
   $(document).ready(function () {
       
     $(".custom_select").select2({
-      data: @json($locations)
-    });  
+        ajax: {
+            url: "/admin/party/create",
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    type: 'get_location'
+                }
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            }
+        },
+        cache: true,
+        allowClear: true,
+        placeholder: 'Search for...',
+        minimumInputLength: 1,
+        minimumResultsForSearch: 50
+    });
+    
+    $(".parent_account, .account").select2({
+        ajax: {
+            url: "/admin/party/create",
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    type: 'get_parent_account'
+                }
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            }
+        },
+        cache: true,
+        allowClear: true,
+        placeholder: 'Search for...',
+        minimumInputLength: 1,
+        minimumResultsForSearch: 50
+    });
       
     datatable = $(".quotation_record").DataTable({
       select: {
@@ -2046,7 +2075,14 @@
       $(".address1").val(data.address1);
       $(".address2").val(data.address2);
       $(".address3").val(data.address3);
-      $(".city").val(data.city);
+      
+      if(data.city) {
+            var option = new Option(data.city.location, data.city.id, true, true);
+            $(".city").append(option).trigger('change');
+        } else {
+            $(".city").val(null).trigger('change');
+        }
+        
       $(".zipcode").val(data.zipcode);
       $(".tel_1").val(data.tel_1);
       $(".tel_2").val(data.tel_2);
@@ -2084,6 +2120,9 @@
       // PARTY BASIC INFO END
 
       // PARTY OTHER INFO
+      $("input[name=calculation_type]").removeAttr("checked");
+      $(`input[name=calculation_type][value=${data.party_type}]`).attr("checked", true);
+      $(`input[name=calculation_type][value=${data.party_type}]`).click();
       $(".ownership").removeAttr("checked");
       $(`.ownership[value=${data.ownership}]`).attr("checked", true);
       $(".affiliated_companies").val(data.affiliated_companies);

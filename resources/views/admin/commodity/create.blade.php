@@ -78,7 +78,7 @@
                     <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
                 </div>
                 <div class="card-body">
-                    <input name="id" type="hidden" />
+                    <input name="id" type="hidden" value="0" />
                     <div class="row">
                         <div class="col-md-4 col-12">
                             <div class="mb-2">
@@ -335,32 +335,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="responsive text-nowrap">
-                            <table class="table table-bordered table-sm quotation_record">
-                                <thead class="table-primary">
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <table class="table table-bordered table-sm quotation_record"></table>
                         </div>
                     </div>
                 </div>
@@ -372,12 +347,11 @@
 @push('script')
 
 <script>
-    $('#submitButton').click(function(){
-        // Trigger form submission
-        $('#myForm').submit();
-      });
+$('#submitButton').click(function(){
+    $('#myForm').submit();
+});
       
-      $(document).ready(function(){
+$(document).ready(function(){
     var datatable = $('.quotation_record').DataTable({
         select: {
             style: 'api'
@@ -434,13 +408,9 @@
     });
 });
 
-
-
-
-
-
 function edit_row(e,data){
     data = JSON.parse(data);
+    console.log(data)
     if(data){
         $(".code").val(data.code);
         $(".name").val(data.name);
@@ -448,8 +418,11 @@ function edit_row(e,data){
         $(".hs_code").val(data.hs_code);
         $(".cargo_type").val(data.cargo_type);
         $(".commodity_group").val(data.commodity_group);
+        
         $(".inactive").removeAttr('checked');
-        $(`.inactive[value=${data.inactive}]`).attr('checked',true);
+        if(data.inactive){
+            $(`.inactive[value=${data.inactive}]`).attr('checked',true);
+        }
         
         $(".hazmat_product").removeAttr('checked');
         $(`.hazmat_product[value=${data.hazmat_product}]`).attr('checked',true);
@@ -457,7 +430,7 @@ function edit_row(e,data){
         $(".hazmat_code").val(data.hazmat_code);
         $(".hazmat_class").val(data.hazmat_class);
         $(".chemical_name").val(data.chemical_name);
-        $(".chemical_name").val(data.uno_code);
+        $(".uno_code").val(data.uno_code);
         
         $(".sro").val(data.sro);
         $(".insurance").val(data.insurance);
@@ -476,7 +449,7 @@ function edit_row(e,data){
         $(`.atom[value=${data.item}]`).attr('checked',true);
         
         $("#myForm").attr("action","{{ route('admin.commodity.update') }}")
-         $("input[name=id]").val(data.id);
+        $("input[name=id]").val(data.id);
     }
     
 }
@@ -503,14 +476,3 @@ $("input[name=duty_detail]").click(function () {
 </script>
 
 @endpush
-
-
-
-
-
-
-
-
-
-
-

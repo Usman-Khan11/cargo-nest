@@ -53,6 +53,8 @@ use App\Http\Controllers\Admin\ShippingInstructionController;
 use App\Http\Controllers\Admin\CtrkController;
 use App\Http\Controllers\Admin\LoadingProgramController;
 use App\Http\Controllers\Admin\SubCompanyController; 
+use App\Http\Controllers\Admin\RoleController; 
+use App\Http\Controllers\Admin\NavController; 
 
 
 //    SE EXPORT REPORTS
@@ -548,6 +550,8 @@ Route::namespace('Admin')
                 Route::get('chart_account/delete/{id}',[ChartAccountController::class ,'delete'])->name('chart_account.delete');
                 Route::post('chart_account/store',[ChartAccountController::class ,'store'])->name('chart_account.store');
                 Route::post('chart_account/update',[ChartAccountController::class ,'update'])->name('chart_account.update');
+                Route::post('chart_account/get',[ChartAccountController::class ,'get_data'])->name('chart_account.get');
+                Route::post('chart_account/movement',[ChartAccountController::class ,'movement'])->name('chart_account.movement');
                   
                 //  VOUCHER PROPERTIES INSTRUCTION
                 Route::get('voucher_properties',[VoucherPropertiesController::class ,'index'])->name('voucher_properties');
@@ -878,6 +882,37 @@ Route::namespace('Admin')
                 Route::post('principal_receipt_payment/update',[PrincipalReceiptPaymentController::class ,'update'])->name('principal_receipt_payment.update');
                 
                 
+                // USER SETUP ROUTES
+                Route::get('user/create',[ManageUserController::class ,'create'])->name('user.create');
+                Route::get('user/edit/{id}',[ManageUserController::class ,'edit'])->name('user.edit');
+                Route::get('user/delete/{id}',[ManageUserController::class ,'delete'])->name('user.delete');
+                Route::post('user/store',[ManageUserController::class ,'store'])->name('user.store');
+                Route::post('user/update',[ManageUserController::class ,'update'])->name('user.update');
+                Route::post('user/get',[ManageUserController::class ,'get_data'])->name('user.get');
+                
+                
+                // USER RIGHT ROUTES
+                Route::get('user-right/create',[ManageUserController::class ,'user_right_create'])->name('user_right.create');
+                Route::get('user-right/delete/{id}',[ManageUserController::class ,'user_right_delete'])->name('user_right.delete');
+                Route::post('user-right/store',[ManageUserController::class ,'user_right_store'])->name('user_right.store');
+                Route::post('user-right/update',[ManageUserController::class ,'user_right_update'])->name('user_right.update');
+                Route::post('user-right/get',[ManageUserController::class ,'user_right_get_data'])->name('user_right.get');
+                
+                
+                // USER SECURITY ROLES ROUTES
+                Route::get('security-role/create',[RoleController::class ,'create'])->name('security_role.create');
+                Route::get('security-role/delete/{id}',[RoleController::class ,'delete'])->name('security_role.delete');
+                Route::post('security-role/store',[RoleController::class ,'store'])->name('security_role.store');
+                Route::post('security-role/update',[RoleController::class ,'update'])->name('security_role.update');
+                Route::post('security-role/get',[RoleController::class ,'get_data'])->name('security_role.get');
+                
+                
+                // USER NAV ROUTES
+                Route::get('nav/create',[NavController::class ,'create'])->name('nav.create');
+                Route::get('nav/delete/{id}',[NavController::class ,'delete'])->name('nav.delete');
+                Route::post('nav/store',[NavController::class ,'store'])->name('nav.store');
+                Route::post('nav/update',[NavController::class ,'update'])->name('nav.update');
+                Route::post('nav/get',[NavController::class ,'get_data'])->name('nav.get');
            
             });
 
