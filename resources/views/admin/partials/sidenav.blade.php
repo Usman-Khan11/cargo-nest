@@ -8,14 +8,14 @@
         border-radius: 5px;
         z-index: 99;
         overflow: hidden;
-        display:none;
+        display: none;
         box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
     }
 </style>
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo mt-2">
-        <a href="{{route('admin.dashboard')}}" class="app-brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
             <img src="{{ asset('assets/img/logo/logo.png') }}" width="100%" />
         </a>
 
@@ -24,16 +24,11 @@
             <i class="ti ti-x d-block d-xl-none ti-sm align-middle"></i>
         </a>
     </div>
-    
+
     <div class="flex-grow-1 input-group input-group-merge rounded-pill" style="width: 90%; margin: 0 auto;">
-      <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-      <input
-        type="text"
-        id="navbar-search__field"
-        class="form-control chat-search-input"
-        placeholder="Search..."
-        aria-label="Search..."
-        aria-describedby="basic-addon-search31" />
+        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
+        <input type="text" id="navbar-search__field" class="form-control chat-search-input" placeholder="Search..."
+            aria-label="Search..." aria-describedby="basic-addon-search31" />
         <div id="navbar_search_result_area">
             <ul class="navbar_search_result"></ul>
         </div>
@@ -42,13 +37,13 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1 mt-2">
-        <li class="menu-item {{menuActive('admin.dashboard')}}">
-            <a href="{{route('admin.dashboard')}}" class="menu-link">
+        <li class="menu-item {{ menuActive('admin.dashboard') }}">
+            <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-home"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-       
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -61,26 +56,26 @@
                         <div data-i18n="General Setting">Setup</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{menuActive('admin.chart_account.create')}}">
-                            <a href="{{route('admin.chart_account.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.chart_account.create') }}">
+                            <a href="{{ route('admin.chart_account.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Chart of Account</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.voucher_properties.create')}}">
-                            <a href="{{route('admin.voucher_properties.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.voucher_properties.create') }}">
+                            <a href="{{ route('admin.voucher_properties.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Voucher Properties</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.opening_balance.create')}}">
-                            <a href="{{route('admin.opening_balance.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.opening_balance.create') }}">
+                            <a href="{{ route('admin.opening_balance.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Opening Balance</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.account_integrate.create')}}">
-                            <a href="{{route('admin.account_integrate.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.account_integrate.create') }}">
+                            <a href="{{ route('admin.account_integrate.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Account Integration</div>
                             </a>
@@ -93,20 +88,20 @@
                         <div data-i18n="General Setting">Transaction</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{menuActive('admin.voucher.create')}}">
-                            <a href="{{route('admin.voucher.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.voucher.create') }}">
+                            <a href="{{ route('admin.voucher.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Voucher</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.gl_invoice.create')}}">
-                            <a href="{{route('admin.gl_invoice.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.gl_invoice.create') }}">
+                            <a href="{{ route('admin.gl_invoice.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Invoice</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.gl_bill.create')}}">
-                            <a href="{{route('admin.gl_bill.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.gl_bill.create') }}">
+                            <a href="{{ route('admin.gl_bill.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Bill</div>
                             </a>
@@ -123,38 +118,38 @@
                                 <div data-i18n="General Setting">Payment</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.bank_reconcilation.create')}}"">
-                            <a href="{{route('admin.bank_reconcilation.create')}}"" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.bank_reconcilation.create') }}"">
+                            <a href="{{ route('admin.bank_reconcilation.create') }}"" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Bank Reconsilation</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.cheque_book_stock.create')}}">
-                            <a href="{{route('admin.cheque_book_stock.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.cheque_book_stock.create') }}">
+                            <a href="{{ route('admin.cheque_book_stock.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Check Book Stock</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.gl_budget.create')}}">
-                            <a href="{{route('admin.gl_budget.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.gl_budget.create') }}">
+                            <a href="{{ route('admin.gl_budget.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Budget</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.cash_denomination_record.create')}}">
-                            <a href="{{route('admin.cash_denomination_record.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.cash_denomination_record.create') }}">
+                            <a href="{{ route('admin.cash_denomination_record.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Cash Denomination Record</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.cheque_opening.create')}}">
-                            <a href="{{route('admin.cheque_opening.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.cheque_opening.create') }}">
+                            <a href="{{ route('admin.cheque_opening.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Cheques Opening</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.reconsilation_date_setup.create')}}">
-                            <a href="{{route('admin.reconsilation_date_setup.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.reconsilation_date_setup.create') }}">
+                            <a href="{{ route('admin.reconsilation_date_setup.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Reconsilation Date Setup</div>
                             </a>
@@ -207,7 +202,7 @@
                                 <div data-i18n="General Setting">WHT Deposite</div>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 <li class="menu-item ">
@@ -338,113 +333,113 @@
                         </li>
                     </ul>
                 </li>
-            </ul>    
+            </ul>
         </li>
-        
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
                 <div data-i18n="General Setting">Sea Export</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{menuActive('admin.manifest.create')}}">
-                    <a href="{{route('admin.manifest.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.manifest.create') }}">
+                    <a href="{{ route('admin.manifest.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Manifest</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.job.create')}}">
-                    <a href="{{route('admin.job.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.job.create') }}">
+                    <a href="{{ route('admin.job.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Job</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.cro.create')}}">
-                    <a href="{{route('admin.cro.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.cro.create') }}">
+                    <a href="{{ route('admin.cro.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Cro</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.bl.create')}}">
-                    <a href="{{route('admin.bl.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.bl.create') }}">
+                    <a href="{{ route('admin.bl.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se B/L</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.switchbl.create')}}">
-                    <a href="{{route('admin.switchbl.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.switchbl.create') }}">
+                    <a href="{{ route('admin.switchbl.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Switch B/L</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.stuffing.create')}}">
-                    <a href="{{route('admin.stuffing.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.stuffing.create') }}">
+                    <a href="{{ route('admin.stuffing.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Stuffing Plan</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.milestone.create')}}">
-                    <a href="{{route('admin.milestone.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.milestone.create') }}">
+                    <a href="{{ route('admin.milestone.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se milestone</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.invoice.create')}}">
-                    <a href="{{route('admin.invoice.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.invoice.create') }}">
+                    <a href="{{ route('admin.invoice.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Invoice</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.receipt.create')}}">
-                    <a href="{{route('admin.receipt.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.receipt.create') }}">
+                    <a href="{{ route('admin.receipt.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Receipt</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.bill.create')}}">
-                    <a href="{{route('admin.bill.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.bill.create') }}">
+                    <a href="{{ route('admin.bill.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Bill</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.payment.create')}}">
-                    <a href="{{route('admin.payment.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.payment.create') }}">
+                    <a href="{{ route('admin.payment.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Payment</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.agent_invoice.create')}}">
-                    <a href="{{route('admin.agent_invoice.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.agent_invoice.create') }}">
+                    <a href="{{ route('admin.agent_invoice.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Agent Invoice</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.agent_receipt.create')}}">
-                    <a href="{{route('admin.agent_receipt.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.agent_receipt.create') }}">
+                    <a href="{{ route('admin.agent_receipt.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Agent Receipt / Payment</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.query.create')}}">
-                    <a href="{{route('admin.query.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.query.create') }}">
+                    <a href="{{ route('admin.query.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Query</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.lettertemplate.create')}}">
-                    <a href="{{route('admin.lettertemplate.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.lettertemplate.create') }}">
+                    <a href="{{ route('admin.lettertemplate.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Letter Template</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.letterlist.create')}}">
-                    <a href="{{route('admin.letterlist.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.letterlist.create') }}">
+                    <a href="{{ route('admin.letterlist.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Letter List</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.quotation.create')}}">
-                    <a href="{{route('admin.quotation.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.quotation.create') }}">
+                    <a href="{{ route('admin.quotation.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Quotation</div>
                     </a>
@@ -455,8 +450,8 @@
                         <div data-i18n="General Setting">Se Query (Customer Service)</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.shipping_instruction.create')}}">
-                    <a href="{{route('admin.shipping_instruction.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.shipping_instruction.create') }}">
+                    <a href="{{ route('admin.shipping_instruction.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Shipping Instruction</div>
                     </a>
@@ -467,14 +462,14 @@
                         <div data-i18n="General Setting">Export Booking Request </div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.payment_requisition.create')}}">
-                    <a href="{{route('admin.payment_requisition.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.payment_requisition.create') }}">
+                    <a href="{{ route('admin.payment_requisition.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Se Payment Requisition</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.agent_payment_requisition.create')}}">
-                    <a href="{{route('admin.agent_payment_requisition.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.agent_payment_requisition.create') }}">
+                    <a href="{{ route('admin.agent_payment_requisition.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Agent Payment Requisition</div>
                     </a>
@@ -509,8 +504,8 @@
                         <div data-i18n="General Setting">Se Loading Dashboard</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.loading_program.create')}}">
-                    <a href="{{route('admin.loading_program.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.loading_program.create') }}">
+                    <a href="{{ route('admin.loading_program.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Loading Program</div>
                     </a>
@@ -521,32 +516,32 @@
                         <div data-i18n="General Setting">Reports</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{menuActive('admin.job_balancing')}}">
-                            <a href="{{route('admin.job_balancing')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.job_balancing') }}">
+                            <a href="{{ route('admin.job_balancing') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Balancing</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.job_list')}}">
-                            <a href="{{route('admin.job_list')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.job_list') }}">
+                            <a href="{{ route('admin.job_list') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job List</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.job_wise_cont_list')}}">
-                            <a href="{{route('admin.job_wise_cont_list')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.job_wise_cont_list') }}">
+                            <a href="{{ route('admin.job_wise_cont_list') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Wise Container List</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.charges_wise_job_report')}}">
-                            <a href="{{route('admin.charges_wise_job_report')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.charges_wise_job_report') }}">
+                            <a href="{{ route('admin.charges_wise_job_report') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Charges Wise Job Report</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.job_profit_loss')}}">
-                            <a href="{{route('admin.job_profit_loss')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.job_profit_loss') }}">
+                            <a href="{{ route('admin.job_profit_loss') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Profit & Loss Report</div>
                             </a>
@@ -563,8 +558,8 @@
                                 <div data-i18n="General Setting">Party Audit</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.loading_list')}}">
-                            <a href="{{route('admin.loading_list')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.loading_list') }}">
+                            <a href="{{ route('admin.loading_list') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Loading List</div>
                             </a>
@@ -575,8 +570,8 @@
                                 <div data-i18n="General Setting">Se Agent Invoice Balancing</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.job_statistics')}}">
-                            <a href="{{route('admin.job_statistics')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.job_statistics') }}">
+                            <a href="{{ route('admin.job_statistics') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Job Statistics</div>
                             </a>
@@ -593,20 +588,20 @@
                                 <div data-i18n="General Setting">Se Client Exposure Report</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.booking_list')}}">
-                            <a href="{{route('admin.booking_list')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.booking_list') }}">
+                            <a href="{{ route('admin.booking_list') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Export Booking List</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.bl_release_status')}}">
-                            <a href="{{route('admin.bl_release_status')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.bl_release_status') }}">
+                            <a href="{{ route('admin.bl_release_status') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">BL Release Status Report</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.cargo_movement')}}">
-                            <a href="{{route('admin.cargo_movement')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.cargo_movement') }}">
+                            <a href="{{ route('admin.cargo_movement') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Cargo Movement</div>
                             </a>
@@ -623,17 +618,17 @@
                                 <div data-i18n="General Setting">Se Milestone Status</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.debit_credit')}}">
-                            <a href="{{route('admin.debit_credit')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.debit_credit') }}">
+                            <a href="{{ route('admin.debit_credit') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Se Debit Credit Notes List</div>
                             </a>
                         </li>
-                    </ul>    
+                    </ul>
                 </li>
             </ul>
         </li>
-        
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -652,14 +647,14 @@
                         <div data-i18n="General Setting">Si Job</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.arrival_notice.create')}}">
-                    <a href="{{route('admin.arrival_notice.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.arrival_notice.create') }}">
+                    <a href="{{ route('admin.arrival_notice.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Arrival Notice</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.epass_weboc.create')}}">
-                    <a href="{{route('admin.epass_weboc.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.epass_weboc.create') }}">
+                    <a href="{{ route('admin.epass_weboc.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Epass Weboc</div>
                     </a>
@@ -676,8 +671,8 @@
                         <div data-i18n="General Setting">Si B/L</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.pre_alert_input.create')}}">
-                    <a href="{{route('admin.pre_alert_input.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.pre_alert_input.create') }}">
+                    <a href="{{ route('admin.pre_alert_input.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Pre Alert Input</div>
                     </a>
@@ -694,14 +689,14 @@
                         <div data-i18n="General Setting">Si Receipt</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.delivery_order.create')}}">
-                    <a href="{{route('admin.delivery_order.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.delivery_order.create') }}">
+                    <a href="{{ route('admin.delivery_order.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Si Delivery Order</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.advance_detension.create')}}">
-                    <a href="{{route('admin.advance_detension.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.advance_detension.create') }}">
+                    <a href="{{ route('admin.advance_detension.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Advance Detention Invoice</div>
                     </a>
@@ -712,14 +707,14 @@
                         <div data-i18n="General Setting">Equipment Invoice</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.equipment_invoice_process.create')}}">
-                    <a href="{{route('admin.equipment_invoice_process.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.equipment_invoice_process.create') }}">
+                    <a href="{{ route('admin.equipment_invoice_process.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Equipment Invoice Process</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.auto_detension.create')}}">
-                    <a href="{{route('admin.auto_detension.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.auto_detension.create') }}">
+                    <a href="{{ route('admin.auto_detension.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Auto Detention Process</div>
                     </a>
@@ -790,14 +785,14 @@
                         <div data-i18n="General Setting">Si Query (Customer Services)</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.si_bl_amendment.create')}}">
-                    <a href="{{route('admin.si_bl_amendment.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.si_bl_amendment.create') }}">
+                    <a href="{{ route('admin.si_bl_amendment.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Si Bl Amendment</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.si_equipment_invoice_other_charges.create')}}">
-                    <a href="{{route('admin.si_equipment_invoice_other_charges.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.si_equipment_invoice_other_charges.create') }}">
+                    <a href="{{ route('admin.si_equipment_invoice_other_charges.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Si Equipment Invoice Other</div>
                     </a>
@@ -808,101 +803,102 @@
                         <div data-i18n="General Setting">Si Payment Requisition</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.terminal_stock_requirement.create')}}">
-                    <a href="{{route('admin.terminal_stock_requirement.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.terminal_stock_requirement.create') }}">
+                    <a href="{{ route('admin.terminal_stock_requirement.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Terminal Stock Requirement</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.detension_summary.create')}}">
-                    <a href="{{route('admin.detension_summary.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.detension_summary.create') }}">
+                    <a href="{{ route('admin.detension_summary.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Detention Summary</div>
                     </a>
                 </li>
-                
+
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Security Deposit</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{menuActive('admin.security_deposite.create')}}">
-                            <a href="{{route('admin.security_deposite.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.security_deposite.create') }}">
+                            <a href="{{ route('admin.security_deposite.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Security Deposite</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.refund_requisition.create')}}">
-                            <a href="{{route('admin.refund_requisition.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.refund_requisition.create') }}">
+                            <a href="{{ route('admin.refund_requisition.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Refund Requisition</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.security_refund_utility.create')}}">
-                            <a href="{{route('admin.security_refund_utility.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.security_refund_utility.create') }}">
+                            <a href="{{ route('admin.security_refund_utility.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Security Deposite Refund Utility</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.security_deposite_status_report.create')}}">
-                            <a href="{{route('admin.security_deposite_status_report.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.security_deposite_status_report.create') }}">
+                            <a href="{{ route('admin.security_deposite_status_report.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Security Deposite Status Report</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.refund_requisition_report.create')}}">
-                            <a href="{{route('admin.refund_requisition_report.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.refund_requisition_report.create') }}">
+                            <a href="{{ route('admin.refund_requisition_report.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Refund Requisition Report</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.security_deposite_activity_report.create')}}">
-                            <a href="{{route('admin.security_deposite_activity_report.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.security_deposite_activity_report.create') }}">
+                            <a href="{{ route('admin.security_deposite_activity_report.create') }}"
+                                class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Security Deposite Activity Report</div>
                             </a>
                         </li>
                     </ul>
-                </li>  
+                </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Guarantee Filing</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{menuActive('admin.guarantee_filling_anellation.create')}}">
-                            <a href="{{route('admin.guarantee_filling_anellation.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.guarantee_filling_anellation.create') }}">
+                            <a href="{{ route('admin.guarantee_filling_anellation.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Guarantee Filing/Extension/Cancellation</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.guarantee_letter_template.create')}}">
-                            <a href="{{route('admin.guarantee_letter_template.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.guarantee_letter_template.create') }}">
+                            <a href="{{ route('admin.guarantee_letter_template.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Guarantee Letter Template</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.guarantee_letter_process.create')}}">
-                            <a href="{{route('admin.guarantee_letter_process.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.guarantee_letter_process.create') }}">
+                            <a href="{{ route('admin.guarantee_letter_process.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Guarantee Letter Process</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.guarantee_letter.create')}}">
-                            <a href="{{route('admin.guarantee_letter.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.guarantee_letter.create') }}">
+                            <a href="{{ route('admin.guarantee_letter.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Guarantee Letters</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.guarantee_letter_list.create')}}">
-                            <a href="{{route('admin.guarantee_letter_list.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.guarantee_letter_list.create') }}">
+                            <a href="{{ route('admin.guarantee_letter_list.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Guarantee Letter list</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.vessel_arrival_departure_report.create')}}">
-                            <a href="{{route('admin.vessel_arrival_departure_report.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.vessel_arrival_departure_report.create') }}">
+                            <a href="{{ route('admin.vessel_arrival_departure_report.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Vissel Arrival/Departure Report(Cvhm)</div>
                             </a>
@@ -1033,15 +1029,15 @@
                 </li>
             </ul>
         </li>
-        
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
                 <div data-i18n="General Setting">Container Inventary</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{menuActive('admin.container_activity.create')}}">
-                    <a href="{{route('admin.container_activity.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.container_activity.create') }}">
+                    <a href="{{ route('admin.container_activity.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-settings"></i>
                         <div data-i18n="General Setting">Container Activity</div>
                     </a>
@@ -1052,8 +1048,8 @@
                         <div data-i18n="General Setting">Container Query</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.bulk_delete_container_activity.create')}}">
-                    <a href="{{route('admin.bulk_delete_container_activity.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.bulk_delete_container_activity.create') }}">
+                    <a href="{{ route('admin.bulk_delete_container_activity.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-settings"></i>
                         <div data-i18n="General Setting">Bulk Delete Container Activity</div>
                     </a>
@@ -1108,8 +1104,8 @@
                                 <div data-i18n="General Setting">Container Stock Report</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.ctrk.create')}}">
-                            <a href="{{route('admin.ctrk.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.ctrk.create') }}">
+                            <a href="{{ route('admin.ctrk.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Ctrk Container</div>
                             </a>
@@ -1134,9 +1130,9 @@
                         </li>
                     </ul>
                 </li>
-            </ul>    
+            </ul>
         </li>
-        
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1185,11 +1181,11 @@
                                 <div data-i18n="General Setting">Principal Receipt / Payment Report</div>
                             </a>
                         </li>
-                    </ul>    
+                    </ul>
                 </li>
-           </ul>
+            </ul>
         </li>
-        
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1291,8 +1287,8 @@
                     </ul>
                 </li>
             </ul>
-        </li> 
-        
+        </li>
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1304,25 +1300,25 @@
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Depo Container Opening</div>
                     </a>
-                </li>    
+                </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Depo Container Activity</div>
                     </a>
-                </li>    
+                </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Depo Receipt</div>
                     </a>
-                </li>    
+                </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Cro Balancing Inquiry</div>
                     </a>
-                </li>    
+                </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1398,10 +1394,10 @@
                             </a>
                         </li>
                     </ul>
-                </li>    
+                </li>
             </ul>
-        </li>  
-        
+        </li>
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1421,8 +1417,8 @@
                     </a>
                 </li>
             </ul>
-        </li> 
-        
+        </li>
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1448,13 +1444,13 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="/admin/system_policy/create" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
-                        <div data-i18n="General Setting">System Policy</div>
+                        <div data-i18n="System Policy">System Policy</div>
                     </a>
                 </li>
-                <li class="menu-item" {{menuActive('admin.sub_company.create')}}>
-                    <a href="{{route('admin.sub_company.create')}}" class="menu-link">
+                <li class="menu-item" {{ menuActive('admin.sub_company.create') }}>
+                    <a href="{{ route('admin.sub_company.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Sub Company</div>
                     </a>
@@ -1592,8 +1588,8 @@
                     </a>
                 </li>
             </ul>
-        </li>   
-        
+        </li>
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1612,8 +1608,8 @@
                                 <div data-i18n="General Setting">Employee Designation</div>
                             </a>
                         </li>
-                        <li class="menu-item {{menuActive('admin.employee.create')}}">
-                            <a href="{{route('admin.employee.create')}}" class="menu-link">
+                        <li class="menu-item {{ menuActive('admin.employee.create') }}">
+                            <a href="{{ route('admin.employee.create') }}" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-user"></i>
                                 <div data-i18n="General Setting">Employee</div>
                             </a>
@@ -1630,7 +1626,7 @@
                                 <div data-i18n="General Setting">Deduction</div>
                             </a>
                         </li>
-                    </ul>    
+                    </ul>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link menu-toggle">
@@ -1680,8 +1676,8 @@
                                 <div data-i18n="General Setting">Extra Payment</div>
                             </a>
                         </li>
-                        
-                    </ul>    
+
+                    </ul>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link menu-toggle">
@@ -1713,11 +1709,11 @@
                                 <div data-i18n="General Setting">Loan Balancing</div>
                             </a>
                         </li>
-                    </ul>    
+                    </ul>
                 </li>
             </ul>
-        </li> 
-        
+        </li>
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -1748,21 +1744,21 @@
                         <div data-i18n="General Setting">Line Manager Selection</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.party.create')}}">
-                    <a href="{{route('admin.party.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.party.create') }}">
+                    <a href="{{ route('admin.party.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Party</div>
                     </a>
                 </li>
-                
+
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Taz Authority</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.charges.create')}}">
-                    <a href="{{route('admin.charges.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.charges.create') }}">
+                    <a href="{{ route('admin.charges.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Charges</div>
                     </a>
@@ -1779,14 +1775,14 @@
                         <div data-i18n="General Setting">Charger Tariff</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.vessel.create')}}">
-                    <a href="{{route('admin.vessel.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.vessel.create') }}">
+                    <a href="{{ route('admin.vessel.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Vessel</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.voyage.create')}}">
-                    <a href="{{route('admin.voyage.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.voyage.create') }}">
+                    <a href="{{ route('admin.voyage.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Voyage</div>
                     </a>
@@ -1797,8 +1793,8 @@
                         <div data-i18n="General Setting">Stamp</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.location.create')}}">
-                    <a href="{{route('admin.location.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.location.create') }}">
+                    <a href="{{ route('admin.location.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Un location</div>
                     </a>
@@ -1809,8 +1805,8 @@
                         <div data-i18n="General Setting">Local Custom Coding</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.equipment.create')}}">
-                    <a href="{{route('admin.equipment.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.equipment.create') }}">
+                    <a href="{{ route('admin.equipment.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Equipment Size Type</div>
                     </a>
@@ -1833,8 +1829,8 @@
                         <div data-i18n="General Setting">Commodity Group</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.commodity.create')}}">
-                    <a href="{{route('admin.commodity.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.commodity.create') }}">
+                    <a href="{{ route('admin.commodity.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Commodity</div>
                     </a>
@@ -1923,8 +1919,8 @@
                         <div data-i18n="General Setting">Currency Market Rate</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.currency.create')}}">
-                    <a href="{{route('admin.currency.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.currency.create') }}">
+                    <a href="{{ route('admin.currency.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Currency</div>
                     </a>
@@ -1989,8 +1985,8 @@
                         <div data-i18n="PRINCIPAL MANUAL SOA">Principal Manual SOA</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.party_location.create')}}">
-                    <a href="{{route('admin.party_location.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.party_location.create') }}">
+                    <a href="{{ route('admin.party_location.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-location-pin"></i>
                         <div data-i18n="PARTY LOCATIONS">Party Locations</div>
                     </a>
@@ -2025,8 +2021,8 @@
                         <div data-i18n="WHARF">Wharf</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.packages.create')}}">
-                    <a href="{{route('admin.packages.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.packages.create') }}">
+                    <a href="{{ route('admin.packages.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-package"></i>
                         <div data-i18n="PACKAGES CODING">Packages Coding</div>
                     </a>
@@ -2037,8 +2033,8 @@
                         <div data-i18n="BANK DETAIL REGISTER">Bank Detail Register</div>
                     </a>
                 </li>
-                <li class="menu-item {{menuActive('admin.inco_term.create')}}">
-                    <a href="{{route('admin.inco_term.create')}}" class="menu-link">
+                <li class="menu-item {{ menuActive('admin.inco_term.create') }}">
+                    <a href="{{ route('admin.inco_term.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-map-alt"></i>
                         <div data-i18n="INCO TERM">Incoterm</div>
                     </a>
@@ -2147,7 +2143,7 @@
                 </li>
             </ul>
         </li>
-        
+
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-user"></i>
@@ -2265,7 +2261,8 @@
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-money"></i>
-                        <div data-i18n="SEA ACCESSORIAL CHARGE (ACCESSORIAL CHARGES)">Sea Accessorial Charge (Accessorial Charges)</div>
+                        <div data-i18n="SEA ACCESSORIAL CHARGE (ACCESSORIAL CHARGES)">Sea Accessorial Charge
+                            (Accessorial Charges)</div>
                     </a>
                 </li>
                 <li class="menu-item">
@@ -2403,7 +2400,8 @@
                         <li class="menu-item">
                             <a href="#" class="menu-link">
                                 <i class="menu-icon tf-icons ti ti-bar-chart"></i>
-                                <div data-i18n="DIRECT JOB CONTAINER WISE PROFIT AND LOSS">Direct Job Container Wise Profit and Loss</div>
+                                <div data-i18n="DIRECT JOB CONTAINER WISE PROFIT AND LOSS">Direct Job Container Wise
+                                    Profit and Loss</div>
                             </a>
                         </li>
                         <li class="menu-item">
@@ -2448,25 +2446,25 @@
                                 <div data-i18n="TERMINAL INVOICE LOG">Terminal Invoice Log</div>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
-                
+
             </ul>
         </li>
-        
-        
-        
-        
-        <li class="menu-item {{menuActive('admin.general_setting')}}">
-            <a href="{{route('admin.general_setting')}}" class="menu-link">
+
+
+
+
+        <li class="menu-item {{ menuActive('admin.general_setting') }}">
+            <a href="{{ route('admin.general_setting') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-settings"></i>
                 <div data-i18n="General Setting">General Setting</div>
             </a>
         </li>
-        
-        <li class="menu-item {{menuActive('admin.logout')}}">
-            <a href="{{route('admin.logout')}}" class="menu-link">
+
+        <li class="menu-item {{ menuActive('admin.logout') }}">
+            <a href="{{ route('admin.logout') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-logout"></i>
                 <div data-i18n="Logout">Logout</div>
             </a>
