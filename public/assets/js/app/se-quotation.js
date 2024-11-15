@@ -1,28 +1,34 @@
 $(document).ready(function () {
-    const sale_rep = $(".sale_rep");
-    const unit = $(".unit");
-    const commodity = $(".commodity");
-    const inco_term = $(".inco_term");
-    const vessel = $(".vessel");
-    const voyage = $(".voyage");
-    const currency = $(".currency");
-    const vendor = $(".vendor");
-    const overseas = $(".overseas");
-    const principal = $(".principal");
-    const sline_carrier = $(".sline_carrier");
-    const shipper = $(".shipper");
-    const consignee = $(".consignee");
-    const client = $(".client");
-    const terminals = $(".terminals");
-    const place_of_receipt = $(".place_of_receipt");
-    const port_of_loading = $(".port_of_loading");
-    const port_of_discharge = $(".port_of_discharge");
-    const final_destination = $(".final_destination");
-    const custom_clearance = $(".custom_clearance");
+    const search_select2 = $(".search_select2");
 
     $("#submitButton").click(function () {
         $("#myForm").submit();
     });
+
+    if (search_select2.length) {
+        $(search_select2).each(function (i, v) {
+            let url = $(v).data("url");
+            let type = $(v).data("type");
+            let placeholder = $(v).data("placeholder") || 'Search for...';
+
+            $(v).select2({
+                ajax: {
+                    url: url,
+                    dataType: "json",
+                    data: (params) => ({
+                        search: params.term,
+                        type: type,
+                    }),
+                    processResults: (data) => ({ results: data }),
+                },
+                cache: true,
+                allowClear: true,
+                placeholder: placeholder,
+                minimumInputLength: 1,
+                minimumResultsForSearch: 25,
+            });
+        })
+    }
 
     $(".navigation").click(function () {
         let id = $("input[name=id]").val();
@@ -49,125 +55,6 @@ $(document).ready(function () {
                 });
             }
         );
-    });
-
-    $(client).select2({
-        ajax: {
-            url: $(client).data("url"),
-            dataType: "json",
-            data: (params) => ({
-                search: params.term,
-                type: $(client).data("type"),
-            }),
-            processResults: (data) => ({ results: data }),
-        },
-        cache: true,
-        allowClear: true,
-        placeholder: "Search for...",
-        minimumInputLength: 1,
-        minimumResultsForSearch: 25,
-    });
-
-    $(terminals).select2({
-        ajax: {
-            url: $(terminals).data("url"),
-            dataType: "json",
-            data: (params) => ({
-                search: params.term,
-                type: $(terminals).data("type"),
-            }),
-            processResults: (data) => ({ results: data }),
-        },
-        cache: true,
-        allowClear: true,
-        placeholder: "Search for...",
-        minimumInputLength: 1,
-        minimumResultsForSearch: 25,
-    });
-
-    $(place_of_receipt).select2({
-        ajax: {
-            url: $(place_of_receipt).data("url"),
-            dataType: "json",
-            data: (params) => ({
-                search: params.term,
-                type: $(place_of_receipt).data("type"),
-            }),
-            processResults: (data) => ({ results: data }),
-        },
-        cache: true,
-        allowClear: true,
-        placeholder: "Search for...",
-        minimumInputLength: 1,
-        minimumResultsForSearch: 25,
-    });
-
-    $(port_of_loading).select2({
-        ajax: {
-            url: $(port_of_loading).data("url"),
-            dataType: "json",
-            data: (params) => ({
-                search: params.term,
-                type: $(port_of_loading).data("type"),
-            }),
-            processResults: (data) => ({ results: data }),
-        },
-        cache: true,
-        allowClear: true,
-        placeholder: "Search for...",
-        minimumInputLength: 1,
-        minimumResultsForSearch: 25,
-    });
-
-    $(port_of_discharge).select2({
-        ajax: {
-            url: $(port_of_discharge).data("url"),
-            dataType: "json",
-            data: (params) => ({
-                search: params.term,
-                type: $(port_of_discharge).data("type"),
-            }),
-            processResults: (data) => ({ results: data }),
-        },
-        cache: true,
-        allowClear: true,
-        placeholder: "Search for...",
-        minimumInputLength: 1,
-        minimumResultsForSearch: 25,
-    });
-
-    $(final_destination).select2({
-        ajax: {
-            url: $(final_destination).data("url"),
-            dataType: "json",
-            data: (params) => ({
-                search: params.term,
-                type: $(final_destination).data("type"),
-            }),
-            processResults: (data) => ({ results: data }),
-        },
-        cache: true,
-        allowClear: true,
-        placeholder: "Search for...",
-        minimumInputLength: 1,
-        minimumResultsForSearch: 25,
-    });
-
-    $(custom_clearance).select2({
-        ajax: {
-            url: $(custom_clearance).data("url"),
-            dataType: "json",
-            data: (params) => ({
-                search: params.term,
-                type: $(custom_clearance).data("type"),
-            }),
-            processResults: (data) => ({ results: data }),
-        },
-        cache: true,
-        allowClear: true,
-        placeholder: "Search for...",
-        minimumInputLength: 1,
-        minimumResultsForSearch: 25,
     });
 
     var datatable = $(".quotation_record").DataTable({

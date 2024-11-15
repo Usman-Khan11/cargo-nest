@@ -84,6 +84,132 @@ class QuotationController extends Controller
                 return $data;
             }
 
+            if (isset($request->type) && $request->type == 'get_sale_rep') {
+                $search_term = $request->search;
+                $data = Employee::whereJsonContains('rep', 'Sales-Rep')
+                    ->orWhere(function ($query) use ($search_term) {
+                        $query->where('emp_name', 'like', "%$search_term%")
+                            ->orWhere('emp_code', 'like', "%$search_term%");
+                    })
+                    ->select(['id', 'emp_name as text'])
+                    ->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_units') {
+                $search_term = $request->search;
+                $data = Packages::Where(function ($query) use ($search_term) {
+                    $query->where('pack_name', 'like', "%$search_term%")
+                        ->orWhere('pack_code', 'like', "%$search_term%");
+                })
+                    ->select(["id", "pack_code as text"])
+                    ->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_commodity') {
+                $search_term = $request->search;
+                $data = Commodity::Where(function ($query) use ($search_term) {
+                    $query->where('name', 'like', "%$search_term%")
+                        ->orWhere('code', 'like', "%$search_term%");
+                })
+                    ->select(["id", "name as text"])->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_inco_term') {
+                $search_term = $request->search;
+                $data = Incoterm::Where(function ($query) use ($search_term) {
+                    $query->where('name', 'like', "%$search_term%")
+                        ->orWhere('code', 'like', "%$search_term%");
+                })
+                    ->select(["id", "name as text"])->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_vessel') {
+                $search_term = $request->search;
+                $data = Vessel::Where(function ($query) use ($search_term) {
+                    $query->where('vessel_name', 'like', "%$search_term%")
+                        ->orWhere('vessel_code', 'like', "%$search_term%");
+                })
+                    ->select(["id", "vessel_name as text"])->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_voyage') {
+                $search_term = $request->search;
+                $data = Voyage::Where(function ($query) use ($search_term) {
+                    $query->where('voy', 'like', "%$search_term%");
+                })
+                    ->select(["id", "voy as text"])->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_currency') {
+                $search_term = $request->search;
+                $data = Currency::Where(function ($query) use ($search_term) {
+                    $query->where('name', 'like', "%$search_term%")
+                        ->orWhere('code', 'like', "%$search_term%");
+                })
+                    ->select(["id", "code as text"])->orderBy('id', 'desc')->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_vendor') {
+                $search_term = $request->search;
+                $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                    ->where('Type', 'Like', "%Local-Vendor%")
+                    ->select(['id', 'party_name as text'])
+                    ->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_overseas') {
+                $search_term = $request->search;
+                $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                    ->where('Type', 'Like', '%Overseas-Agent%')
+                    ->select(["id", "party_name as text"])
+                    ->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_sline_carrier') {
+                $search_term = $request->search;
+                $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                    ->where('Type', 'Like', '%Shipping-Line%')
+                    ->select(["id", "party_name as text"])
+                    ->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_principal') {
+                $search_term = $request->search;
+                $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                    ->where('Type', 'Like', '%Principal%')
+                    ->select(["id", "party_name as text"])
+                    ->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_shipper') {
+                $search_term = $request->search;
+                $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                    ->where('Type', 'Like', '%Shipper%')
+                    ->select(["id", "party_name as text"])
+                    ->get();
+                return $data;
+            }
+
+            if (isset($request->type) && $request->type == 'get_consignee') {
+                $search_term = $request->search;
+                $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                    ->where('Type', 'Like', '%Consignee%')
+                    ->select(["id", "party_name as text"])
+                    ->get();
+                return $data;
+            }
+
             $query = Quotation::Query();
             $query = $query->orderby('id', 'asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
@@ -106,53 +232,14 @@ class QuotationController extends Controller
         $data['page_title'] = "Quotation";
         $data['customers'] = Customer::get();
 
-        $data['commodities'] = Commodity::select(["id", "name as text"])->get();
-        $data['commodities'] = $data['commodities']->toArray();
-
-        $data['vessels'] = Vessel::select(["id", "vessel_name as text"])->get();
-        $data['vessels'] = $data['vessels']->toArray();
-
-        $data['voyages'] = Voyage::select(["id", "voy as text"])->take(0)->get();
-        $data['voyages'] = $data['voyages']->toArray();
-
         $data['currencies'] = Currency::select(["id", "code as text"])->orderBy('id', 'desc')->get();
         $data['currencies'] = $data['currencies']->toArray();
 
         $data['sizes'] = Equipment::select(["id", "code as text"])->get();
         $data['sizes'] = $data['sizes']->toArray();
 
-        $data['incoterms'] = Incoterm::select(["id", "name as text"])->get();
-        $data['incoterms'] = $data['incoterms']->toArray();
-
-        $data['packages'] = Packages::select(["id", "pack_code as text"])->get();
-        $data['packages'] = $data['packages']->toArray();
-
-        $data['employees'] = Employee::where('rep', 'like', '%Sales-Rep%')->select(["id", "emp_name as text"])->get();
-        $data['employees'] = $data['employees']->toArray();
-
         $data['parties'] = PartyBasicInfo::whereIn('party_type', ['customer', 'customer-vendor'])->select(["id", "party_name as text"])->get();
         $data['parties'] = $data['parties']->toArray();
-
-        $data['vendors'] = PartyBasicInfo::where('Type', 'like', '%Local-Vendor%')->select(["id", "party_name as text"])->get();
-        $data['vendors'] = $data['vendors']->toArray();
-
-        $data['overseas'] = PartyBasicInfo::where('Type', 'like', '%Overseas-Agent%')->select(["id", "party_name as text"])->get();
-        $data['overseas'] = $data['overseas']->toArray();
-
-        $data['principals'] = PartyBasicInfo::where('Type', 'like', '%Principal%')->select(["id", "party_name as text"])->get();
-        $data['principals'] = $data['principals']->toArray();
-
-        $data['shipping_lines'] = PartyBasicInfo::where('Type', 'like', '%Shipping-Line%')->select(["id", "party_name as text"])->get();
-        $data['shipping_lines'] = $data['shipping_lines']->toArray();
-
-        $data['shippers'] = PartyBasicInfo::where('Type', 'like', '%Shipper%')->select(["id", "party_name as text"])->get();
-        $data['shippers'] = $data['shippers']->toArray();
-
-        $data['consignees'] = PartyBasicInfo::where('Type', 'like', '%Consignee%')->select(["id", "party_name as text"])->get();
-        $data['consignees'] = $data['consignees']->toArray();
-
-        $data['terminals'] = PartyLocation::where('Type', 'like', '%Terminel%')->select(["id", "location_name as text"])->get();
-        $data['terminals'] = $data['terminals']->toArray();
 
         $data['charges'] = Charges::select(["id", "name as text"])->get();
         $data['charges'] = $data['charges']->toArray();
@@ -390,29 +477,60 @@ class QuotationController extends Controller
         $type = $request->type;
         $data = null;
 
-        $arr = ["quotation" => null, "quotation_routing" => null, "quotation_detail" => null, "quotation_equipment" => null, "jobs" => null];
+        $arr = [
+            "quotation" => null,
+            "quotation_routing" => null,
+            "quotation_detail" => null,
+            "quotation_equipment" => null,
+            "jobs" => null
+        ];
 
         if ($type == "first") {
-            $arr["quotation"] = Quotation::with('created_by', 'last_updated_by', 'approved_by')->orderBy('id', 'asc')->first();
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->with('terminals', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')->first();
+            $arr["quotation"] = Quotation::with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+                ->orderBy('id', 'asc')
+                ->first();
+
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+                ->first();
+
             $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
             $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
             $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
-        } else if ($type == "last") {
-            $arr["quotation"] = Quotation::with('created_by', 'last_updated_by', 'approved_by')->orderBy('id', 'desc')->first();
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->with('terminals', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')->first();
+        } elseif ($type == "last") {
+            $arr["quotation"] = Quotation::with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+                ->first();
+
             $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
             $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
             $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
-        } else if ($type == "forward") {
-            $arr["quotation"] = Quotation::where('id', '>', $id)->with('created_by', 'last_updated_by', 'approved_by')->first();
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->with('terminals', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')->first();
+        } elseif ($type == "forward") {
+            $arr["quotation"] = Quotation::where('id', '>', $id)
+                ->with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+                ->first();
+
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+                ->first();
+
             $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
             $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
             $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
-        } else if ($type == "backward") {
-            $arr["quotation"] = Quotation::where('id', '<', $id)->with('created_by', 'last_updated_by', 'approved_by')->orderBy('id', 'desc')->first();
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)->with('terminals', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')->first();
+        } elseif ($type == "backward") {
+            $arr["quotation"] = Quotation::where('id', '<', $id)
+                ->with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+                ->orderBy('id', 'desc')
+                ->first();
+
+            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+                ->first();
+
             $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
             $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
             $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();

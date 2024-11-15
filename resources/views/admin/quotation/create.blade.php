@@ -162,12 +162,8 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label"><a href="">Sale Rep:</a></label>
-                                <select name="sale_rep" class="sale_rep">
-                                    <option selected disabled></option>
-                                    {{-- @foreach ($employees as $employee)
-                                        <option value="{{ $employee->id }}">{{ $employee->emp_name }}</option> 
-                                    @endforeach --}}
-                                </select>
+                                <select name="sale_rep" class="sale_rep search_select2"
+                                    data-url="/admin/quotation/create" data-type="get_sale_rep"></select>
                             </div>
                         </div>
 
@@ -193,10 +189,8 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Client: <span class="text-danger">*</span></label>
-                                <select name="client" class="client" data-url="/admin/quotation/create"
-                                    data-type="get_client">
-                                    <option></option>
-                                </select>
+                                <select name="client" class="client search_select2" data-url="/admin/quotation/create"
+                                    data-type="get_client" data-placeholder="Select Client"></select>
                             </div>
                         </div>
 
@@ -226,12 +220,8 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Unit:</label>
-                                <select name="unit" class="unit">
-                                    <option selected disabled></option>
-                                    {{-- @foreach ($packages as $pkgs)
-                                        <option value="{{ $pkgs->id }}">{{ $pkgs->pack_code }}</option> 
-                                    @endforeach --}}
-                                </select>
+                                <select name="unit" class="unit search_select2" data-url="/admin/quotation/create"
+                                    data-type="get_units"></select>
                             </div>
                         </div>
 
@@ -259,24 +249,16 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label"><a href="">Commodity:</a></label>
-                                <select name="commodity" class="commodity">
-                                    <option selected disabled></option>
-                                    {{-- @foreach ($commodities as $commodity)
-                                        <option value="{{ $commodity->id }}">{{ $commodity->name }}</option> 
-                                    @endforeach --}}
-                                </select>
+                                <select name="commodity" class="commodity search_select2"
+                                    data-url="/admin/quotation/create" data-type="get_commodity"></select>
                             </div>
                         </div>
 
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Inco Term:</label>
-                                <select name="inco_term" class="inco_term">
-                                    <option selected disabled></option>
-                                    {{-- @foreach ($incoterms as $incoterm)
-                                        <option value="{{ $incoterm->id }}">{{ $incoterm->name }}</option> 
-                                    @endforeach --}}
-                                </select>
+                                <select name="inco_term" class="inco_term search_select2"
+                                    data-url="/admin/quotation/create" data-type="get_inco_term"></select>
                             </div>
                         </div>
 
@@ -315,33 +297,24 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label"><a href="">Vessel:</a></label>
-                                <select name="vessel" class="vessel">
-                                    <option selected disabled></option>
-                                    {{-- @foreach ($vessels as $vessel)
-                                        <option value="{{ $vessel->id }}">{{ $vessel->vessel_name }}</option> 
-                                    @endforeach --}}
-                                </select>
+                                <select name="vessel" class="vessel search_select2" data-url="/admin/quotation/create"
+                                    data-type="get_vessel"></select>
                             </div>
                         </div>
 
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Voyage/Flight No:</label>
-                                <select name="voyage" class="voyage">
-                                    <option selected disabled></option>
-                                    {{-- @foreach ($voyages as $voyage)
-                                        <option value="{{ $voyage->id }}">{{ $voyage->voy }}</option> 
-                                    @endforeach --}}
-                                </select>
+                                <select name="voyage" class="voyage search_select2" data-url="/admin/quotation/create"
+                                    data-type="get_voyage"></select>
                             </div>
                         </div>
 
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Currency:</label>
-                                <select name="currency" class="currency">
-
-                                </select>
+                                <select name="currency" class="currency search_select2"
+                                    data-url="/admin/quotation/create" data-type="get_currency"></select>
                             </div>
                         </div>
                         <div class="col-md-3 col-12">
@@ -608,45 +581,29 @@
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Vendor:</label>
-                                        <select name="vendor" class="vendor">
-                                            <option selected disabled>Select</option>
-                                            {{-- @foreach ($vendors as $party)
-                                                <option value="{{ $party->id }}">{{ $party->party_name }}</option> 
-                                            @endforeach --}}
-                                        </select>
+                                        <select name="vendor" class="vendor search_select2"
+                                            data-url="/admin/quotation/create" data-type="get_vendor"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Overseas Agent:</label>
-                                        <select name="overseas" class="overseas">
-                                            <option selected disabled>Select</option>
-                                            {{-- @foreach ($overseas as $party)
-                                                <option value="{{ $party->id }}">{{ $party->party_name }}</option> 
-                                            @endforeach --}}
-                                        </select>
+                                        <select name="overseas" class="overseas search_select2"
+                                            data-url="/admin/quotation/create" data-type="get_overseas"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Sline Carrier:</label>
-                                        <select name="sline_carrier" class="sline_carrier">
-                                            <option selected disabled>Select</option>
-                                            {{-- @foreach ($shipping_lines as $party)
-                                                <option value="{{ $party->id }}">{{ $party->party_name }}</option> 
-                                            @endforeach --}}
-                                        </select>
+                                        <select name="sline_carrier" class="sline_carrier search_select2"
+                                            data-url="/admin/quotation/create" data-type="get_sline_carrier"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Principal:</label>
-                                        <select name="principal" class="principal">
-                                            <option selected disabled>Select</option>
-                                            {{-- @foreach ($principals as $party)
-                                                <option value="{{ $party->id }}">{{ $party->party_name }}</option> 
-                                            @endforeach --}}
-                                        </select>
+                                        <select name="principal" class="principal search_select2"
+                                            data-url="/admin/quotation/create" data-type="get_principal"></select>
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-12">
@@ -658,8 +615,8 @@
                                 <div class="col-md-4 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label" style="width:30%;">Terminals:</label>
-                                        <select name="terminals" class="terminals" data-url="/admin/quotation/create"
-                                            data-type="get_terminal_location"></select>
+                                        <select name="terminals" class="terminals search_select2"
+                                            data-url="/admin/quotation/create" data-type="get_terminal_location"></select>
                                     </div>
                                 </div>
                             </div>
@@ -672,23 +629,15 @@
                                         <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Shipper:</label>
-                                                <select name="shipper" class="shipper">
-                                                    <option selected disabled>Select</option>
-                                                    {{-- @foreach ($shippers as $party)
-                                                        <option value="{{ $party->id }}">{{ $party->party_name }}</option> 
-                                                    @endforeach --}}
-                                                </select>
+                                                <select name="shipper" class="shipper search_select2"
+                                                    data-url="/admin/quotation/create" data-type="get_shipper"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Consignee:</label>
-                                                <select name="consignee" class="consignee">
-                                                    <option selected disabled>Select</option>
-                                                    {{-- @foreach ($consignees as $party)
-                                                        <option value="{{ $party->id }}">{{ $party->party_name }}</option> 
-                                                    @endforeach --}}
-                                                </select>
+                                                <select name="consignee" class="consignee search_select2"
+                                                    data-url="/admin/quotation/create" data-type="get_consignee"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">
@@ -701,7 +650,7 @@
                                         <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Custom Clearance:</label>
-                                                <select name="custom_clearance" class="custom_clearance"
+                                                <select name="custom_clearance" class="custom_clearance search_select2"
                                                     data-type="get_custom_clearance"
                                                     data-url="/admin/quotation/create"></select>
                                             </div>
@@ -720,7 +669,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Place of Receipt:</label>
-                                                <select name="place_of_receipt" class="place_of_receipt"
+                                                <select name="place_of_receipt" class="place_of_receipt search_select2"
                                                     data-type="get_location" data-url="/admin/quotation/create"></select>
                                             </div>
                                         </div>
@@ -728,7 +677,7 @@
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Port of Loading: <span
                                                         class="text-danger">*</span></label>
-                                                <select name="port_of_loading" class="port_of_loading"
+                                                <select name="port_of_loading" class="port_of_loading search_select2"
                                                     data-type="get_location" data-url="/admin/quotation/create"></select>
                                             </div>
                                         </div>
@@ -736,14 +685,14 @@
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Port of Discharge: <span
                                                         class="text-danger">*</span></label>
-                                                <select name="port_of_discharge" class="port_of_discharge"
+                                                <select name="port_of_discharge" class="port_of_discharge search_select2"
                                                     data-type="get_location" data-url="/admin/quotation/create"></select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Final Destination:</label>
-                                                <select name="final_destination" class="final_destination"
+                                                <select name="final_destination" class="final_destination search_select2"
                                                     data-type="get_location" data-url="/admin/quotation/create"></select>
                                             </div>
                                         </div>
@@ -914,34 +863,6 @@
     <script>
         $(document).ready(function() {
 
-            $(".sale_rep").select2({
-                data: @json($employees)
-            });
-
-            $(".unit").select2({
-                data: @json($packages)
-            });
-
-            $(".commodity").select2({
-                data: @json($commodities)
-            });
-
-            $(".inco_term").select2({
-                data: @json($incoterms)
-            });
-
-            $(".vessel").select2({
-                data: @json($vessels)
-            });
-
-            $(".voyage").select2({
-                data: @json($voyages)
-            });
-
-            $(".currency").select2({
-                data: @json($currencies)
-            });
-
             $(".detail_currency").select2({
                 data: @json($currencies)
             });
@@ -949,27 +870,9 @@
             $(".size_type").select2({
                 data: @json($sizes)
             });
+
             $(".equip_size_type").select2({
                 data: @json($sizes)
-            });
-
-            $(".vendor").select2({
-                data: @json($vendors)
-            });
-            $(".overseas").select2({
-                data: @json($overseas)
-            });
-            $(".principal").select2({
-                data: @json($principals)
-            });
-            $(".sline_carrier").select2({
-                data: @json($shipping_lines)
-            });
-            $(".shipper").select2({
-                data: @json($shippers)
-            });
-            $(".consignee").select2({
-                data: @json($consignees)
             });
 
             $(".charges").select2({
@@ -990,29 +893,85 @@
                 $("input[name='mode'][value='" + data.quotation.mode + "']").prop('checked', true);
                 $(".operation_type").val(data.quotation.operation_type);
                 $(".cost_center").val(data.quotation.cost_center);
-                $(".sale_rep").val(data.quotation.sale_rep).trigger('change');
                 $(".book_rep").val(data.quotation.book_rep);
                 $(".customer_type").val(data.quotation.customer_type);
-                $(".client").val(data.quotation.client).trigger('change');
                 $(".stage").val(data.quotation.stage);
                 $(".pkgs").val(data.quotation.pkgs);
-                $(".unit").val(data.quotation.unit).trigger('change');
                 $(".attn_person").val(data.quotation.attn_person);
                 $(".from_person").val(data.quotation.from_person);
                 $(".vol_cbm").val(data.quotation.vol_cbm);
-                $(".commodity").val(data.quotation.commodity).trigger('change');
-                $(".inco_term").val(data.quotation.inco_term).trigger('change');
                 $(".subject").val(data.quotation.subject);
                 $(".job_type").val(data.quotation.job_type);
                 $(".sub_type").val(data.quotation.sub_type);
-                $(".vessel").val(data.quotation.vessel).trigger('change');
-                $(".voyage").val(data.quotation.voyage).trigger('change');
-                $(".currency").val(data.quotation.currency).trigger('change');
                 $(".ex_rate").val(data.quotation.ex_rate);
                 $(".approval_status").val(data.quotation.approval_status);
                 $(".total_receivable").val(data.quotation.total_receivable);
                 $(".total_payable").val(data.quotation.total_payable);
                 $(".total_profit").val(data.quotation.total_profit);
+
+                if (data.quotation.clients) {
+                    var option = new Option(data.quotation.clients.party_name, data.quotation.clients
+                        .id, true, true);
+                    $(".client").append(option).trigger('change');
+                } else {
+                    $(".client").val(null).trigger('change');
+                }
+
+                if (data.quotation.sales_rep) {
+                    var option = new Option(data.quotation.sales_rep.emp_name, data.quotation.sales_rep
+                        .id, true, true);
+                    $(".sale_rep").append(option).trigger('change');
+                } else {
+                    $(".sale_rep").val(null).trigger('change');
+                }
+
+                if (data.quotation.units) {
+                    var option = new Option(data.quotation.units.pack_code, data.quotation.units
+                        .id, true, true);
+                    $(".unit").append(option).trigger('change');
+                } else {
+                    $(".unit").val(null).trigger('change');
+                }
+
+                if (data.quotation.commodities) {
+                    var option = new Option(data.quotation.commodities.name, data.quotation.commodities
+                        .id, true, true);
+                    $(".commodity").append(option).trigger('change');
+                } else {
+                    $(".commodity").val(null).trigger('change');
+                }
+
+                if (data.quotation.incoterms) {
+                    var option = new Option(data.quotation.incoterms.name, data.quotation.incoterms
+                        .id, true, true);
+                    $(".inco_term").append(option).trigger('change');
+                } else {
+                    $(".inco_term").val(null).trigger('change');
+                }
+
+                if (data.quotation.vessels) {
+                    var option = new Option(data.quotation.vessels.vessel_name, data.quotation.vessels
+                        .id, true, true);
+                    $(".vessel").append(option).trigger('change');
+                } else {
+                    $(".vessel").val(null).trigger('change');
+                }
+
+                if (data.quotation.voyages) {
+                    var option = new Option(data.quotation.voyages.voy, data.quotation.voyages
+                        .id, true, true);
+                    $(".voyage").append(option).trigger('change');
+                } else {
+                    $(".voyage").val(null).trigger('change');
+                }
+
+                if (data.quotation.currencies) {
+                    var option = new Option(data.quotation.currencies.code, data.quotation.currencies
+                        .id, true, true);
+                    $(".currency").append(option).trigger('change');
+                } else {
+                    $(".currency").val(null).trigger('change');
+                }
 
                 if (data.quotation.created_by) {
                     $("#created_by").text(data.quotation.created_by.username);
@@ -1146,16 +1105,63 @@
                 $(".service_type").val(data.quotation_routing.service_type);
                 $(".transit_time").val(data.quotation_routing.transit_time);
                 $(".free_days").val(data.quotation_routing.free_days);
-                $(".vendor").val(data.quotation_routing.vendor).trigger('change');
-                $(".overseas").val(data.quotation_routing.overseas).trigger('change');
-                $(".sline_carrier").val(data.quotation_routing.sline_carrier).trigger('change');
-                $(".principal").val(data.quotation_routing.principal).trigger('change');
                 $(".other_instruct").val(data.quotation_routing.other_instruct);
                 $(".terminals").val(data.quotation_routing.terminals).trigger('change');
-                $(".shipper").val(data.quotation_routing.shipper).trigger('change');
-                $(".consignee").val(data.quotation_routing.consignee).trigger('change');
                 $(".pickup_location").val(data.quotation_routing.pickup_location);
                 $(".auto_address").val(data.quotation_routing.auto_address);
+
+                if (data.quotation_routing.vendors) {
+                    var option = new Option(data.quotation_routing.vendors.party_name, data.quotation_routing.vendors
+                        .id, true, true);
+                    $(".vendor").append(option).trigger('change');
+                } else {
+                    $(".vendor").val(null).trigger('change');
+                }
+
+                if (data.quotation_routing.overseas_agent) {
+                    var option = new Option(data.quotation_routing.overseas_agent.party_name, data.quotation_routing
+                        .overseas_agent
+                        .id, true, true);
+                    $(".overseas").append(option).trigger('change');
+                } else {
+                    $(".overseas").val(null).trigger('change');
+                }
+
+                if (data.quotation_routing.sline_carriers) {
+                    var option = new Option(data.quotation_routing.sline_carriers.party_name, data.quotation_routing
+                        .sline_carriers
+                        .id, true, true);
+                    $(".sline_carrier").append(option).trigger('change');
+                } else {
+                    $(".sline_carrier").val(null).trigger('change');
+                }
+
+                if (data.quotation_routing.principals) {
+                    var option = new Option(data.quotation_routing.principals.party_name, data.quotation_routing
+                        .principals
+                        .id, true, true);
+                    $(".principal").append(option).trigger('change');
+                } else {
+                    $(".principal").val(null).trigger('change');
+                }
+
+                if (data.quotation_routing.shippers) {
+                    var option = new Option(data.quotation_routing.shippers.party_name, data.quotation_routing
+                        .shippers
+                        .id, true, true);
+                    $(".shipper").append(option).trigger('change');
+                } else {
+                    $(".shipper").val(null).trigger('change');
+                }
+
+                if (data.quotation_routing.consignees) {
+                    var option = new Option(data.quotation_routing.consignees.party_name, data.quotation_routing
+                        .consignees
+                        .id, true, true);
+                    $(".consignee").append(option).trigger('change');
+                } else {
+                    $(".consignee").val(null).trigger('change');
+                }
 
                 if (data.quotation_routing.terminals) {
                     var option = new Option(data.quotation_routing.terminals.location_name, data.quotation_routing.terminals
