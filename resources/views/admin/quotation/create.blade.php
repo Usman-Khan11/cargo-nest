@@ -1106,7 +1106,6 @@
                 $(".transit_time").val(data.quotation_routing.transit_time);
                 $(".free_days").val(data.quotation_routing.free_days);
                 $(".other_instruct").val(data.quotation_routing.other_instruct);
-                $(".terminals").val(data.quotation_routing.terminals).trigger('change');
                 $(".pickup_location").val(data.quotation_routing.pickup_location);
                 $(".auto_address").val(data.quotation_routing.auto_address);
 
