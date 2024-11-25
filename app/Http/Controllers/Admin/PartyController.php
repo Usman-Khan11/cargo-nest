@@ -123,7 +123,7 @@ class PartyController extends Controller
         $partybasicinfo->scac_iata_code = $request->scac_iata_code;
         $partybasicinfo->restriction = ($request->restriction);
         $partybasicinfo->save();
-        
+
         $this->other_info_store($request, $partybasicinfo->id);
         $this->account_detail_store($request, $partybasicinfo->id);
         $this->ach_bank_detail_store($request, $partybasicinfo->id);
@@ -139,7 +139,7 @@ class PartyController extends Controller
     public function other_info_store($request, $id)
     {
         PartyOtherInfo::where('party_basic_id', $id)->delete();
-        
+
         $partyotherinfo = new PartyOtherInfo();
         $partyotherinfo->party_basic_id = $id;
         $partyotherinfo->ownership = $request->ownership;
@@ -162,7 +162,7 @@ class PartyController extends Controller
     public function account_detail_store($request, $id)
     {
         PartyAccountDetail::where('party_basic_id', $id)->delete();
-        
+
         $partyaccountdetail = new PartyAccountDetail();
         $partyaccountdetail->party_basic_id = $id;
         $partyaccountdetail->manual_account = $request->manual_account;
@@ -182,7 +182,7 @@ class PartyController extends Controller
     public function ach_bank_detail_store($request, $id)
     {
         PartyAchBankDetail::where('party_basic_id', $id)->delete();
-        
+
         $partyachbankdetail = new PartyAchBankDetail();
         $partyachbankdetail->party_basic_id = $id;
         $partyachbankdetail->ach_authority = $request->ach_authority;
@@ -205,7 +205,7 @@ class PartyController extends Controller
     public function localize_kyc_store($request, $id)
     {
         PartyLocalizeKyc::where('party_basic_id', $id)->delete();
-        
+
         $partylocalizekyc = new PartyLocalizeKyc();
         $partylocalizekyc->party_basic_id = $id;
         $partylocalizekyc->name = $request->kyc_name;
@@ -222,7 +222,7 @@ class PartyController extends Controller
     {
         $notification = $request->notification;
         PartyNotification::where('party_basic_id', $id)->delete();
-        
+
         foreach ($notification as $key => $value) {
             $party_notification = new PartyNotification();
             $party_notification->party_basic_id = $id;
@@ -238,7 +238,7 @@ class PartyController extends Controller
     {
         $insurace_company = (!empty($request->insurace_company)) ? $request->insurace_company : [];
         PartyInsurance::where('party_basic_id', $id)->delete();
-        
+
         foreach ($insurace_company as $key => $value) {
             $party_insurance = new PartyInsurance();
             $party_insurance->party_basic_id = $id;
@@ -255,7 +255,7 @@ class PartyController extends Controller
     {
         $company = $request->company;
         partyCenter::where('party_basic_id', $id)->delete();
-        
+
         foreach ($company as $key => $value) {
             $party_center = new partyCenter();
             $party_center->party_basic_id = $id;
@@ -307,7 +307,7 @@ class PartyController extends Controller
         $partybasicinfo->scac_iata_code = $request->scac_iata_code;
         $partybasicinfo->restriction = ($request->restriction);
         $partybasicinfo->save();
-        
+
         $this->other_info_store($request, $partybasicinfo->id);
         $this->account_detail_store($request, $partybasicinfo->id);
         $this->ach_bank_detail_store($request, $partybasicinfo->id);
@@ -339,5 +339,61 @@ class PartyController extends Controller
         }
 
         return $data;
+    }
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_client') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', "%$search_term%")
+                ->whereIn('party_type', ['customer', 'customer-vendor'])
+                ->select(["id", "party_name as text"])->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_overseas') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                ->where('Type', 'Like', '%Overseas-Agent%')
+                ->select(["id", "party_name as text"])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_shipper') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                ->where('Type', 'Like', '%Shipper%')
+                ->select(["id", "party_name as text"])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_clearing_agent') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                ->where('Type', 'Like', '%CHA-CHB%')
+                ->select(["id", "party_name as text"])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_transporter') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                ->where('Type', 'Like', '%Transporter%')
+                ->select(["id", "party_name as text"])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_sline_carrier') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                ->where('Type', 'Like', '%Shipping-Line%')
+                ->select(["id", "party_name as text"])
+                ->get();
+            return $data;
+        }
     }
 }

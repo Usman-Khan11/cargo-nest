@@ -19,45 +19,19 @@ use App\Models\AdminNotification;
 use Image;
 use Validator;
 use Session;
-use DataTables;
 use File;
+use Yajra\DataTables\Facades\DataTables;
 
 class BlController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $data['seo_title']      = "B/L";
-    //     $data['seo_desc']       = "B/L";
-    //     $data['seo_keywords']   = "B/L";
-    //     $data['page_title'] = "B/L";
-
-    //     if ($request->ajax()) {
-    //         $totalCount=0;
-    //         $recordsFiltered=0;
-    //         $pageSize = (int)($request->length) ? $request->length : 10;
-    //         $start=(int)($request->start) ? $request->start : 0;
-    //         $query=Bl::Query();
-    //         $totalCount=$query->count(); 
-            
-    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-    //         return Datatables::of($query)
-    //             ->setOffset($start)->addIndexColumn()
-    //             ->with(['recordsTotal'=>$totalCount])
-    //             ->make(true);
-    //     }
-    //     return view('admin.bl.index', $data);
-    // }
-    
-    
     public function create(Request $request)
     {
         if ($request->ajax()) {
             $query = Bl::Query();
-            $query = $query->orderby('id','asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            $query = $query->orderby('id', 'asc')->get();
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
-        
+
         $data['seo_title']      = "B/L";
         $data['seo_desc']       = "B/L";
         $data['seo_keywords']   = "B/L";
@@ -67,7 +41,7 @@ class BlController extends Controller
         $data['voyages'] = Voyage::get();
         return view('admin.bl.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit B/L";
@@ -77,7 +51,7 @@ class BlController extends Controller
         $data['bl'] = Bl::where("id", $id)->first();
         return view('admin.bl.edit', $data);
     }
-    
+
     public function delete($id)
     {
         $developer = Bl::where("id", $id);
@@ -85,13 +59,13 @@ class BlController extends Controller
         $notify[] = ['success', 'BL Deleted Successfully.'];
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
             'job_no' => ['required', 'unique:bl'],
         ]);
-        
+
         $bl = new Bl();
         $bl->job_no = $request->job_no;
         $bl->status = $request->status;
@@ -100,7 +74,7 @@ class BlController extends Controller
         $bl->mbl = $request->mbl;
         $bl->mbl_date = $request->mbl_date;
         $bl->source_date = $request->source_date;
-        $bl->hbl_issue = isset($request->hbl_issue) ? $request->hbl_issue : '';
+        $bl->hbl_issue = isset($request->hbl_issue) ? $request->hbl_issue : 0;
         $bl->shipper = $request->shipper;
         $bl->consignee = $request->consignee;
         $bl->notify1 = $request->notify1;
@@ -118,103 +92,209 @@ class BlController extends Controller
         $bl->shipping_line_carrier = $request->shipping_line_carrier;
         $bl->total_container = $request->total_container;
         $bl->delivery = $request->delivery;
-        $bl->save();
-        
-        $c_container_no = $request->c_container_no;
-        foreach($c_container_no as $key => $value) {
-            $bl_container = new BlContainer();
-            $bl_container->bl_id = $bl->id;
-            $bl_container->c_container_no = $request->c_container_no[$key];
-            $bl_container->c_seal = $request->c_seal[$key];
-            $bl_container->c_size_type = $request->c_size_type[$key];
-            $bl_container->c_rate_group = $request->c_rate_group[$key];
-            $bl_container->c_gross_wt = $request->c_gross_wt[$key];
-            $bl_container->c_net_wt = $request->c_net_wt[$key];
-            $bl_container->c_cbm = $request->c_cbm[$key];
-            $bl_container->c_packages = $request->c_packages[$key];
-            $bl_container->c_unit = $request->c_unit[$key];
-            $bl_container->c_temperature = $request->c_temperature[$key];
-            $bl_container->c_load_type = $request->c_load_type[$key];
-            $bl_container->c_remarks = $request->c_remarks[$key];
-            $bl_container->c_principal_code = $request->c_principal_code[$key];
-            $bl_container->c_principal_name = $request->c_principal_name[$key];
-            $bl_container->c_free_days_detention = $request->c_free_days_detention[$key];
-            $bl_container->c_free_days_plugin = $request->c_free_days_plugin[$key];
-            $bl_container->save();
-        }    
-        
-        
-        $this->bl_detail_store($request,$bl->id);
-        $this->bl_stamps_store($request,$bl->id);
-      
+
+        if ($bl->save()) {
+            $this->bl_ref_info($request, $bl->id);
+            $this->bl_detail_store($request, $bl->id);
+            $this->bl_stamps_store($request, $bl->id);
+            $this->bl_container_info($request, $bl->id);
+        }
+
         $notify[] = ['success', 'BL Added Successfully.'];
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
-    
-    public function bl_detail_store($request,$id)
+
+    public function bl_container_info($request, $id)
     {
-        $bl_detail = new BlDetail();
+        $c_container_no = $request->c_container_no;
+        if ($c_container_no) {
+            BlContainer::where('bl_id', $id)->delete();
+            foreach ($c_container_no as $key => $value) {
+                $bl_container = new BlContainer();
+                $bl_container->bl_id = $id;
+                $bl_container->c_container_no = $request->c_container_no[$key];
+                $bl_container->c_seal = $request->c_seal[$key];
+                $bl_container->c_size_type = $request->c_size_type[$key];
+                $bl_container->c_rate_group = $request->c_rate_group[$key];
+                $bl_container->c_gross_wt = $request->c_gross_wt[$key];
+                $bl_container->c_net_wt = $request->c_net_wt[$key];
+                $bl_container->c_cbm = $request->c_cbm[$key];
+                $bl_container->c_packages = $request->c_packages[$key];
+                $bl_container->c_unit = $request->c_unit[$key];
+                $bl_container->c_temperature = $request->c_temperature[$key];
+                $bl_container->c_load_type = $request->c_load_type[$key];
+                $bl_container->c_remarks = $request->c_remarks[$key];
+                $bl_container->c_principal_code = $request->c_principal_code[$key];
+                $bl_container->c_principal_name = $request->c_principal_name[$key];
+                $bl_container->c_free_days_detention = $request->c_free_days_detention[$key];
+                $bl_container->c_free_days_plugin = $request->c_free_days_plugin[$key];
+                $bl_container->save();
+            }
+        }
+    }
+
+    public function bl_detail_store($request, $id)
+    {
+        $bl_detail = BlDetail::where('bl_id', $id)->first();
+
+        if (empty($bl_detail)) {
+            $bl_detail = new BlDetail();
+        }
+
         $bl_detail->bl_id = $id;
         $bl_detail->fill($request->all());
         $bl_detail->save();
     }
-    
-    public function bl_stamps_store($request,$id)
+
+    public function bl_ref_info($request, $bl_id)
     {
-        $bl_stamp = new BlStamp();
-        $bl_stamp->bl_id = $id;
-        $bl_stamp->fill($request->all());
+        $bl_stamp = BlStamp::where('bl_id', $bl_id)->first();
+
+        if (empty($bl_stamp)) {
+            $bl_stamp = new BlStamp();
+        }
+
+        $bl_stamp->bl_id = $bl_id;
+        $bl_stamp->r_invoice_number = $request->r_invoice_number;
+        $bl_stamp->r_inv_date = $request->r_inv_date;
+        $bl_stamp->r_export_number = $request->r_export_number;
+        $bl_stamp->r_exp_date = $request->r_exp_date;
+        $bl_stamp->r_contact_number = $request->r_contact_number;
+        $bl_stamp->r_contact_date = $request->r_contact_date;
+        $bl_stamp->r_lc_number = $request->r_lc_number;
+        $bl_stamp->r_lc_date = $request->r_lc_date;
+        $bl_stamp->r_client_ref_number = $request->r_client_ref_number;
+        $bl_stamp->r_shipper_ref_number = $request->r_shipper_ref_number;
+        $bl_stamp->r_s_bill = $request->r_s_bill;
+        $bl_stamp->r_date = $request->r_date;
         $bl_stamp->save();
-        
-        $r_code = $request->r_code;
-        foreach($r_code as $key => $value) {
-            $bl_ref = new BlRef();
-            $bl_ref->bl_id = $id;
-            $bl_ref->r_code = $request->r_code[$key];
-            $bl_ref->r_stamp = $request->r_stamp[$key];
-            $bl_ref->r_stamp_group = $request->r_stamp_group[$key];
-            $bl_ref->r_stamp_date = $request->r_stamp_date[$key];
-            $bl_ref->r_remarks = $request->r_remarks[$key];
-            $bl_ref->save();
-        }    
-        
     }
-    
+
+    public function bl_stamps_store($request, $id)
+    {
+        $r_code = $request->r_code;
+        if ($r_code) {
+            BlRef::where('bl_id', $id)->delete();
+            foreach ($r_code as $key => $value) {
+                $bl_ref = new BlRef();
+                $bl_ref->bl_id = $id;
+                $bl_ref->r_code = $request->r_code[$key];
+                $bl_ref->r_stamp = $request->r_stamp[$key];
+                $bl_ref->r_stamp_group = $request->r_stamp_group[$key];
+                $bl_ref->r_stamp_date = $request->r_stamp_date[$key];
+                $bl_ref->r_remarks = $request->r_remarks[$key];
+                $bl_ref->save();
+            }
+        }
+    }
+
     public function update(Request $request)
     {
         $validated = $request->validate([
             'job_no' => 'required',
         ]);
-        
+
         $bl = Bl::where("id", $request->id)->first();
-        $bl->fill($request->all());
-        $bl->update();
-        
+        $bl->job_no = $request->job_no;
+        $bl->status = $request->status;
+        $bl->hbl = $request->hbl;
+        $bl->hbl_date = $request->hbl_date;
+        $bl->mbl = $request->mbl;
+        $bl->mbl_date = $request->mbl_date;
+        $bl->source_date = $request->source_date;
+        $bl->hbl_issue = isset($request->hbl_issue) ? $request->hbl_issue : 0;
+        $bl->shipper = $request->shipper;
+        $bl->consignee = $request->consignee;
+        $bl->notify1 = $request->notify1;
+        $bl->notify2 = $request->notify2;
+        $bl->vessel = $request->vessel;
+        $bl->sailing_date = $request->sailing_date;
+        $bl->voyage = $request->voyage;
+        $bl->pol = $request->pol;
+        $bl->pofd = $request->pofd;
+        $bl->pot = $request->pot;
+        $bl->final_destination = $request->final_destination;
+        $bl->commodity = $request->commodity;
+        $bl->reference_number = $request->reference_number;
+        $bl->overseas_agent = $request->overseas_agent;
+        $bl->shipping_line_carrier = $request->shipping_line_carrier;
+        $bl->total_container = $request->total_container;
+        $bl->delivery = $request->delivery;
+
+        if ($bl->save()) {
+            $this->bl_ref_info($request, $bl->id);
+            $this->bl_detail_store($request, $bl->id);
+            $this->bl_stamps_store($request, $bl->id);
+            $this->bl_container_info($request, $bl->id);
+        }
+
         $notify[] = ['success', 'BL Updated Successfully.'];
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
-    
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
-        $data = null;
-        
-        if($type == "first") {
-            $data = Bl::orderBy('id', 'asc')->first();
+        $arr = [
+            "bl" => [],
+            "container_info" => [],
+            "bl_details" => [],
+            "bl_ref_info" => [],
+            "bl_stamps" => []
+        ];
+
+        $data = Bl::Query();
+
+        if ($type == "first") {
+            $data = $data->orderBy('id', 'asc');
+        } else if ($type == "last") {
+            $data = $data->orderBy('id', 'desc');
+        } else if ($type == "forward") {
+            $data = $data->where('id', '>', $id);
+        } else if ($type == "backward") {
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
         }
-        else if($type == "last") {
-            $data = Bl::orderBy('id', 'desc')->first();
-        }
-        else if($type == "forward") {
-            $data = Bl::where('id', '>', $id)->first();
-        }
-        else if($type == "backward") {
-            $data = Bl::where('id', '<', $id)->orderBy('id', 'desc')->first();
-        }
-        
-        return $data;
+
+        $arr["bl"] = $data->with(
+            'job',
+            'shippers',
+            'consignees',
+            'notify_party_1',
+            'notify_party_2',
+            'vessels',
+            'voyages',
+            'port_of_loading',
+            'port_of_final_dest',
+            'port_of_terminal',
+            'final_destination',
+            'commodities',
+            'overseas_agents',
+            'sline_carriers'
+        )->first();
+
+        $bl_id = @$arr["bl"]->id;
+
+        // BL Container Info
+        $data = BlContainer::Query();
+        $data = $data->where("bl_id", $bl_id);
+        $arr["container_info"] = $data->get();
+
+        // BL Details
+        $data = BlDetail::Query();
+        $data = $data->where("bl_id", $bl_id);
+        $arr["bl_details"] = $data->first();
+
+        // BL Ref Info
+        $data = BlStamp::Query();
+        $data = $data->where("bl_id", $bl_id);
+        $arr["bl_ref_info"] = $data->first();
+
+        // BL Stamp Info
+        $data = BlRef::Query();
+        $data = $data->where("bl_id", $bl_id);
+        $arr["bl_stamps"] = $data->get();
+
+        return $arr;
     }
-   
-    
 }

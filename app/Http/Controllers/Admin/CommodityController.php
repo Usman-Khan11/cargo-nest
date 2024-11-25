@@ -31,9 +31,9 @@ class CommodityController extends Controller
     //         $start=(int)($request->start) ? $request->start : 0;
     //         $query=Commodity::Query();
     //         $totalCount=$query->count(); 
-            
+
     //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
+
     //         return Datatables::of($query)
     //             ->setOffset($start)->addIndexColumn()
     //             ->with(['recordsTotal'=>$totalCount])
@@ -41,30 +41,30 @@ class CommodityController extends Controller
     //     }
     //     return view('admin.commodity.index', $data);
     // }
-    
-    
+
+
     public function create(Request $request)
     {
         if ($request->ajax()) {
             $query = Commodity::Query();
-            $query = $query->orderby('id','asc')->get();
+            $query = $query->orderby('id', 'asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
-        
-        $data['commodity_num'] = Commodity::orderby('id','desc')->first();
-        if($data['commodity_num']) {
+
+        $data['commodity_num'] = Commodity::orderby('id', 'desc')->first();
+        if ($data['commodity_num']) {
             $data['commodity_num'] = $data['commodity_num']->code + 1;
         } else {
             $data['commodity_num'] = 1;
         }
-        
+
         $data['seo_title']      = "Commodity";
         $data['seo_desc']       = "Commodity";
         $data['seo_keywords']   = "Commodity";
         $data['page_title'] = "Commodity";
         return view('admin.commodity.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit Commodity";
@@ -74,7 +74,7 @@ class CommodityController extends Controller
         $data['commodity'] = Commodity::where("id", $id)->first();
         return view('admin.commodity.edit', $data);
     }
-    
+
     public function delete($id)
     {
         $developer = Commodity::where("id", $id);
@@ -82,73 +82,82 @@ class CommodityController extends Controller
         $notify[] = ['success', 'Commodity Deleted Successfully.'];
         return back()->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
             'code' => 'required',
             'name' => ['required', 'string', 'max:255', 'alpha', 'unique:commodities'],
         ]);
-        
-        if($request->hazmat_product == "Yes") {
+
+        if ($request->hazmat_product == "Yes") {
             $validated = $request->validate([
                 'hazmat_code' => 'required',
                 'hazmat_class' => 'required'
             ]);
         }
-        
+
         $commodity = new Commodity();
         $commodity->fill($request->all());
         $commodity->save();
-        
+
         $notify[] = ['success', 'Commodity Added Successfully.'];
         return redirect()->route('admin.commodity.create')->withNotify($notify);
     }
-    
+
     public function update(Request $request)
     {
         $validated = $request->validate([
             'code' => 'required',
             'name' => 'required',
         ]);
-        
-        if($request->hazmat_product == "Yes") {
+
+        if ($request->hazmat_product == "Yes") {
             $validated = $request->validate([
                 'hazmat_code' => 'required',
                 'hazmat_class' => 'required'
             ]);
         }
-        
+
         $commodity = Commodity::where("id", $request->id)->first();
         $commodity->inactive = $request->inactive ? $request->inactive : '';
         $commodity->fill($request->all());
         $commodity->update();
-        
+
         $notify[] = ['success', 'Commodity Updated Successfully.'];
         return redirect()->route('admin.commodity.create')->withNotify($notify);
     }
-    
-    
+
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
         $data = null;
-        
-        if($type == "first") {
+
+        if ($type == "first") {
             $data = Commodity::orderBy('id', 'asc')->first();
-        }
-        else if($type == "last") {
+        } else if ($type == "last") {
             $data = Commodity::orderBy('id', 'desc')->first();
-        }
-        else if($type == "forward") {
+        } else if ($type == "forward") {
             $data = Commodity::where('id', '>', $id)->first();
-        }
-        else if($type == "backward") {
+        } else if ($type == "backward") {
             $data = Commodity::where('id', '<', $id)->orderBy('id', 'desc')->first();
         }
-        
+
         return $data;
     }
-    
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_commodity') {
+            $search_term = $request->search;
+            $data = Commodity::Where(function ($query) use ($search_term) {
+                $query->where('name', 'like', "%$search_term%")
+                    ->orWhere('code', 'like', "%$search_term%");
+            })
+                ->select(["id", "name as text"])->get();
+            return $data;
+        }
+    }
 }

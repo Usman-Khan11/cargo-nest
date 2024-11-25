@@ -200,6 +200,7 @@ Route::namespace('Admin')
             Route::post('commodity/store', [CommodityController::class, 'store'])->name('commodity.store');
             Route::post('commodity/update', [CommodityController::class, 'update'])->name('commodity.update');
             Route::post('commodity/get', [CommodityController::class, 'get_data'])->name('commodity.get');
+            Route::get('commodity/get_all_data', [CommodityController::class, 'getAllData'])->name('commodity.get_all_data');
 
             // INCO TERM ROUTES
             Route::get('inco_term', [IncoTermController::class, 'index'])->name('inco_term');
@@ -219,6 +220,7 @@ Route::namespace('Admin')
             Route::post('vessel/update', [VesselController::class, 'update'])->name('vessel.update');
             Route::post('vessel/import', [VesselController::class, 'bulkUpload'])->name('vessel.import');
             Route::post('vessel/get', [VesselController::class, 'get_data'])->name('vessel.get');
+            Route::get('vessel/get_all_data', [VesselController::class, 'getAllData'])->name('vessel.get_all_data');
 
             // LOCATION ROUTES
             Route::get('location', [LocationController::class, 'index'])->name('location');
@@ -229,6 +231,7 @@ Route::namespace('Admin')
             Route::post('location/update', [LocationController::class, 'update'])->name('location.update');
             Route::post('location/get', [LocationController::class, 'get_data'])->name('location.get');
             Route::post('location/import', [LocationController::class, 'bulkUpload'])->name('location.import');
+            Route::get('location/get_all_data', [LocationController::class, 'getAllData'])->name('location.get_all_data');
 
             // VOYAGE ROUTES
             Route::get('voyage', [VoyageController::class, 'index'])->name('voyage');
@@ -238,6 +241,7 @@ Route::namespace('Admin')
             Route::post('voyage/store', [VoyageController::class, 'store'])->name('voyage.store');
             Route::post('voyage/update', [VoyageController::class, 'update'])->name('voyage.update');
             Route::post('voyage/get', [VoyageController::class, 'get_data'])->name('voyage.get');
+            Route::get('voyage/get_all_data', [VoyageController::class, 'getAllData'])->name('voyage.get_all_data');
 
             // CHARGES ROUTES
             Route::get('charges', [ChargesController::class, 'index'])->name('charges');
@@ -285,6 +289,7 @@ Route::namespace('Admin')
             Route::post('party/store', [PartyController::class, 'store'])->name('party.store');
             Route::post('party/update', [PartyController::class, 'update'])->name('party.update');
             Route::post('party/get', [PartyController::class, 'get_data'])->name('party.get');
+            Route::get('party/get_all_data', [PartyController::class, 'getAllData'])->name('party.get_all_data');
 
             // PARTY LOCATION ROUTES
             Route::get('party_location', [PartyLocationController::class, 'index'])->name('party_location');
@@ -294,6 +299,7 @@ Route::namespace('Admin')
             Route::post('party_location/store', [PartyLocationController::class, 'store'])->name('party_location.store');
             Route::post('party_location/update', [PartyLocationController::class, 'update'])->name('party_location.update');
             Route::post('party_location/get', [PartyLocationController::class, 'get_data'])->name('party_location.get');
+            Route::get('party_location/get_all_data', [PartyLocationController::class, 'getAllData'])->name('party_location.get_all_data');
 
             // EMPLOYEE ROUTES
             Route::get('employee', [EmployeeController::class, 'index'])->name('employee');

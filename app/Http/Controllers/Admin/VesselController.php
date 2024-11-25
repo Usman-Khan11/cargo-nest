@@ -30,21 +30,21 @@ class VesselController extends Controller
             $query = Voyage::Query();
             $query = $query->with('vessel');
             $query = $query->where('vessel', $request->vessel);
-            $query = $query->orderby('id','asc')->get();
+            $query = $query->orderby('id', 'asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
         return view('admin.vessel.index', $data);
     }
-    
-    
+
+
     public function create(Request $request)
     {
         if ($request->ajax()) {
             $query = Vessel::Query();
-            $query = $query->orderby('id','asc')->get();
+            $query = $query->orderby('id', 'asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
-        
+
         $check_last_code = Vessel::orderBy('id', 'desc')->first();
         if (!empty($check_last_code)) {
             $num = $check_last_code->vessel_code;
@@ -52,14 +52,14 @@ class VesselController extends Controller
         } else {
             $data['code'] = 1001;
         }
-        
+
         $data['seo_title']      = "Vessel";
         $data['seo_desc']       = "Vessel";
         $data['seo_keywords']   = "Vessel";
         $data['page_title'] = "Vessel";
         return view('admin.vessel.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit Vessel";
@@ -69,7 +69,7 @@ class VesselController extends Controller
         $data['vessel'] = Vessel::where("id", $id)->first();
         return view('admin.vessel.edit', $data);
     }
-    
+
     public function delete($id)
     {
         $developer = Vessel::where("id", $id);
@@ -77,37 +77,37 @@ class VesselController extends Controller
         $notify[] = ['success', 'Vessel Deleted Successfully.'];
         return back()->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
             'vessel_code' => 'required',
             'vessel_name' => ['required', 'string', 'max:255', 'unique:vessels'],
         ]);
-        
+
         $vessel = new Vessel();
         $vessel->fill($request->all());
         $vessel->save();
-        
+
         $notify[] = ['success', 'Vessel Added Successfully.'];
         return back()->withNotify($notify);
     }
-    
+
     public function update(Request $request)
     {
         $validated = $request->validate([
             'vessel_code' => 'required',
             'vessel_name' => 'required',
         ]);
-        
+
         $vessel = Vessel::where("id", $request->id)->first();
         $vessel->fill($request->all());
         $vessel->save();
-        
+
         $notify[] = ['success', 'Vessel Updated Successfully.'];
         return redirect()->route('admin.vessel.create')->withNotify($notify);
     }
-    
+
     public function bulkUpload(Request $request)
     {
         $file = $request->file('import_file');
@@ -115,11 +115,11 @@ class VesselController extends Controller
         $extension = $file->getClientOriginalExtension();
         $i = 0;
 
-        if ($extension == "csv"){
+        if ($extension == "csv") {
             $handle = fopen($tempPath, 'r');
             while (($line = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                if($i > 0) {
-                    
+                if ($i > 0) {
+
                     $check_last_code = Vessel::orderBy('id', 'desc')->first();
                     if (!empty($check_last_code)) {
                         $num = $check_last_code->vessel_code;
@@ -127,9 +127,9 @@ class VesselController extends Controller
                     } else {
                         $check_last_code = 1001;
                     }
-                    
+
                     $chk = Vessel::where('vessel_name', strtolower($line[0]))->count();
-                    if($chk == 0){
+                    if ($chk == 0) {
                         $vessel = new Vessel();
                         $vessel->vessel_code = $check_last_code;
                         $vessel->vessel_name = $line[0];
@@ -151,30 +151,39 @@ class VesselController extends Controller
         } else {
             return ['error', 'Only csv file allowed.'];
         }
-        
+
         return ['error', 'Something went wrong!'];
     }
-    
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
         $data = null;
-        
-        if($type == "first") {
+
+        if ($type == "first") {
             $data = Vessel::orderBy('id', 'asc')->first();
-        }
-        else if($type == "last") {
+        } else if ($type == "last") {
             $data = Vessel::orderBy('id', 'desc')->first();
-        }
-        else if($type == "forward") {
+        } else if ($type == "forward") {
             $data = Vessel::where('id', '>', $id)->first();
-        }
-        else if($type == "backward") {
+        } else if ($type == "backward") {
             $data = Vessel::where('id', '<', $id)->orderBy('id', 'desc')->first();
         }
-        
+
         return $data;
     }
-    
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_vessel') {
+            $search_term = $request->search;
+            $data = Vessel::Where(function ($query) use ($search_term) {
+                $query->where('vessel_name', 'like', "%$search_term%")
+                    ->orWhere('vessel_code', 'like', "%$search_term%");
+            })
+                ->select(["id", "vessel_name as text"])->get();
+            return $data;
+        }
+    }
 }

@@ -36,9 +36,9 @@ class VoyageController extends Controller
     //         $start=(int)($request->start) ? $request->start : 0;
     //         $query=Voyage::Query();
     //         $totalCount=$query->count(); 
-            
+
     //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
+
     //         return Datatables::of($query)
     //             ->setOffset($start)->addIndexColumn()
     //             ->with(['recordsTotal'=>$totalCount])
@@ -46,24 +46,24 @@ class VoyageController extends Controller
     //     }
     //     return view('admin.voyage.index', $data);
     // }
-    
-    
+
+
     public function create(Request $request)
     {
         if ($request->ajax()) {
             $query = Voyage::Query();
             $query = $query->with('vessel');
-            if(isset($request->vessel_id)){
+            if (isset($request->vessel_id)) {
                 $query = $query->where('vessel', $request->vessel_id);
             }
-            if(isset($request->voyage_name)){
-                $query = $query->where('voy', 'like', '%'.$request->voyage_name.'%');
+            if (isset($request->voyage_name)) {
+                $query = $query->where('voy', 'like', '%' . $request->voyage_name . '%');
             }
-            $query = $query->orderby('id','asc')->get();
+            $query = $query->orderby('id', 'asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
-        
-        
+
+
         $data['seo_title']      = "Voyage";
         $data['seo_desc']       = "Voyage";
         $data['seo_keywords']   = "Voyage";
@@ -73,7 +73,7 @@ class VoyageController extends Controller
         $data['currencies'] = Currency::get();
         return view('admin.voyage.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit Voyage";
@@ -83,7 +83,7 @@ class VoyageController extends Controller
         $data['voyage'] = Voyage::where("id", $id)->first();
         return view('admin.voyage.edit', $data);
     }
-    
+
     public function delete($id)
     {
         $developer = Voyage::where("id", $id);
@@ -91,37 +91,37 @@ class VoyageController extends Controller
         $notify[] = ['success', 'Voyage Deleted Successfully.'];
         return back()->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
             'vessel' => 'required',
             'voy' => ['required', 'string', 'max:255', 'unique:voyages'],
         ]);
-        
+
         $currency = $request->currency;
         /*if(!$currency || count($currency) <= 0){
             $notify[] = ['error', 'Currency Required.'];
             return back()->withNotify($notify);
         }*/
-        
+
         $voyage = new Voyage();
         $voyage->fill($request->all());
         $voyage->save();
-        
-        if($currency){
-            foreach($currency as $key => $value) {
+
+        if ($currency) {
+            foreach ($currency as $key => $value) {
                 $voyage_detail = new VoyageDetail();
                 $voyage_detail->voyage_id = $voyage->id;
                 $voyage_detail->currency = $request->currency[$key];
                 $voyage_detail->selling = $request->selling[$key];
                 $voyage_detail->buying = $request->buying[$key];
                 $voyage_detail->save();
-            }  
+            }
         }
-        
+
         $code = $request->code;
-        foreach($code as $key => $value) {
+        foreach ($code as $key => $value) {
             $voyage_local = new VoyageLocal();
             $voyage_local->voyage_id = $voyage->id;
             $voyage_local->code = $request->code[$key];
@@ -140,47 +140,60 @@ class VoyageController extends Controller
             $voyage_local->closing_date = $request->closing_date[$key];
             $voyage_local->closing_time = $request->closing_time[$key];
             $voyage_local->save();
-        }    
-        
+        }
+
         $notify[] = ['success', 'Voyage Added Successfully.'];
         return redirect()->route('admin.voyage.create')->withNotify($notify);
     }
-    
+
     public function update(Request $request)
     {
         $validated = $request->validate([
             'vessel' => 'required',
             'voy' => 'required',
         ]);
-        
+
         $voyage = Voyage::where("id", $request->id)->first();
         $voyage->fill($request->all());
         $voyage->save();
-        
+
         $notify[] = ['success', 'Voyage Updated Successfully.'];
         return redirect()->route('admin.voyage.create')->withNotify($notify);
     }
-    
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
         $data = null;
-        
-        if($type == "first") {
+
+        if ($type == "first") {
             $data = Voyage::orderBy('id', 'asc')->first();
-        }
-        else if($type == "last") {
+        } else if ($type == "last") {
             $data = Voyage::orderBy('id', 'desc')->first();
-        }
-        else if($type == "forward") {
+        } else if ($type == "forward") {
             $data = Voyage::where('id', '>', $id)->first();
-        }
-        else if($type == "backward") {
+        } else if ($type == "backward") {
             $data = Voyage::where('id', '<', $id)->orderBy('id', 'desc')->first();
         }
-        
+
         return $data;
     }
-    
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_voyage') {
+            $search_term = $request->search;
+            $data = Voyage::Where(function ($query) use ($search_term) {
+                $query->where('voy', 'like', "%$search_term%");
+            })
+                ->select(["id", "voy as text"])->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_voyages_by_vessels') {
+            $data = Voyage::where('vessel', $request->fetch_vessel_voyages)->select(["id", "voy as text"])->latest()->get();
+            return $data->toArray();
+        }
+    }
 }

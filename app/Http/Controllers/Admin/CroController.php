@@ -12,57 +12,31 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\PartyBasicInfo;
 use Image;
 use Validator;
 use Session;
-use DataTables;
+// use DataTables;
 use File;
+use Yajra\DataTables\Facades\DataTables;
 
 class CroController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $data['seo_title']      = "CRO";
-    //     $data['seo_desc']       = "CRO";
-    //     $data['seo_keywords']   = "CRO";
-    //     $data['page_title'] = "CRO";
-
-    //     if ($request->ajax()) {
-    //         $totalCount=0;
-    //         $recordsFiltered=0;
-    //         $pageSize = (int)($request->length) ? $request->length : 10;
-    //         $start=(int)($request->start) ? $request->start : 0;
-    //         $query=Cro::Query();
-    //         $totalCount=$query->count(); 
-            
-    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-    //         return Datatables::of($query)
-    //             ->setOffset($start)->addIndexColumn()
-    //             ->with(['recordsTotal'=>$totalCount])
-    //             ->make(true);
-    //     }
-    //     return view('admin.cro.index', $data);
-    // }
-    
-    
     public function create(Request $request)
     {
         if ($request->ajax()) {
             $query = Cro::Query();
-            $query = $query->orderby('id','asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            $query = $query->orderby('id', 'asc')->get();
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
-        
+
         $data['seo_title']      = "CRO";
         $data['seo_desc']       = "CRO";
         $data['seo_keywords']   = "CRO";
         $data['page_title'] = "CRO";
-        $data['vessels'] = Vessel::get();
-        $data['voyages'] = Voyage::get();
         return view('admin.cro.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit CRO";
@@ -72,15 +46,15 @@ class CroController extends Controller
         $data['cro'] = Cro::where("id", $id)->first();
         return view('admin.cro.edit', $data);
     }
-    
+
     public function delete($id)
     {
-        $developer = Cro::where("id", $id);
-        $developer->delete();
+        $cro = Cro::where("id", $id);
+        $cro->delete();
         $notify[] = ['success', 'CRO Deleted Successfully.'];
-        return redirect()->route('admin.cro')->withNotify($notify);
+        return redirect()->route('admin.cro.create')->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -90,7 +64,7 @@ class CroController extends Controller
             'client' => 'required',
             'issue_date' => 'required',
         ]);
-        
+
         $cro = new Cro();
         $cro->cro_no = $request->cro_no;
         $cro->cro_type = $request->cro_type;
@@ -101,6 +75,7 @@ class CroController extends Controller
         $cro->ref_number = $request->ref_number;
         $cro->equip_qty = $request->equip_qty;
         $cro->size_type = $request->size_type;
+
         $cro->overseas_agent = $request->overseas_agent;
         $cro->clearing_agent = $request->clearing_agent;
         $cro->shipper = $request->shipper;
@@ -112,6 +87,7 @@ class CroController extends Controller
         $cro->terminal = $request->terminal;
         $cro->empty_depot = $request->empty_depot;
         $cro->transporter = $request->transporter;
+
         $cro->book_no = $request->book_no;
         $cro->gate_pass = $request->gate_pass;
         $cro->date = $request->date;
@@ -120,21 +96,36 @@ class CroController extends Controller
         $cro->job_no = $request->job_no;
         $cro->expiry_date = $request->expiry_date;
         $cro->shipping_agent = $request->shipping_agent;
+
         $cro->cargo_type = $request->cargo_type;
         $cro->vessel = $request->vessel;
         $cro->voyage = $request->voyage;
         $cro->sailing_date = $request->sailing_date;
-        $cro->manual = $request->manual;
-        $cro->upload = $request->upload;
-        $cro->print_logo = $request->print_logo;
-        $cro->continue_mode = $request->continue_mode;
+        $cro->manual = $request->manual ?? '';
+        // $cro->upload = $request->upload;
+        $cro->print_logo = $request->print_logo ?? '';
+        $cro->continue_mode = $request->continue_mode ?? '';
         $cro->haulage = $request->haulage;
+
+        $r_container_no = $request->r_container_no;
+        $arr = [];
+        if (is_array($r_container_no)) {
+            foreach ($r_container_no as $key => $value) {
+                $arr[$request->r_container_no[$key]] = [
+                    "sno" => $request->r_sno[$key],
+                    "container_no" => $request->r_container_no[$key],
+                    "container_size" => $request->r_container_size[$key]
+                ];
+            }
+        }
+
+        $cro->container_details = $arr;
         $cro->save();
-      
+
         $notify[] = ['success', 'CRO Added Successfully.'];
         return redirect()->route('admin.cro.create')->withNotify($notify);
     }
-    
+
     public function update(Request $request)
     {
         $validated = $request->validate([
@@ -144,7 +135,7 @@ class CroController extends Controller
             'client' => 'required',
             'issue_date' => 'required',
         ]);
-        
+
         $cro = Cro::where("id", $request->id)->first();
         $cro->cro_no = $request->cro_no;
         $cro->cro_type = $request->cro_type;
@@ -155,6 +146,7 @@ class CroController extends Controller
         $cro->ref_number = $request->ref_number;
         $cro->equip_qty = $request->equip_qty;
         $cro->size_type = $request->size_type;
+
         $cro->overseas_agent = $request->overseas_agent;
         $cro->clearing_agent = $request->clearing_agent;
         $cro->shipper = $request->shipper;
@@ -166,6 +158,7 @@ class CroController extends Controller
         $cro->terminal = $request->terminal;
         $cro->empty_depot = $request->empty_depot;
         $cro->transporter = $request->transporter;
+
         $cro->book_no = $request->book_no;
         $cro->gate_pass = $request->gate_pass;
         $cro->date = $request->date;
@@ -174,42 +167,69 @@ class CroController extends Controller
         $cro->job_no = $request->job_no;
         $cro->expiry_date = $request->expiry_date;
         $cro->shipping_agent = $request->shipping_agent;
+
         $cro->cargo_type = $request->cargo_type;
         $cro->vessel = $request->vessel;
         $cro->voyage = $request->voyage;
         $cro->sailing_date = $request->sailing_date;
-        $cro->manual = $request->manual;
-        $cro->upload = $request->upload;
-        $cro->print_logo = $request->print_logo;
-        $cro->continue_mode = $request->continue_mode;
+        $cro->manual = $request->manual ?? '';
+        // $cro->upload = $request->upload;
+        $cro->print_logo = $request->print_logo ?? '';
+        $cro->continue_mode = $request->continue_mode ?? '';
         $cro->haulage = $request->haulage;
+
+        $r_container_no = $request->r_container_no;
+        $arr = [];
+        if (is_array($r_container_no)) {
+            foreach ($r_container_no as $key => $value) {
+                $arr[$request->r_container_no[$key]] = [
+                    "sno" => $request->r_sno[$key],
+                    "container_no" => $request->r_container_no[$key],
+                    "container_size" => $request->r_container_size[$key]
+                ];
+            }
+        }
+
+        $cro->container_details = $arr;
         $cro->save();
-        
+
         $notify[] = ['success', 'CRO Updated Successfully.'];
         return redirect()->route('admin.cro.create')->withNotify($notify);
     }
-    
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
-        $data = null;
-        
-        if($type == "first") {
-            $data = Cro::orderBy('id', 'asc')->first();
+        $data = Cro::Query();
+
+        if ($type == "first") {
+            $data = $data->orderBy('id', 'asc');
+        } else if ($type == "last") {
+            $data = $data->orderBy('id', 'desc');
+        } else if ($type == "forward") {
+            $data = $data->where('id', '>', $id);
+        } else if ($type == "backward") {
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
         }
-        else if($type == "last") {
-            $data = Cro::orderBy('id', 'desc')->first();
-        }
-        else if($type == "forward") {
-            $data = Cro::where('id', '>', $id)->first();
-        }
-        else if($type == "backward") {
-            $data = Cro::where('id', '<', $id)->orderBy('id', 'desc')->first();
-        }
-        
+
+        $data = $data->with(
+            'clients',
+            'overseas_agents',
+            'clearing_agent',
+            'shippers',
+            'pickup_location',
+            'port_of_loading',
+            'port_of_discharge',
+            'final_destination',
+            'commodities',
+            'terminals',
+            'empty_depot',
+            'transporters',
+            'vessels',
+            'voyages'
+        )->first();
+
         return $data;
     }
-   
-    
 }
