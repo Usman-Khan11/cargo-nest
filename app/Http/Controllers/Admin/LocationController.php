@@ -213,5 +213,27 @@ class LocationController extends Controller
                 ->get();
             return $data;
         }
+
+        if (isset($request->type) && $request->type == 'get_local_port') {
+            $search_term = $request->search;
+            $data = Location::Where(function ($query) use ($search_term) {
+                $query->where('location', 'like', "%$search_term%")
+                    ->orWhere('code', 'like', "%$search_term%");
+            })->where('location_check', 'like', '%seaport%')
+                ->select('id', DB::raw('CONCAT(location) as text'))
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_city') {
+            $search_term = $request->search;
+            $data = Location::Where(function ($query) use ($search_term) {
+                $query->where('location', 'like', "%$search_term%")
+                    ->orWhere('code', 'like', "%$search_term%");
+            })->where('location_check', 'like', '%city%')
+                ->select('id', DB::raw('CONCAT(location) as text'))
+                ->get();
+            return $data;
+        }
     }
 }

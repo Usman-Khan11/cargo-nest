@@ -5,16 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PartyLocation;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\AdminNotification;
-use Image;
+use Yajra\DataTables\Facades\DataTables;
 use Validator;
-use Session;
-use DataTables;
-use File;
 
 class PartyLocationController extends Controller
 {
@@ -22,8 +14,8 @@ class PartyLocationController extends Controller
     {
         if ($request->ajax()) {
             $query = PartyLocation::Query();
-            $query = $query->orderby('id', 'asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            $query = $query->orderby('id', 'asc')->with('city', 'party')->get();
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
         $data['seo_title']      = "Party Location";
@@ -45,8 +37,8 @@ class PartyLocationController extends Controller
 
     public function delete($id)
     {
-        $developer = PartyLocation::where("id", $id);
-        $developer->delete();
+        PartyLocation::where("id", $id)->delete();
+
         $notify[] = ['success', 'Party Location Deleted Successfully.'];
         return redirect()->route('admin.party_location.create')->withNotify($notify);
     }
@@ -58,6 +50,7 @@ class PartyLocationController extends Controller
             'location_name' => ['required', 'string', 'max:255', 'unique:party_location'],
 
         ]);
+
         $party_location = new PartyLocation();
         $party_location->code = $request->code;
         $party_location->location_name = $request->location_name;
@@ -126,17 +119,22 @@ class PartyLocationController extends Controller
     {
         $id = $request->id;
         $type = $request->type;
-        $data = null;
+        $data = PartyLocation::Query();
 
         if ($type == "first") {
-            $data = PartyLocation::orderBy('id', 'asc')->first();
+            $data = $data->orderBy('id', 'asc');
         } else if ($type == "last") {
-            $data = PartyLocation::orderBy('id', 'desc')->first();
+            $data = $data->orderBy('id', 'desc');
         } else if ($type == "forward") {
-            $data = PartyLocation::where('id', '>', $id)->first();
+            $data = $data->where('id', '>', $id);
         } else if ($type == "backward") {
-            $data = PartyLocation::where('id', '<', $id)->orderBy('id', 'desc')->first();
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
         }
+
+        $data = $data->with(
+            'city',
+            'party'
+        )->first();
 
         return $data;
     }

@@ -26,6 +26,15 @@ $(document).ready(function () {
         })
     }
 
+    // let a = 0;
+    // $(".container_table thead tr th").each(function (i, v) {
+    //     let at = $(v).attr("width");
+    //     at = at.replace("%", "");
+    //     at = parseInt(at);
+    //     a += at;
+    // })
+    // console.log(a)
+
     $(".navigation").click(function () {
         let id = $("input[name=id]").val();
         let route = "/admin/bl/get";
@@ -46,10 +55,23 @@ $(document).ready(function () {
         $(".stamp_repeater tbody tr:last").find("textarea").val(null).prop("disabled", false);
         $(".stamp_repeater tbody tr:last").find("select").val(null).trigger('change');
     })
+
+    $(".container_table .btn_add").click(function () {
+        $(".container_table tbody").find("tr:last").clone().appendTo(".container_table tbody");
+        $(".container_table tbody tr:last").find("input").val(null).prop("disabled", false);
+        $(".container_table tbody tr:last").find("textarea").val(null).prop("disabled", false);
+        $(".container_table tbody tr:last").find("select").val(null).trigger('change');
+    })
 })
 
 function delStamp(e) {
     if ($(".stamp_repeater tbody tr").length > 1) {
+        $(e).parent().parent().remove();
+    }
+}
+
+function delContainer(e) {
+    if ($(".container_table tbody tr").length > 1) {
         $(e).parent().parent().remove();
     }
 }

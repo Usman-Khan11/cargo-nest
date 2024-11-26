@@ -395,5 +395,14 @@ class PartyController extends Controller
                 ->get();
             return $data;
         }
+
+        if (isset($request->type) && $request->type == 'get_terminals') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                ->where('Type', 'Like', '%Terminal%')
+                ->select(["id", "party_name as text"])
+                ->get();
+            return $data;
+        }
     }
 }

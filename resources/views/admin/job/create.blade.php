@@ -665,7 +665,7 @@
                                         </div>
                                         <div class="col-md-12 col-12">
                                             <div class="mb-3">
-                                                <button type="button" class="btn btn-primary btn-sm">BL</button>
+                                                <button type="button" class="btn btn-primary btn-sm bl_btn">BL</button>
                                                 <button type="button"
                                                     class="btn btn-primary btn-sm mx-3 cro_btn">CRO</button>
                                                 <button type="button"
@@ -2201,7 +2201,6 @@
 
         function edit_row(e, data) {
             let res = JSON.parse(data);
-            console.log(res)
 
             if (res.booking_info) {
                 data = res.booking_info;
@@ -2306,6 +2305,7 @@
 
                 $("#myForm").attr("action", "{{ route('admin.job.update') }}");
                 $("input[name=id]").val(data.id);
+                enable_BL_button(data.id);
             }
 
             // ROUTING
@@ -3038,6 +3038,15 @@
             $("#myForm").find(
                 ".custom_clearance, .r_terminal, .port_of_loading, .port_of_discharge, .final_destination, .r_place_of_receipt, .r_port_of_loading, .r_port_of_discharge, .r_final_destination"
             ).val(null).trigger("change");
+        }
+
+        function enable_BL_button(job_id) {
+            let btn = $('.bl_btn');
+            if (job_id) {
+                $(btn).attr("onclick", `window.location.assign('/admin/bl/create?job_id=${job_id}')`);
+            } else {
+                $(btn).removeAttr("onclick");
+            }
         }
     </script>
 @endpush

@@ -68,7 +68,6 @@
     </div>
 @endsection
 
-
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
@@ -421,73 +420,231 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="container" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="card-datatable table-responsive pt-0">
-                                        <table class="datatables-basic table" style="width:200%;">
-                                            <thead>
+                                    <div class="table-responsive pt-0">
+                                        <table class="table table-bordered container_table" style="width:350%;">
+                                            <thead class="text-center">
                                                 <tr>
-                                                    <th>...</th>
-                                                    <th>S.No</th>
-                                                    <th>Container #</th>
-                                                    <th>Seal</th>
-                                                    <th>Size Type</th>
-                                                    <th>Rate Group</th>
-                                                    <th>Gross Wt</th>
-                                                    <th>Net Wt</th>
-                                                    <th>CBM</th>
-                                                    <th>Packages</th>
-                                                    <th>Unit</th>
-                                                    <th>Temperature</th>
-                                                    <th>Load Type</th>
-                                                    <th>Remarks</th>
-                                                    <th>Principal Code</th>
-                                                    <th>Principal Name</th>
-                                                    <th>Free Days Detention</th>
-                                                    <th>Free Days Plugin</th>
+                                                    <th width="2%">
+                                                        <button type="button" class="btn btn-info btn-sm btn_add">
+                                                            <i class="fa fa-plus-circle"></i>
+                                                        </button>
+                                                    </th>
+                                                    {{-- <th>S.No</th> --}}
+                                                    <th width="5%">Container #</th>
+                                                    <th width="4%">Seal #</th>
+                                                    <th width="4%">Size Type</th>
+                                                    <th width="4%">Rate Group</th>
+                                                    <th width="4%">Gross WT</th>
+                                                    <th width="4%">Net WT</th>
+                                                    <th width="4%">Tare WT</th>
+                                                    <th width="5%">WT Unit</th>
+                                                    <th width="4%">CBM</th>
+                                                    <th width="4%">Packages</th>
+                                                    <th width="5%">Unit</th>
+                                                    <th width="4%">Temperature</th>
+                                                    <th width="4%">Voltage</th>
+                                                    <th width="4%">Load Type</th>
+                                                    <th width="10%">Remarks</th>
+                                                    <th width="4%">Detention</th>
+                                                    <th width="4%">Demurrage</th>
+                                                    <th width="4%">Plugin</th>
+                                                    <th width="4%">Line Code</th>
+                                                    <th width="2%">Part FCL</th>
+                                                    <th width="2%">SOC</th>
+                                                    <th width="4%">DG Non DG</th>
+                                                    <th width="4%">IMDG</th>
+                                                    <th width="6%">UN No</th>
+                                                    <th width="6%">Number</th>
+                                                    <th width="5%">Date</th>
+                                                    <th width="2%">OOG</th>
+                                                    <th width="4%">Top</th>
+                                                    <th width="4%">Right</th>
+                                                    <th width="4%">Left</th>
+                                                    <th width="4%">Front</th>
+                                                    <th width="4%">Back</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><i class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                                    <td><input type="text" name="c_s_no" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_container_no[]"
-                                                            class="form-control" style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_seal[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_size_type[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_rate_group[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_gross_wt[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_net_wt[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_cbm[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_packages[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_unit[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_temperature[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_load_type[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_remarks[]" class="form-control"
-                                                            style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_principal_code[]"
-                                                            class="form-control" style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_principal_name[]"
-                                                            class="form-control" style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_free_days_detention[]"
-                                                            class="form-control" style="width: 100%;" /></td>
-                                                    <td><input type="text" name="c_free_days_plugin[]"
-                                                            class="form-control" style="width: 100%;" /></td>
+                                                    <td width="2%" class="text-center">
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            onclick="delContainer(this)">
+                                                            <i class="fa fa-circle-xmark"></i>
+                                                        </button>
+                                                    </td>
+                                                    {{-- <td><input type="text" name="c_s_no" class="form-control"
+                                                            style="width: 100%;" /></td> --}}
+                                                    <td width="5%">
+                                                        <input type="text" name="c_container_no[]"
+                                                            class="form-control c_container_no" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_seal[]"
+                                                            class="form-control c_seal" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <select name="c_size_type[]" class="form-select c_size_type">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_rate_group[]"
+                                                            class="form-control c_rate_group" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_gross_wt[]"
+                                                            class="form-control c_gross_wt" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_net_wt[]"
+                                                            class="form-control c_net_wt" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_tare_wt[]"
+                                                            class="form-control c_tare_wt" />
+                                                    </td>
+                                                    <td width="5%">
+                                                        <select name="c_wt_unit[]" class="form-select c_wt_unit">
+                                                            <option value=""></option>
+                                                            <option value="LBS">LBS</option>
+                                                            <option value="KG">KG</option>
+                                                            <option value="MTON">MTON</option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_cbm[]"
+                                                            class="form-control c_cbm" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_packages[]"
+                                                            class="form-control c_packages" />
+                                                    </td>
+                                                    <td width="5%">
+                                                        <select name="c_unit[]" class="form-select c_unit">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_temperature[]"
+                                                            class="form-control c_temperature" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_voltage[]"
+                                                            class="form-control c_voltage" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <select name="c_load_type[]" class="form-select c_load_type">
+                                                            <option value=""></option>
+                                                            <option value="Full">Full</option>
+                                                            <option value="Empty">Empty</option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <input type="text" name="c_remarks[]"
+                                                            class="form-control c_remarks" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_free_days_detention[]"
+                                                            class="form-control c_free_days_detention" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_free_days_demurrage[]"
+                                                            class="form-control c_free_days_demurrage" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_free_days_plugin[]"
+                                                            class="form-control c_free_days_plugin" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_line_code[]"
+                                                            class="form-control c_line_code" />
+                                                    </td>
+                                                    <td width="2%">
+                                                        <input type="checkbox" name="c_part_fcl[]"
+                                                            class="form-check c_part_fcl" value="1" />
+                                                    </td>
+                                                    <td width="2%">
+                                                        <input type="checkbox" name="c_soc[]" class="form-check c_soc"
+                                                            value="1" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <select name="c_dg[]" class="form-select c_dg">
+                                                            <option value=""></option>
+                                                            <option value="DG">DG</option>
+                                                            <option value="Non DG">Non DG</option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="4%">
+                                                        <select name="c_imdg[]" class="form-select c_imdg">
+                                                            <option value=""></option>
+                                                            <option value="Class not specified">Class not specified
+                                                            </option>
+                                                            <option value="1">1</option>
+                                                            <option value="1.1">1.1</option>
+                                                            <option value="1.2">1.2</option>
+                                                            <option value="1.3">1.3</option>
+                                                            <option value="1.4">1.4</option>
+                                                            <option value="1.5">1.5</option>
+                                                            <option value="1.6">1.6</option>
+                                                            <option value="2">2</option>
+                                                            <option value="2.1">2.1</option>
+                                                            <option value="2.2">2.2</option>
+                                                            <option value="2.3">2.3</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="4.1">4.1</option>
+                                                            <option value="4.2">4.2</option>
+                                                            <option value="4.3">4.3</option>
+                                                            <option value="5.0">5.0</option>
+                                                            <option value="5.1">5.1</option>
+                                                            <option value="5.2">5.2</option>
+                                                            <option value="6">6</option>
+                                                            <option value="6.1">6.1</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="6%">
+                                                        <input type="text" name="c_un_no[]"
+                                                            class="form-control c_un_no" />
+                                                    </td>
+                                                    <td width="6%">
+                                                        <input type="text" name="c_number[]"
+                                                            class="form-control c_number" />
+                                                    </td>
+                                                    <td width="5%">
+                                                        <input type="date" name="c_date[]"
+                                                            class="form-control c_date" />
+                                                    </td>
+                                                    <td width="2%">
+                                                        <input type="checkbox" name="c_oog[]" class="form-check c_oog"
+                                                            value="1" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_top[]"
+                                                            class="form-control c_top" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_right[]"
+                                                            class="form-control c_right" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_left[]"
+                                                            class="form-control c_left" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_front[]"
+                                                            class="form-control c_front" />
+                                                    </td>
+                                                    <td width="4%">
+                                                        <input type="text" name="c_back[]"
+                                                            class="form-control c_back" />
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-
-
                                 </div>
                                 <div class="tab-pane fade" id="bl_detail" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="row">
@@ -832,6 +989,46 @@
                                                                 <option value="chemicals">chemicals</option>
                                                                 <option value="Construction Mat.">Construction Mat.
                                                                 </option>
+                                                                <option value="Diplomatic">Diplomatic</option>
+                                                                <option value="Dry Bulk">Dry Bulk</option>
+                                                                <option value="Dyes & Colours">Dyes & Colours</option>
+                                                                <option value="Earthenware">Earthenware</option>
+                                                                <option value="Edible Oil">Edible Oil</option>
+                                                                <option value="Electrical Goods">Electrical Goods</option>
+                                                                <option value="Fibre">Fibre</option>
+                                                                <option value="Food Stuff">Food Stuff</option>
+                                                                <option value="General">General</option>
+                                                                <option value="Glass Ware">Glass Ware</option>
+                                                                <option value="Government">Government</option>
+                                                                <option value="Hardboard">Hardboard</option>
+                                                                <option value="Hardware">Hardware</option>
+                                                                <option value="hazardous">hazardous</option>
+                                                                <option value="Iron & Steel">Iron & Steel</option>
+                                                                <option value="Jute">Jute</option>
+                                                                <option value="Lubricating Oil">Lubricating Oil</option>
+                                                                <option value="Machinery">Machinery</option>
+                                                                <option value="Medicine">Medicine</option>
+                                                                <option value="Moduling Components">Moduling Components
+                                                                </option>
+                                                                <option value="Motor Cars">Motor Cars</option>
+                                                                <option value="Motor Cycles">Motor Cycles</option>
+                                                                <option value="Old Clothing">Old Clothing</option>
+                                                                <option value="Other">Other</option>
+                                                                <option value="Other Iron">Other Iron</option>
+                                                                <option value="Paper">Paper</option>
+                                                                <option value="Personal">Personal</option>
+                                                                <option value="Pig Iron">Pig Iron</option>
+                                                                <option value="Rails">Rails</option>
+                                                                <option value="Scrap">Scrap</option>
+                                                                <option value="Sheets & Pallets">Sheets & Pallets</option>
+                                                                <option value="Sugar">Sugar</option>
+                                                                <option value="Tallow">Tallow</option>
+                                                                <option value="Tea G2">Tea G2</option>
+                                                                <option value="Timber & bamboo">Timber & bamboo</option>
+                                                                <option value="Transshipment">Transshipment</option>
+                                                                <option value="Tyres and Tubes">Tyres and Tubes</option>
+                                                                <option value="Wire/Nails">Wire/Nails</option>
+                                                                <option value="Yarn">Yarn</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -846,6 +1043,14 @@
                                                             <select name="b_packing_group"
                                                                 class="form-select b_packing_group">
                                                                 <option value=""></option>
+                                                                <option value="Break Bulk / LCL">Break Bulk / LCL</option>
+                                                                <option value="Dry Bulk">Dry Bulk</option>
+                                                                <option value="Empty Containers">Empty Containers</option>
+                                                                <option value="FCL">FCL</option>
+                                                                <option value="Liquid Bulk">Liquid Bulk</option>
+                                                                <option value="Transhipment">Transhipment</option>
+                                                                <option value="Vehicles/Tyres/Tyres Scrape/Animals/Birds">
+                                                                    Vehicles/Tyres/Tyres Scrape/Animals/Birds</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -1120,7 +1325,8 @@
                                         <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-9">
-                                                    <input name="r_date" type="date" class="form-control r_date" />
+                                                    <input name="r_date" type="date"
+                                                        class="form-control r_date" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1165,7 +1371,8 @@
                                                             name="r_stamp[]" />
                                                     </td>
                                                     <td width="15%">
-                                                        <select name="r_stamp_group[]" class="r_stamp_group form-select">
+                                                        <select name="r_stamp_group[]"
+                                                            class="r_stamp_group form-select">
                                                             <option value=""></option>
                                                             <option value="Group 1">Group 1</option>
                                                             <option value="Group 2">Group 2</option>
@@ -1205,7 +1412,6 @@
         </div>
     </div>
 @endsection
-
 
 @push('script')
     <script src="{{ asset('assets/js/app/bl.js') }}"></script>
@@ -1331,10 +1537,6 @@
                 $(".b_notify_part1").val(data.b_notify_part1);
                 $(".b_notify_part2").val(data.b_notify_part2);
                 $(".b_delivery_agent").val(data.b_delivery_agent);
-                $(".b_place_of_receipt").val(data.b_place_of_receipt);
-                $(".b_port_of_loading").val(data.b_port_of_loading);
-                $(".b_port_of_discharge").val(data.b_port_of_discharge);
-                $(".b_place_of_delivery").val(data.b_place_of_delivery);
                 $(".b_agent_stamp").val(data.b_agent_stamp);
                 $(".b_freight_type").val(data.b_freight_type);
                 $(".b_unit").val(data.b_unit);
@@ -1360,6 +1562,34 @@
                 $(".b_date_of_issue").val(data.b_date_of_issue);
                 $(".b_fi_no").val(data.b_fi_no);
                 $(".b_date").val(data.b_date);
+
+                if (data.place_of_receipt) {
+                    var option = new Option(data.place_of_receipt.location, data.place_of_receipt.id, true, true);
+                    $(".b_place_of_receipt").append(option).trigger('change');
+                } else {
+                    $(".b_place_of_receipt").val(null).trigger('change');
+                }
+
+                if (data.port_of_loading) {
+                    var option = new Option(data.port_of_loading.location, data.port_of_loading.id, true, true);
+                    $(".b_port_of_loading").append(option).trigger('change');
+                } else {
+                    $(".b_port_of_loading").val(null).trigger('change');
+                }
+
+                if (data.port_of_discharge) {
+                    var option = new Option(data.port_of_discharge.location, data.port_of_discharge.id, true, true);
+                    $(".b_port_of_discharge").append(option).trigger('change');
+                } else {
+                    $(".b_port_of_discharge").val(null).trigger('change');
+                }
+
+                if (data.place_of_delivery) {
+                    var option = new Option(data.place_of_delivery.location, data.place_of_delivery.id, true, true);
+                    $(".b_place_of_delivery").append(option).trigger('change');
+                } else {
+                    $(".b_place_of_delivery").val(null).trigger('change');
+                }
             }
 
             if (res.bl_ref_info) {
@@ -1398,6 +1628,60 @@
             } else {
                 $(".stamp_repeater tbody tr:gt(0)").remove();
             }
+
+            if (res.container_info.length) {
+                data = res.container_info;
+                $(".container_table tbody tr:gt(0)").remove();
+
+                $(data).each(function(key, value) {
+                    let $newRow = $(".container_table tbody tr:first").clone();
+
+                    $newRow.find('.c_container_no').val(value.c_container_no);
+                    $newRow.find('.c_seal').val(value.c_seal);
+                    $newRow.find('.c_size_type').val(value.c_size_type).trigger('change');
+                    $newRow.find('.c_rate_group').val(value.c_rate_group);
+                    $newRow.find('.c_gross_wt').val(value.c_gross_wt);
+                    $newRow.find('.c_net_wt').val(value.c_net_wt);
+                    $newRow.find('.c_tare_wt').val(value.c_tare_wt);
+                    $newRow.find('.c_wt_unit').val(value.c_wt_unit).trigger('change');
+                    $newRow.find('.c_cbm').val(value.c_cbm);
+                    $newRow.find('.c_packages').val(value.c_packages);
+                    $newRow.find('.c_unit').val(value.c_unit).trigger('change');
+                    $newRow.find('.c_temperature').val(value.c_temperature);
+                    $newRow.find('.c_voltage').val(value.c_voltage);
+                    $newRow.find('.c_load_type').val(value.c_load_type).trigger('change');
+                    $newRow.find('.c_remarks').val(value.c_remarks);
+                    $newRow.find('.c_free_days_detention').val(value.c_free_days_detention);
+                    $newRow.find('.c_free_days_demurrage').val(value.c_free_days_demurrage);
+                    $newRow.find('.c_free_days_plugin').val(value.c_free_days_plugin);
+                    $newRow.find('.c_line_code').val(value.c_line_code);
+                    $newRow.find('.c_part_fcl').prop("checked", value.c_part_fcl === "1");
+                    $newRow.find('.c_soc').prop("checked", value.c_soc === "1");
+                    $newRow.find('.c_dg').val(value.c_dg).trigger('change');
+                    $newRow.find('.c_imdg').val(value.c_imdg).trigger('change');
+                    $newRow.find('.c_un_no').val(value.c_un_no);
+                    $newRow.find('.c_number').val(value.c_number);
+                    $newRow.find('.c_date').val(value.c_date);
+                    $newRow.find('.c_oog').prop("checked", value.c_oog === "1");
+                    $newRow.find('.c_top').val(value.c_top);
+                    $newRow.find('.c_right').val(value.c_right);
+                    $newRow.find('.c_left').val(value.c_left);
+                    $newRow.find('.c_front').val(value.c_front);
+                    $newRow.find('.c_back').val(value.c_back);
+
+                    $(".container_table tbody").append($newRow);
+                })
+
+                $(".container_table tbody tr:first").remove();
+            } else {
+                $(".container_table tbody tr:gt(0)").remove();
+            }
         }
+
+        @if (isset($_GET['job_id']))
+            setTimeout(() => {
+                edit_row('', '@json($job_data)');
+            }, 500);
+        @endif
     </script>
 @endpush

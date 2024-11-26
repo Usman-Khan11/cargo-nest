@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\Job;
+use App\Models\JobRouting;
 use Image;
 use Validator;
 use Session;
@@ -31,6 +33,11 @@ class BlController extends Controller
             $query = $query->orderby('id', 'asc')->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
+
+        if (isset($request->job_id)) {
+            $data['job_data'] = $this->get_data_by_job($request->job_id);
+        }
+        //return $data['job_data'];
 
         $data['seo_title']      = "B/L";
         $data['seo_desc']       = "B/L";
@@ -54,8 +61,12 @@ class BlController extends Controller
 
     public function delete($id)
     {
-        $developer = Bl::where("id", $id);
-        $developer->delete();
+        Bl::where("id", $id)->delete();
+        BlRef::where('bl_id', $id)->delete();
+        BlStamp::where('bl_id', $id)->delete();
+        BlDetail::where('bl_id', $id)->delete();
+        BlContainer::where('bl_id', $id)->delete();
+
         $notify[] = ['success', 'BL Deleted Successfully.'];
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
@@ -118,16 +129,32 @@ class BlController extends Controller
                 $bl_container->c_rate_group = $request->c_rate_group[$key];
                 $bl_container->c_gross_wt = $request->c_gross_wt[$key];
                 $bl_container->c_net_wt = $request->c_net_wt[$key];
+                $bl_container->c_tare_wt = $request->c_tare_wt[$key];
+                $bl_container->c_wt_unit = $request->c_wt_unit[$key];
                 $bl_container->c_cbm = $request->c_cbm[$key];
                 $bl_container->c_packages = $request->c_packages[$key];
                 $bl_container->c_unit = $request->c_unit[$key];
                 $bl_container->c_temperature = $request->c_temperature[$key];
+                $bl_container->c_voltage = $request->c_voltage[$key];
                 $bl_container->c_load_type = $request->c_load_type[$key];
                 $bl_container->c_remarks = $request->c_remarks[$key];
-                $bl_container->c_principal_code = $request->c_principal_code[$key];
-                $bl_container->c_principal_name = $request->c_principal_name[$key];
                 $bl_container->c_free_days_detention = $request->c_free_days_detention[$key];
+                $bl_container->c_free_days_demurrage = $request->c_free_days_demurrage[$key];
                 $bl_container->c_free_days_plugin = $request->c_free_days_plugin[$key];
+                $bl_container->c_line_code = $request->c_line_code[$key];
+                $bl_container->c_part_fcl = @$request->c_part_fcl[$key];
+                $bl_container->c_soc = @$request->c_soc[$key];
+                $bl_container->c_dg = $request->c_dg[$key];
+                $bl_container->c_imdg = $request->c_imdg[$key];
+                $bl_container->c_un_no = $request->c_un_no[$key];
+                $bl_container->c_number = $request->c_number[$key];
+                $bl_container->c_date = $request->c_date[$key];
+                $bl_container->c_oog = @$request->c_oog[$key];
+                $bl_container->c_top = $request->c_top[$key];
+                $bl_container->c_right = $request->c_right[$key];
+                $bl_container->c_left = $request->c_left[$key];
+                $bl_container->c_front = $request->c_front[$key];
+                $bl_container->c_back = $request->c_back[$key];
                 $bl_container->save();
             }
         }
@@ -232,6 +259,62 @@ class BlController extends Controller
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
 
+    public function get_data_by_job($job_id)
+    {
+        $arr = [
+            "bl" => [],
+            "container_info" => [],
+            "bl_details" => [],
+            "bl_ref_info" => [],
+            "bl_stamps" => []
+        ];
+
+        $job = Job::where('id', $job_id)
+            ->select(
+                'job_number as job_no',
+                'shipper',
+                'consignee',
+                'commodity',
+                'port_of_loading',
+                'final_destination',
+                'sline_carrier as shipping_line_carrier',
+                'overseas_agent',
+                'vessel',
+                'voyage',
+                'container as total_container',
+                'delivery',
+            )
+            ->with(
+                'shippers',
+                'consignees',
+                'vessels',
+                'voyages',
+                'commodities',
+                'overseas_agents',
+                'sline_carriers',
+                'port_of_loading',
+                'final_destination'
+            )
+            ->first();
+
+        $job_routing = JobRouting::where('job_id', $job_id)
+            ->select(
+                'r_place_of_receipt',
+                'r_port_of_loading',
+                'r_port_of_discharge',
+            )
+            ->with(
+                'place_of_receipt',
+                'port_of_loading',
+                'port_of_discharge',
+            )
+            ->first();
+
+        $arr["bl"] = $job;
+        $arr["bl_details"] = $job_routing;
+        return $arr;
+    }
+
     public function get_data(Request $request)
     {
         $id = $request->id;
@@ -283,7 +366,12 @@ class BlController extends Controller
         // BL Details
         $data = BlDetail::Query();
         $data = $data->where("bl_id", $bl_id);
-        $arr["bl_details"] = $data->first();
+        $arr["bl_details"] = $data->with(
+            'place_of_receipt',
+            'port_of_loading',
+            'port_of_discharge',
+            'place_of_delivery',
+        )->first();
 
         // BL Ref Info
         $data = BlStamp::Query();
