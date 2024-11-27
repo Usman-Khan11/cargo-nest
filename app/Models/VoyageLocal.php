@@ -9,4 +9,9 @@ class VoyageLocal extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function local_ports()
+    {
+        return $this->belongsTo(Location::class, 'local_port', 'id');
+    }
 }

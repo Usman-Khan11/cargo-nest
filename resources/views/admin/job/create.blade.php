@@ -659,8 +659,10 @@
                                         <div class="col-md-4 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label">Manifest#: N/A&nbsp;&nbsp;</label><br>
-                                                <button type="button" class="btn btn-primary btn-sm">Allocate</button>
-                                                <button type="button" class="btn btn-primary btn-sm">De Allocate</button>
+                                                <button type="button"
+                                                    class="btn btn-primary btn-sm allocate_btn">Allocate</button>
+                                                <button type="button" class="btn btn-primary btn-sm de_allocate_btn">De
+                                                    Allocate</button>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">
@@ -1954,12 +1956,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Allocation Modal -->
+    <div class="modal fade" id="allocation_modal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Manifest Header</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                            <tr>
+                                <td></td>
+                                <td>Trans Number</td>
+                                <td>Vessel</td>
+                                <td>Voyage</td>
+                                <td>Terminal</td>
+                                <td>Local Port</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
 @push('script')
     <script>
         $(document).ready(function() {
+
+            enable_allocate_button('');
+            enable_de_allocate_button('');
 
             $(".inco_term").select2({
                 data: @json($incoterms)
@@ -2287,8 +2324,10 @@
                 $("#approved_at").text(data.approved_at);
                 if (data.approved_by) {
                     $("#approved_by").text(data.approved_by.username);
+                    enable_allocate_button(data.id);
                 } else {
-                    $("#approved_by").text(null)
+                    $("#approved_by").text(null);
+                    enable_allocate_button('');
                 }
 
                 if (data.created_by) {
@@ -3048,5 +3087,41 @@
                 $(btn).removeAttr("onclick");
             }
         }
+
+        function enable_allocate_button(job_id) {
+            let btn = $('.allocate_btn');
+            if (job_id) {
+                $(btn).removeAttr("disabled");
+            } else {
+                $(btn).attr("disabled", true);
+            }
+        }
+
+        function enable_de_allocate_button(job_id) {
+            let btn = $('.de_allocate_btn');
+            if (job_id) {
+                $(btn).removeAttr("disabled");
+            } else {
+                $(btn).attr("disabled", true);
+            }
+        }
+
+        $(".allocate_btn").click(function() {
+            let vessel = $(".vessel").val();
+            let voyage = $(".voyage").val();
+
+            if (vessel && voyage) {
+                $.get("/admin/job/create", {
+                    vessel,
+                    voyage,
+                    type: "get_allocation"
+                }, function(res) {
+                    if (res) {
+                        $("#allocation_modal table tbody").html(res);
+                        $("#allocation_modal").modal('show');
+                    }
+                })
+            }
+        })
     </script>
 @endpush
