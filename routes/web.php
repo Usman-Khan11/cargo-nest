@@ -105,6 +105,7 @@ use App\Http\Controllers\Admin\CrtEdiController;
 use App\Http\Controllers\Admin\PrincipalManualSoaController;
 use App\Http\Controllers\Admin\PrincipalSoaController;
 use App\Http\Controllers\Admin\PrincipalReceiptPaymentController;
+use App\Http\Controllers\Admin\ShippingAgencyLicenseController;
 use App\Http\Controllers\Admin\SystemPolicyController;
 
 Route::get('/clear', function () {
@@ -921,6 +922,17 @@ Route::namespace('Admin')
             Route::post('nav/store', [NavController::class, 'store'])->name('nav.store');
             Route::post('nav/update', [NavController::class, 'update'])->name('nav.update');
             Route::post('nav/get', [NavController::class, 'get_data'])->name('nav.get');
+
+
+            // SHIPPING AGENCY LICENSE ROUTES
+            Route::get('ship_agency_license', [ShippingAgencyLicenseController::class, 'index'])->name('ship_agency_license');
+            Route::get('ship_agency_license/create', [ShippingAgencyLicenseController::class, 'create'])->name('ship_agency_license.create');
+            Route::get('ship_agency_license/edit/{id}', [ShippingAgencyLicenseController::class, 'edit'])->name('ship_agency_license.edit');
+            Route::get('ship_agency_license/delete/{id}', [ShippingAgencyLicenseController::class, 'delete'])->name('ship_agency_license.delete');
+            Route::post('ship_agency_license/store', [ShippingAgencyLicenseController::class, 'store'])->name('ship_agency_license.store');
+            Route::post('ship_agency_license/update', [ShippingAgencyLicenseController::class, 'update'])->name('ship_agency_license.update');
+            Route::post('ship_agency_license/get', [ShippingAgencyLicenseController::class, 'get_data'])->name('ship_agency_license.get');
+            Route::get('ship_agency_license/get_all_data', [ShippingAgencyLicenseController::class, 'getAllData'])->name('ship_agency_license.get_all_data');
         });
     });
 

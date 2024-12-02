@@ -167,8 +167,8 @@
                                                 </div>
                                                 <div class="col-9">
                                                     <select name="license" class="license search_select2"
-                                                        data-url="{{ route('admin.party.get_all_data') }}"
-                                                        data-type="get_sline_carrier"></select>
+                                                        data-url="{{ route('admin.ship_agency_license.get_all_data') }}"
+                                                        data-type="get_ship_agency_license"></select>
                                                 </div>
                                             </div>
                                         </div>

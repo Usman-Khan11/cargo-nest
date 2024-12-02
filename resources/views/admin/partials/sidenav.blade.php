@@ -1944,7 +1944,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('admin.ship_agency_license.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Shipping Agency License</div>
                     </a>
