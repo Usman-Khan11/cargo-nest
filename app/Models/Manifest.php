@@ -32,7 +32,7 @@ class Manifest extends Model
 
     public function shipping_license()
     {
-        return $this->belongsTo(Location::class, 'license', 'id');
+        return $this->belongsTo(ShippingAgencyLicense::class, 'license', 'id');
     }
 
     public function local_port()

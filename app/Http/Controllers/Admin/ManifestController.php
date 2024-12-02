@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Manifest;
+use App\Models\ManifestAllocation;
 use App\Models\Vessel;
 use App\Models\ManifestAllocationHbl;
 use App\Models\ManifestAllocationMaster;
@@ -54,6 +55,7 @@ class ManifestController extends Controller
         $data['seo_keywords']   = "Edit Manifest";
         $data['page_title'] = "Edit Manifest";
         $data['manifest'] = Manifest::where("id", $id)->first();
+
         return view('admin.manifest.edit', $data);
     }
 
@@ -80,8 +82,8 @@ class ManifestController extends Controller
         $manifest->fill($request->all());
 
         if ($manifest->save()) {
-            $this->add_hbl_details($request, $manifest->id);
-            $this->add_mbl_details($request, $manifest->id);
+            //$this->add_hbl_details($request, $manifest->id);
+            //$this->add_mbl_details($request, $manifest->id);
         }
 
         $notify[] = ['success', 'Manifest Added Successfully.'];
@@ -152,12 +154,32 @@ class ManifestController extends Controller
         $manifest->fill($request->all());
 
         if ($manifest->save()) {
-            $this->add_hbl_details($request, $manifest->id);
-            $this->add_mbl_details($request, $manifest->id);
+            //$this->add_hbl_details($request, $manifest->id);
+            //$this->add_mbl_details($request, $manifest->id);
         }
 
         $notify[] = ['success', 'Manifest Updated Successfully.'];
         return redirect()->route('admin.manifest.create')->withNotify($notify);
+    }
+
+    public function manifest_allocate(Request $request)
+    {
+        $manifest_id = $request->manifest_id;
+        $job_id = $request->job_id;
+
+        $data = ManifestAllocation::where('manifest_id', $manifest_id)->where('job_id', $job_id)->first();
+        if ($data) {
+            $data->manifest_id = $manifest_id;
+            $data->job_id = $job_id;
+            $data->save();
+        } else {
+            $data = new ManifestAllocation();
+            $data->manifest_id = $manifest_id;
+            $data->job_id = $job_id;
+            $data->save();
+        }
+
+        return 1;
     }
 
 

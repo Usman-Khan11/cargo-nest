@@ -917,7 +917,7 @@
                 }
 
                 if (data.shipping_license) {
-                    var option = new Option(data.shipping_license.location, data.shipping_license.id, true, true);
+                    var option = new Option(data.shipping_license.name, data.shipping_license.id, true, true);
                     $(".license").append(option).trigger('change');
                 } else {
                     $(".license").val(null).trigger('change');

@@ -327,6 +327,7 @@ Route::namespace('Admin')
             Route::get('manifest/delete/{id}', [ManifestController::class, 'delete'])->name('manifest.delete');
             Route::post('manifest/store', [ManifestController::class, 'store'])->name('manifest.store');
             Route::post('manifest/update', [ManifestController::class, 'update'])->name('manifest.update');
+            Route::post('manifest/allocation', [ManifestController::class, 'manifest_allocate'])->name('manifest.allocation');
             Route::post('manifest/get', [ManifestController::class, 'get_data'])->name('manifest.get');
 
             // CRO ROUTES

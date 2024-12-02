@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\Manifest;
 use App\Models\VoyageLocal;
 use Image;
 use Validator;
@@ -75,9 +76,11 @@ class JobController extends Controller
             if (isset($request->type) && $request->type == 'get_allocation') {
                 $vessel = $request->vessel;
                 $voyage = $request->voyage;
-                $data['voyage_local'] = VoyageLocal::where('voyage_id', $voyage)->get();
-                $data['vessel'] = Vessel::where('id', $vessel)->first();
-                $data['voyage'] = Voyage::where('id', $voyage)->first();
+                $data['job_id'] = $request->job_id;
+                $data['manifests'] = Manifest::where('vessel', $vessel)
+                    ->where('voyage_no', $voyage)
+                    ->with('vessels', 'voyages', 'terminals', 'local_port')
+                    ->get();
                 return view('admin.job.partials.allocation', $data);
             }
 

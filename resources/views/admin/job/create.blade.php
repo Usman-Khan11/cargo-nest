@@ -1983,7 +1983,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-primary allocation_header_btn">Save</button>
                 </div>
             </div>
         </div>
@@ -3109,19 +3109,51 @@
         $(".allocate_btn").click(function() {
             let vessel = $(".vessel").val();
             let voyage = $(".voyage").val();
+            let job_id = $("input[name=id]").val();
 
-            if (vessel && voyage) {
+            if (vessel && voyage && job_id) {
                 $.get("/admin/job/create", {
                     vessel,
                     voyage,
+                    job_id,
                     type: "get_allocation"
                 }, function(res) {
-                    if (res) {
-                        $("#allocation_modal table tbody").html(res);
-                        $("#allocation_modal").modal('show');
-                    }
+                    // if (res) {
+                    $("#allocation_modal table tbody").html(res);
+                    $("#allocation_modal").modal('show');
+                    // }
                 })
             }
         })
+
+        $(".allocation_header_btn").click(function() {
+            let manifest_id = $(".manifest_ids:checked").val();
+            let job_id = $("input[name=id]").val();
+
+            if (manifest_id && job_id) {
+                $.post("{{ route('admin.manifest.allocation') }}", {
+                    _token: '{{ csrf_token() }}',
+                    manifest_id,
+                    job_id
+                }, function(res) {
+                    if (res) {
+                        iziToast.success({
+                            message: 'Manifest Header updated successfully!',
+                            position: "topRight"
+                        });
+                    } else {
+                        iziToast.error({
+                            message: 'Something went wrong!',
+                            position: "topRight"
+                        });
+                    }
+                })
+            } else {
+                iziToast.error({
+                    message: 'Something went wrong!',
+                    position: "topRight"
+                });
+            }
+        });
     </script>
 @endpush
