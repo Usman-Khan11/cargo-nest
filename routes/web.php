@@ -984,11 +984,11 @@ Route::name('user.')->group(function () {
 
 Route::name('user.')->prefix('user')->group(function () {
     Route::middleware('auth')->group(function () {
-        Route::get('authorization', [AuthorizationController::class, 'authorizeForm'])->name('authorization');
-        Route::get('resend-verify', [AuthorizationController::class, 'sendVerifyCode'])->name('send_verify_code');
-        Route::post('verify-email', [AuthorizationController::class, 'emailVerification'])->name('verify_email');
-        Route::post('verify-sms', [AuthorizationController::class, 'smsVerification'])->name('verify_sms');
-        Route::post('verify-g2fa', [AuthorizationController::class, 'g2faVerification'])->name('go2fa.verify');
+        // Route::get('authorization', [AuthorizationController::class, 'authorizeForm'])->name('authorization');
+        // Route::get('resend-verify', [AuthorizationController::class, 'sendVerifyCode'])->name('send_verify_code');
+        // Route::post('verify-email', [AuthorizationController::class, 'emailVerification'])->name('verify_email');
+        // Route::post('verify-sms', [AuthorizationController::class, 'smsVerification'])->name('verify_sms');
+        // Route::post('verify-g2fa', [AuthorizationController::class, 'g2faVerification'])->name('go2fa.verify');
 
         Route::middleware(['checkStatus'])->group(function () {
             Route::get('dashboard', [UserController::class, 'home'])->name('home');
