@@ -607,176 +607,12 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
                                 <div class="card-datatable table-responsive pt-0">
-                                    <table class="table table-bordered" style="width: 200%;">
-                                        <thead>
-                                            <tr>
-                                                <th>...</th>
-                                                {{-- <th>S.No</th> --}}
-                                                <th>Job #</th>
-                                                <th>Job Date</th>
-                                                <th>Job Nature</th>
-                                                <th>HBL #</th>
-                                                <th>HBL Date</th>
-                                                <th>Client Name</th>
-                                                <th>Volume</th>
-                                                <th>Packages</th>
-                                                <th>Port of Discharge</th>
-                                                <th>Port of Receipt</th>
-                                                <th>Total Container</th>
-                                                <th>20FT</th>
-                                                <th>40FT</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                        onclick="delContainer(this)">
-                                                        <i class="fa fa-circle-xmark"></i>
-                                                    </button>
-                                                </td>
-                                                {{-- <td><input name="" class="form-control" type="text"
-                                                        style="width: 100%;" /></td> --}}
-                                                <td>
-                                                    <input name="h_job_no[]" class="form-control h_job_no" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_job_date[]" class="form-control h_job_date"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_job_nature[]" class="form-control h_job_nature"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_hbl_no[]" class="form-control h_hbl_no" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_hbl_date[]" class="form-control h_hbl_date"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_client_name[]" class="form-control h_client_name"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_volume[]" class="form-control h_volume" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_packages[]" class="form-control h_packages"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_port_of_discharge[]"
-                                                        class="form-control h_port_of_discharge" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_port_of_receipt[]"
-                                                        class="form-control h_port_of_receipt" type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_total_container[]"
-                                                        class="form-control h_total_container" type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_20ft[]" class="form-control h_20ft" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="h_40ft[]" class="form-control h_40ft" type="text"
-                                                        readonly />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div id="get_hbls"></div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="navs-top-subcompany" role="tabpanel">
                                 <div class="card-datatable table-responsive pt-0">
-                                    <table class="table table-bordered" style="width:200%;">
-                                        <thead>
-                                            <tr>
-                                                <th>...</th>
-                                                {{-- <th>S.No</th> --}}
-                                                <th>Job #</th>
-                                                <th>Job Date</th>
-                                                <th>Job Nature</th>
-                                                <th>Job Type</th>
-                                                <th>MBL #</th>
-                                                <th>MBL Date</th>
-                                                <th>Destuffing Date</th>
-                                                <th>Total HBL</th>
-                                                <th>Volume</th>
-                                                <th>Total Container</th>
-                                                <th>20FT</th>
-                                                <th>40FT</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                        onclick="delContainer(this)">
-                                                        <i class="fa fa-circle-xmark"></i>
-                                                    </button>
-                                                </td>
-                                                {{-- <td><input name="" class="form-control" type="text"
-                                                        style="width: 100%;" /></td> --}}
-                                                <td>
-                                                    <input name="m_job_no[]" class="form-control m_job_no" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_job_date[]" class="form-control m_job_date"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_job_nature[]" class="form-control m_job_nature"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_job_type[]" class="form-control m_job_type"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_mbl_no[]" class="form-control m_mbl_no" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_mbl_date[]" class="form-control m_mbl_date"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_destuffing_date[]"
-                                                        class="form-control m_destuffing_date" type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_total[]" class="form-control m_total" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_volume[]" class="form-control m_volume" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_total_cont[]" class="form-control m_total_cont"
-                                                        type="text" readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_20ft[]" class="form-control m_20ft" type="text"
-                                                        readonly />
-                                                </td>
-                                                <td>
-                                                    <input name="m_40ft[]" class="form-control m_40ft" type="text"
-                                                        readonly />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div id="get_mbls"></div>
                                 </div>
                             </div>
                         </div>
@@ -957,9 +793,28 @@
         });
 
         $(document).ready(function() {
-            // $("#job_allocation").hide();
+            $("#job_allocation").hide();
             $("#se_job_btn").click(function() {
-                $("#job_allocation").show();
+                let manifest_id = $("input[name=id]").val();
+                if (manifest_id > 0) {
+                    $.get("/admin/manifest/allocation", {
+                        manifest_id,
+                        type: 'hbl'
+                    }, function(res) {
+                        $("#get_hbls").html(res);
+                    })
+
+                    $.get("/admin/manifest/allocation", {
+                        manifest_id,
+                        type: 'mbl'
+                    }, function(res) {
+                        $("#get_mbls").html(res);
+                    })
+
+                    $("#job_allocation").show();
+                } else {
+                    alert('Something went wrong!')
+                }
             })
         })
 

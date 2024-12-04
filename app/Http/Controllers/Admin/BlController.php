@@ -78,6 +78,7 @@ class BlController extends Controller
         ]);
 
         $bl = new Bl();
+        $bl->job_id = $request->job_id;
         $bl->job_no = $request->job_no;
         $bl->status = $request->status;
         $bl->hbl = $request->hbl;
@@ -222,6 +223,7 @@ class BlController extends Controller
         ]);
 
         $bl = Bl::where("id", $request->id)->first();
+        $bl->job_id = $request->job_id;
         $bl->job_no = $request->job_no;
         $bl->status = $request->status;
         $bl->hbl = $request->hbl;

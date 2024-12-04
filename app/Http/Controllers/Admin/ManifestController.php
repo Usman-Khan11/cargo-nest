@@ -182,6 +182,43 @@ class ManifestController extends Controller
         return 1;
     }
 
+    public function get_manifest_allocate(Request $request)
+    {
+        $res = ["hbl" => null, "mbl" => null];
+        $manifest_id = $request->manifest_id;
+        $type = $request->type;
+
+        $data['manifest'] = ManifestAllocation::where('manifest_id', $manifest_id)
+            ->with('manifest', 'job')
+            ->get();
+
+        if ($type == "hbl") {
+            return view('admin.manifest.partials.hbl_table', $data);
+        } else if ($type == "mbl") {
+            return view('admin.manifest.partials.mbl_table', $data);
+        } else {
+            return null;
+        }
+
+        $query = ManifestAllocation::join('job', 'manifest_allocations.job_id', '=', 'job.id')
+            ->join('customers', 'inquiries.customer_id', '=', 'customers.id')
+            ->join('suppliers', 'inquiries.supplier_id', '=', 'suppliers.id')
+            ->join('products', 'inquiry_items.item_id', '=', 'products.id')
+            ->select(
+                'inquiries.inq_no',
+                'inquiries.date as inq_date',
+                'inquiries.customer_id',
+                'inquiries.supplier_id',
+                'inquiry_items.*',
+                'customers.name as customer_name',
+                'customers.person_3 as sales_person',
+                'suppliers.name as supplier_name',
+                'suppliers.person_3 as sourcing_person',
+                'products.name as product_name',
+                'inquiry_items.item_desc as product_description',
+            );
+    }
+
 
     public function get_data(Request $request)
     {

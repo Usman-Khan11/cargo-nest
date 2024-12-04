@@ -11,6 +11,16 @@ class Job extends Model
     protected $guarded = ['id'];
     protected $table = 'job';
 
+    public function job_routing()
+    {
+        return $this->belongsTo(JobRouting::class, 'id', 'job_id');
+    }
+
+    public function bl()
+    {
+        return $this->belongsTo(Bl::class, 'id', 'job_id');
+    }
+
     public function shippers()
     {
         return $this->belongsTo(PartyBasicInfo::class, 'shipper', 'id');

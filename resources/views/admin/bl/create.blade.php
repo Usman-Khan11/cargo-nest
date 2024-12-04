@@ -75,6 +75,11 @@
                 <form id="myForm" method="post" action="{{ route('admin.bl.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input name="id" type="hidden" value="0" />
+                    @if (isset($_GET['job_id']))
+                        <input name="job_id" type="hidden" class="job_id" value="{{ $_GET['job_id'] }}" />
+                    @else
+                        <input name="job_id" type="hidden" class="job_id" value="0" />
+                    @endif
                     <div class="card">
                         <div class="card-header">
                             <h4 class="fw-bold m-0">{{ $page_title }}</h4>
@@ -115,7 +120,8 @@
                                                     <label class="form-label w-100 m-0">Job#</label>
                                                 </div>
                                                 <div class="col-9">
-                                                    <input name="job_no" type="text" class="form-control job_no" />
+                                                    <input name="job_no" type="text" class="form-control job_no"
+                                                        readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -1421,6 +1427,7 @@
 
             if (res.bl) {
                 data = res.bl;
+                $(".job_id").val(data.job_id);
                 $(".job_no").val(data.job_no);
                 $(".status").val(data.status);
                 $(".hbl").val(data.hbl);
