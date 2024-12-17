@@ -422,7 +422,7 @@
                     <div class="card mt-3">
                         <div class="card-body">
                             <div class="card-datatable table-responsive pt-0">
-                                <table class="table table-sm table-bordered text-nowrap" id="charges_table">
+                                <table class="table table-sm table-bordered text-nowrap text-center" id="charges_table">
                                     <thead class="table-dark">
                                         <tr>
                                             <th>...</th>
@@ -730,6 +730,10 @@
                 $("input[name=job_id]").val(data.job_id);
             }
 
+            if (res.invoice_details) {
+                data = res.invoice_details;
+                $("#charges_table tbody").html(data);
+            }
         }
 
         $(".navigation").click(function() {

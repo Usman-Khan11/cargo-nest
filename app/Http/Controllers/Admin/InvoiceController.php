@@ -105,31 +105,6 @@ class InvoiceController extends Controller
             }
         }
 
-        // $charges_code = $request->charges_code;
-        // foreach ($charges_code as $key => $value) {
-        //     $invoice_details = new InvoiceDetail();
-        //     $invoice_details->invoice_id = $invoice->id;
-        //     $invoice_details->charges_code = $request->charges_code[$key];
-        //     $invoice_details->charges_name = $request->charges_name[$key];
-        //     $invoice_details->charges_description = $request->charges_description[$key];
-        //     $invoice_details->size_type = $request->size_type[$key];
-        //     $invoice_details->rate_group = $request->rate_group[$key];
-        //     $invoice_details->dg_nondg = $request->dg_nondg[$key];
-        //     $invoice_details->container = $request->container[$key];
-        //     $invoice_details->qty = $request->qty[$key];
-        //     $invoice_details->rate = $request->rate[$key];
-        //     $invoice_details->currency = $request->currency[$key];
-        //     $invoice_details->amount = $request->amount[$key];
-        //     $invoice_details->discount = $request->discount[$key];
-        //     $invoice_details->net_amount = $request->net_amount[$key];
-        //     $invoice_details->margin = $request->margin[$key];
-        //     $invoice_details->tax = $request->tax[$key];
-        //     $invoice_details->tax_amount = $request->tax_amount[$key];
-        //     $invoice_details->inc_tax = $request->inc_tax[$key];
-        //     $invoice_details->ex_rate = $request->ex_rate[$key];
-        //     $invoice_details->local_amount = $request->local_amount[$key];
-        // }
-
         $notify[] = ['success', 'Invoice Added Successfully.'];
         return redirect()->route('admin.invoice.create')->withNotify($notify);
     }
@@ -148,9 +123,8 @@ class InvoiceController extends Controller
         $invoice->fill($request->all());
         $invoice->save();
 
-        $charges_ids = $request->charges_ids;
         InvoiceDetail::where('invoice_id', $invoice->id)->delete();
-
+        $charges_ids = $request->charges_ids;
         if ($charges_ids) {
             foreach ($charges_ids as $key => $value) {
                 $invoice_details = new InvoiceDetail();
@@ -174,6 +148,7 @@ class InvoiceController extends Controller
 
         $job = Job::where('id', $job_id)
             ->select(
+                'id as job_id',
                 'job_number',
                 'client',
             )
@@ -196,7 +171,7 @@ class InvoiceController extends Controller
         $type = $request->type;
         $arr = [
             "invoice" => [],
-            "invoice_details" => []
+            "invoice_details" => null
         ];
 
         $data = Invoice::Query();
@@ -214,8 +189,18 @@ class InvoiceController extends Controller
         $arr["invoice"] = $data->with('job')->first();
         $invoice_id = @$arr["invoice"]->id;
 
-        $arr['invoice_details'] = InvoiceDetail::where('invoice_id', $invoice_id)
-            ->with('charges')->get();
+        $charges = InvoiceDetail::where('invoice_id', $invoice_id)
+            ->select('charges_id')
+            ->pluck('charges_id');
+
+        $charges = JobReceivable::whereIn('id', $charges)
+            ->with(
+                'charges',
+                'size_type',
+                'currency'
+            )->get();
+
+        $arr['invoice_details'] = view('admin.invoice.partials.charges_data', ['charges' => $charges])->render();
 
         return $arr;
     }
