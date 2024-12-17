@@ -78,6 +78,11 @@
                         </div>
                         <div class="card-body">
                             <input type="hidden" name="id" value="0" />
+                            @if (isset($_GET['job_id']))
+                                <input name="job_id" type="hidden" class="job_id" value="{{ $_GET['job_id'] }}" />
+                            @else
+                                <input name="job_id" type="hidden" class="job_id" value="0" />
+                            @endif
 
                             <div class="row">
                                 <div class="col-3">
@@ -282,7 +287,8 @@
                                 </div>
 
                                 <div class="col-3">
-                                    <button type="button" class="btn btn-primary btn-sm">Pick Charges</button>
+                                    <button type="button" class="btn btn-primary btn-sm pick_charges">Pick
+                                        Charges</button>
                                     <button type="button" class="btn btn-primary btn-sm">Job Receipt</button>
                                 </div>
                             </div>
@@ -416,16 +422,16 @@
                     <div class="card mt-3">
                         <div class="card-body">
                             <div class="card-datatable table-responsive pt-0">
-                                <table class="datatables-basic table" style="width: 280%;">
-                                    <thead>
+                                <table class="table table-sm table-bordered text-nowrap" id="charges_table">
+                                    <thead class="table-dark">
                                         <tr>
                                             <th>...</th>
                                             <th>S.No</th>
-                                            <th>Charge Code</th>
-                                            <th>Charge Name</th>
-                                            <th>Charge Description</th>
-                                            <th>Size Type</th>
-                                            <th>Rate Group</th>
+                                            <th>ChargeCode</th>
+                                            <th>ChargeName</th>
+                                            <th>Description</th>
+                                            <th>SizeType</th>
+                                            <th>RateGroup</th>
                                             <th>DG/Non-DG</th>
                                             <th>Containers</th>
                                             <th>Qty</th>
@@ -433,60 +439,16 @@
                                             <th>Currency</th>
                                             <th>Amount</th>
                                             <th>Discount</th>
-                                            <th>Net Amount</th>
+                                            <th>NetAmount</th>
                                             <th>Margin</th>
                                             <th>Tax</th>
-                                            <th>Tax Amount</th>
-                                            <th>Net Amount Inc Tax</th>
-                                            <th>Ex Rate</th>
-                                            <th>Local Amount</th>
+                                            <th>TaxAmount</th>
+                                            <th>NetAmountIncTax</th>
+                                            <th>Ex.Rate</th>
+                                            <th>LocalAmount</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="detail_repeater">
-                                        <td><i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
-                                        </td>
-                                        <td><i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info"></i></td>
-                                        <td><input name="" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="charges_code" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="charges_name" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="charges_description" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="size_type" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="rate_group" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="dg_nondg" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="container" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="qty" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="rate" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="currencyy" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="amount" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="discount" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="net_amount" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="margin" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="tax" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="tax_amount" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="inc_tax" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="ex_rate" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                        <td><input name="local_amount" class="form-control" type="text"
-                                                style="width: 100%;" /></td>
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -628,8 +590,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="row">
                                 <div class="col-3">
                                     <div class="row g-0 align-items-center mb-1">
@@ -662,6 +622,55 @@
             </div>
         </form>
     </div>
+
+    <!-- Pick Charges Modal -->
+    <div class="modal fade" id="pick_charges_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Pick Charges</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered text-nowrap text-center">
+                            <thead class="table-dark">
+                                <tr>
+                                    <td></td>
+                                    <td>JobNo</td>
+                                    <td>ChargesCode</td>
+                                    <td>ChargesName</td>
+                                    <td>ChargesSysCode</td>
+                                    <td>PPCCId</td>
+                                    <td>Description</td>
+                                    <td>Size</td>
+                                    <td>RateGroup</td>
+                                    <td>PrincipalCode</td>
+                                    <td>PrincipalName</td>
+                                    <td>Qty</td>
+                                    <td>Rate</td>
+                                    <td>Amount</td>
+                                    <td>Discount</td>
+                                    <td>NetAmount</td>
+                                    <td>Margin</td>
+                                    <td>Currency</td>
+                                    <td>ExchRateClient</td>
+                                    <td>LocalAmount</td>
+                                    <td>DgNonDg</td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary pick_charges_header_btn">Pick</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -678,8 +687,9 @@
         });
 
         function edit_row(e, data) {
-            data = JSON.parse(data);
-            if (data) {
+            let res = JSON.parse(data);
+            if (res.invoice) {
+                data = res.invoice;
                 $(".tran_number").val(data.tran_number);
                 $(".inv_date").val(data.inv_date);
                 $(".reference").val(data.reference);
@@ -717,6 +727,7 @@
 
                 $("#myForm").attr("action", "{{ route('admin.invoice.update') }}");
                 $("input[name=id]").val(data.id);
+                $("input[name=job_id]").val(data.job_id);
             }
 
         }
@@ -731,8 +742,6 @@
             }
         });
 
-
-
         function addNewRow(e) {
             $(e).parent().parent().clone().prependTo(".detail_repeater");
             $(".detail_repeater tr:last").find("input").val(null);
@@ -740,8 +749,61 @@
         }
 
         function delRow(e) {
-            if ($(".detail_repeater tr").length <= 1) return;
-            $(e).parent().parent().remove();
+            if (confirm('Are you sure?')) {
+                $(e).parent().parent().remove();
+            }
         }
+
+        $(".pick_charges").click(function() {
+            let job_id = $("input[name=job_id]").val();
+            let invoice_id = $("input[name=id]").val();
+
+            if (job_id > 0) {
+                $.get("/admin/invoice/create", {
+                    job_id,
+                    invoice_id,
+                    type: "get_invoice_charges"
+                }, function(res) {
+                    $("#pick_charges_modal table tbody").html(res);
+                    $("#pick_charges_modal").modal('show');
+                })
+            } else {
+                iziToast.error({
+                    message: 'Something went wrong!',
+                    position: "topRight"
+                });
+            }
+        })
+
+        $('#pick_charges_modal').on('hidden.bs.modal', function() {
+            $("#pick_charges_modal table tbody").html('');
+        })
+
+        $(".pick_charges_header_btn").click(function() {
+            let checkboxes = $('.job_charges_ids:checked');
+            const values = Array.from(checkboxes).map(cb => cb.value);
+
+            if (values.length) {
+                $.get("/admin/invoice/create", {
+                    values,
+                    type: "put_invoice_charges"
+                }, function(res) {
+                    $("#pick_charges_modal").modal('hide');
+                    $("#charges_table tbody").html(res);
+                })
+            } else {
+                iziToast.error({
+                    message: 'Something went wrong!',
+                    position: "topRight"
+                });
+                $("#charges_table tbody").html('');
+            }
+        })
+
+        @if (isset($_GET['job_id']))
+            setTimeout(() => {
+                edit_row('', '@json($job_data)');
+            }, 500);
+        @endif
     </script>
 @endpush

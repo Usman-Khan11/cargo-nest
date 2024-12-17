@@ -16,6 +16,11 @@ class Job extends Model
         return $this->belongsTo(JobRouting::class, 'id', 'job_id');
     }
 
+    public function clients()
+    {
+        return $this->belongsTo(PartyBasicInfo::class, 'client', 'id');
+    }
+
     public function bl()
     {
         return $this->belongsTo(Bl::class, 'id', 'job_id');

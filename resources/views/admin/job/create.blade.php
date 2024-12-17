@@ -675,7 +675,8 @@
                                                     Program</button>
                                                 <button type="button"
                                                     class="btn btn-primary btn-sm mx-3">Milestone</button>
-                                                <button type="button" class="btn btn-primary btn-sm">Invoice</button>
+                                                <button type="button"
+                                                    class="btn btn-primary btn-sm invoice_btn">Invoice</button>
                                                 <button type="button" class="btn btn-primary btn-sm mx-3">Bill</button>
                                                 <button type="button" class="btn btn-primary btn-sm">Crucial
                                                     Changes</button>
@@ -1997,6 +1998,7 @@
 
             enable_allocate_button('');
             enable_de_allocate_button('');
+            enable_invoice_button('');
 
             $(".inco_term").select2({
                 data: @json($incoterms)
@@ -2325,9 +2327,11 @@
                 if (data.approved_by) {
                     $("#approved_by").text(data.approved_by.username);
                     enable_allocate_button(data.id);
+                    enable_invoice_button(data.id);
                 } else {
                     $("#approved_by").text(null);
                     enable_allocate_button('');
+                    enable_invoice_button('');
                 }
 
                 if (data.created_by) {
@@ -3155,5 +3159,27 @@
                 });
             }
         });
+
+        function enable_invoice_button(job_id) {
+            let btn = $('.invoice_btn');
+            if (job_id) {
+                $(btn).removeAttr("disabled");
+            } else {
+                $(btn).attr("disabled", true);
+            }
+        }
+
+        $(".invoice_btn").click(function() {
+            let job_id = $("input[name=id]").val();
+
+            if (job_id) {
+                window.location.assign('{{ route('admin.invoice.create') }}?job_id=' + job_id);
+            } else {
+                iziToast.error({
+                    message: 'Something went wrong!',
+                    position: "topRight"
+                });
+            }
+        })
     </script>
 @endpush
