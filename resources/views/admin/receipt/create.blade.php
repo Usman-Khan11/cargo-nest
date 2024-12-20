@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 
-
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
@@ -68,7 +67,6 @@
     </div>
 @endsection
 
-
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
@@ -79,7 +77,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="fw-bold">{{ $page_title }}</h4>
-                            <!--<hr />-->
                         </div>
                         <div class="card-body">
                             <input name="id" type="hidden" value="0" />
@@ -142,7 +139,8 @@
                                                 <div class="col-12">
                                                     <div class="form-check">
                                                         <input class="form-check-input cc_invoice" type="checkbox"
-                                                            value="settle_multiple_cc_invoices" id="cc_invoice">
+                                                            value="settle_multiple_cc_invoices" id="cc_invoice"
+                                                            name="cc_invoice">
                                                         <label class="form-check-label" for="cc_invoice">
                                                             Settle multiple CC Invoices
                                                         </label>
@@ -160,7 +158,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <select name="client" class="form-select client">
-                                                        <option value=""></option>
+                                                        <option value="" selected disabled></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -402,7 +400,7 @@
                                                 <div class="col-12">
                                                     <div class="form-check">
                                                         <input class="form-check-input refund" type="checkbox"
-                                                            value="refund" id="refund">
+                                                            value="refund" id="refund" name="refund">
                                                         <label class="form-check-label" for="refund">
                                                             Refund
                                                         </label>
@@ -419,8 +417,8 @@
                                                     <label class="form-label w-100 m-0">HBL#</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input name="hbl_number" value="{{ old('hbl_number') }}"
-                                                        type="text" class="form-control hbl_number">
+                                                    <input name="hbl_no" value="{{ old('hbl_no') }}" type="text"
+                                                        class="form-control hbl_number">
                                                 </div>
                                             </div>
                                         </div>
@@ -490,7 +488,7 @@
                                                 <div class="col-12">
                                                     <div class="form-check">
                                                         <input class="form-check-input continue" type="checkbox"
-                                                            value="continue" id="continue">
+                                                            value="continue" id="continue" name="continue">
                                                         <label class="form-check-label" for="continue">
                                                             Continue
                                                         </label>
@@ -529,7 +527,8 @@
                                                 <div class="col-12">
                                                     <div class="form-check">
                                                         <input class="form-check-input multi_currency" type="checkbox"
-                                                            value="multi_currency" id="multi_currency">
+                                                            value="multi_currency" id="multi_currency"
+                                                            name="multi_currency">
                                                         <label class="form-check-label" for="multi_currency">
                                                             Multi Currency
                                                         </label>
@@ -545,7 +544,7 @@
                                                 <div class="col-12">
                                                     <div class="form-check">
                                                         <input class="form-check-input reversal" type="checkbox"
-                                                            value="reversal" id="reversal">
+                                                            value="reversal" id="reversal" name="reversal">
                                                         <label class="form-check-label" for="reversal">
                                                             Reversal
                                                         </label>
@@ -600,7 +599,7 @@
                                                 <div class="col-4">
                                                     <div class="form-check">
                                                         <input class="form-check-input tax_amt" type="checkbox"
-                                                            value="tax_amount" id="tax_amt">
+                                                            value="tax_amount" id="tax_amt" name="tax_amt">
                                                         <label class="form-check-label" for="tax_amt">
                                                             Tax amt
                                                         </label>
@@ -693,7 +692,7 @@
                                                     <div class="col-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input tax_amt_2" type="checkbox"
-                                                                value="tax_amount" id="tax_amt_2">
+                                                                value="tax_amount" id="tax_amt_2" name="tax_amt_2">
                                                             <label class="form-check-label" for="tax_amt_2">
                                                                 Tax amt
                                                             </label>
@@ -762,7 +761,7 @@
                                                     <div class="col-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input tax_amt_3" type="checkbox"
-                                                                value="tax_amount" id="tax_amt_3">
+                                                                value="tax_amount" id="tax_amt_3" name="tax_amt_3">
                                                             <label class="form-check-label" for="tax_amt_3">
                                                                 Tax amt
                                                             </label>
@@ -829,7 +828,7 @@
                                                     <div class="col-4">
                                                         <div class="form-check">
                                                             <input class="form-check-input tax_amt_4" type="checkbox"
-                                                                value="tax_amount" id="tax_amt_4">
+                                                                value="tax_amount" id="tax_amt_4" name="tax_amt_4">
                                                             <label class="form-check-label" for="tax_amt_4">
                                                                 Tax amt
                                                             </label>
@@ -983,7 +982,7 @@
                                                     style="width: 100%;" /></td>
                                             <td><input name="ref_no[]" class="form-control" type="text"
                                                     style="width: 100%;" /></td>
-                                            <td><input name="hbl_no[]" class="form-control" type="text"
+                                            <td><input name="hbl_noo[]" class="form-control" type="text"
                                                     style="width: 100%;" /></td>
                                             <td><input name="mbl_no[]" class="form-control" type="text"
                                                     style="width: 100%;" /></td>
@@ -1021,42 +1020,42 @@
                                         <div class="col-10 types_div">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="hbl_chk"
-                                                    value="hbl" name="types">
+                                                    value="hbl" name="types[]">
                                                 <label class="form-check-label" for="hbl_chk">HBL</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="mbl_chk"
-                                                    value="mbl" name="types">
+                                                    value="mbl" name="types[]">
                                                 <label class="form-check-label" for="mbl_chk">MBL</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="job_chk"
-                                                    value="jon_no" name="types">
+                                                    value="jon_no" name="types[]">
                                                 <label class="form-check-label" for="job_chk">Job Nos</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="file_chk"
-                                                    value="file_no" name="types">
+                                                    value="file_no" name="types[]">
                                                 <label class="form-check-label" for="file_chk">File No</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="reference_chk"
-                                                    value="reference_no" name="types">
+                                                    value="reference_no" name="types[]">
                                                 <label class="form-check-label" for="reference_chk">Reference No</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="vehicle_chk"
-                                                    value="vehicle_no" name="types">
+                                                    value="vehicle_no" name="types[]">
                                                 <label class="form-check-label" for="vehicle_chk">Vehicle No</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="vessel_chk"
-                                                    value="vessel" name="types">
+                                                    value="vessel" name="types[]">
                                                 <label class="form-check-label" for="vessel_chk">Vessel</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input types" type="checkbox" id="voyage_chk"
-                                                    value="voyage" name="types">
+                                                    value="voyage" name="types[]">
                                                 <label class="form-check-label" for="voyage_chk">Voyage</label>
                                             </div>
                                         </div>
@@ -1074,7 +1073,7 @@
                                                             <div class="form-check">
                                                                 <input class="form-check-input manual_remarks"
                                                                     type="checkbox" value="manual_remarks"
-                                                                    id="manual_remarks">
+                                                                    id="manual_remarks" name="manual_remarks">
                                                                 <label style="font-size: 13px" class="form-check-label"
                                                                     for="manual_remarks">
                                                                     Manual Remarks
@@ -1211,13 +1210,9 @@
     </div>
 @endsection
 
-
-
-
 @push('script')
     <script>
         $('#submitButton').click(function() {
-            // Trigger form submission
             $('#myForm').submit();
         });
 
@@ -1230,66 +1225,62 @@
             $(e).parent().parent().remove();
         }
 
-
         function edit_row(e, data) {
-            data = JSON.parse(data);
-            if (data) {
-                $("input[name=id]").val(data.id);
+            let res = JSON.parse(data);
+            if (res.receipt) {
+                data = res.receipt;
                 $(".tran_no").val(data.tran_no);
-                $(".tran_date").val(data.bill_date);
-                $(".status").val(data.status);
+                $(".tran_date").val(data.tran_date);
+                $(".status").val(data.status).trigger("change");
                 $(".sequence").val(data.sequence);
-                $(".refund").val(data.refund);
                 $(".hbl_number").val(data.hbl_no);
                 $(".advance_balance").val(data.advance_balance);
                 $(".cost_center").val(data.cost_center);
-
-                $(".cc_invoice").removeAttr('checked');
-                $(`.cc_invoice[value=${data.cc_invoice}]`).attr('checked', true);
-
                 $(".total_amount").val(data.total_amount);
-                $(".client").val(data.client);
+                $(".client").val(data.client).trigger('change');
                 $(".code").val(data.code);
-                $(".currency").val(data.currency);
+                $(".currency").val(data.currency).trigger('change');
                 $(".operation").val(data.operation);
                 $(".job_number").val(data.job_number);
                 $(".terminal_inv_number").val(data.terminal_inv_number);
-
-                $(".continue").removeAttr('checked');
-                $(`.continue[value=${data.continue}]`).attr('checked', true);
-
                 $(".exchange_rate").val(data.exchange_rate);
-
-                $(".multi_currency").removeAttr('checked');
-                $(`.multi_currency[value=${data.multi_currency}]`).attr('checked', true);
-
-                $(".payment_type").removeAttr('checked');
-                $(`.payment_type[value=${data.payment_type}]`).attr('checked', true);
-
                 $(".account").val(data.account);
                 $(".code2").val(data.code2);
-
-                $(".reversal").removeAttr('checked');
-                $(`.reversal[value=${data.reversal}]`).attr('checked', true);
-
                 $(".rev_tran_number").val(data.rev_tran_number);
+                $(".tax_authority").val(data.tax_authority).trigger('change');
                 $(".on_account").val(data.on_account);
                 $(".tax").val(data.tax);
-
-                $(".tax_amt").removeAttr('checked');
-                $(`.tax_amt[value=${data.tax_amt}]`).attr('checked', true);
-
+                $(".tax_amt_box").val(data.tax_amt_box);
+                $(".account_no_1").val(data.account_no_1);
+                $(".code3").val(data.code3);
                 $(".sub_type").val(data.sub_type);
                 $(".cheque_no").val(data.cheque_no);
                 $(".date").val(data.date);
                 $(".account_no").val(data.account_no);
                 $(".draw_at").val(data.draw_at);
                 $(".invoice_no").val(data.invoice_no);
-                $(".pay_to").val(data.pay_to);
+                $(".tax_authority_2").val(data.tax_authority_2).trigger('change');
+                $(".tax_2").val(data.tax_2);
+                $(".tax_amt_box_2").val(data.tax_amt_box_2);
+                $(".account_no_2").val(data.account_no_2);
+                $(".code4").val(data.code4);
+                $(".tax_authority_3").val(data.tax_authority_3).trigger('change');
+                $(".tax_3").val(data.tax_3);
+                $(".tax_amt_box_3").val(data.tax_amt_box_3);
+                $(".account_no_3").val(data.account_no_3);
+                $(".code5").val(data.code5);
+                $(".tax_authority_4").val(data.tax_authority_4).trigger('change');
+                $(".tax_4").val(data.tax_4);
+                $(".tax_amt_box_4").val(data.tax_amt_box_4);
+                $(".account_no_4").val(data.account_no_4);
+                $(".code6").val(data.code6);
+                // $(".pay_to").val(data.pay_to);
                 $(".bank_charges").val(data.bank_charges);
                 $(".gain_loss_fc").val(data.gain_loss_fc);
                 $(".account_1").val(data.account_1);
+                $(".code7").val(data.code7);
                 $(".account_2").val(data.account_2);
+                $(".code8").val(data.code8);
                 $(".remarks").val(data.remarks);
                 $(".t_amount").val(data.t_amount);
                 $(".advance").val(data.advance);
@@ -1299,8 +1290,32 @@
                 $(".normal").val(data.normal);
                 $(".security").val(data.security);
                 $(".detension").val(data.detension);
-            }
+                $(`.payment_type[value='${data.payment_type}']`).prop('checked', true);
 
+                $(".refund").prop("checked", data.refund === "refund");
+                $(".cc_invoice").prop("checked", data.cc_invoice === "settle_multiple_cc_invoices");
+                $(".continue").prop("checked", data.continue === "continue");
+                $(".multi_currency").prop("checked", data.multi_currency === "multi_currency");
+                $(".reversal").prop("checked", data.reversal === "reversal");
+                $(".tax_amt").prop("checked", data.tax_amt === "tax_amt");
+                $(".tax_amt_2").prop("checked", data.tax_amt_2 === "tax_amt_2");
+                $(".tax_amt_3").prop("checked", data.tax_amt_3 === "tax_amt_3");
+                $(".tax_amt_4").prop("checked", data.tax_amt_4 === "tax_amt_4");
+                $(".manual_remarks").prop("checked", data.manual_remarks === "manual_remarks");
+
+                if (data.types) {
+                    data.types.forEach(type => {
+                        $(`.types[value='${type}']`).prop('checked', true);
+                    });
+                    $(".types_div").show();
+                } else {
+                    $(".types").prop("checked", false);
+                    $(".types_div").hide();
+                }
+
+                $("input[name=id]").val(data.id);
+                $("#myForm").attr("action", "{{ route('admin.receipt.update') }}");
+            }
         }
 
         $(".navigation").click(function() {
@@ -1312,8 +1327,6 @@
                 edit_row("", JSON.stringify(data));
             }
         });
-
-
 
         function addNewRow(e) {
             $(e).parent().parent().clone().prependTo(".detail_repeater");
@@ -1327,6 +1340,9 @@
         }
 
         $(document).ready(function() {
+            $(".client").select2({
+                data: @json($client)
+            });
 
             $(".payment_type_div").hide();
             $(".payment_type").click(function() {

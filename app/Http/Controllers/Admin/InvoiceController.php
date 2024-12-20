@@ -74,8 +74,9 @@ class InvoiceController extends Controller
 
     public function delete($id)
     {
-        $developer = Invoice::where("id", $id);
-        $developer->delete();
+        Invoice::where("id", $id)->delete();
+        InvoiceDetail::where("invoice_id", $id)->delete();
+
         $notify[] = ['success', 'Invoice Deleted Successfully.'];
         return redirect()->route('admin.invoice.create')->withNotify($notify);
     }
