@@ -125,6 +125,25 @@ function delRow(e) {
     $(e).parent().parent().remove();
 }
 
+function eqpaddNewRow(e) {
+    $("select.equip_size_type").select2(
+        "destroy"
+    );
+    $(e).parent().parent().clone().appendTo(".eqp_detail_repeater");
+    initializeSelect2([
+        "select.equip_size_type",
+    ]);
+    $(".eqp_detail_repeater tr:last").find("input").val(null);
+    $(".eqp_detail_repeater tr:last")
+        .find("select option:first")
+        .attr("selected", true);
+}
+
+function eqpdelRow(e) {
+    if ($(".eqp_detail_repeater tr").length <= 1) return;
+    $(e).parent().parent().remove();
+}
+
 function detailCalculation(e) {
     let total = 0;
     let qty = parseFloat($(e).parent().parent().find("input.qty").val()) || 0;
@@ -360,4 +379,34 @@ function getChargesCurrency(e) {
             }
         );
     }
+}
+
+function equipment_link_to_detail() {
+    $(".detail_repeater tr:gt(0)").remove();
+
+    $("select.charges, select.size_type, select.detail_currency").select2(
+        "destroy"
+    );
+
+    $(".eqp_detail_repeater tr").each(function (i, v) {
+        let $newRow = $(".detail_repeater tr:first").clone();
+        let size_type = $(v).find(".equip_size_type").val();
+        let rate_group = $(v).find(".equip_rate_group").val();
+        let dg_type = $(v).find(".equip_dg_type").val();
+        let qty = $(v).find(".equip_qty").val();
+
+        $newRow.find('.size_type').val(size_type).trigger('change');
+        $newRow.find('.rate_group').val(rate_group);
+        $newRow.find('.dg_type').val(dg_type).trigger('change');
+        $newRow.find('.qty').val(qty);
+
+        $(".detail_repeater").append($newRow);
+    })
+
+    $(".detail_repeater tr:first").remove();
+    initializeSelect2([
+        "select.charges",
+        "select.size_type",
+        "select.detail_currency",
+    ]);
 }

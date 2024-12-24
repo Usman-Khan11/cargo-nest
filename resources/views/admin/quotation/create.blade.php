@@ -727,43 +727,53 @@
                         <table class="datatables-basic table">
                             <thead>
                                 <tr>
-                                    <th>...</th>
-                                    <th>...</th>
-                                    <th>Size/Type</th>
-                                    <th>RateGroup</th>
-                                    <th>Qty</th>
-                                    <th>DG/Non-DG</th>
-                                    <th>Gross WT/CNT</th>
-                                    <th>TEU</th>
+                                    <th width="10%" colspan="2">
+                                        <button type="button" onclick="equipment_link_to_detail()"
+                                            class="btn btn-success btn-sm">Link</button>
+                                    </th>
+                                    {{-- <th width="5%">...</th> --}}
+                                    <th width="15%">Size/Type</th>
+                                    <th width="15%">RateGroup</th>
+                                    <th width="12%">Qty</th>
+                                    <th width="15%">DG/Non-DG</th>
+                                    <th width="20%">Gross WT/CNT</th>
+                                    <th width="13%">TEU</th>
                                 </tr>
                             </thead>
                             <tbody class="eqp_detail_repeater">
                                 <tr>
-                                    <td><i onclick="eqpdelRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
+                                    <td>
+                                        <i onclick="eqpdelRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
                                     </td>
-                                    <td><i onclick="eqpaddNewRow(this)" class="fa fa-clone fa-lg text-info"></i></td>
+                                    <td>
+                                        <i onclick="eqpaddNewRow(this)" class="fa fa-clone fa-lg text-info"></i>
+                                    </td>
                                     <td>
                                         <select name="equip_size_type[]" onchange="equip_size_type(this)"
-                                            class="form-select equip_size_type" style="width: 100%;">
+                                            class="form-select equip_size_type">
                                             <option selected disabled> Select Size </option>
                                         </select>
                                     </td>
-                                    <td><input type="text" class="form-control equip_rate_group" style="width: 100%;"
-                                            name="equip_rate_group[]" /></td>
-                                    <td><input type="text" class="form-control equip_qty" style="width: 100%;"
-                                            name="equip_qty[]" /></td>
                                     <td>
-                                        <select name="equip_dg_type[]" class="form-select equip_dg_type"
-                                            style="width: 100%;">
+                                        <input type="text" class="form-control equip_rate_group"
+                                            name="equip_rate_group[]" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control equip_qty" name="equip_qty[]" />
+                                    </td>
+                                    <td>
+                                        <select name="equip_dg_type[]" class="form-select equip_dg_type">
                                             <option value="Non-DG" selected>Non-DG</option>
                                             <option value="DG">DG</option>
                                             <option value="All">All</option>
                                         </select>
                                     </td>
-                                    <td><input class="form-control equip_gross" type="text" style="width: 100%;"
-                                            name="equip_gross[]" /></td>
-                                    <td><input class="form-control equip_tue" type="text" style="width: 100%;"
-                                            name="equip_tue[]" /></td>
+                                    <td>
+                                        <input class="form-control equip_gross" type="text" name="equip_gross[]" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control equip_tue" type="text" name="equip_tue[]" />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

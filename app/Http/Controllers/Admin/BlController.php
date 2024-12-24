@@ -71,6 +71,16 @@ class BlController extends Controller
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
 
+    public function print($id)
+    {
+        $data['seo_title']      = "Print B/L";
+        $data['seo_desc']       = "Print B/L";
+        $data['seo_keywords']   = "Print B/L";
+        $data['page_title'] = "Print B/L";
+        $data['bl'] = Bl::where("id", $id)->first();
+        return view('admin.bl.print', $data);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

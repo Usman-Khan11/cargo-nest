@@ -348,6 +348,7 @@ Route::namespace('Admin')
             Route::post('bl/store', [BlController::class, 'store'])->name('bl.store');
             Route::post('bl/update', [BlController::class, 'update'])->name('bl.update');
             Route::post('bl/get', [BlController::class, 'get_data'])->name('bl.get');
+            Route::get('bl/print/{id}', [BlController::class, 'print'])->name('bl.print');
 
             // JOB ROUTES
             Route::get('job', [JobController::class, 'index'])->name('job');

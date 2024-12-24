@@ -170,7 +170,7 @@
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Job Type</label>
                                                 <select name="job_type" class="form-select job_type"
-                                                    onchange="jobTypeToggle(this)">
+                                                    onchange="jobTypeToggle()">
                                                     <option value="direct">Direct</option>
                                                     <option value="coloaded">Coloaded</option>
                                                     <option value="coloaded">Cross Trade</option>
@@ -214,7 +214,8 @@
                                         <div class="col-md-3 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Sub Type</label>
-                                                <select name="sub_type" class="form-select sub_type">
+                                                <select name="sub_type" onchange="jobTypeToggle()"
+                                                    class="form-select sub_type">
                                                     <option></option>
                                                     <option value="LCL">LCL</option>
                                                     <option value="FCL" selected>FCL</option>
@@ -2876,8 +2877,10 @@
             get_quot_data('{{ $_GET['quot_id'] }}')
         @endif
 
-        function jobTypeToggle(e) {
-            let val = $(e).val();
+        function jobTypeToggle() {
+            let val = $('.job_type').val();
+            let subType = $(".sub_type").val();
+
             if (val == "direct") {
                 $(".cro_btn").attr("disabled", true);
                 $(".loading_program_btn").attr("disabled", true);
@@ -2885,9 +2888,17 @@
                 $(".cro_btn").attr("disabled", false);
                 $(".loading_program_btn").attr("disabled", false);
             }
+
+            if (val == "direct" && subType == "FCL") {
+                $(".loading_program_btn").attr("disabled", false);
+            }
+
+            if (val == "direct" && subType == "LCL") {
+                $(".loading_program_btn").attr("disabled", true);
+            }
         }
 
-        jobTypeToggle($(".job_type"));
+        jobTypeToggle();
 
         function approvalStatusChange(status) {
             let id = $("input[name=id]").val();
