@@ -78,6 +78,10 @@ class BlController extends Controller
         $data['seo_keywords']   = "Print B/L";
         $data['page_title'] = "Print B/L";
         $data['bl'] = Bl::where("id", $id)->first();
+        $data['bl_detail'] = BlDetail::where('bl_id', $id)->first();
+        $data['bl_stamp'] = BlStamp::where('bl_id', $id)->first();
+        $data['bl_ref'] = BlRef::where('bl_id', $id)->first();
+        $data['bl_container'] = BlContainer::where('bl_id', $id)->get();
         return view('admin.bl.print', $data);
     }
 

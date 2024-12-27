@@ -60,11 +60,10 @@
             <div class="file-check">
                 <i class="fa fa-file-circle-check"></i>
             </div>
-            <div class="file_line">
+            <div class="file_line" onclick="print()">
                 <i class="fa fa-file-lines"></i>
             </div>
         </div>
-
     </div>
 @endsection
 
@@ -1690,5 +1689,12 @@
                 edit_row('', '@json($job_data)');
             }, 500);
         @endif
+
+        function print() {
+            let id = $("input[name=id]").val();
+            if (id > 0) {
+                window.open("/admin/bl/print/" + id);
+            }
+        }
     </script>
 @endpush
