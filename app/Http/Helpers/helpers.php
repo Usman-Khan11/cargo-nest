@@ -4,13 +4,15 @@ use App\Models\Extension;
 use App\Models\GeneralSetting;
 use App\Models\Nav;
 use App\Models\NavKey;
+use App\Models\NavPermission;
 use App\Models\User;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
-
-function sidebarVariation(){
+function sidebarVariation()
+{
 
     $variation['sidebar'] = 'bg_img';
 
@@ -23,7 +25,6 @@ function sidebarVariation(){
     $variation['opacity'] = 'overlay--opacity-9'; // 1-10
 
     return $variation;
-
 }
 
 
@@ -92,7 +93,8 @@ function uploadImage($file, $location, $size = null, $old = null, $thumb = null)
     return $filename;
 }
 
-function uploadFile($file, $location, $size = null, $old = null){
+function uploadFile($file, $location, $size = null, $old = null)
+{
     $path = makeDirectory($location);
     if (!$path) throw new Exception('File could not been created.');
 
@@ -101,7 +103,7 @@ function uploadFile($file, $location, $size = null, $old = null){
     }
 
     $filename = uniqid() . time() . '.' . $file->getClientOriginalExtension();
-    $file->move($location,$filename);
+    $file->move($location, $filename);
     return $filename;
 }
 
@@ -137,15 +139,15 @@ function tawkto()
 
 function fbcomment()
 {
-    $comment = Extension::where('act', 'fb-comment')->where('status',1)->first();
+    $comment = Extension::where('act', 'fb-comment')->where('status', 1)->first();
     return  $comment ? $comment->generateScript() : '';
 }
 
 function getCustomCaptcha($height = 46, $width = '300px', $bgcolor = '#003', $textcolor = '#abc')
 {
-    $textcolor = '#'.GeneralSetting::first()->base_color;
+    $textcolor = '#' . GeneralSetting::first()->base_color;
     $captcha = Extension::where('act', 'custom-captcha')->where('status', 1)->first();
-    if($captcha){
+    if ($captcha) {
         $code = rand(100000, 999999);
         $char = str_split($code);
         $ret = '<link href="https://fonts.googleapis.com/css?family=Henny+Penny&display=swap" rel="stylesheet">';
@@ -157,7 +159,7 @@ function getCustomCaptcha($height = 46, $width = '300px', $bgcolor = '#003', $te
         $captchaSecret = hash_hmac('sha256', $code, $captcha->shortcode->random_key->value);
         $ret .= '<input type="hidden" name="captcha_secret" value="' . $captchaSecret . '">';
         return $ret;
-    }else{
+    } else {
         return false;
     }
 }
@@ -187,7 +189,7 @@ function getTrx($length = 12)
 
 function getAmount($amount, $length = 0)
 {
-    if(0 < $length){
+    if (0 < $length) {
         return round($amount + 0, $length);
     }
     return $amount + 0;
@@ -259,7 +261,8 @@ function getIpInfo()
 
     return $data;
 }
-function getGeoLocationData() {
+function getGeoLocationData()
+{
     $ip = request()->ip();
     $deep_detect = true;
 
@@ -301,7 +304,8 @@ function getGeoLocationData() {
 }
 
 //moveable
-function osBrowser(){
+function osBrowser()
+{
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
     $os_platform = "Unknown OS Platform";
     $os_array = array(
@@ -373,14 +377,14 @@ function siteName()
     return $title;
 }
 
-function getImage($image,$size = null)
+function getImage($image, $size = null)
 {
     $clean = '';
     $size = $size ? $size : 'undefined';
     if (file_exists($image) && is_file($image)) {
         return asset($image) . $clean;
-    }else{
-        return route('placeholderImage',$size);
+    } else {
+        return route('placeholderImage', $size);
     }
 }
 
@@ -457,7 +461,7 @@ function sendPhpMail($receiver_email, $receiver_name, $subject, $message)
 }
 
 
-function sendSmtpMail($config, $receiver_email, $receiver_name, $subject, $message,$gnl)
+function sendSmtpMail($config, $receiver_email, $receiver_name, $subject, $message, $gnl)
 {
     $mail = new PHPMailer(true);
 
@@ -470,7 +474,7 @@ function sendSmtpMail($config, $receiver_email, $receiver_name, $subject, $messa
         $mail->Password   = $config->password;
         if ($config->enc == 'ssl') {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        }else{
+        } else {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         }
         $mail->Port       = $config->port;
@@ -603,12 +607,13 @@ function sendGeneralEmail($email, $subject, $message, $receiver_name = '')
     if ($config->name == 'php') {
         sendPhpMail($email, $receiver_name, $subject, $message);
     } else if ($config->name == 'smtp') {
-        sendSmtpMail($config, $email, $receiver_name, $subject, $message,$general);
+        sendSmtpMail($config, $email, $receiver_name, $subject, $message, $general);
     }
 }
 
 
-function paginateLinks($data, $design = 'admin.partials.paginate'){
+function paginateLinks($data, $design = 'admin.partials.paginate')
+{
     return $data->appends(request()->all())->links($design);
 }
 
@@ -680,14 +685,14 @@ function isUserExists($id)
 function displayRating($val)
 {
     $result = '';
-    for($i=0; $i<intval($val); $i++){
+    for ($i = 0; $i < intval($val); $i++) {
         $result .= '<i class="la la-star text--warning"></i>';
     }
-    if(fmod($val, 1)==0.5){
+    if (fmod($val, 1) == 0.5) {
         $i++;
-        $result .='<i class="las la-star-half-alt text--warning"></i>';
+        $result .= '<i class="las la-star-half-alt text--warning"></i>';
     }
-    for($k=0; $k<5-$i ; $k++){
+    for ($k = 0; $k < 5 - $i; $k++) {
         $result .= '<i class="lar la-star text--warning"></i>';
     }
     return $result;
@@ -713,16 +718,18 @@ function GenerateSlug($value)
 }
 
 
-function fetchAccounts() {
+function fetchAccounts()
+{
     $data = \App\Models\ChartAccount::select('id', 'parent_acc', 'title')->get();
     $accounts = [];
-    foreach($data as $d) {
+    foreach ($data as $d) {
         $accounts[] = $d;
     }
     return $accounts;
 }
 
-function buildTree(array &$elements, $parentId = 0) {
+function buildTree(array &$elements, $parentId = 0)
+{
     $branch = [];
 
     foreach ($elements as &$element) {
@@ -738,14 +745,15 @@ function buildTree(array &$elements, $parentId = 0) {
     return $branch;
 }
 
-function renderTree($tree) {
+function renderTree($tree)
+{
     $html = '<ul>';
     foreach ($tree as $branch) {
         $html .= '<li>';
         if (isset($branch['children'])) {
             $html .= '<span class="toggle">[+]</span>';
         }
-        $html .= '<span class="acc_list" data-id="'.$branch["id"].'">'.$branch['title'].'</span>';
+        $html .= '<span class="acc_list" data-id="' . $branch["id"] . '">' . $branch['title'] . '</span>';
         if (isset($branch['children'])) {
             $html .= renderTree($branch['children']);
         }
@@ -760,4 +768,40 @@ function renderTree($tree) {
 function getNav($parent, $type)
 {
     return Nav::where('parent', $parent)->where('type', $type)->get();
+}
+
+function Get_Sidebar()
+{
+    $Nav = DB::table('navs')->get();
+    return $Nav;
+}
+
+function get_navkey_by_nav_id($nav_id)
+{
+    $Permisions = DB::table('nav_keys')->where('nav_id', $nav_id)->get();
+    return $Permisions;
+}
+
+function get_user_permissions($role_id, $nav_id, $nav_key_id)
+{
+    $Permisions = NavPermission::where('role_id', $role_id)->where('nav_id', $nav_id)->where('nav_key_id', $nav_key_id)->get();
+    return $Permisions;
+}
+
+function Get_Permission($nav_id, $role_id)
+{
+    $arr = [];
+    $navs = Get_Sidebar();
+    foreach ($navs as $nav) {
+        if ($nav->id == $nav_id) {
+            $navs_keys = get_navkey_by_nav_id($nav->id);
+            foreach ($navs_keys as $navs_key) {
+                $perm = get_user_permissions($role_id, $nav->id, $navs_key->id);
+                foreach ($perm as $perm) {
+                    $arr[] = $navs_key->value;
+                }
+            }
+        }
+    }
+    return $arr;
 }

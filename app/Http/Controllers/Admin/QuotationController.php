@@ -31,13 +31,28 @@ use App\Models\AdminNotification;
 use Image;
 use Validator;
 use Session;
-use DataTables;
+// use DataTables;
 use File;
+use Yajra\DataTables\Facades\DataTables;
 
 class QuotationController extends Controller
 {
+    protected $permissions;
+
+    protected function checkPermissions($action)
+    {
+        $permission = Get_Permission(1, Auth::guard('admin')->user()->role_id);
+        $this->permissions = $permission;
+
+        if (!in_array($action, $permission)) {
+            abort(403, 'Unauthorized action.');
+        }
+    }
+
     public function create(Request $request)
     {
+        $this->checkPermissions('view');
+
         if ($request->ajax()) {
 
             if (isset($request->fetch_vessel_voyages)) {
@@ -212,7 +227,7 @@ class QuotationController extends Controller
 
             $query = Quotation::Query();
             $query = $query->orderby('id', 'asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
         $data['quotation_no'] = Quotation::orderby('id', 'desc')->first();
@@ -244,6 +259,7 @@ class QuotationController extends Controller
         $data['charges'] = Charges::select(["id", "name as text"])->get();
         $data['charges'] = $data['charges']->toArray();
 
+        $data['permissions'] = $this->permissions;
         return view('admin.quotation.create', $data);
     }
 
@@ -260,14 +276,21 @@ class QuotationController extends Controller
 
     public function delete($id)
     {
-        $developer = Quotation::where("id", $id);
-        $developer->delete();
+        $this->checkPermissions('delete');
+
+        Quotation::where("id", $id)->delete();
+        QuotationRouting::where("quotation_id", $id)->delete();
+        QuotationDetail::where("quotation_id", $id)->delete();
+        QuotationEquipment::where("quotation_id", $id)->delete();
+
         $notify[] = ['success', 'Quotation Deleted Successfully.'];
         return redirect()->route('admin.quotation.create')->withNotify($notify);
     }
 
     public function store(Request $request)
     {
+        $this->checkPermissions('create');
+
         $validated = $request->validate([
             'operation_type' => 'required',
             'cost_center' => 'required',
@@ -367,6 +390,8 @@ class QuotationController extends Controller
 
     public function update(Request $request)
     {
+        $this->checkPermissions('edit');
+
         $validated = $request->validate([
             'operation_type' => 'required',
             'cost_center' => 'required',

@@ -2141,6 +2141,12 @@
                         <div data-i18n="EMAIL CREDENTIALS">Email Credentials</div>
                     </a>
                 </li>
+                <li class="menu-item">
+                    <a href="{{ route('admin.nav.create') }}" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-email"></i>
+                        <div data-i18n="Create Navigation">Create Navigation</div>
+                    </a>
+                </li>
             </ul>
         </li>
 

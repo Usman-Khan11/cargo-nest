@@ -14,7 +14,7 @@ class Admin extends Authenticatable
      */
     protected $guarded = ['id'];
 
-    protected $casts = ['access'=>'array'];
+    protected $casts = ['access' => 'array'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -22,7 +22,12 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
+    public function role()
+    {
+        return $this->belongsTo(AdminRole::class, 'role_id', 'id');
+    }
 }
