@@ -29,8 +29,8 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-    
-     public $redirectTo = 'admin';
+
+    public $redirectTo = 'admin';
 
     /**
      * Create a new controller instance.
@@ -41,7 +41,7 @@ class LoginController extends Controller
     {
         $this->middleware('admin.guest')->except('logout');
     }
-     public function showLoginForm()
+    public function showLoginForm()
     {
         $data['seo_title']      = "Admin Sign In";
         $data['seo_desc']       = "Admin Sign In";
@@ -68,15 +68,17 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-         $this->validateLogin($request);
-        Session::put('admin_username',$request->username);
-        Session::put('admin_name',$request->name);
-        
+        $this->validateLogin($request);
+        Session::put('admin_username', $request->username);
+        Session::put('admin_name', $request->name);
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+        if (
+            method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)
+        ) {
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }

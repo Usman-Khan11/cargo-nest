@@ -138,7 +138,7 @@
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Job #</label>
                                                 <input name="job_number" type="text" class="form-control job_number"
-                                                    value="MSA-SEJ-{{ $job_no }}/{{ date('Y') }}" readonly />
+                                                    value="{{ $job_no }}" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-12">

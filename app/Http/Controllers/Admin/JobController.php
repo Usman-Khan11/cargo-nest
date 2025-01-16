@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\DocsCompanyWise;
 use App\Models\Manifest;
 use App\Models\VoyageLocal;
 use Image;
@@ -46,8 +47,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JobController extends Controller
 {
+    protected $user_info;
+
+    public function __construct() {}
+
     public function create(Request $request)
     {
+        $user_info = session()->get('user_info');
+
         if ($request->ajax()) {
 
             if (isset($request->type) && $request->type == 'get_location') {
@@ -89,16 +96,17 @@ class JobController extends Controller
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
-        $data['job_no'] = Job::orderby('id', 'desc')->first();
-        if ($data['job_no']) {
-            $str = $data['job_no']->job_number;
-            $str = explode('-', $str);
-            $str = explode('/', $str[2]);
-            $str = $str[0] + 1;
-            $data['job_no'] = $str;
-        } else {
-            $data['job_no'] = 1;
-        }
+        $data['job_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'SE Job');
+        // $data['job_no'] = Job::orderby('id', 'desc')->first();
+        // if ($data['job_no']) {
+        //     $str = $data['job_no']->job_number;
+        //     $str = explode('-', $str);
+        //     $str = explode('/', $str[2]);
+        //     $str = $str[0] + 1;
+        //     $data['job_no'] = $str;
+        // } else {
+        //     $data['job_no'] = 1;
+        // }
 
         $data['seo_title']      = "Se Job";
         $data['seo_desc']       = "Se Job";

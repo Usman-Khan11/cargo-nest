@@ -30,4 +30,9 @@ class Admin extends Authenticatable
     {
         return $this->belongsTo(AdminRole::class, 'role_id', 'id');
     }
+
+    public function rights()
+    {
+        return $this->belongsTo(AdminRight::class, 'id', 'admin_id');
+    }
 }

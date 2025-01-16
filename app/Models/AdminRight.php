@@ -10,9 +10,14 @@ class AdminRight extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $table = 'admin_rights';
-    
+
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(SubCompany::class, 'default_company', 'id');
     }
 }

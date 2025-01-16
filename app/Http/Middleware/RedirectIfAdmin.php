@@ -19,8 +19,21 @@ class RedirectIfAdmin
     public function handle(Request $request, Closure $next, $guard = 'admin')
     {
         if (Auth::guard($guard)->check()) {
-            $message = 'Login Successfully.!';
-            Session::flash('success',$message);
+            // $message = 'Login Successfully.!';
+            // Session::flash('success', $message);
+
+            $user = Auth::guard('admin')->user();
+            session()->put('user_info', [
+                "user_id" => $user->id,
+                "role_id" => $user->role_id,
+                "role" => $user->role->name,
+                "company_id" => $user->rights->default_company,
+                "company_name" => $user->rights->company->name,
+                "company_display_name" => $user->rights->company->displayName,
+                "company_short_name" => $user->rights->company->shortName,
+                "fiscal_year" => ''
+            ]);
+
             return redirect()->route('admin.dashboard');
         }
         return $next($request);
