@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\DocsCompanyWise;
 use Image;
 use Validator;
 use Session;
@@ -24,6 +25,8 @@ class ManifestController extends Controller
 {
     public function create(Request $request)
     {
+        $user_info = session()->get('user_info');
+
         if ($request->ajax()) {
             $totalCount = 0;
             $recordsFiltered = 0;
@@ -39,6 +42,8 @@ class ManifestController extends Controller
                 ->with(['recordsTotal' => $totalCount])
                 ->make(true);
         }
+
+        $data['manifest_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Manifest');
 
         $data['seo_title']      = "Manifest";
         $data['seo_desc']       = "Manifest";
@@ -78,8 +83,11 @@ class ManifestController extends Controller
             'ship_company' => 'required',
         ]);
 
+        $user_info = session()->get('user_info');
+
         $manifest = new Manifest();
         $manifest->fill($request->all());
+        $manifest->tran =  DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Manifest', true);
 
         if ($manifest->save()) {
             //$this->add_hbl_details($request, $manifest->id);

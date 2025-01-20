@@ -90,7 +90,8 @@
                                             <label class="form-label w-100 m-0">CRO No</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="cro_no" type="text" class="form-control cro_no" />
+                                            <input name="cro_no" type="text" class="form-control cro_no" readonly
+                                                value="{{ $cro_no }}" />
                                         </div>
                                     </div>
                                 </div>

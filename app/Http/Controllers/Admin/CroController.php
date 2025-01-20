@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\DocsCompanyWise;
 use App\Models\PartyBasicInfo;
 use Image;
 use Validator;
@@ -24,11 +25,15 @@ class CroController extends Controller
 {
     public function create(Request $request)
     {
+        $user_info = session()->get('user_info');
+
         if ($request->ajax()) {
             $query = Cro::Query();
             $query = $query->orderby('id', 'asc')->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
+
+        $data['cro_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'CRO');
 
         $data['seo_title']      = "CRO";
         $data['seo_desc']       = "CRO";
@@ -65,8 +70,10 @@ class CroController extends Controller
             'issue_date' => 'required',
         ]);
 
+        $user_info = session()->get('user_info');
+
         $cro = new Cro();
-        $cro->cro_no = $request->cro_no;
+        $cro->cro_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'CRO', true);
         $cro->cro_type = $request->cro_type;
         $cro->job_number = $request->job_number;
         $cro->client = $request->client;

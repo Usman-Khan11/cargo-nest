@@ -89,8 +89,8 @@
                                                     <label class="form-label w-100 m-0">Tran #</label>
                                                 </div>
                                                 <div class="col-9">
-                                                    <input name="tran" value="{{ old('tran') }}" type="text"
-                                                        class="form-control tran" />
+                                                    <input name="tran" value="{{ old('tran', $manifest_no) }}"
+                                                        type="text" class="form-control tran" readonly />
                                                 </div>
                                             </div>
                                         </div>
