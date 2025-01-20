@@ -84,8 +84,7 @@
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Q No:</label>
-                                <input name="quotation_no" type="text"
-                                    value="MSA-QTN-{{ $quotation_no }}/{{ date('Y') }}"
+                                <input name="quotation_no" type="text" value="{{ $quotation_no }}"
                                     class="form-control quotation_no" readonly />
                             </div>
                         </div>

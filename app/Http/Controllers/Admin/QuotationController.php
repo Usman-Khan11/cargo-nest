@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\DocsCompanyWise;
 use Image;
 use Validator;
 use Session;
@@ -52,6 +53,7 @@ class QuotationController extends Controller
     public function create(Request $request)
     {
         $this->checkPermissions('view');
+        $user_info = session()->get('user_info');
 
         if ($request->ajax()) {
 
@@ -230,16 +232,17 @@ class QuotationController extends Controller
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
-        $data['quotation_no'] = Quotation::orderby('id', 'desc')->first();
-        if ($data['quotation_no']) {
-            $str = $data['quotation_no']->quotation_no;
-            $str = explode('-', $str);
-            $str = explode('/', $str[2]);
-            $str = $str[0] + 1;
-            $data['quotation_no'] = $str;
-        } else {
-            $data['quotation_no'] = 1;
-        }
+        $data['quotation_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Quotation');
+        // $data['quotation_no'] = Quotation::orderby('id', 'desc')->first();
+        // if ($data['quotation_no']) {
+        //     $str = $data['quotation_no']->quotation_no;
+        //     $str = explode('-', $str);
+        //     $str = explode('/', $str[2]);
+        //     $str = $str[0] + 1;
+        //     $data['quotation_no'] = $str;
+        // } else {
+        //     $data['quotation_no'] = 1;
+        // }
 
         $data['seo_title']      = "Quotation";
         $data['seo_desc']       = "Quotation";
@@ -299,10 +302,13 @@ class QuotationController extends Controller
             'port_of_discharge' => 'required',
         ]);
 
+        $user_info = session()->get('user_info');
+
         $quotation = new Quotation();
         $quotation->approval_status = "Pending";
         $quotation->created_by = Auth::guard('admin')->user()->id;
         $quotation->fill($request->all());
+        $quotation->quotation_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Quotation', true);
         $quotation->save();
 
         $quotation_routings = new QuotationRouting();

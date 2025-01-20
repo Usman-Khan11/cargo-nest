@@ -204,9 +204,12 @@ class JobController extends Controller
             'client' => 'required',
         ]);
 
+        $user_info = session()->get('user_info');
+
         $job = new Job();
         $job->approval_status = "Pending";
         $job->fill($request->all());
+        $job->job_number = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'SE Job', true);
         $job->save();
 
         $e_size_type = $request->e_size_type;

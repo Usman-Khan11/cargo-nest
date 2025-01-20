@@ -82,6 +82,7 @@ use App\Http\Controllers\Admin\PreAlertController;
 use App\Http\Controllers\Admin\DeliveryOrderController;
 use App\Http\Controllers\Admin\AdvanceDetensionController;
 use App\Http\Controllers\Admin\AutoDetensionController;
+use App\Http\Controllers\Admin\BlTemplateController;
 use App\Http\Controllers\Admin\DetensionSummaryController;
 use App\Http\Controllers\Admin\EquipmentInvoiceProcessController;
 use App\Http\Controllers\Admin\RefundRequisitionController;
@@ -349,6 +350,13 @@ Route::namespace('Admin')
             Route::post('bl/update', [BlController::class, 'update'])->name('bl.update');
             Route::post('bl/get', [BlController::class, 'get_data'])->name('bl.get');
             Route::get('bl/print/{id}', [BlController::class, 'print'])->name('bl.print');
+
+            // B/L TEMPLATES ROUTES
+            Route::get('bl_template/create', [BlTemplateController::class, 'create'])->name('bl_template.create');
+            Route::get('bl_template/delete/{id}', [BlTemplateController::class, 'delete'])->name('bl_template.delete');
+            Route::post('bl_template/store', [BlTemplateController::class, 'store'])->name('bl_template.store');
+            Route::post('bl_template/update', [BlTemplateController::class, 'update'])->name('bl_template.update');
+            Route::post('bl_template/get', [BlTemplateController::class, 'get_data'])->name('bl_template.get');
 
             // JOB ROUTES
             Route::get('job', [JobController::class, 'index'])->name('job');
