@@ -11,6 +11,8 @@ use Session;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\AdminRight;
+use App\Models\AdminRole;
+use App\Models\Role;
 use App\Models\SubCompany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,6 +33,10 @@ class ManageUserController extends Controller
         $data['seo_desc']       = "User Setup";
         $data['seo_keywords']   = "User Setup";
         $data['page_title'] = "User Setup";
+
+        $data['companies'] = SubCompany::all();
+        $data['roles'] = AdminRole::all();
+
         return view('admin.user.create', $data);
     }
 
@@ -82,7 +88,7 @@ class ManageUserController extends Controller
         $user->security_ans = $request->security_ans;
         $user->status = (isset($request->status)) ? 1 : 0;
         $user->acount_block = (isset($request->acount_block)) ? 1 : 0;
-        $user->role_id = (isset($request->role_id)) ? 1 : 0;
+        $user->role_id = $request->role_id;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -119,7 +125,7 @@ class ManageUserController extends Controller
         $user->security_ans = $request->security_ans;
         $user->status = (isset($request->status)) ? 1 : 0;
         $user->acount_block = (isset($request->acount_block)) ? 1 : 0;
-        $user->role_id = (isset($request->role_id)) ? 1 : 0;
+        $user->role_id = $request->role_id;
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
