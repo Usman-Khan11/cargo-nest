@@ -7,18 +7,20 @@ use App\Models\GeneralSetting;
 
 class HomeController extends Controller
 {
-    
+
     public function __construct() {}
-    
+
     public function index()
     {
         $data['top_title'] = "Edit Card |";
         $data['page_title'] = "Edit Card";
         return view('home', $data);
     }
-    
+
     public function home()
     {
+        return redirect()->route('admin.dashboard');
+
         $GeneralSetting = GeneralSetting::first();
         $data['seo_title']      = $GeneralSetting->meta_title;
         $data['seo_desc']       = $GeneralSetting->meta_desc;
