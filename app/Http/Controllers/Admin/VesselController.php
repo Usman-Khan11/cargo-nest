@@ -14,8 +14,9 @@ use App\Models\AdminNotification;
 use Image;
 use Validator;
 use Session;
-use DataTables;
+// use DataTables;
 use File;
+use Yajra\DataTables\Facades\DataTables;
 
 class VesselController extends Controller
 {
@@ -31,7 +32,7 @@ class VesselController extends Controller
             $query = $query->with('vessel');
             $query = $query->where('vessel', $request->vessel);
             $query = $query->orderby('id', 'asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
         return view('admin.vessel.index', $data);
     }

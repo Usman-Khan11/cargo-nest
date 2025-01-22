@@ -282,6 +282,7 @@ Route::namespace('Admin')
             Route::post('currency/update', [CurrencyController::class, 'update'])->name('currency.update');
             Route::post('currency/import', [CurrencyController::class, 'bulkUpload'])->name('currency.import');
             Route::post('currency/get', [CurrencyController::class, 'get_data'])->name('currency.get');
+            Route::get('currency/get_all_data', [CurrencyController::class, 'getAllData'])->name('currency.get_all_data');
 
             // PARTY ROUTES
             Route::get('party', [PartyController::class, 'index'])->name('party');

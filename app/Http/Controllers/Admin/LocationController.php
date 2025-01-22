@@ -210,7 +210,7 @@ class LocationController extends Controller
             $data = Location::where('code', 'like', "%$search_term%")
                 ->orWhere('location', 'like', "%$search_term%")
                 ->select('id', DB::raw('CONCAT(location) as text'))
-                ->get();
+                ->take(50)->get();
             return $data;
         }
 
@@ -221,7 +221,7 @@ class LocationController extends Controller
                     ->orWhere('code', 'like', "%$search_term%");
             })->where('location_check', 'like', '%seaport%')
                 ->select('id', DB::raw('CONCAT(location) as text'))
-                ->get();
+                ->take(50)->get();
             return $data;
         }
 
@@ -232,7 +232,18 @@ class LocationController extends Controller
                     ->orWhere('code', 'like', "%$search_term%");
             })->where('location_check', 'like', '%city%')
                 ->select('id', DB::raw('CONCAT(location) as text'))
-                ->get();
+                ->take(50)->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_country') {
+            $search_term = $request->search;
+            $data = Location::Where(function ($query) use ($search_term) {
+                $query->where('location', 'like', "%$search_term%")
+                    ->orWhere('code', 'like', "%$search_term%");
+            })->where('location_check', 'like', '%country%')
+                ->select('id', DB::raw('CONCAT(location) as text'))
+                ->take(50)->get();
             return $data;
         }
     }
