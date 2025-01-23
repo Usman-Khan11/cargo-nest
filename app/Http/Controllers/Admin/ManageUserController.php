@@ -88,6 +88,7 @@ class ManageUserController extends Controller
         $user->security_ans = $request->security_ans;
         $user->status = (isset($request->status)) ? 1 : 0;
         $user->acount_block = (isset($request->acount_block)) ? 1 : 0;
+        $user->company_id = $request->company_id;
         $user->role_id = $request->role_id;
 
         if ($request->hasFile('image')) {
@@ -95,7 +96,7 @@ class ManageUserController extends Controller
             $filename = uniqid() . '.' . $file->getClientOriginalExtension();
             $directory = 'assets/upload/';
             $path = $file->move($directory, $filename);
-            $user->image = $path;
+            $user->image = $directory . $filename;
         }
 
         $user->save();
@@ -125,6 +126,7 @@ class ManageUserController extends Controller
         $user->security_ans = $request->security_ans;
         $user->status = (isset($request->status)) ? 1 : 0;
         $user->acount_block = (isset($request->acount_block)) ? 1 : 0;
+        $user->company_id = $request->company_id;
         $user->role_id = $request->role_id;
 
         if ($request->hasFile('image')) {
@@ -132,7 +134,7 @@ class ManageUserController extends Controller
             $filename = uniqid() . '.' . $file->getClientOriginalExtension();
             $directory = 'assets/upload/';
             $path = $file->move($directory, $filename);
-            $user->image = $path;
+            $user->image = $directory . $filename;
         }
 
         $user->save();

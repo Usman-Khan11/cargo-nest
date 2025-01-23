@@ -155,7 +155,7 @@
                                 <div class="col-md-7">
                                     <div class="mb-2 ">
                                         <label class="form-label">Company:</label>
-                                        <select name="company" class="form-select company">
+                                        <select name="company_id" class="form-select company">
                                             @foreach ($companies as $company)
                                                 <option value="{{ $company->id }}">{{ $company->displayName }}</option>
                                             @endforeach
@@ -262,10 +262,11 @@
             if (data) {
                 $(".name").val(data.name);
                 $(".username").val(data.username);
-                $(".password").val(null);
+                $(".password").val(data.password);
                 $(".email").val(data.email);
                 $(".security_que").val(data.security_que);
                 $(".security_ans").val(data.security_ans);
+                $(".company").val(data.company_id).trigger('change');
                 $(".role_id").val(data.role_id).trigger('change');
 
                 $("input[name='acount_block']").prop('checked', false);

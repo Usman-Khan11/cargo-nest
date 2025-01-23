@@ -27,10 +27,10 @@ class RedirectIfAdmin
                 "user_id" => $user->id,
                 "role_id" => $user->role_id,
                 "role" => $user->role->name,
-                "company_id" => $user->rights->default_company,
-                "company_name" => $user->rights->company->name,
-                "company_display_name" => $user->rights->company->displayName,
-                "company_short_name" => $user->rights->company->shortName,
+                "company_id" => $user->company_id,
+                "company_name" => @$user->company->name,
+                "company_display_name" => @$user->company->displayName,
+                "company_short_name" => @$user->company->shortName,
                 "fiscal_year" => ''
             ]);
 

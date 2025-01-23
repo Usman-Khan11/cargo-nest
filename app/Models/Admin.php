@@ -22,7 +22,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
@@ -34,5 +34,10 @@ class Admin extends Authenticatable
     public function rights()
     {
         return $this->belongsTo(AdminRight::class, 'id', 'admin_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(SubCompany::class, 'company_id', 'id');
     }
 }
