@@ -31,7 +31,8 @@ class RedirectIfAdmin
                 "company_name" => @$user->company->name,
                 "company_display_name" => @$user->company->displayName,
                 "company_short_name" => @$user->company->shortName,
-                "fiscal_year" => ''
+                "fiscal_year_id" => @$user->company->fiscal_year->id,
+                "fiscal_year" => @$user->company->fiscal_year->description,
             ]);
 
             return redirect()->route('admin.dashboard');

@@ -3,7 +3,7 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="chartAccFormReset('/admin/user/store')">
+            <div class="plus" onclick="UserFormReset('/admin/user/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
@@ -256,6 +256,12 @@
         $("#submitButton").click(function() {
             $("#myForm").submit();
         });
+
+        function UserFormReset() {
+            document.getElementById("myForm").reset();
+            $("#myForm").attr("action", route);
+            $("#myForm").find("select").trigger("change");
+        }
 
         function edit_row(e, data) {
             data = JSON.parse(data);

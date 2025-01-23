@@ -1432,17 +1432,17 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('admin.fiscal_year.create') }}" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Fiscal Year</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                {{-- <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>
                         <div data-i18n="General Setting">Fiscal Year Selection</div>
                     </a>
-                </li>
+                </li> --}}
                 <li class="menu-item">
                     <a href="/admin/system_policy/create" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-user"></i>

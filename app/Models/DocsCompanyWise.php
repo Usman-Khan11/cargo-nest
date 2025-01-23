@@ -15,9 +15,15 @@ class DocsCompanyWise extends Model
         return $this->belongsTo(SubCompany::class, 'company_id');
     }
 
+    public function fiscal_year()
+    {
+        return $this->belongsTo(FiscalYear::class, 'fiscal_year');
+    }
+
     public static function getDocNumber($company_id, $fiscal_year, $document, $update = false)
     {
         $doc = DocsCompanyWise::where('company_id', $company_id)
+            ->where('fiscal_year', $fiscal_year)
             ->where('document', $document)
             ->first();
 
@@ -28,6 +34,8 @@ class DocsCompanyWise extends Model
                 $doc->last_no++;
             }
             return $doc->company->shortName . $doc->no_seperator . $doc->prefix . $doc->no_seperator . $doc->last_no . $doc->suffix;
+        } else {
+            return '';
         }
     }
 }

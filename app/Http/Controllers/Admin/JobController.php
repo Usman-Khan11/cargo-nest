@@ -48,8 +48,12 @@ use Yajra\DataTables\Facades\DataTables;
 class JobController extends Controller
 {
     protected $user_info;
+    protected $name;
 
-    public function __construct() {}
+    public function __construct()
+    {
+        $this->name = "SE Job";
+    }
 
     public function create(Request $request)
     {
@@ -96,7 +100,7 @@ class JobController extends Controller
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
-        $data['job_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'SE Job');
+        $data['job_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
         // $data['job_no'] = Job::orderby('id', 'desc')->first();
         // if ($data['job_no']) {
         //     $str = $data['job_no']->job_number;
@@ -209,7 +213,7 @@ class JobController extends Controller
         $job = new Job();
         $job->approval_status = "Pending";
         $job->fill($request->all());
-        $job->job_number = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'SE Job', true);
+        $job->job_number = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
         $job->save();
 
         $e_size_type = $request->e_size_type;

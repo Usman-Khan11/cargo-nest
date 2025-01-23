@@ -103,6 +103,7 @@ use App\Http\Controllers\Admin\GuaranteeLetterController;
 use App\Http\Controllers\Admin\SecurityDepositeController;
 use App\Http\Controllers\Admin\VesselArrivalDepartureReportController;
 use App\Http\Controllers\Admin\CrtEdiController;
+use App\Http\Controllers\Admin\FiscalYearController;
 use App\Http\Controllers\Admin\PrincipalManualSoaController;
 use App\Http\Controllers\Admin\PrincipalSoaController;
 use App\Http\Controllers\Admin\PrincipalReceiptPaymentController;
@@ -558,9 +559,11 @@ Route::namespace('Admin')
             Route::get('system_policy/create', [SystemPolicyController::class, 'create'])->name('system_policy.create');
             Route::get('system_policy/edit/{id}', [SystemPolicyController::class, 'edit'])->name('system_policy.edit');
             Route::get('system_policy/delete/{id}', [SystemPolicyController::class, 'delete'])->name('system_policy.delete');
+            Route::get('docs_company_wise/delete/{id}', [SystemPolicyController::class, 'docs_company_wise_delete'])->name('docs_company_wise.delete');
             Route::post('system_policy/store', [SystemPolicyController::class, 'store'])->name('system_policy.store');
             Route::post('system_policy/update', [SystemPolicyController::class, 'update'])->name('system_policy.update');
             Route::post('system_policy/get', [SystemPolicyController::class, 'get_data'])->name('system_policy.get');
+            Route::post('docs_company_wise/get', [SystemPolicyController::class, 'docs_company_wise_data'])->name('docs_company_wise.get');
 
 
 
@@ -934,6 +937,14 @@ Route::namespace('Admin')
             Route::post('nav/store', [NavController::class, 'store'])->name('nav.store');
             Route::post('nav/update', [NavController::class, 'update'])->name('nav.update');
             Route::post('nav/get', [NavController::class, 'get_data'])->name('nav.get');
+
+
+            // FISCAL YEAR ROUTES
+            Route::get('fiscal-year/create', [FiscalYearController::class, 'create'])->name('fiscal_year.create');
+            Route::get('fiscal-year/delete/{id}', [FiscalYearController::class, 'delete'])->name('fiscal_year.delete');
+            Route::post('fiscal-year/store', [FiscalYearController::class, 'store'])->name('fiscal_year.store');
+            Route::post('fiscal-year/update', [FiscalYearController::class, 'update'])->name('fiscal_year.update');
+            Route::post('fiscal-year/get', [FiscalYearController::class, 'get_data'])->name('fiscal_year.get');
 
 
             // SHIPPING AGENCY LICENSE ROUTES

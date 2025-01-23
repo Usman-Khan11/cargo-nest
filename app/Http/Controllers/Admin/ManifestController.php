@@ -23,6 +23,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ManifestController extends Controller
 {
+    protected $name;
+
+    public function __construct()
+    {
+        $this->name = "Manifest";
+    }
+
     public function create(Request $request)
     {
         $user_info = session()->get('user_info');
@@ -43,7 +50,7 @@ class ManifestController extends Controller
                 ->make(true);
         }
 
-        $data['manifest_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Manifest');
+        $data['manifest_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
 
         $data['seo_title']      = "Manifest";
         $data['seo_desc']       = "Manifest";
@@ -87,7 +94,7 @@ class ManifestController extends Controller
 
         $manifest = new Manifest();
         $manifest->fill($request->all());
-        $manifest->tran =  DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Manifest', true);
+        $manifest->tran =  DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
 
         if ($manifest->save()) {
             //$this->add_hbl_details($request, $manifest->id);

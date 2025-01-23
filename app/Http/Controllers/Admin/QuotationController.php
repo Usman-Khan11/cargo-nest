@@ -39,6 +39,12 @@ use Yajra\DataTables\Facades\DataTables;
 class QuotationController extends Controller
 {
     protected $permissions;
+    protected $name;
+
+    public function __construct()
+    {
+        $this->name = "Quotation";
+    }
 
     protected function checkPermissions($action)
     {
@@ -232,7 +238,7 @@ class QuotationController extends Controller
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
-        $data['quotation_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Quotation');
+        $data['quotation_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
         // $data['quotation_no'] = Quotation::orderby('id', 'desc')->first();
         // if ($data['quotation_no']) {
         //     $str = $data['quotation_no']->quotation_no;
@@ -308,7 +314,7 @@ class QuotationController extends Controller
         $quotation->approval_status = "Pending";
         $quotation->created_by = Auth::guard('admin')->user()->id;
         $quotation->fill($request->all());
-        $quotation->quotation_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'Quotation', true);
+        $quotation->quotation_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
         $quotation->save();
 
         $quotation_routings = new QuotationRouting();

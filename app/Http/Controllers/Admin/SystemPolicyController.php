@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DocsCompanyWise;
+use App\Models\FiscalYear;
 use App\Models\SubCompany;
 use App\Models\SystemPolicy;
 use Illuminate\Http\Request;
@@ -14,24 +15,47 @@ class SystemPolicyController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            $query = SystemPolicy::Query();
-            $query = $query->orderby('id', 'asc')->get();
-            return DataTables::of($query)->addIndexColumn()->make(true);
+            $type = $request->type;
+            if ($type == "system_policy") {
+                $query = SystemPolicy::Query();
+                $query = $query->orderby('id', 'asc')->get();
+                return DataTables::of($query)->addIndexColumn()->make(true);
+            } else if ($type == "docs_company_wise") {
+                $query = DocsCompanyWise::Query();
+                $query = $query->with(
+                    'company',
+                    'fiscal_year'
+                );
+                $query = $query->orderby('id', 'asc')->get();
+                return DataTables::of($query)->addIndexColumn()->make(true);
+            }
+            // $query = SystemPolicy::Query();
+            // $query = $query->orderby('id', 'asc')->get();
+            // return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
         $data['seo_title']      = "System Policy";
         $data['seo_desc']       = "System Policy";
         $data['seo_keywords']   = "System Policy";
         $data['page_title'] = "System Policy";
+
         $data['companies'] = SubCompany::get();
+        $data['fiscal_years'] = FiscalYear::get();
+
         return view('admin.system_policy.create', $data);
     }
 
     public function delete($id)
     {
-        $system_policy = SystemPolicy::where("id", $id);
-        $system_policy->delete();
+        $system_policy = SystemPolicy::where("id", $id)->delete();
         $notify[] = ['success', 'System Policy Deleted Successfully.'];
+        return back()->withNotify($notify);
+    }
+
+    public function docs_company_wise_delete($id)
+    {
+        $system_policy = DocsCompanyWise::where("id", $id)->delete();
+        $notify[] = ['success', 'DocsCompanyWise Deleted Successfully.'];
         return back()->withNotify($notify);
     }
 
@@ -84,18 +108,47 @@ class SystemPolicyController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
-            'element' => ['required', 'string', 'max:255'],
-            'value' => ['nullable', 'string', 'max:20']
-        ]);
+        $type = $request->type;
 
-        $system_policy = SystemPolicy::where("id", $request->id)->first();
-        $system_policy->element = $request->element;
-        $system_policy->value = $request->value;
-        $system_policy->save();
+        if ($type == "system_policy") {
+            $request->validate([
+                'element' => ['required', 'string', 'max:255'],
+                'value' => ['nullable', 'string', 'max:20']
+            ]);
 
-        $notify[] = ['success', 'System Policy Updated Successfully.'];
-        return redirect()->route('admin.system_policy.create')->withNotify($notify);
+            $system_policy = SystemPolicy::where("id", $request->id)->first();
+            $system_policy->element = $request->element;
+            $system_policy->value = $request->value;
+            $system_policy->save();
+
+            $notify[] = ['success', 'System Policy Updated Successfully.'];
+            return redirect()->route('admin.system_policy.create')->withNotify($notify);
+        } else if ($type == "docs_company_wise") {
+            $request->validate([
+                'document' => ['required', 'string', 'max:255'],
+                'company_id' => ['required', 'integer'],
+                'fiscal_year' => ['required', 'string', 'max:200'],
+                'prefix' => ['required', 'string', 'max:30'],
+                'no_seperator' => ['required', 'string', 'max:10'],
+                'suffix' => ['required', 'string', 'max:30'],
+                'start_no' => ['nullable', 'string', 'max:50'],
+                'last_no' => ['nullable', 'string', 'max:50'],
+            ]);
+
+            $docs_company_wise = DocsCompanyWise::where("id", $request->id)->first();
+            $docs_company_wise->document = $request->document;
+            $docs_company_wise->company_id = $request->company_id;
+            $docs_company_wise->fiscal_year = $request->fiscal_year;
+            $docs_company_wise->prefix = $request->prefix;
+            $docs_company_wise->no_seperator = $request->no_seperator;
+            $docs_company_wise->suffix = $request->suffix;
+            $docs_company_wise->start_no = $request->start_no;
+            $docs_company_wise->last_no = $request->last_no;
+            $docs_company_wise->save();
+
+            $notify[] = ['success', 'Document Company Wise Updated Successfully.'];
+            return redirect()->route('admin.system_policy.create')->withNotify($notify);
+        }
     }
 
     public function get_data(Request $request)
@@ -115,5 +168,29 @@ class SystemPolicyController extends Controller
         }
 
         return $query->first();
+    }
+
+    public function docs_company_wise_data(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $data = DocsCompanyWise::Query();
+
+        if ($type == "first") {
+            $data = $data->orderBy('id', 'asc');
+        } else if ($type == "last") {
+            $data = $data->orderBy('id', 'desc');
+        } else if ($type == "forward") {
+            $data = $data->where('id', '>', $id);
+        } else if ($type == "backward") {
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
+        }
+
+        $data = $data->with(
+            'company',
+            'fiscal_year'
+        )->first();
+
+        return $data;
     }
 }

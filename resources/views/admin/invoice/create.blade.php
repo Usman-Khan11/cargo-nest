@@ -91,8 +91,8 @@
                                             <label class="form-label w-100 m-0">Tran #</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="tran_number" value="{{ old('tran_number') }}" type="text"
-                                                class="form-control tran_number" />
+                                            <input name="tran_number" value="{{ old('tran_number', $invoice_no) }}"
+                                                type="text" class="form-control tran_number" readonly />
                                         </div>
                                     </div>
                                 </div>

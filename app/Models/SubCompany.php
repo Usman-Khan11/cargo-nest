@@ -20,4 +20,9 @@ class SubCompany extends Model
     {
         return $this->belongsTo(Currency::class, 'currency', 'id');
     }
+
+    public function fiscal_year()
+    {
+        return $this->belongsTo(FiscalYear::class, 'id', 'company_id');
+    }
 }

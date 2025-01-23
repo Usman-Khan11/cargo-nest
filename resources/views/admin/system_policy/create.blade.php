@@ -131,6 +131,10 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="mt-3">
+                                        <table class="table table-bordered system_policy_table"></table>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade" id="docs_company_wise" role="tabpanel">
@@ -170,9 +174,15 @@
                                                     <label class="form-label w-100 m-0">Fiscal Year</label>
                                                 </div>
                                                 <div class="col-9">
-                                                    <input name="fiscal_year" type="text"
-                                                        class="form-control fiscal_year"
-                                                        value="{{ old('fiscal_year') }}" />
+                                                    <select name="fiscal_year" class="form-select fiscal_year">
+                                                        <option value="" selected disabled></option>
+                                                        @foreach ($fiscal_years as $fiscal_year)
+                                                            <option data-doc_suffix="{{ $fiscal_year->doc_suffix }}"
+                                                                value="{{ $fiscal_year->id }}">
+                                                                {{ $fiscal_year->description }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -236,14 +246,16 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="mt-3 text-nowrap table-responsive">
+                                        <table class="table table-bordered docs_company_wise_table"></table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card mb-4" style="background-color: #f4ffed">
-                        <div class="p-3">
-                            <table class="table table-bordered"></table>
-                        </div>
+
                     </div>
                 </form>
             </div>
@@ -259,19 +271,50 @@
             $("#myForm").submit();
         });
 
+        $("button[data-bs-toggle=tab]").on("shown.bs.tab", function(event) {
+            let type = $(".tab-pane.active").attr("id");
+            $("input[name=id]").val(0);
+            $("input[name=type]").val(type);
+
+            if (type == "system_policy") {
+                $("div.xmark").attr("onclick", "deleteData('/admin/system_policy/delete')");
+            } else if (type == "docs_company_wise") {
+                $("div.xmark").attr("onclick", "deleteData('/admin/docs_company_wise/delete')");
+            }
+        });
+
         function edit_row(e, data) {
+            let type = $(".tab-pane.active").attr("id");
             data = JSON.parse(data);
+
             if (data) {
-                $(".element").val(data.element);
-                $(".value").val(data.value).trigger('value');
-                $("#myForm").attr("action", "{{ route('admin.system_policy.update') }}");
-                $("input[name=id]").val(data.id);
+                if (type == "system_policy") {
+                    $(".element").val(data.element);
+                    $(".value").val(data.value).trigger('change');
+                    $("#myForm").attr("action", "{{ route('admin.system_policy.update') }}");
+                    $("input[name=id]").val(data.id);
+                } else if (type == "docs_company_wise") {
+                    $(".document").val(data.document);
+                    $(".company_id").val(data.company_id).trigger('change');
+                    $(".fiscal_year").val(data.fiscal_year.id).trigger('change');
+                    $(".prefix").val(data.prefix);
+                    $(".no_seperator").val(data.no_seperator);
+                    $(".suffix").val(data.suffix);
+                    $(".start_no").val(data.start_no);
+                    $(".last_no").val(data.last_no);
+                    $("#myForm").attr("action", "{{ route('admin.system_policy.update') }}");
+                    $("input[name=id]").val(data.id);
+                }
             }
         }
 
         $(".navigation").click(function() {
+            let t = $(".tab-pane.active").attr("id");
             let id = $("input[name=id]").val();
             let route = "/admin/system_policy/get";
+            if (t == "docs_company_wise") {
+                route = "/admin/docs_company_wise/get";
+            }
             let type = $(this).attr("data-type");
             let data = getList(route, type, id);
             if (data != null) {
@@ -280,7 +323,7 @@
         });
 
         $(document).ready(function() {
-            $("table.table").DataTable({
+            $(".system_policy_table").DataTable({
                 select: {
                     style: "api",
                 },
@@ -292,7 +335,9 @@
                 ajax: {
                     url: "{{ route('admin.system_policy.create') }}",
                     type: "get",
-                    data: function(d) {},
+                    data: function(d) {
+                        d.type = "system_policy";
+                    },
                 },
                 columns: [{
                         data: "element",
@@ -307,6 +352,79 @@
                     $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`);
                 },
             });
+
+            $(".docs_company_wise_table").DataTable({
+                select: {
+                    style: "api",
+                },
+                processing: true,
+                searching: false,
+                serverSide: true,
+                lengthChange: false,
+                pageLength: 10,
+                ajax: {
+                    url: "{{ route('admin.system_policy.create') }}",
+                    type: "get",
+                    data: function(d) {
+                        d.type = "docs_company_wise";
+                    },
+                },
+                columns: [{
+                        data: "document",
+                        title: "document",
+                    },
+                    {
+                        data: "company_id",
+                        title: "Company",
+                        render: function(data, type, full, meta) {
+                            if (full.company) {
+                                return full.company.name;
+                            } else {
+                                return "";
+                            }
+                        }
+                    },
+                    {
+                        data: "fiscal_year",
+                        title: "fiscal year",
+                        render: function(data, type, full, meta) {
+                            if (full.fiscal_year) {
+                                return full.fiscal_year.description;
+                            } else {
+                                return "";
+                            }
+                        }
+                    },
+                    {
+                        data: "prefix",
+                        title: "prefix",
+                    },
+                    {
+                        data: "no_seperator",
+                        title: "no seperator",
+                    },
+                    {
+                        data: "suffix",
+                        title: "suffix",
+                    },
+                    {
+                        data: "start_no",
+                        title: "start_no",
+                    },
+                    {
+                        data: "last_no",
+                        title: "last_no",
+                    },
+                ],
+                rowCallback: function(row, data) {
+                    $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`);
+                },
+            });
+
+            $(".fiscal_year").change(function() {
+                let doc_suffix = $(this).find("option:selected").attr("data-doc_suffix");
+                $(".suffix").val(doc_suffix);
+            })
         });
     </script>
 @endpush

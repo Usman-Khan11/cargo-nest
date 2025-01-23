@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\DocsCompanyWise;
 use App\Models\Job;
 use App\Models\JobReceivable;
 use App\Models\PartyBasicInfo;
@@ -21,8 +22,17 @@ use File;
 
 class InvoiceController extends Controller
 {
+    protected $name;
+
+    public function __construct()
+    {
+        $this->name = "SE Invoice";
+    }
+
     public function create(Request $request)
     {
+        $user_info = session()->get('user_info');
+
         $data['seo_title']      = "Se Invoice";
         $data['seo_desc']       = "Se Invoice";
         $data['seo_keywords']   = "Se Invoice";
@@ -59,6 +69,8 @@ class InvoiceController extends Controller
             return view('admin.invoice.partials.charges_data', $data);
         }
 
+        $data['invoice_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
+
         return view('admin.invoice.create', $data);
     }
 
@@ -83,6 +95,8 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
+        $user_info = session()->get('user_info');
+
         $request->validate([
             'tran_number' => 'required',
             'inv_date'    => 'required',
@@ -93,6 +107,7 @@ class InvoiceController extends Controller
 
         $invoice = new Invoice();
         $invoice->fill($request->all());
+        $invoice->tran_number = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
         $invoice->save();
 
         $charges_ids = $request->charges_ids;

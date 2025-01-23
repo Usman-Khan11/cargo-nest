@@ -23,6 +23,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CroController extends Controller
 {
+    protected $name;
+
+    public function __construct()
+    {
+        $this->name = "CRO";
+    }
+
     public function create(Request $request)
     {
         $user_info = session()->get('user_info');
@@ -33,7 +40,7 @@ class CroController extends Controller
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
-        $data['cro_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'CRO');
+        $data['cro_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
 
         $data['seo_title']      = "CRO";
         $data['seo_desc']       = "CRO";
@@ -73,7 +80,7 @@ class CroController extends Controller
         $user_info = session()->get('user_info');
 
         $cro = new Cro();
-        $cro->cro_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year'], 'CRO', true);
+        $cro->cro_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
         $cro->cro_type = $request->cro_type;
         $cro->job_number = $request->job_number;
         $cro->client = $request->client;
