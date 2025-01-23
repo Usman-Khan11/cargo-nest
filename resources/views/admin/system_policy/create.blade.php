@@ -296,7 +296,9 @@
                 } else if (type == "docs_company_wise") {
                     $(".document").val(data.document);
                     $(".company_id").val(data.company_id).trigger('change');
-                    $(".fiscal_year").val(data.fiscal_year.id).trigger('change');
+                    if (data.fiscal_year) {
+                        $(".fiscal_year").val(data.fiscal_year.id).trigger('change');
+                    }
                     $(".prefix").val(data.prefix);
                     $(".no_seperator").val(data.no_seperator);
                     $(".suffix").val(data.suffix);
