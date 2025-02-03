@@ -169,7 +169,7 @@
             let storedWindowsLength = Object.keys(storedWindows).length;
 
             setTimeout(function() {
-                //$(".navigation[data-type=last]").click();
+                $(".navigation[data-type=last]").click();
                 for (const id in storedWindows) {
                     const url = storedWindows[id].url;
                     const name = storedWindows[id].name;
@@ -182,7 +182,7 @@
                         $(`#myTabs [data-bs-target="#${id}"]`).tab("show");
                     }
                 }
-            }, 500);
+            }, 300);
 
             $(document).on("click", ".nav_link, .menu-inner .menu-link", function(event) {
                 event.preventDefault();
@@ -208,7 +208,7 @@
 
                     if (!$(`#myTabs [data-bs-target="#${id}"]`).length) {
 
-                        if (storedWindowsLength >= 10) {
+                        if (storedWindowsLength >= 11) {
                             notify('error', 'Tab Length Exceed!')
                             return;
                         }
@@ -243,12 +243,27 @@
                 Object.keys(storedWindows).forEach(key => (storedWindows[key].focus = key === id));
                 localStorage.setItem("openedWindows", JSON.stringify(storedWindows));
             });
+
+            $(document).on("click", "button.nav-link span", function(event) {
+                let id = $(this).parent().attr("data-id");
+                let target = $(this).parent().attr("data-bs-target");
+                $(this).parent().parent().remove();
+                $(target).remove();
+
+                delete storedWindows[id];
+                // Update localStorage with metadata
+                localStorage.setItem("openedWindows", JSON.stringify(storedWindows));
+
+                if ($('#myTabs li').length > 0) {
+                    $('#myTabs li:first').find('button').click();
+                }
+            })
         })
 
         function addTabList(id, name) {
             return `<li class="nav-item" role="presentation">
                         <button class="nav-link" data-bs-toggle="tab" data-id="${id}" data-bs-target="#${id}"
-                            type="button" role="tab">${name}</button>
+                            type="button" role="tab">${name} &nbsp; <span class="badge badge-center rounded-pill bg-label-danger"><i class="fa fa-times"></i></span></button>
                     </li>`;
         }
 
