@@ -257,8 +257,8 @@
             $("#myForm").submit();
         });
 
-        function UserFormReset() {
-            document.getElementById("myForm").reset();
+        function UserFormReset(route) {
+            document.getElementById('myForm').reset();
             $("#myForm").attr("action", route);
             $("#myForm").find("select").trigger("change");
         }

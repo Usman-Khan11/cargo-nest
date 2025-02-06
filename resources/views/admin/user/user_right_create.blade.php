@@ -3,7 +3,7 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="chartAccFormReset('/admin/user-right/store')">
+            <div class="plus" onclick="formReset('/admin/user-right/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
