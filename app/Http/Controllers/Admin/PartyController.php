@@ -22,8 +22,9 @@ use App\Models\AdminNotification;
 use Image;
 use Validator;
 use Session;
-use DataTables;
+// use DataTables;
 use File;
+use Yajra\DataTables\Facades\DataTables;
 
 class PartyController extends Controller
 {
@@ -46,7 +47,7 @@ class PartyController extends Controller
             $query = PartyBasicInfo::Query();
             $query = $query->with('city');
             $query = $query->orderby('id', 'asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
         $data['party_num'] = PartyBasicInfo::orderby('id', 'desc')->first();
