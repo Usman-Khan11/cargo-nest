@@ -9,6 +9,7 @@ use App\Models\User;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 function sidebarVariation()
@@ -68,44 +69,44 @@ function getNumber($length = 8)
     return $randomString;
 }
 
-function uploadImage($file, $location, $size = null, $old = null, $thumb = null)
-{
-    $path = makeDirectory($location);
-    if (!$path) throw new Exception('File could not been created.');
+// function uploadImage($file, $location, $size = null, $old = null, $thumb = null)
+// {
+//     $path = makeDirectory($location);
+//     if (!$path) throw new Exception('File could not been created.');
 
-    if (!empty($old)) {
-        removeFile($location . '/' . $old);
-        removeFile($location . '/thumb_' . $old);
-    }
-    $filename = uniqid() . time() . '.' . $file->getClientOriginalExtension();
-    $image = Image::make($file);
-    if (!empty($size)) {
-        $size = explode('x', strtolower($size));
-        $image->resize($size[0], $size[1]);
-    }
-    $image->save($location . '/' . $filename);
+//     if (!empty($old)) {
+//         removeFile($location . '/' . $old);
+//         removeFile($location . '/thumb_' . $old);
+//     }
+//     $filename = uniqid() . time() . '.' . $file->getClientOriginalExtension();
+//     $image = Image::make($file);
+//     if (!empty($size)) {
+//         $size = explode('x', strtolower($size));
+//         $image->resize($size[0], $size[1]);
+//     }
+//     $image->save($location . '/' . $filename);
 
-    if (!empty($thumb)) {
-        $thumb = explode('x', $thumb);
-        Image::make($file)->resize($thumb[0], $thumb[1])->save($location . '/thumb_' . $filename);
-    }
+//     if (!empty($thumb)) {
+//         $thumb = explode('x', $thumb);
+//         Image::make($file)->resize($thumb[0], $thumb[1])->save($location . '/thumb_' . $filename);
+//     }
 
-    return $filename;
-}
+//     return $filename;
+// }
 
-function uploadFile($file, $location, $size = null, $old = null)
-{
-    $path = makeDirectory($location);
-    if (!$path) throw new Exception('File could not been created.');
+// function uploadFile($file, $location, $size = null, $old = null)
+// {
+//     $path = makeDirectory($location);
+//     if (!$path) throw new Exception('File could not been created.');
 
-    if (!empty($old)) {
-        removeFile($location . '/' . $old);
-    }
+//     if (!empty($old)) {
+//         removeFile($location . '/' . $old);
+//     }
 
-    $filename = uniqid() . time() . '.' . $file->getClientOriginalExtension();
-    $file->move($location, $filename);
-    return $filename;
-}
+//     $filename = uniqid() . time() . '.' . $file->getClientOriginalExtension();
+//     $file->move($location, $filename);
+//     return $filename;
+// }
 
 function makeDirectory($path)
 {
@@ -119,61 +120,61 @@ function removeFile($path)
     return file_exists($path) && is_file($path) ? @unlink($path) : false;
 }
 
-function reCaptcha()
-{
-    $reCaptcha = Extension::where('act', 'google-recaptcha2')->where('status', 1)->first();
-    return $reCaptcha ? $reCaptcha->generateScript() : '';
-}
+// function reCaptcha()
+// {
+//     $reCaptcha = Extension::where('act', 'google-recaptcha2')->where('status', 1)->first();
+//     return $reCaptcha ? $reCaptcha->generateScript() : '';
+// }
 
-function analytics()
-{
-    $analytics = Extension::where('act', 'google-analytics')->where('status', 1)->first();
-    return $analytics ? $analytics->generateScript() : '';
-}
+// function analytics()
+// {
+//     $analytics = Extension::where('act', 'google-analytics')->where('status', 1)->first();
+//     return $analytics ? $analytics->generateScript() : '';
+// }
 
-function tawkto()
-{
-    $tawkto = Extension::where('act', 'tawk-chat')->where('status', 1)->first();
-    return $tawkto ? $tawkto->generateScript() : '';
-}
+// function tawkto()
+// {
+//     $tawkto = Extension::where('act', 'tawk-chat')->where('status', 1)->first();
+//     return $tawkto ? $tawkto->generateScript() : '';
+// }
 
-function fbcomment()
-{
-    $comment = Extension::where('act', 'fb-comment')->where('status', 1)->first();
-    return  $comment ? $comment->generateScript() : '';
-}
+// function fbcomment()
+// {
+//     $comment = Extension::where('act', 'fb-comment')->where('status', 1)->first();
+//     return  $comment ? $comment->generateScript() : '';
+// }
 
-function getCustomCaptcha($height = 46, $width = '300px', $bgcolor = '#003', $textcolor = '#abc')
-{
-    $textcolor = '#' . GeneralSetting::first()->base_color;
-    $captcha = Extension::where('act', 'custom-captcha')->where('status', 1)->first();
-    if ($captcha) {
-        $code = rand(100000, 999999);
-        $char = str_split($code);
-        $ret = '<link href="https://fonts.googleapis.com/css?family=Henny+Penny&display=swap" rel="stylesheet">';
-        $ret .= '<div style="height: ' . $height . 'px; line-height: ' . $height . 'px; width:' . $width . '; text-align: center; background-color: ' . $bgcolor . '; color: ' . $textcolor . '; font-size: ' . ($height - 20) . 'px; font-weight: bold; letter-spacing: 20px; font-family: \'Henny Penny\', cursive;  -webkit-user-select: none; -moz-user-select: none;-ms-user-select: none;user-select: none;  display: flex; justify-content: center;">';
-        foreach ($char as $value) {
-            $ret .= '<span style="    float:left;     -webkit-transform: rotate(' . rand(-60, 60) . 'deg);">' . $value . '</span>';
-        }
-        $ret .= '</div>';
-        $captchaSecret = hash_hmac('sha256', $code, $captcha->shortcode->random_key->value);
-        $ret .= '<input type="hidden" name="captcha_secret" value="' . $captchaSecret . '">';
-        return $ret;
-    } else {
-        return false;
-    }
-}
+// function getCustomCaptcha($height = 46, $width = '300px', $bgcolor = '#003', $textcolor = '#abc')
+// {
+//     $textcolor = '#' . GeneralSetting::first()->base_color;
+//     $captcha = Extension::where('act', 'custom-captcha')->where('status', 1)->first();
+//     if ($captcha) {
+//         $code = rand(100000, 999999);
+//         $char = str_split($code);
+//         $ret = '<link href="https://fonts.googleapis.com/css?family=Henny+Penny&display=swap" rel="stylesheet">';
+//         $ret .= '<div style="height: ' . $height . 'px; line-height: ' . $height . 'px; width:' . $width . '; text-align: center; background-color: ' . $bgcolor . '; color: ' . $textcolor . '; font-size: ' . ($height - 20) . 'px; font-weight: bold; letter-spacing: 20px; font-family: \'Henny Penny\', cursive;  -webkit-user-select: none; -moz-user-select: none;-ms-user-select: none;user-select: none;  display: flex; justify-content: center;">';
+//         foreach ($char as $value) {
+//             $ret .= '<span style="    float:left;     -webkit-transform: rotate(' . rand(-60, 60) . 'deg);">' . $value . '</span>';
+//         }
+//         $ret .= '</div>';
+//         $captchaSecret = hash_hmac('sha256', $code, $captcha->shortcode->random_key->value);
+//         $ret .= '<input type="hidden" name="captcha_secret" value="' . $captchaSecret . '">';
+//         return $ret;
+//     } else {
+//         return false;
+//     }
+// }
 
 
-function captchaVerify($code, $secret)
-{
-    $captcha = Extension::where('act', 'custom-captcha')->where('status', 1)->first();
-    $captchaSecret = hash_hmac('sha256', $code, $captcha->shortcode->random_key->value);
-    if ($captchaSecret == $secret) {
-        return true;
-    }
-    return false;
-}
+// function captchaVerify($code, $secret)
+// {
+//     $captcha = Extension::where('act', 'custom-captcha')->where('status', 1)->first();
+//     $captchaSecret = hash_hmac('sha256', $code, $captcha->shortcode->random_key->value);
+//     if ($captchaSecret == $secret) {
+//         return true;
+//     }
+//     return false;
+// }
 
 function getTrx($length = 12)
 {
@@ -463,34 +464,34 @@ function sendPhpMail($receiver_email, $receiver_name, $subject, $message)
 
 function sendSmtpMail($config, $receiver_email, $receiver_name, $subject, $message, $gnl)
 {
-    $mail = new PHPMailer(true);
+    // $mail = new PHPMailer(true);
 
-    try {
-        //Server settings
-        $mail->isSMTP();
-        $mail->Host       = $config->host;
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $config->username;
-        $mail->Password   = $config->password;
-        if ($config->enc == 'ssl') {
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        } else {
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        }
-        $mail->Port       = $config->port;
-        $mail->CharSet = 'UTF-8';
-        //Recipients
-        $mail->setFrom($gnl->email_from, $gnl->sitetitle);
-        $mail->addAddress($receiver_email, $receiver_name);
-        $mail->addReplyTo($gnl->email_from, $gnl->sitename);
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body    = $message;
-        $mail->send();
-    } catch (Exception $e) {
-        throw new Exception($e);
-    }
+    // try {
+    //     //Server settings
+    //     $mail->isSMTP();
+    //     $mail->Host       = $config->host;
+    //     $mail->SMTPAuth   = true;
+    //     $mail->Username   = $config->username;
+    //     $mail->Password   = $config->password;
+    //     if ($config->enc == 'ssl') {
+    //         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    //     } else {
+    //         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    //     }
+    //     $mail->Port       = $config->port;
+    //     $mail->CharSet = 'UTF-8';
+    //     //Recipients
+    //     $mail->setFrom($gnl->email_from, $gnl->sitetitle);
+    //     $mail->addAddress($receiver_email, $receiver_name);
+    //     $mail->addReplyTo($gnl->email_from, $gnl->sitename);
+    //     // Content
+    //     $mail->isHTML(true);
+    //     $mail->Subject = $subject;
+    //     $mail->Body    = $message;
+    //     $mail->send();
+    // } catch (Exception $e) {
+    //     throw new Exception($e);
+    // }
 }
 
 function getPaginate($paginate = 20)
@@ -804,4 +805,17 @@ function Get_Permission($nav_id, $role_id)
         }
     }
     return $arr;
+}
+
+function checkPermissions($action, $nav_id, $role_id, $user_id)
+{
+    if ($user_id == 1) {
+        return;
+    }
+
+    $permission = Get_Permission($nav_id, $role_id);
+
+    if (!in_array($action, $permission)) {
+        abort(403, 'Unauthorized action.');
+    }
 }

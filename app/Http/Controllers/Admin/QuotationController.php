@@ -46,20 +46,20 @@ class QuotationController extends Controller
         $this->name = "Quotation";
     }
 
-    protected function checkPermissions($action)
-    {
-        $permission = Get_Permission(1, Auth::guard('admin')->user()->role_id);
-        $this->permissions = $permission;
+    // protected function checkPermissions($action)
+    // {
+    //     $permission = Get_Permission(1, Auth::guard('admin')->user()->role_id);
+    //     $this->permissions = $permission;
 
-        if (!in_array($action, $permission)) {
-            abort(403, 'Unauthorized action.');
-        }
-    }
+    //     if (!in_array($action, $permission)) {
+    //         abort(403, 'Unauthorized action.');
+    //     }
+    // }
 
     public function create(Request $request)
     {
-        $this->checkPermissions('view');
         $user_info = session()->get('user_info');
+        checkPermissions('view', 1, $user_info['role_id'], $user_info['user_id']);
 
         if ($request->ajax()) {
 
