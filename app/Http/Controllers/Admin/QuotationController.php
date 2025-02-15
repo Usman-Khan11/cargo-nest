@@ -40,10 +40,12 @@ class QuotationController extends Controller
 {
     protected $permissions;
     protected $name;
+    protected $nav_id;
 
     public function __construct()
     {
         $this->name = "Quotation";
+        $this->nav_id = 1;
     }
 
     // protected function checkPermissions($action)
@@ -59,7 +61,7 @@ class QuotationController extends Controller
     public function create(Request $request)
     {
         $user_info = session()->get('user_info');
-        checkPermissions('view', 1, $user_info['role_id'], $user_info['user_id']);
+        checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         if ($request->ajax()) {
 
@@ -285,7 +287,8 @@ class QuotationController extends Controller
 
     public function delete($id)
     {
-        $this->checkPermissions('delete');
+        $user_info = session()->get('user_info');
+        checkPermissions('delete', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         Quotation::where("id", $id)->delete();
         QuotationRouting::where("quotation_id", $id)->delete();
@@ -298,7 +301,8 @@ class QuotationController extends Controller
 
     public function store(Request $request)
     {
-        $this->checkPermissions('create');
+        $user_info = session()->get('user_info');
+        checkPermissions('create', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         $validated = $request->validate([
             'operation_type' => 'required',
@@ -307,8 +311,6 @@ class QuotationController extends Controller
             'port_of_loading' => 'required',
             'port_of_discharge' => 'required',
         ]);
-
-        $user_info = session()->get('user_info');
 
         $quotation = new Quotation();
         $quotation->approval_status = "Pending";
@@ -402,7 +404,8 @@ class QuotationController extends Controller
 
     public function update(Request $request)
     {
-        $this->checkPermissions('edit');
+        $user_info = session()->get('user_info');
+        checkPermissions('edit', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         $validated = $request->validate([
             'operation_type' => 'required',
@@ -510,6 +513,9 @@ class QuotationController extends Controller
 
     public function get_data(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $id = $request->id;
         $type = $request->type;
         $data = null;
