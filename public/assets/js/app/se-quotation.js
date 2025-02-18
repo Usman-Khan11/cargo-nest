@@ -191,7 +191,7 @@ function quotationFormReset(route) {
     $("#myForm").find("select").trigger("change");
     $("#myForm")
         .find(
-            ".terminals, .place_of_receipt, .port_of_loading, .port_of_discharge, .final_destination, .custom_clearance"
+            ".terminals, .place_of_receipt, .port_of_loading, .port_of_discharge, .final_destination, .custom_clearance, .client, .sale_rep, .commodity"
         )
         .val(null)
         .trigger("change");
