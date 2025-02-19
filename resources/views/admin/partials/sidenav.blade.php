@@ -37,7 +37,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1 mt-2">
-        <li class="menu-item {{ menuActive('admin.dashboard') }}">
+        <li class="menu-item">
             <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-home"></i>
                 <div data-i18n="Dashboard">Dashboard</div>

@@ -47,7 +47,7 @@ class Quotation extends Model
 
     public function currencies()
     {
-        return $this->belongsTo(Voyage::class, 'currency', 'id');
+        return $this->belongsTo(Currency::class, 'currency', 'id');
     }
 
     public function created_by()

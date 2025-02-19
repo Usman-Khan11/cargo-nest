@@ -267,6 +267,9 @@ class QuotationController extends Controller
         $data['parties'] = PartyBasicInfo::whereIn('party_type', ['customer', 'customer-vendor'])->select(["id", "party_name as text"])->get();
         $data['parties'] = $data['parties']->toArray();
 
+        $data['payable_to'] = PartyBasicInfo::whereIn('party_type', ['vendor', 'customer-vendor'])->select(["id", "party_name as text"])->get();
+        $data['payable_to'] = $data['payable_to']->toArray();
+
         $data['charges'] = Charges::select(["id", "name as text"])->get();
         $data['charges'] = $data['charges']->toArray();
 

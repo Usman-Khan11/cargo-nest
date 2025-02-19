@@ -500,8 +500,12 @@
                                                 onkeyup="detailCalculation(this)" name="buying_rate[]" /></td>
                                         <td><input class="form-control remarks" type="text" style="width: 100%;"
                                                 name="remarks[]" /></td>
-                                        <td><input class="form-control payable_to" type="text" style="width: 100%;"
-                                                name="payable_to[]" /></td>
+                                        <td>
+                                            <select class="form-select payable_to" style="width: 100%;"
+                                                name="payable_to[]">
+                                                <option selected disabled value="">Select Charges</option>
+                                            </select>
+                                        </td>
                                         <td><input class="form-control buying_remarks" type="text"
                                                 style="width: 100%;" name="buying_remarks[]" /></td>
                                         <td><input class="form-control ord" type="text" style="width: 100%;"
@@ -771,6 +775,7 @@
                                         <input class="form-control equip_gross" type="text" name="equip_gross[]" />
                                     </td>
                                     <td>
+                                        <input class="original_equip_tue" type="hidden" name="original_equip_tue[]" />
                                         <input class="form-control equip_tue" type="text" name="equip_tue[]" />
                                     </td>
                                 </tr>
@@ -789,6 +794,8 @@
                             onclick="approvalStatusChange('Un-approved')">Un Approved</button>
                         <button type="button" class="btn btn-primary btn-sm" id="create_job" disabled>Create
                             Job</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="cancel_job"
+                            onclick="approvalStatusChange('Cancelled')" disabled>Cancelled</button>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-12">
@@ -800,6 +807,7 @@
                                     <option value="Approved">Approved</option>
                                     <option value="Un-approved">Un-approved</option>
                                     <option value="Pending">Pending</option>
+                                    <option value="Cancelled">Cancelled</option>
                                 </select>
                             </div>
                             <div>
@@ -871,6 +879,12 @@
     <script src="{{ asset('assets/js/app/se-quotation.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $(document).on("keyup", ".equip_qty", function() {
+                let qty = parseInt($(this).val()) || 0;
+                let tue = parseInt($(this).parent().parent().find(".original_equip_tue").val()) || 0;
+
+                $(this).parent().parent().find(".equip_tue").val(qty * tue);
+            })
 
             $(".detail_currency").select2({
                 data: @json($currencies)
@@ -886,6 +900,10 @@
 
             $(".charges").select2({
                 data: @json($charges)
+            });
+
+            $(".payable_to").select2({
+                data: @json($payable_to)
             });
         });
 
@@ -1092,7 +1110,7 @@
                     $(remarks).val(value.remarks);
 
                     var payable_to = $(`.payable_to`).get(key);
-                    $(payable_to).val(value.payable_to);
+                    $(payable_to).val(value.payable_to).trigger('change');
 
                     var buying_remarks = $(`.buying_remarks`).get(key);
                     $(buying_remarks).val(value.buying_remarks);

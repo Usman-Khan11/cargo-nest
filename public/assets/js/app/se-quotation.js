@@ -148,22 +148,13 @@ function detailCalculation(e) {
     let total = 0;
     let qty = parseFloat($(e).parent().parent().find("input.qty").val()) || 0;
     let rate = parseFloat($(e).parent().parent().find("input.rate").val()) || 0;
-    let detail_ex_rate =
-        parseFloat($(e).parent().parent().find("input.detail_ex_rate").val()) ||
-        0;
-    let amount =
-        parseFloat($(e).parent().parent().find("input.amount").val()) || 0;
-    let local_amount =
-        parseFloat($(e).parent().parent().find("input.local_amount").val()) ||
-        0;
+    let detail_ex_rate = parseFloat($(e).parent().parent().find("input.detail_ex_rate").val()) || 0;
+    let amount = parseFloat($(e).parent().parent().find("input.amount").val()) || 0;
+    let local_amount = parseFloat($(e).parent().parent().find("input.local_amount").val()) || 0;
     let tax = parseFloat($(e).parent().parent().find("input.tax").val()) || 0;
-    let inc_tax_amount =
-        parseFloat($(e).parent().parent().find("input.inc_tax_amount").val()) ||
-        0;
-    let buying_rate =
-        parseFloat($(e).parent().parent().find("input.buying_rate").val()) || 0;
-    let total_receivable =
-        parseFloat($("input[name=total_receivable]").val()) || 0;
+    let inc_tax_amount = parseFloat($(e).parent().parent().find("input.inc_tax_amount").val()) || 0;
+    let buying_rate = parseFloat($(e).parent().parent().find("input.buying_rate").val()) || 0;
+    let total_receivable = parseFloat($("input[name=total_receivable]").val()) || 0;
 
     total = rate * qty;
     tax = tax / 100;
@@ -181,8 +172,10 @@ function detailCalculation(e) {
         .val(total * detail_ex_rate + tax);
 
     $("input[name=total_receivable]").val(total * detail_ex_rate + tax);
-    $("input[name=total_payable]").val(total * detail_ex_rate + tax);
-    $("input[name=total_profit]").val(total * detail_ex_rate + tax);
+    $("input[name=total_payable]").val(buying_rate);
+    let t = (total * detail_ex_rate) + tax;
+    t = buying_rate - t;
+    $("input[name=total_profit]").val(t);
 }
 
 function quotationFormReset(route) {
@@ -304,6 +297,8 @@ function equip_size_type(e) {
         function (res) {
             $(parent).find(".equip_gross").val(res.weight);
             $(parent).find(".equip_tue").val(res.teu);
+            $(parent).find(".original_equip_tue").val(res.teu);
+            $(parent).find(".equip_qty").trigger('keyup');
         }
     );
 }
@@ -323,14 +318,22 @@ function enableJobButton(status) {
 
     if (status == "Approved") {
         $("#approved_btn").attr("disabled", true);
+        $("#cancel_job").attr("disabled", true);
     } else {
         $("#approved_btn").removeAttr("disabled");
+        $("#cancel_job").removeAttr("disabled");
     }
 
     if (status == "Un-approved") {
         $("#un_approved_btn").attr("disabled", true);
     } else {
         $("#un_approved_btn").removeAttr("disabled");
+    }
+
+    if (status == "Cancelled") {
+        $("#cancel_job").attr("disabled", true);
+        $("#approved_btn").attr("disabled", true);
+        $("#create_job").attr("disabled", true);
     }
 }
 

@@ -162,6 +162,10 @@
             $(arr).select2();
         }
 
+        $("div.refresh").click(function() {
+            window.location.reload();
+        })
+
         $(document).ready(function() {
             let iframe_height = $(window).height() - 100;
 
@@ -193,6 +197,11 @@
 
                 let name = $(this).text().trim();
                 let url = $(this).attr('href');
+
+                if (url == "#") {
+                    notify('error', 'URL not found')
+                    return;
+                }
 
                 if (name == "Logout") {
                     localStorage.setItem("openedWindows", JSON.stringify({}));
@@ -234,6 +243,8 @@
 
                     // Update localStorage with metadata
                     localStorage.setItem("openedWindows", JSON.stringify(storedWindows));
+                    $('#navbar_search_result_area').css('display', 'none');
+                    $('#navbar-search__field').val(null);
                 }
             })
 
