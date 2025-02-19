@@ -2,6 +2,13 @@
 
 @section('top_nav_panel')
     @if (request()->routeIs('admin.dashboard'))
+        <style>
+            #myTabs li button {
+                padding: 8px 5px !important;
+                font-size: 14px !important;
+                margin-right: 0 !important;
+            }
+        </style>
         <ul class="nav nav-tabs" id="myTabs" role="tablist"></ul>
     @endif
 @endsection
