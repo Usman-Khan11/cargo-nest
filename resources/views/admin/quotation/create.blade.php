@@ -333,7 +333,7 @@
 
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
-                                <img id="statusImage" src="{{ asset('frontend/images/approved.png') }}" width="50%"
+                                <img id="statusImage" src="{{ asset('assets/img/approved.png') }}" width="50%"
                                     style="display:none;" />
                             </div>
                         </div>
