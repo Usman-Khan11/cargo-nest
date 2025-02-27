@@ -154,6 +154,7 @@ function detailCalculation(e) {
     let tax = parseFloat($(e).parent().parent().find("input.tax").val()) || 0;
     let inc_tax_amount = parseFloat($(e).parent().parent().find("input.inc_tax_amount").val()) || 0;
     let buying_rate = parseFloat($(e).parent().parent().find("input.buying_rate").val()) || 0;
+    buying_rate = buying_rate * detail_ex_rate;
     let total_receivable = parseFloat($("input[name=total_receivable]").val()) || 0;
 
     total = rate * qty;

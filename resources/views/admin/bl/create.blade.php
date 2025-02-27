@@ -159,7 +159,8 @@
                                                     <label class="form-label w-100 m-0">HBL#</label>
                                                 </div>
                                                 <div class="col-9">
-                                                    <input name="hbl" type="text" class="form-control hbl" />
+                                                    <input name="hbl" type="text" class="form-control hbl"
+                                                        readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -1421,6 +1422,14 @@
 @push('script')
     <script src="{{ asset('assets/js/app/bl.js') }}"></script>
     <script>
+        $("#hbl_issue").change(function() {
+            if (this.checked) {
+                $(".hbl").val("{{ $hbl_no }}");
+            } else {
+                $(".hbl").val(null);
+            }
+        })
+
         function edit_row(e, data) {
             let res = JSON.parse(data);
 

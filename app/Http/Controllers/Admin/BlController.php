@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Models\DocsCompanyWise;
 use App\Models\Job;
 use App\Models\JobRouting;
 use Image;
@@ -26,6 +27,16 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BlController extends Controller
 {
+    protected $permissions;
+    protected $name;
+    protected $nav_id;
+
+    public function __construct()
+    {
+        $this->name = "SE B/L";
+        $this->nav_id = 1;
+    }
+
     public function create(Request $request)
     {
         if ($request->ajax()) {
@@ -37,7 +48,9 @@ class BlController extends Controller
         if (isset($request->job_id)) {
             $data['job_data'] = $this->get_data_by_job($request->job_id);
         }
-        //return $data['job_data'];
+
+        $user_info = session()->get('user_info');
+        $data['hbl_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
 
         $data['seo_title']      = "B/L";
         $data['seo_desc']       = "B/L";
