@@ -379,7 +379,7 @@ class QuotationController extends Controller
             $quotation_details->inc_tax_amount = $request->inc_tax_amount[$key];
             $quotation_details->buying_rate = $request->buying_rate[$key];
             $quotation_details->remarks = $request->remarks[$key];
-            $quotation_details->payable_to = $request->payable_to[$key];
+            $quotation_details->payable_to = $request->payable_to[$key] ?? '';
             $quotation_details->buying_remarks = $request->buying_remarks[$key];
             $quotation_details->ord = $request->ord[$key];
             $quotation_details->tariff_code = $request->tariff_code[$key];
