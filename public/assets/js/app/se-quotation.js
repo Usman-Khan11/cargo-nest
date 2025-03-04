@@ -176,7 +176,7 @@ function detailCalculation(e) {
     $("input[name=total_payable]").val(buying_rate);
     let t = (total * detail_ex_rate) + tax;
     t = buying_rate - t;
-    $("input[name=total_profit]").val(t);
+    $("input[name=total_profit]").val(Math.abs(t));
 }
 
 function quotationFormReset(route) {
