@@ -722,8 +722,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                     <div class="tab-pane fade" id="navs-top-equipment" role="tabpanel">

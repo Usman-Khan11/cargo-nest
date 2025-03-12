@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 
-
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
@@ -81,7 +80,6 @@
                             <!--<hr />-->
                         </div>
                         <div class="card-body">
-
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bl"
@@ -97,7 +95,6 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="bl" role="tabpanel"
                                     aria-labelledby="home-tab">
-
                                     <div class="row">
                                         <div class="col-md-9">
                                             <div class="row">
@@ -108,7 +105,8 @@
                                                         </div>
                                                         <div class="col-8">
                                                             <input name="format_name" type="text"
-                                                                class="form-control format_name" />
+                                                                class="form-control format_name"
+                                                                value="{{ old('format_name') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,10 +117,8 @@
                                                             <label class="form-label w-100 m-0">Sub Company</label>
                                                         </div>
                                                         <div class="col-8">
-                                                            <select name="status" class="form-select status">
-                                                                <option value="draft">Draft</option>
-                                                                <option value="final">Final</option>
-                                                            </select>
+                                                            <select name="sub_company_id"
+                                                                class="form-select sub_company_id"></select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -140,16 +136,18 @@
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="mark_container_line_per_page" type="text"
-                                                                class="form-control mark_container_line_per_page" />
+                                                            <input name="mark_container_lines" type="number"
+                                                                class="form-control mark_container_lines"
+                                                                value="{{ old('mark_container_lines') }}" />
                                                         </div>
                                                         <div class="col-3 text-center">
                                                             <label class="form-label w-100 m-0"># Of Character Per Page :
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="mark_container_character_per_page" type="text"
-                                                                class="form-control mark_container_character_per_page" />
+                                                            <input name="mark_container_character" type="number"
+                                                                class="form-control mark_container_character"
+                                                                value="{{ old('mark_container_character') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -167,16 +165,18 @@
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="description_line_per_page" type="text"
-                                                                class="form-control description_line_per_page" />
+                                                            <input name="description_lines" type="number"
+                                                                class="form-control description_lines"
+                                                                value="{{ old('description_lines') }}" />
                                                         </div>
                                                         <div class="col-3 text-center">
                                                             <label class="form-label w-100 m-0"># Of Character Per Page :
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="description_character_per_page" type="text"
-                                                                class="form-control description_character_per_page" />
+                                                            <input name="description_character" type="number"
+                                                                class="form-control description_character"
+                                                                value="{{ old('description_character') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -194,16 +194,18 @@
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="packages_line_per_page" type="text"
-                                                                class="form-control packages_line_per_page" />
+                                                            <input name="packages_lines" type="number"
+                                                                class="form-control packages_lines"
+                                                                value="{{ old('packages_lines') }}" />
                                                         </div>
                                                         <div class="col-3 text-center">
                                                             <label class="form-label w-100 m-0"># Of Character Per Page :
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="packages_character_per_page" type="text"
-                                                                class="form-control packages_character_per_page" />
+                                                            <input name="packages_character" type="number"
+                                                                class="form-control packages_character"
+                                                                value="{{ old('packages_character') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -221,16 +223,18 @@
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="container_line_per_page" type="text"
-                                                                class="form-control container_line_per_page" />
+                                                            <input name="container_data_lines" type="number"
+                                                                class="form-control container_data_lines"
+                                                                value="{{ old('container_data_lines') }}" />
                                                         </div>
                                                         <div class="col-3 text-center">
                                                             <label class="form-label w-100 m-0"># Of Character Per Page :
                                                             </label>
                                                         </div>
                                                         <div class="col-2">
-                                                            <input name="container_character_per_page" type="text"
-                                                                class="form-control container_character_per_page" />
+                                                            <input name="container_data_character" type="number"
+                                                                class="form-control container_data_character"
+                                                                value="{{ old('container_data_character') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -244,7 +248,8 @@
                                                         </div>
                                                         <div class="col-10">
                                                             <input name="principal" type="text"
-                                                                class="form-control principal" />
+                                                                class="form-control principal"
+                                                                value="{{ old('principal') }}" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -260,8 +265,9 @@
                                                         <div class="col-3">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    value="1" name="templates" id="templates">
-                                                                <label class="form-check-label" for="templates">
+                                                                    value="1" name="all_companies"
+                                                                    id="all_companies">
+                                                                <label class="form-check-label" for="all_companies">
                                                                     Available All Companies
                                                                 </label>
                                                             </div>
@@ -288,6 +294,7 @@
                                                         </div>
                                                         <div class="col-9">
                                                             <input name="blank_page_path" type="text"
+                                                                value="{{ old('blank_page_path') }}"
                                                                 class="form-control blank_page_path" />
                                                         </div>
                                                         <div class="col-1 text-center">
@@ -307,6 +314,7 @@
                                                         </div>
                                                         <div class="col-9">
                                                             <input name="pre_printed_path" type="text"
+                                                                value="{{ old('pre_printed_path') }}"
                                                                 class="form-control pre_printed_path" />
                                                         </div>
                                                         <div class="col-1 text-center">
@@ -324,9 +332,10 @@
                                                         <div class="col-4">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    value="1" name="auto_generate_bl_no"
-                                                                    id="auto_generate_bl_no">
-                                                                <label class="form-check-label" for="auto_generate_bl_no">
+                                                                    value="1" name="auto_generate_bl_number"
+                                                                    id="auto_generate_bl_number">
+                                                                <label class="form-check-label"
+                                                                    for="auto_generate_bl_number">
                                                                     Auto Generate BL Number
                                                                 </label>
                                                             </div>
@@ -352,6 +361,60 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="row g-0 align-items-center mb-1">
+                                                        <div class="col-3">
+                                                            <label class="form-label w-100 m-0">Prefix :</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input name="prefix" type="text"
+                                                                class="form-control prefix"
+                                                                value="{{ old('prefix') }}" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-0 align-items-center mb-1">
+                                                        <div class="col-3">
+                                                            <label class="form-label w-100 m-0">Format :</label>
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <input name="format" type="text"
+                                                                class="form-control format"
+                                                                value="{{ old('format') }}" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-0 align-items-center mb-1">
+                                                        <div class="col-3">
+                                                            <label class="form-label w-100 m-0">Last Number :</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input name="last_number" type="number"
+                                                                class="form-control last_number"
+                                                                value="{{ old('last_number') }}" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-0 align-items-center mb-1">
+                                                        <div class="col-3">
+                                                            <label class="form-label w-100 m-0">Padding :</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input name="padding" type="number"
+                                                                class="form-control padding"
+                                                                value="{{ old('padding') }}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <ul>
+                                                        <li></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-3">
@@ -365,7 +428,7 @@
                                                 <div class="main-image">
                                                     <button type="button" class="btn btn-primary btn-sm"
                                                         onclick="document.getElementById('uploadInput').click()">Upload</button>
-                                                    <input type="file" hidden class="form-control" name="image"
+                                                    <input type="file" hidden class="form-control" name="signature"
                                                         id="uploadInput" accept="image/*" />
                                                     <button id="removeButton" type="button"
                                                         class="btn btn-danger btn-sm mx-3">Remove</button>
@@ -373,25 +436,6 @@
                                             </div>
 
                                             <button type="button" class="btn btn-primary mt-5">Download Tags</button>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="table-responsive pt-0">
-                                                <table class="table table-bordered container_table">
-                                                    <thead class="text-center">
-                                                        <tr>
-                                                            <th width="5%">...</th>
-                                                            <th width="95%">Name</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -409,268 +453,58 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('assets/js/app/bl.js') }}"></script>
     <script>
+        $(document).ready(function() {
+            $(".sub_company_id").select2({
+                data: @json($sub_companies)
+            });
+
+            $('#submitButton').click(function() {
+                $('#myForm').submit();
+            });
+
+            $(".navigation").click(function() {
+                let id = $("input[name=id]").val();
+                let route = "/admin/bl_template/get";
+                let type = $(this).attr("data-type");
+                let data = getList(route, type, id);
+                if (data != null) {
+                    edit_row("", JSON.stringify(data));
+                }
+            });
+        })
+
         function edit_row(e, data) {
             let res = JSON.parse(data);
 
-            if (res.bl) {
-                data = res.bl;
-                $(".job_id").val(data.job_id);
-                $(".job_no").val(data.job_no);
-                $(".status").val(data.status);
-                $(".hbl").val(data.hbl);
-                $(".hbl_date").val(data.hbl_date);
-                $(".mbl").val(data.mbl);
-                $(".mbl_date").val(data.mbl_date);
-                $(".source_date").val(data.source_date);
-                $(".hbl_issue").prop("checked", data.hbl_issue === "1");
-                $(".sailing_date").val(data.sailing_date);
+            if (res.bl_template) {
+                data = res.bl_template;
+                $(".format_name").val(data.format_name);
+                $(".sub_company_id").val(data.sub_company_id).trigger('change');
+                $(".mark_container_lines").val(data.mark_container_lines);
+                $(".mark_container_character").val(data.mark_container_character);
+                $(".description_lines").val(data.description_lines);
+                $(".description_character").val(data.description_character);
+                $(".packages_lines").val(data.packages_lines);
+                $(".packages_character").val(data.packages_character);
+                $(".container_data_lines").val(data.container_data_lines);
+                $(".container_data_character").val(data.container_data_character);
+                $(".nature").val(data.nature);
+                $(".principal").val(data.principal);
+                $("#all_companies").prop("checked", data.all_companies === 1);
+                $("#fix_format").prop("checked", data.fix_format === 1);
+                $(".blank_page_path").val(data.blank_page_path);
+                $(".pre_printed_path").val(data.pre_printed_path);
+                $("#auto_generate_bl_number").prop("checked", data.auto_generate_bl_number === 1);
+                $("#edit_allowed").prop("checked", data.edit_allowed === 1);
+                $("#default").prop("checked", data.default === 1);
+                $(".prefix").val(data.prefix);
+                $(".format").val(data.format);
+                $(".last_number").val(data.last_number);
+                $(".padding").val(data.padding);
 
                 $("#myForm").attr("action", "{{ route('admin.bl_template.update') }}")
                 $("input[name=id]").val(data.id);
-
-                if (data.shippers) {
-                    var option = new Option(data.shippers.party_name, data.shippers.id, true, true);
-                    $(".shipper").append(option).trigger('change');
-                } else {
-                    $(".shipper").val(null).trigger('change');
-                }
-
-                if (data.consignees) {
-                    var option = new Option(data.consignees.party_name, data.consignees.id, true, true);
-                    $(".consignee").append(option).trigger('change');
-                } else {
-                    $(".consignee").val(null).trigger('change');
-                }
-
-                if (data.notify_party_1) {
-                    var option = new Option(data.notify_party_1.party_name, data.notify_party_1.id, true, true);
-                    $(".notify1").append(option).trigger('change');
-                } else {
-                    $(".notify1").val(null).trigger('change');
-                }
-
-                if (data.notify_party_2) {
-                    var option = new Option(data.notify_party_2.party_name, data.notify_party_2.id, true, true);
-                    $(".notify2").append(option).trigger('change');
-                } else {
-                    $(".notify2").val(null).trigger('change');
-                }
-
-                if (data.vessels) {
-                    var option = new Option(data.vessels.vessel_name, data.vessels.id, true, true);
-                    $(".vessel").append(option).trigger('change');
-                } else {
-                    $(".vessel").val(null).trigger('change');
-                }
-
-                if (data.voyages) {
-                    var option = new Option(data.voyages.voy, data.voyages.id, true, true);
-                    $(".voyage").append(option).trigger('change');
-                } else {
-                    $(".voyage").val(null).trigger('change');
-                }
-
-                if (data.port_of_loading) {
-                    var option = new Option(data.port_of_loading.location, data.port_of_loading.id, true, true);
-                    $(".pol").append(option).trigger('change');
-                } else {
-                    $(".pol").val(null).trigger('change');
-                }
-
-                if (data.port_of_final_dest) {
-                    var option = new Option(data.port_of_final_dest.location, data.port_of_final_dest.id, true, true);
-                    $(".pofd").append(option).trigger('change');
-                } else {
-                    $(".pofd").val(null).trigger('change');
-                }
-
-                if (data.port_of_terminal) {
-                    var option = new Option(data.port_of_terminal.location, data.port_of_terminal.id, true, true);
-                    $(".pot").append(option).trigger('change');
-                } else {
-                    $(".pot").val(null).trigger('change');
-                }
-
-                if (data.final_destination) {
-                    var option = new Option(data.final_destination.location, data.final_destination.id, true, true);
-                    $(".final_destination").append(option).trigger('change');
-                } else {
-                    $(".final_destination").val(null).trigger('change');
-                }
-
-                if (data.commodities) {
-                    var option = new Option(data.commodities.name, data.commodities.id, true, true);
-                    $(".commodity").append(option).trigger('change');
-                } else {
-                    $(".commodity").val(null).trigger('change');
-                }
-
-                if (data.overseas_agents) {
-                    var option = new Option(data.overseas_agents.party_name, data.overseas_agents.id, true, true);
-                    $(".overseas_agent").append(option).trigger('change');
-                } else {
-                    $(".overseas_agent").val(null).trigger('change');
-                }
-
-                if (data.sline_carriers) {
-                    var option = new Option(data.sline_carriers.party_name, data.sline_carriers.id, true, true);
-                    $(".shipping_line_carrier").append(option).trigger('change');
-                } else {
-                    $(".shipping_line_carrier").val(null).trigger('change');
-                }
-
-                $(".reference_number").val(data.reference_number);
-                $(".total_container").val(data.total_container);
-                $(".delivery").val(data.delivery);
-            }
-
-            if (res.bl_details) {
-                data = res.bl_details;
-                $(".b_shipper").val(data.b_shipper);
-                $(".b_consignee").val(data.b_consignee);
-                $(".b_notify_part1").val(data.b_notify_part1);
-                $(".b_notify_part2").val(data.b_notify_part2);
-                $(".b_delivery_agent").val(data.b_delivery_agent);
-                $(".b_agent_stamp").val(data.b_agent_stamp);
-                $(".b_freight_type").val(data.b_freight_type);
-                $(".b_unit").val(data.b_unit);
-                $(".b_manual").prop("checked", data.b_manual);
-                $(".b_no_of_bl").val(data.b_no_of_bl);
-                $(".b_net_wt").val(data.b_net_wt);
-                $(".b_gross_wt").val(data.b_gross_wt);
-                $(".b_tare_wt").val(data.b_tare_wt);
-                $(".b_cbm").val(data.b_cbm);
-                $(".b_pkgs").val(data.b_pkgs);
-                $(".b_unit").val(data.b_unit);
-                $(".b_hs_code").val(data.b_hs_code);
-                $(".b_packing_group").val(data.b_packing_group);
-                $(".b_hazmat_class").val(data.b_hazmat_class);
-                $(".b_uno_code").val(data.b_uno_code);
-                $(".b_marks_no").val(data.b_marks_no);
-                $(".b_no_of_pkgs").val(data.b_no_of_pkgs);
-                $(".b_description").val(data.b_description);
-                $(".b_gross_weight").val(data.b_gross_weight);
-                $(".b_measurement").val(data.b_measurement);
-                $(".b_on_board_date").val(data.b_on_board_date);
-                $(".b_place_of_issue").val(data.b_place_of_issue);
-                $(".b_date_of_issue").val(data.b_date_of_issue);
-                $(".b_fi_no").val(data.b_fi_no);
-                $(".b_date").val(data.b_date);
-
-                if (data.place_of_receipt) {
-                    var option = new Option(data.place_of_receipt.location, data.place_of_receipt.id, true, true);
-                    $(".b_place_of_receipt").append(option).trigger('change');
-                } else {
-                    $(".b_place_of_receipt").val(null).trigger('change');
-                }
-
-                if (data.port_of_loading) {
-                    var option = new Option(data.port_of_loading.location, data.port_of_loading.id, true, true);
-                    $(".b_port_of_loading").append(option).trigger('change');
-                } else {
-                    $(".b_port_of_loading").val(null).trigger('change');
-                }
-
-                if (data.port_of_discharge) {
-                    var option = new Option(data.port_of_discharge.location, data.port_of_discharge.id, true, true);
-                    $(".b_port_of_discharge").append(option).trigger('change');
-                } else {
-                    $(".b_port_of_discharge").val(null).trigger('change');
-                }
-
-                if (data.place_of_delivery) {
-                    var option = new Option(data.place_of_delivery.location, data.place_of_delivery.id, true, true);
-                    $(".b_place_of_delivery").append(option).trigger('change');
-                } else {
-                    $(".b_place_of_delivery").val(null).trigger('change');
-                }
-            }
-
-            if (res.bl_ref_info) {
-                data = res.bl_ref_info;
-                $(".r_invoice_number").val(data.r_invoice_number);
-                $(".r_inv_date").val(data.r_inv_date);
-                $(".r_export_number").val(data.r_export_number);
-                $(".r_exp_date").val(data.r_exp_date);
-                $(".r_contact_number").val(data.r_contact_number);
-                $(".r_contact_date").val(data.r_contact_date);
-                $(".r_lc_number").val(data.r_lc_number);
-                $(".r_lc_date").val(data.r_lc_date);
-                $(".r_client_ref_number").val(data.r_client_ref_number);
-                $(".r_shipper_ref_number").val(data.r_shipper_ref_number);
-                $(".r_s_bill").val(data.r_s_bill);
-                $(".r_date").val(data.r_date);
-            }
-
-            if (res.bl_stamps.length) {
-                data = res.bl_stamps;
-                $(".stamp_repeater tbody tr:gt(0)").remove();
-
-                $(data).each(function(key, value) {
-                    let $newRow = $(".stamp_repeater tbody tr:first").clone();
-
-                    $newRow.find('.r_code').val(value.r_code);
-                    $newRow.find('.r_stamp').val(value.r_stamp);
-                    $newRow.find('.r_stamp_group').val(value.r_stamp_group).trigger('change');
-                    $newRow.find('.r_stamp_date').val(value.r_stamp_date);
-                    $newRow.find('.r_remarks').val(value.r_remarks);
-
-                    $(".stamp_repeater tbody").append($newRow);
-                })
-
-                $(".stamp_repeater tbody tr:first").remove();
-            } else {
-                $(".stamp_repeater tbody tr:gt(0)").remove();
-            }
-
-            if (res.container_info.length) {
-                data = res.container_info;
-                $(".container_table tbody tr:gt(0)").remove();
-
-                $(data).each(function(key, value) {
-                    let $newRow = $(".container_table tbody tr:first").clone();
-
-                    $newRow.find('.c_container_no').val(value.c_container_no);
-                    $newRow.find('.c_seal').val(value.c_seal);
-                    $newRow.find('.c_size_type').val(value.c_size_type).trigger('change');
-                    $newRow.find('.c_rate_group').val(value.c_rate_group);
-                    $newRow.find('.c_gross_wt').val(value.c_gross_wt);
-                    $newRow.find('.c_net_wt').val(value.c_net_wt);
-                    $newRow.find('.c_tare_wt').val(value.c_tare_wt);
-                    $newRow.find('.c_wt_unit').val(value.c_wt_unit).trigger('change');
-                    $newRow.find('.c_cbm').val(value.c_cbm);
-                    $newRow.find('.c_packages').val(value.c_packages);
-                    $newRow.find('.c_unit').val(value.c_unit).trigger('change');
-                    $newRow.find('.c_temperature').val(value.c_temperature);
-                    $newRow.find('.c_voltage').val(value.c_voltage);
-                    $newRow.find('.c_load_type').val(value.c_load_type).trigger('change');
-                    $newRow.find('.c_remarks').val(value.c_remarks);
-                    $newRow.find('.c_free_days_detention').val(value.c_free_days_detention);
-                    $newRow.find('.c_free_days_demurrage').val(value.c_free_days_demurrage);
-                    $newRow.find('.c_free_days_plugin').val(value.c_free_days_plugin);
-                    $newRow.find('.c_line_code').val(value.c_line_code);
-                    $newRow.find('.c_part_fcl').prop("checked", value.c_part_fcl === "1");
-                    $newRow.find('.c_soc').prop("checked", value.c_soc === "1");
-                    $newRow.find('.c_dg').val(value.c_dg).trigger('change');
-                    $newRow.find('.c_imdg').val(value.c_imdg).trigger('change');
-                    $newRow.find('.c_un_no').val(value.c_un_no);
-                    $newRow.find('.c_number').val(value.c_number);
-                    $newRow.find('.c_date').val(value.c_date);
-                    $newRow.find('.c_oog').prop("checked", value.c_oog === "1");
-                    $newRow.find('.c_top').val(value.c_top);
-                    $newRow.find('.c_right').val(value.c_right);
-                    $newRow.find('.c_left').val(value.c_left);
-                    $newRow.find('.c_front').val(value.c_front);
-                    $newRow.find('.c_back').val(value.c_back);
-
-                    $(".container_table tbody").append($newRow);
-                })
-
-                $(".container_table tbody tr:first").remove();
-            } else {
-                $(".container_table tbody tr:gt(0)").remove();
             }
         }
 

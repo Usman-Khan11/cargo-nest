@@ -154,7 +154,7 @@ function detailCalculation(e) {
     let tax = parseFloat($(e).parent().parent().find("input.tax").val()) || 0;
     let inc_tax_amount = parseFloat($(e).parent().parent().find("input.inc_tax_amount").val()) || 0;
     let buying_rate = parseFloat($(e).parent().parent().find("input.buying_rate").val()) || 0;
-    buying_rate = buying_rate * detail_ex_rate;
+    buying_rate = (buying_rate * qty) * detail_ex_rate;
     let total_receivable = parseFloat($("input[name=total_receivable]").val()) || 0;
 
     total = rate * qty;
@@ -388,7 +388,7 @@ function getChargesCurrency(e) {
 function equipment_link_to_detail() {
     $(".detail_repeater tr:gt(0)").remove();
 
-    $("select.charges, select.size_type, select.detail_currency").select2(
+    $("select.charges, select.size_type, select.detail_currency, select.payable_to").select2(
         "destroy"
     );
 
@@ -412,5 +412,6 @@ function equipment_link_to_detail() {
         "select.charges",
         "select.size_type",
         "select.detail_currency",
+        "select.payable_to",
     ]);
 }

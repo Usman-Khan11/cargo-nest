@@ -11,6 +11,11 @@ class Bl extends Model
     protected $guarded = ['id'];
     protected $table = 'bl';
 
+    public function bl_detail()
+    {
+        return $this->belongsTo(BlDetail::class, 'bl_id', 'id');
+    }
+
     public function job()
     {
         return $this->belongsTo(Job::class, 'job_no', 'id');
