@@ -77,20 +77,29 @@ class VoyageController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'vessel' => 'required',
             'voy' => ['required', 'string', 'max:255', 'unique:voyages'],
         ]);
 
-        $voyage = new Voyage();
-        $voyage->fill($request->all());
+        try {
+            DB::beginTransaction();
 
-        if ($voyage->save()) {
-            $this->add_voyage_details($request, $voyage->id);
-            $this->add_voyage_local_port($request, $voyage->id);
+            $voyage = new Voyage();
+            $voyage->fill($request->all());
+
+            if ($voyage->save()) {
+                $this->add_voyage_details($request, $voyage->id);
+                $this->add_voyage_local_port($request, $voyage->id);
+            }
+
+            DB::commit();
+            $notify[] = ['success', 'Voyage Added Successfully.'];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $notify[] = ['error', $e->getLine() . ': ' . $e->getMessage()];
         }
 
-        $notify[] = ['success', 'Voyage Added Successfully.'];
         return redirect()->route('admin.voyage.create')->withNotify($notify);
     }
 
@@ -113,9 +122,10 @@ class VoyageController extends Controller
     public function add_voyage_local_port($request, $voyage_id)
     {
         $code = $request->code;
-        if ($code) {
+        $local_port = $request->local_port;
+        if ($local_port) {
             VoyageLocal::where("voyage_id", $voyage_id)->delete();
-            foreach ($code as $key => $value) {
+            foreach ($local_port as $key => $value) {
                 $voyage_local = new VoyageLocal();
                 $voyage_local->voyage_id = $voyage_id;
                 $voyage_local->code = $request->code[$key];
@@ -140,20 +150,29 @@ class VoyageController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'vessel' => 'required',
             'voy' => 'required',
         ]);
 
-        $voyage = Voyage::where("id", $request->id)->first();
-        $voyage->fill($request->all());
+        try {
+            DB::beginTransaction();
 
-        if ($voyage->save()) {
-            $this->add_voyage_details($request, $voyage->id);
-            $this->add_voyage_local_port($request, $voyage->id);
+            $voyage = Voyage::where("id", $request->id)->first();
+            $voyage->fill($request->all());
+
+            if ($voyage->save()) {
+                $this->add_voyage_details($request, $voyage->id);
+                $this->add_voyage_local_port($request, $voyage->id);
+            }
+
+            DB::commit();
+            $notify[] = ['success', 'Voyage Updated Successfully.'];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $notify[] = ['error', $e->getLine() . ': ' . $e->getMessage()];
         }
 
-        $notify[] = ['success', 'Voyage Updated Successfully.'];
         return redirect()->route('admin.voyage.create')->withNotify($notify);
     }
 

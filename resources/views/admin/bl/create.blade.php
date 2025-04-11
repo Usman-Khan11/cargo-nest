@@ -74,8 +74,8 @@
                 <form id="myForm" method="post" action="{{ route('admin.bl.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input name="id" type="hidden" value="0" />
-                    @if (isset($_GET['job_id']))
-                        <input name="job_id" type="hidden" class="job_id" value="{{ $_GET['job_id'] }}" />
+                    @if (isset($job_id))
+                        <input name="job_id" type="hidden" class="job_id" value="{{ $job_id }}" />
                     @else
                         <input name="job_id" type="hidden" class="job_id" value="0" />
                     @endif
@@ -1693,10 +1693,13 @@
             }
         }
 
-        @if (isset($_GET['job_id']))
+        @if (isset($job_id))
             setTimeout(() => {
                 edit_row('', '@json($job_data)');
             }, 500);
+            setTimeout(() => {
+                $('#myForm').attr("action", "/admin/bl/store");
+            }, 850);
         @endif
 
         function print() {

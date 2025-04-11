@@ -46,6 +46,7 @@ class BlController extends Controller
         }
 
         if (isset($request->job_id)) {
+            $data['job_id'] = $request->job_id;
             $data['job_data'] = $this->get_data_by_job($request->job_id);
         }
 
@@ -100,46 +101,55 @@ class BlController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'job_no' => ['required', 'unique:bl'],
         ]);
 
-        $bl = new Bl();
-        $bl->job_id = $request->job_id;
-        $bl->job_no = $request->job_no;
-        $bl->status = $request->status;
-        $bl->hbl = $request->hbl;
-        $bl->hbl_date = $request->hbl_date;
-        $bl->mbl = $request->mbl;
-        $bl->mbl_date = $request->mbl_date;
-        $bl->source_date = $request->source_date;
-        $bl->hbl_issue = isset($request->hbl_issue) ? $request->hbl_issue : 0;
-        $bl->shipper = $request->shipper;
-        $bl->consignee = $request->consignee;
-        $bl->notify1 = $request->notify1;
-        $bl->notify2 = $request->notify2;
-        $bl->vessel = $request->vessel;
-        $bl->sailing_date = $request->sailing_date;
-        $bl->voyage = $request->voyage;
-        $bl->pol = $request->pol;
-        $bl->pofd = $request->pofd;
-        $bl->pot = $request->pot;
-        $bl->final_destination = $request->final_destination;
-        $bl->commodity = $request->commodity;
-        $bl->reference_number = $request->reference_number;
-        $bl->overseas_agent = $request->overseas_agent;
-        $bl->shipping_line_carrier = $request->shipping_line_carrier;
-        $bl->total_container = $request->total_container;
-        $bl->delivery = $request->delivery;
+        try {
+            DB::beginTransaction();
 
-        if ($bl->save()) {
-            $this->bl_ref_info($request, $bl->id);
-            $this->bl_detail_store($request, $bl->id);
-            $this->bl_stamps_store($request, $bl->id);
-            $this->bl_container_info($request, $bl->id);
+            $bl = new Bl();
+            $bl->job_id = $request->job_id;
+            $bl->job_no = $request->job_no;
+            $bl->status = $request->status;
+            $bl->hbl = $request->hbl;
+            $bl->hbl_date = $request->hbl_date;
+            $bl->mbl = $request->mbl;
+            $bl->mbl_date = $request->mbl_date;
+            $bl->source_date = $request->source_date;
+            $bl->hbl_issue = isset($request->hbl_issue) ? $request->hbl_issue : 0;
+            $bl->shipper = $request->shipper;
+            $bl->consignee = $request->consignee;
+            $bl->notify1 = $request->notify1;
+            $bl->notify2 = $request->notify2;
+            $bl->vessel = $request->vessel;
+            $bl->sailing_date = $request->sailing_date;
+            $bl->voyage = $request->voyage;
+            $bl->pol = $request->pol;
+            $bl->pofd = $request->pofd;
+            $bl->pot = $request->pot;
+            $bl->final_destination = $request->final_destination;
+            $bl->commodity = $request->commodity;
+            $bl->reference_number = $request->reference_number;
+            $bl->overseas_agent = $request->overseas_agent;
+            $bl->shipping_line_carrier = $request->shipping_line_carrier;
+            $bl->total_container = $request->total_container;
+            $bl->delivery = $request->delivery;
+
+            if ($bl->save()) {
+                $this->bl_ref_info($request, $bl->id);
+                $this->bl_detail_store($request, $bl->id);
+                $this->bl_stamps_store($request, $bl->id);
+                $this->bl_container_info($request, $bl->id);
+            }
+
+            DB::commit();
+            $notify[] = ['success', 'BL Added Successfully.'];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $notify[] = ['error', $e->getLine() . ': ' . $e->getMessage()];
         }
 
-        $notify[] = ['success', 'BL Added Successfully.'];
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
 
@@ -245,46 +255,55 @@ class BlController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'job_no' => 'required',
         ]);
 
-        $bl = Bl::where("id", $request->id)->first();
-        $bl->job_id = $request->job_id;
-        $bl->job_no = $request->job_no;
-        $bl->status = $request->status;
-        $bl->hbl = $request->hbl;
-        $bl->hbl_date = $request->hbl_date;
-        $bl->mbl = $request->mbl;
-        $bl->mbl_date = $request->mbl_date;
-        $bl->source_date = $request->source_date;
-        $bl->hbl_issue = isset($request->hbl_issue) ? $request->hbl_issue : 0;
-        $bl->shipper = $request->shipper;
-        $bl->consignee = $request->consignee;
-        $bl->notify1 = $request->notify1;
-        $bl->notify2 = $request->notify2;
-        $bl->vessel = $request->vessel;
-        $bl->sailing_date = $request->sailing_date;
-        $bl->voyage = $request->voyage;
-        $bl->pol = $request->pol;
-        $bl->pofd = $request->pofd;
-        $bl->pot = $request->pot;
-        $bl->final_destination = $request->final_destination;
-        $bl->commodity = $request->commodity;
-        $bl->reference_number = $request->reference_number;
-        $bl->overseas_agent = $request->overseas_agent;
-        $bl->shipping_line_carrier = $request->shipping_line_carrier;
-        $bl->total_container = $request->total_container;
-        $bl->delivery = $request->delivery;
+        try {
+            DB::beginTransaction();
 
-        if ($bl->save()) {
-            $this->bl_ref_info($request, $bl->id);
-            $this->bl_detail_store($request, $bl->id);
-            $this->bl_stamps_store($request, $bl->id);
-            $this->bl_container_info($request, $bl->id);
+            $bl = Bl::where("id", $request->id)->first();
+            $bl->job_id = $request->job_id ?? 0;
+            $bl->job_no = $request->job_no;
+            $bl->status = $request->status;
+            $bl->hbl = $request->hbl;
+            $bl->hbl_date = $request->hbl_date;
+            $bl->mbl = $request->mbl;
+            $bl->mbl_date = $request->mbl_date;
+            $bl->source_date = $request->source_date;
+            $bl->hbl_issue = isset($request->hbl_issue) ? $request->hbl_issue : 0;
+            $bl->shipper = $request->shipper;
+            $bl->consignee = $request->consignee;
+            $bl->notify1 = $request->notify1;
+            $bl->notify2 = $request->notify2;
+            $bl->vessel = $request->vessel;
+            $bl->sailing_date = $request->sailing_date;
+            $bl->voyage = $request->voyage;
+            $bl->pol = $request->pol;
+            $bl->pofd = $request->pofd;
+            $bl->pot = $request->pot;
+            $bl->final_destination = $request->final_destination;
+            $bl->commodity = $request->commodity;
+            $bl->reference_number = $request->reference_number;
+            $bl->overseas_agent = $request->overseas_agent;
+            $bl->shipping_line_carrier = $request->shipping_line_carrier;
+            $bl->total_container = $request->total_container;
+            $bl->delivery = $request->delivery;
+
+            if ($bl->save()) {
+                $this->bl_ref_info($request, $bl->id);
+                $this->bl_detail_store($request, $bl->id);
+                $this->bl_stamps_store($request, $bl->id);
+                $this->bl_container_info($request, $bl->id);
+            }
+
+            DB::commit();
+            $notify[] = ['success', 'BL Updated Successfully.'];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $notify[] = ['error', $e->getLine() . ': ' . $e->getMessage()];
         }
 
-        $notify[] = ['success', 'BL Updated Successfully.'];
         return redirect()->route('admin.bl.create')->withNotify($notify);
     }
 
@@ -300,6 +319,7 @@ class BlController extends Controller
 
         $job = Job::where('id', $job_id)
             ->select(
+                'id as job_id',
                 'job_number as job_no',
                 'shipper',
                 'consignee',

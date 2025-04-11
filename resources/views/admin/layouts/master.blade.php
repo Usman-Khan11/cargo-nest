@@ -268,7 +268,18 @@
                 if ($('#myTabs li').length > 0) {
                     $('#myTabs li:first').find('button').click();
                 }
+
+                storedWindowsLength--;
             })
+
+            $(document).on('select2:open', () => {
+                setTimeout(() => {
+                    let searchField = $('.select2-container--open .select2-search__field');
+                    if (searchField.length) {
+                        searchField[0].focus();
+                    }
+                }, 100);
+            });
         })
 
         function addTabList(id, name) {

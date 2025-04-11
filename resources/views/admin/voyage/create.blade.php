@@ -3,7 +3,7 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="formReset('/admin/voyage/store')">
+            <div class="plus" onclick="voyageFormReset('/admin/voyage/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
@@ -645,5 +645,17 @@
                 edit_row('', JSON.stringify(data));
             }
         })
+
+        function voyageFormReset(route) {
+            document.getElementById("myForm").reset();
+            $("#myForm").attr("action", route);
+            $("#myForm").find("select").trigger("change");
+            $("#myForm")
+                .find(
+                    ".port_of_discharge,.vessel,.port_of_loading,.local_port"
+                )
+                .val(null)
+                .trigger("change");
+        }
     </script>
 @endpush
