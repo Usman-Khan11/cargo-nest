@@ -18,7 +18,7 @@ class Bl extends Model
 
     public function job()
     {
-        return $this->belongsTo(Job::class, 'job_no', 'id');
+        return $this->belongsTo(Job::class, 'job_id', 'id');
     }
 
     public function shippers()

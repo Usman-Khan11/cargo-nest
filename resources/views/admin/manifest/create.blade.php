@@ -591,7 +591,7 @@
             <div class="col-md-12">
                 <div id="job_allocation" class="card mt-1">
                     <div class="card-body">
-                        <h4 class="text-center m-0 py-1 bg-light">Job Allocation</h4>
+                        <h4 class="text-center m-0 py-1 bg-primary text-white">Job Allocation</h4>
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
@@ -794,8 +794,10 @@
 
         $(document).ready(function() {
             $("#job_allocation").hide();
+
             $("#se_job_btn").click(function() {
                 let manifest_id = $("input[name=id]").val();
+
                 if (manifest_id > 0) {
                     $.get("/admin/manifest/allocation", {
                         manifest_id,

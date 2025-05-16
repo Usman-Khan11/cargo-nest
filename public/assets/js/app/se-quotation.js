@@ -7,26 +7,27 @@ $(document).ready(function () {
 
     if (search_select2.length) {
         $(search_select2).each(function (i, v) {
-            let url = $(v).data("url");
-            let type = $(v).data("type");
-            let placeholder = $(v).data("placeholder") || 'Search for...';
+            initSearchSelect2($(this));
+            // let url = $(v).data("url");
+            // let type = $(v).data("type");
+            // let placeholder = $(v).data("placeholder") || 'Search for...';
 
-            $(v).select2({
-                ajax: {
-                    url: url,
-                    dataType: "json",
-                    data: (params) => ({
-                        search: params.term,
-                        type: type,
-                    }),
-                    processResults: (data) => ({ results: data }),
-                },
-                cache: true,
-                allowClear: true,
-                placeholder: placeholder,
-                minimumInputLength: 1,
-                minimumResultsForSearch: 25,
-            });
+            // $(v).select2({
+            //     ajax: {
+            //         url: url,
+            //         dataType: "json",
+            //         data: (params) => ({
+            //             search: params.term,
+            //             type: type,
+            //         }),
+            //         processResults: (data) => ({ results: data }),
+            //     },
+            //     cache: true,
+            //     allowClear: true,
+            //     placeholder: placeholder,
+            //     minimumInputLength: 1,
+            //     minimumResultsForSearch: 25,
+            // });
         })
     }
 
@@ -121,26 +122,14 @@ function addNewRow(e) {
 }
 
 function delRow(e) {
-    if ($(".detail_repeater tr").length <= 1) return;
-    $(e).parent().parent().remove();
-}
-
-function eqpaddNewRow(e) {
-    $("select.equip_size_type").select2(
-        "destroy"
-    );
-    $(e).parent().parent().clone().appendTo(".eqp_detail_repeater");
-    initializeSelect2([
-        "select.equip_size_type",
-    ]);
-    $(".eqp_detail_repeater tr:last").find("input").val(null);
-    $(".eqp_detail_repeater tr:last")
-        .find("select option:first")
-        .attr("selected", true);
-}
-
-function eqpdelRow(e) {
-    if ($(".eqp_detail_repeater tr").length <= 1) return;
+    if ($(".detail_repeater tr").length <= 1) {
+        $(".detail_repeater tr:last").find("input").val(null);
+        $(".detail_repeater tr:last")
+            .find("select option:first")
+            .attr("selected", true);
+        $(".detail_repeater tr:last").find(".charges").val(null).trigger('change');
+        return;
+    }
     $(e).parent().parent().remove();
 }
 
@@ -414,4 +403,28 @@ function equipment_link_to_detail() {
         "select.detail_currency",
         "select.payable_to",
     ]);
+}
+
+
+function initSearchSelect2($element) {
+    let url = $element.data("url");
+    let type = $element.data("type");
+    let placeholder = $element.data("placeholder") || 'Search for...';
+
+    $element.select2({
+        ajax: {
+            url: url,
+            dataType: "json",
+            data: (params) => ({
+                search: params.term,
+                type: type,
+            }),
+            processResults: (data) => ({ results: data }),
+        },
+        cache: true,
+        allowClear: true,
+        placeholder: placeholder,
+        minimumInputLength: 1,
+        minimumResultsForSearch: 25,
+    });
 }

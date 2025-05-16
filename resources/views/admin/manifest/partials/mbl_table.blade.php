@@ -19,7 +19,11 @@
     </thead>
     <tbody>
         @foreach ($manifest as $key => $value)
-            @foreach ($value->job->bl->whereNotNull('mbl')->get() as $k => $bl)
+            @php
+                // $bls = $value->job->bl->whereNotNull('mbl')->get() ?? [];
+                $bls = \App\Models\Bl::where('job_id', $value->job->id)->whereNotNull('mbl')->get();
+            @endphp
+            @foreach ($bls as $k => $bl)
                 <tr>
                     {{-- <td>
                 <button type="button" class="btn btn-danger btn-sm" onclick="delContainer(this)">
@@ -71,9 +75,21 @@
                     </td>
                     <td>
                         {{-- <input name="m_20ft[]" class="form-control m_20ft" type="text" readonly /> --}}
+                        @php
+                            $sizes = \App\Models\Equipment::whereIn('size', [20])->pluck('id');
+                            echo \App\Models\JobEquipment::where('job_id', $value->job->id)
+                                ->whereIn('e_size_type', $sizes)
+                                ->count();
+                        @endphp
                     </td>
                     <td>
                         {{-- <input name="m_40ft[]" class="form-control m_40ft" type="text" readonly /> --}}
+                        @php
+                            $sizes = \App\Models\Equipment::whereIn('size', [40, 45])->pluck('id');
+                            echo \App\Models\JobEquipment::where('job_id', $value->job->id)
+                                ->whereIn('e_size_type', $sizes)
+                                ->count();
+                        @endphp
                     </td>
                 </tr>
             @endforeach

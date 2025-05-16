@@ -87,7 +87,7 @@ class ManifestController extends Controller
             'tran' => 'required',
             'vessel' => 'required',
             'voyage_no' => 'required',
-            'ship_company' => 'required',
+            'port' => 'required',
         ]);
 
         $user_info = session()->get('user_info');

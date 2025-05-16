@@ -105,7 +105,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-12">
+                        {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Route Type:</label>
                                 <select name="route_type" class="form-select route_type">
@@ -113,7 +113,7 @@
                                     <option value="multiple">Multiple</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-3 col-12">
                             <div class="mb-2 mt-1 input_flex">
@@ -133,7 +133,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-12">
+                        {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Operation Type: <span class="text-danger">*</span></label>
                                 <select name="operation_type" class="form-select operation_type">
@@ -147,7 +147,7 @@
 
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
@@ -231,12 +231,12 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-12">
+                        {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">From Person:</label>
                                 <input name="from_person" type="text" class="form-control from_person" />
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
@@ -253,13 +253,13 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-12">
+                        {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Inco Term:</label>
                                 <select name="inco_term" class="inco_term search_select2"
                                     data-url="/admin/quotation/create" data-type="get_inco_term"></select>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         <div class="col-md-3 col-12">
@@ -350,11 +350,11 @@
                             data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
                             Details</button>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
                             data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">
                             Header & Footer</button>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
                             data-bs-target="#navs-top-messages" aria-controls="navs-top-messages" aria-selected="false">
@@ -526,36 +526,36 @@
                     <div class="tab-pane fade" id="navs-top-routing" role="tabpanel">
                         <div style="height:250px; overflow-y:scroll; overflow-x:hidden;">
                             <div class="row">
-                                <div class="col-md-2 col-12">
+                                {{-- <div class="col-md-2 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Po #:</label>
                                         <input name="po_num" type="text" class="form-control po_num" />
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Ready Date:</label>
                                         <input type="date" name="ready_date" class="form-control ready_date" />
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Ship By Date:</label>
                                         <input type="date" name="ship_date" class="form-control ship_date" />
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-4 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Arrive No Later Than:</label>
                                         <input type="date" name="arrive_date" class="form-control arrive_date" />
                                     </div>
-                                </div>
-                                <div class="col-md-2 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-2 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">S/C #:</label>
                                         <input name="s_c" type="text" class="form-control s_c" />
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Service Type:</label>
@@ -581,47 +581,47 @@
                                             placeholder="" />
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-12">
+                                {{-- <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Vendor:</label>
                                         <select name="vendor" class="vendor search_select2"
                                             data-url="/admin/quotation/create" data-type="get_vendor"></select>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Overseas Agent:</label>
                                         <select name="overseas" class="overseas search_select2"
                                             data-url="/admin/quotation/create" data-type="get_overseas"></select>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Sline Carrier:</label>
                                         <select name="sline_carrier" class="sline_carrier search_select2"
                                             data-url="/admin/quotation/create" data-type="get_sline_carrier"></select>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Principal:</label>
                                         <select name="principal" class="principal search_select2"
                                             data-url="/admin/quotation/create" data-type="get_principal"></select>
                                     </div>
-                                </div>
-                                <div class="col-md-8 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-8 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label" style="width:20%;">Other Instruction:</label>
                                         <textarea name="other_instruct" type="text" rows="3" class="form-control other_instruct"></textarea>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-4 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label" style="width:30%;">Terminals:</label>
                                         <select name="terminals" class="terminals search_select2"
                                             data-url="/admin/quotation/create" data-type="get_terminal_location"></select>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <hr />
@@ -643,27 +643,27 @@
                                                     data-url="/admin/quotation/create" data-type="get_consignee"></select>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 col-12">
+                                        {{-- <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Pickup Location:</label>
                                                 <input name="pickup_location" type="text"
                                                     class="form-control pickup_location" placeholder="" />
                                             </div>
-                                        </div>
-                                        <div class="col-md-12 col-12">
+                                        </div> --}}
+                                        {{-- <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Custom Clearance:</label>
                                                 <select name="custom_clearance" class="custom_clearance search_select2"
                                                     data-type="get_custom_clearance"
                                                     data-url="/admin/quotation/create"></select>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12 col-12">
+                                        </div> --}}
+                                        {{-- <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Auto Address:</label>
                                                 <textarea name="auto_address" type="text" rows="3" class="form-control auto_address"></textarea>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
                                 </div>
@@ -699,26 +699,26 @@
                                                     data-type="get_location" data-url="/admin/quotation/create"></select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-12">
+                                        {{-- <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Drop off Location:</label>
                                                 <input name="drop_off_location" type="text"
                                                     class="form-control drop_off_location" placeholder="" />
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
+                                        </div> --}}
+                                        {{-- <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Transportation:</label>
                                                 <input name="transportation" type="text"
                                                     class="form-control transportation" placeholder="" />
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
+                                        </div> --}}
+                                        {{-- <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Auto Address:</label>
                                                 <textarea name="auto_address2" type="text" rows="3" class="form-control auto_address2"></textarea>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -739,44 +739,11 @@
                                     <th width="15%">DG/Non-DG</th>
                                     <th width="20%">Gross WT/CNT</th>
                                     <th width="13%">TEU</th>
+                                    <th width="13%">Principal</th>
                                 </tr>
                             </thead>
                             <tbody class="eqp_detail_repeater">
-                                <tr>
-                                    <td>
-                                        <i onclick="eqpdelRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
-                                    </td>
-                                    <td>
-                                        <i onclick="eqpaddNewRow(this)" class="fa fa-clone fa-lg text-info"></i>
-                                    </td>
-                                    <td>
-                                        <select name="equip_size_type[]" onchange="equip_size_type(this)"
-                                            class="form-select equip_size_type">
-                                            <option selected disabled> Select Size </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control equip_rate_group"
-                                            name="equip_rate_group[]" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control equip_qty" name="equip_qty[]" />
-                                    </td>
-                                    <td>
-                                        <select name="equip_dg_type[]" class="form-select equip_dg_type">
-                                            <option value="Non-DG" selected>Non-DG</option>
-                                            <option value="DG">DG</option>
-                                            <option value="All">All</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="form-control equip_gross" type="text" name="equip_gross[]" />
-                                    </td>
-                                    <td>
-                                        <input class="original_equip_tue" type="hidden" name="original_equip_tue[]" />
-                                        <input class="form-control equip_tue" type="text" name="equip_tue[]" />
-                                    </td>
-                                </tr>
+                                @include('admin.quotation.partials.equipment_row')
                             </tbody>
                         </table>
                     </div>
@@ -966,13 +933,13 @@
                     $(".commodity").val(null).trigger('change');
                 }
 
-                if (data.quotation.incoterms) {
-                    var option = new Option(data.quotation.incoterms.name, data.quotation.incoterms
-                        .id, true, true);
-                    $(".inco_term").append(option).trigger('change');
-                } else {
-                    $(".inco_term").val(null).trigger('change');
-                }
+                // if (data.quotation.incoterms) {
+                //     var option = new Option(data.quotation.incoterms.name, data.quotation.incoterms
+                //         .id, true, true);
+                //     $(".inco_term").append(option).trigger('change');
+                // } else {
+                //     $(".inco_term").val(null).trigger('change');
+                // }
 
                 if (data.quotation.vessels) {
                     var option = new Option(data.quotation.vessels.vessel_name, data.quotation.vessels
@@ -1273,6 +1240,13 @@
 
                     var equip_tue = $(`.equip_tue`).get(key);
                     $(equip_tue).val(value.tue);
+
+                    if (value.principals) {
+                        var option = new Option(value.principals.party_name, value.principals.id, true, true);
+                        $(".equip_principal").append(option).trigger('change');
+                    } else {
+                        $(".equip_principal").val(null).trigger('change');
+                    }
                 })
             }
 

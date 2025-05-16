@@ -10,4 +10,9 @@ class QuotationEquipment extends Model
     use HasFactory;
     protected $guarded = ['id'];
     protected $table = 'quotation_equipments';
+
+    public function principals()
+    {
+        return $this->belongsTo(PartyBasicInfo::class, 'principal', 'id');
+    }
 }

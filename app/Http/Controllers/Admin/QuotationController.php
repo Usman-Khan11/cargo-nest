@@ -308,7 +308,7 @@ class QuotationController extends Controller
         checkPermissions('create', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         $request->validate([
-            'operation_type' => 'required',
+            // 'operation_type' => 'required',
             'cost_center' => 'required',
             'client' => 'required',
             'port_of_loading' => 'required',
@@ -352,7 +352,7 @@ class QuotationController extends Controller
         checkPermissions('edit', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         $request->validate([
-            'operation_type' => 'required',
+            // 'operation_type' => 'required',
             'cost_center' => 'required',
             'client' => 'required',
             'port_of_loading' => 'required',
@@ -401,32 +401,32 @@ class QuotationController extends Controller
         }
 
         $quotation_routings->quotation_id = $quotation_id;
-        $quotation_routings->po_num = $request->po_num;
-        $quotation_routings->ready_date = $request->ready_date;
-        $quotation_routings->ship_date = $request->ship_date;
-        $quotation_routings->arrive_date = $request->arrive_date;
-        $quotation_routings->s_c = $request->s_c;
+        // $quotation_routings->po_num = $request->po_num;
+        // $quotation_routings->ready_date = $request->ready_date;
+        // $quotation_routings->ship_date = $request->ship_date;
+        // $quotation_routings->arrive_date = $request->arrive_date;
+        // $quotation_routings->s_c = $request->s_c;
         $quotation_routings->service_type = $request->service_type;
         $quotation_routings->transit_time = $request->transit_time;
         $quotation_routings->free_days = $request->free_days;
-        $quotation_routings->vendor = $request->vendor;
-        $quotation_routings->overseas = $request->overseas;
-        $quotation_routings->sline_carrier = $request->sline_carrier;
-        $quotation_routings->principal = $request->principal;
-        $quotation_routings->other_instruct = $request->other_instruct;
-        $quotation_routings->terminals = $request->terminals;
+        // $quotation_routings->vendor = $request->vendor;
+        // $quotation_routings->overseas = $request->overseas;
+        // $quotation_routings->sline_carrier = $request->sline_carrier;
+        // $quotation_routings->principal = $request->principal;
+        // $quotation_routings->other_instruct = $request->other_instruct;
+        // $quotation_routings->terminals = $request->terminals;
         $quotation_routings->shipper = $request->shipper;
         $quotation_routings->consignee = $request->consignee;
-        $quotation_routings->pickup_location = $request->pickup_location;
-        $quotation_routings->auto_address = $request->auto_address;
-        $quotation_routings->custom_clearance = $request->custom_clearance;
+        // $quotation_routings->pickup_location = $request->pickup_location;
+        // $quotation_routings->auto_address = $request->auto_address;
+        // $quotation_routings->custom_clearance = $request->custom_clearance;
         $quotation_routings->place_of_receipt = $request->place_of_receipt;
         $quotation_routings->port_of_loading = $request->port_of_loading;
         $quotation_routings->port_of_discharge = $request->port_of_discharge;
         $quotation_routings->final_destination = $request->final_destination;
-        $quotation_routings->drop_off_location = $request->drop_off_location;
-        $quotation_routings->auto_address2 = $request->auto_address2;
-        $quotation_routings->transportation = $request->transportation;
+        // $quotation_routings->drop_off_location = $request->drop_off_location;
+        // $quotation_routings->auto_address2 = $request->auto_address2;
+        // $quotation_routings->transportation = $request->transportation;
         $quotation_routings->save();
     }
 
@@ -445,6 +445,7 @@ class QuotationController extends Controller
                 $quotation_equipments->dg_type = $request->equip_dg_type[$key];
                 $quotation_equipments->gross = $request->equip_gross[$key];
                 $quotation_equipments->tue = $request->equip_tue[$key];
+                $quotation_equipments->principal = $request->equip_principal[$key] ?? '';
                 $quotation_equipments->save();
             }
         }
@@ -500,8 +501,6 @@ class QuotationController extends Controller
 
         $id = $request->id;
         $type = $request->type;
-        $data = null;
-
         $arr = [
             "quotation" => null,
             "quotation_routing" => null,
@@ -509,6 +508,60 @@ class QuotationController extends Controller
             "quotation_equipment" => null,
             "jobs" => null
         ];
+
+        $data = Quotation::Query();
+
+        if ($type == "first") {
+            $data = $data->orderBy('id', 'asc');
+        } else if ($type == "last") {
+            $data = $data->orderBy('id', 'desc');
+        } else if ($type == "forward") {
+            $data = $data->where('id', '>', $id);
+        } else if ($type == "backward") {
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
+        }
+
+        $arr["quotation"] = $data->with(
+            'clients',
+            'sales_rep',
+            'units',
+            'commodities',
+            'incoterms',
+            'vessels',
+            'voyages',
+            'currencies',
+            'created_by',
+            'last_updated_by',
+            'approved_by'
+        )->first();
+
+        $quotation_id = @$arr["quotation"]->id;
+
+        $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $quotation_id)->with(
+            'vendors',
+            'overseas_agent',
+            'sline_carriers',
+            'principals',
+            'terminals',
+            'shippers',
+            'consignees',
+            'custom_clearance',
+            'place_of_receipt',
+            'port_of_loading',
+            'port_of_discharge',
+            'final_destination'
+        )->first();
+
+        $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $quotation_id)->get();
+
+        $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $quotation_id)
+            ->with(
+                'principals'
+            )->first();
+
+        $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
+
+        return $arr;
 
         if ($type == "first") {
             $arr["quotation"] = Quotation::with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')

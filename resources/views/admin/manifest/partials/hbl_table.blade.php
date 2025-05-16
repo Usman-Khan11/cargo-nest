@@ -20,7 +20,11 @@
     </thead>
     <tbody>
         @foreach ($manifest as $key => $value)
-            @foreach ($value->job->bl->whereNull('mbl')->get() as $k => $bl)
+            @php
+                // $bls = $value->job->bl->whereNull('mbl')->get() ?? [];
+                $bls = \App\Models\Bl::where('job_id', $value->job->id)->whereNull('mbl')->get();
+            @endphp
+            @foreach ($bls as $k => $bl)
                 <tr>
                     {{-- <td>
                     <button type="button" class="btn btn-danger btn-sm">
@@ -65,11 +69,11 @@
                     <td>
                         {{-- <input name="h_port_of_discharge[]" class="form-control h_port_of_discharge" type="text"
                         readonly /> --}}
-                        {{ $value->job->job_routing->port_of_discharge->location }}
+                        {{ $value->job->job_routing->port_of_discharge->location ?? '' }}
                     </td>
                     <td>
                         {{-- <input name="h_port_of_receipt[]" class="form-control h_port_of_receipt" type="text" readonly /> --}}
-                        {{ $value->job->job_routing->place_of_receipt->location }}
+                        {{ $value->job->job_routing->place_of_receipt->location ?? '' }}
                     </td>
                     <td>
                         {{-- <input name="h_total_container[]" class="form-control h_total_container" type="text" readonly /> --}}
@@ -77,9 +81,21 @@
                     </td>
                     <td>
                         {{-- <input name="h_20ft[]" class="form-control h_20ft" type="text" readonly /> --}}
+                        @php
+                            $sizes = \App\Models\Equipment::whereIn('size', [20])->pluck('id');
+                            echo \App\Models\JobEquipment::where('job_id', $value->job->id)
+                                ->whereIn('e_size_type', $sizes)
+                                ->count();
+                        @endphp
                     </td>
                     <td>
                         {{-- <input name="h_40ft[]" class="form-control h_40ft" type="text" readonly /> --}}
+                        @php
+                            $sizes = \App\Models\Equipment::whereIn('size', [40, 45])->pluck('id');
+                            echo \App\Models\JobEquipment::where('job_id', $value->job->id)
+                                ->whereIn('e_size_type', $sizes)
+                                ->count();
+                        @endphp
                     </td>
                 </tr>
             @endforeach
