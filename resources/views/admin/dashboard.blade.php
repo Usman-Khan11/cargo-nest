@@ -3,13 +3,13 @@
 @section('top_nav_panel')
     @if (request()->routeIs('admin.dashboard'))
         <style>
-            #myTabs li button {
+            #myNavsTabs li button {
                 padding: 8px 5px !important;
                 font-size: 14px !important;
                 margin-right: 0 !important;
             }
         </style>
-        <ul class="nav nav-tabs" id="myTabs" role="tablist"></ul>
+        <ul class="nav nav-tabs" id="myNavsTabs" role="tablist"></ul>
     @endif
 @endsection
 
@@ -21,7 +21,7 @@
             }
         </style>
         <div>
-            <div class="tab-content bg-transparent p-0" id="myTabsContent"></div>
+            <div class="tab-content bg-transparent p-0" id="myNavsTabsContent"></div>
         </div>
     @endif
     <!--<div class="container-xxl flex-grow-1 container-p-y">-->

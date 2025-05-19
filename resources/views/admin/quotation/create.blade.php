@@ -80,31 +80,335 @@
                 </div>
                 <div class="card-body">
                     <input name="id" type="hidden" value="0" />
-                    <div class="row">
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Q No:</label>
-                                <input name="quotation_no" type="text" value="{{ $quotation_no }}"
-                                    class="form-control quotation_no" readonly />
+
+                    <div class="row g-3">
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">QNo</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="quotation_no" type="text" readonly
+                                        value="{{ old('quotation_no', $quotation_no) }}"
+                                        class="form-control quotation_no" />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Date:</label>
-                                <input name="date" type="date" onchange="addDaysAndFormat('{{ date('Y-m-d') }}', 7)"
-                                    value="{{ date('Y-m-d') }}" class="form-control date" />
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Date</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="date" type="date"
+                                        onchange="addDaysAndFormat('{{ date('Y-m-d') }}', 7)"
+                                        value="{{ old('date', date('Y-m-d')) }}" class="form-control date" />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Expire Date:</label>
-                                <input name="expire_date" type="date" class="form-control expire_date"
-                                    value="{{ date('Y-m-d', strtotime(date('Y-m-d') . ' + 7 days')) }}" />
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Expiry Date</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="expire_date" type="date" class="form-control expire_date"
+                                        value="{{ date('Y-m-d', strtotime(date('Y-m-d') . ' + 7 days')) }}" />
+                                </div>
                             </div>
                         </div>
 
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Cost Center <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="cost_center" class="form-select cost_center">
+                                        <option value="head-office">Head Office</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-2">
+                                    <label class="form-label">Mode</label>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="Single-job" name="mode"
+                                            id="single_job_mode" checked>
+                                        <label class="form-check-label" for="single_job_mode">
+                                            Single job
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" value="Multiple-job"
+                                            name="mode" id="multiple_job_mode">
+                                        <label class="form-check-label" for="multiple_job_mode">
+                                            Multiple job
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Sale Rep</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="sale_rep" class="sale_rep search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_sale_rep"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Book Rep</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="book_rep" type="text" class="form-control book_rep"
+                                        value="{{ old('book_rep') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-6">
+                                    <label class="form-label">Customer Type</label>
+                                </div>
+                                <div class="col-6">
+                                    <select name="customer_type" class="form-select customer_type">
+                                        <option value="">Select</option>
+                                        <option value="potential">Potential</option>
+                                        <option value="regular">Regular</option>
+                                        <option value="agent">Agent</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-2">
+                                    <label class="form-label">Client: <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-10">
+                                    <select name="client" class="client search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_client"
+                                        data-placeholder="Select Client"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Stage:</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="stage" class="form-select stage">
+                                        <option value="Request-For-Quote" selected>Request For Quote</option>
+                                        <option value="In-Process">In Process</option>
+                                        <option value="Quote">Quote</option>
+                                        <option value="Responded">Responded</option>
+                                        <option value="Booked">Booked</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                        <option value="Lost">Lost</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Pkgs</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="pkgs" type="text" class="form-control pkgs"
+                                        value="{{ old('pkgs') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Unit</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="unit" class="unit search_select2" data-url="/admin/quotation/create"
+                                        data-type="get_units"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Attn. Person</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="attn_person" type="text" class="form-control attn_person"
+                                        value="{{ old('attn_person') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Vol / CBM</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="vol_cbm" type="text" class="form-control vol_cbm"
+                                        value="{{ old('vol_cbm') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label"><a href="">Commodity:</a></label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="commodity" class="commodity search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_commodity"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Subject</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="subject" type="text" class="form-control subject"
+                                        value="{{ old('subject') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Job Type</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="job_type" class="form-select job_type">
+                                        <option value="">Select</option>
+                                        <option value="direct">Direct</option>
+                                        <option value="coloaded">Coloaded</option>
+                                        <option value="coloaded">Cross Trade</option>
+                                        <option value="liner agency">Liner Agency</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Sub Type</label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="sub_type" class="form-select sub_type">
+                                        <option value="fcl" selected>FCL</option>
+                                        <option value="lcl">LCL</option>
+                                        <option value="air">Air</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <button class="btn btn-primary btn-sm mt-1">Quotation Clone</button>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label"><a href="">Vessel:</a></label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="vessel" class="vessel search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_vessel"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Voyage/Flight No</label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="voyage" class="voyage search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_voyage"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Currency</label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="currency" class="currency search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_currency"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Exchange Rate</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="ex_rate" type="text" class="form-control ex_rate"
+                                        value="{{ old('ex_rate') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <button class="btn btn-primary btn-sm mt-1" type="button"
+                                onclick="copyQuotationNumber()">Copy
+                                Quotation Number</button>
+                        </div>
+
+                        <div class="col-3">
+                            <img id="statusImage" src="{{ asset('assets/img/approved.png') }}" width="50%"
+                                style="display:none;" />
+                        </div>
+                    </div>
+
+                    <div class="">
                         {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">Route Type:</label>
@@ -114,24 +418,6 @@
                                 </select>
                             </div>
                         </div> --}}
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 mt-1 input_flex">
-                                <label class="form-check-label mb-2">Mode:</label>
-                                <div class="d-flex">
-                                    <div class="mb-2 px-3">
-                                        <input name="mode" type="radio" class="form-check-input mode"
-                                            value="Single-job" id="defaultRadio1" checked />
-                                        <label class="form-check-label" for="defaultRadio1">&nbsp;Single job</label>
-                                    </div>
-                                    <div class="mb-2">
-                                        <input name="mode" type="radio" class="form-check-input mode"
-                                            value="Multiple-job" id="defaultRadio2" />
-                                        <label class="form-check-label" for="defaultRadio2">&nbsp;Multiple job</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
@@ -149,109 +435,12 @@
                             </div>
                         </div> --}}
 
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Cost Center: <span class="text-danger">*</span></label>
-                                <select name="cost_center" class="form-select cost_center">
-                                    <option value="head-office">Head Office</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label"><a href="">Sale Rep:</a></label>
-                                <select name="sale_rep" class="sale_rep search_select2"
-                                    data-url="/admin/quotation/create" data-type="get_sale_rep"></select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Book Rep:</label>
-                                <input name="book_rep" type="text" class="form-control book_rep" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Customer Type:</label>
-                                <select name="customer_type" class="form-select customer_type">
-                                    <option value="">Select</option>
-                                    <option value="potential">Potential</option>
-                                    <option value="regular">Regular</option>
-                                    <option value="agent">Agent</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Client: <span class="text-danger">*</span></label>
-                                <select name="client" class="client search_select2" data-url="/admin/quotation/create"
-                                    data-type="get_client" data-placeholder="Select Client"></select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Stage:</label>
-                                <select name="stage" class="form-select stage">
-                                    <option value="Request-For-Quote" selected>Request For Quote</option>
-                                    <option value="In-Process">In Process</option>
-                                    <option value="Quote">Quote</option>
-                                    <option value="Responded">Responded</option>
-                                    <option value="Booked">Booked</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Cancelled">Cancelled</option>
-                                    <option value="Lost">Lost</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Pkgs:</label>
-                                <input name="pkgs" type="text" class="form-control pkgs" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Unit:</label>
-                                <select name="unit" class="unit search_select2" data-url="/admin/quotation/create"
-                                    data-type="get_units"></select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Attn. Person:</label>
-                                <input name="attn_person" type="text" class="form-control attn_person" />
-                            </div>
-                        </div>
-
                         {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
                                 <label class="form-label">From Person:</label>
                                 <input name="from_person" type="text" class="form-control from_person" />
                             </div>
                         </div> --}}
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Vol / CBM:</label>
-                                <input name="vol_cbm" type="text" class="form-control vol_cbm" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label"><a href="">Commodity:</a></label>
-                                <select name="commodity" class="commodity search_select2"
-                                    data-url="/admin/quotation/create" data-type="get_commodity"></select>
-                            </div>
-                        </div>
 
                         {{-- <div class="col-md-3 col-12">
                             <div class="mb-2 input_flex">
@@ -260,90 +449,11 @@
                                     data-url="/admin/quotation/create" data-type="get_inco_term"></select>
                             </div>
                         </div> --}}
-
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Subject:</label>
-                                <input name="subject" type="text" class="form-control subject" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Job Type:</label>
-                                <select name="job_type" class="form-select job_type">
-                                    <option value="">Select</option>
-                                    <option value="direct">Direct</option>
-                                    <option value="coloaded">Coloaded</option>
-                                    <option value="coloaded">Cross Trade</option>
-                                    <option value="liner agency">Liner Agency</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Sub Type:</label>
-                                <select name="sub_type" class="form-select sub_type">
-                                    <option value="fcl" selected>FCL</option>
-                                    <option value="lcl">LCL</option>
-                                    <option value="air">Air</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label"><a href="">Vessel:</a></label>
-                                <select name="vessel" class="vessel search_select2" data-url="/admin/quotation/create"
-                                    data-type="get_vessel"></select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Voyage/Flight No:</label>
-                                <select name="voyage" class="voyage search_select2" data-url="/admin/quotation/create"
-                                    data-type="get_voyage"></select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Currency:</label>
-                                <select name="currency" class="currency search_select2"
-                                    data-url="/admin/quotation/create" data-type="get_currency"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Exchange Rate:</label>
-                                <input name="ex_rate" type="text" class="form-control ex_rate" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 col-12">
-                            <div class="mb-2 input_flex mt-1">
-                                <button class="btn btn-primary btn-sm">Quotation Clone</button> &nbsp;
-                                <button class="btn btn-primary btn-sm" type="button"
-                                    onclick="copyQuotationNumber()">Copy Quotation Number</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <img id="statusImage" src="{{ asset('assets/img/approved.png') }}" width="50%"
-                                    style="display:none;" />
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
 
-            <div class"card mb-4" style="background-color:#f4ffed;">
+            <div class="card mb-4" style="background-color:#f4ffed;">
                 <ul class="nav nav-tabs" role="tablist" style="background-color:#f4ffed;">
                     <li class="nav-item">
                         <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
@@ -524,7 +634,129 @@
                         <textarea rows="6" class="form-control" name="internal"></textarea>
                     </div>
                     <div class="tab-pane fade" id="navs-top-routing" role="tabpanel">
-                        <div style="height:250px; overflow-y:scroll; overflow-x:hidden;">
+                        <div style="height:200px; overflow-y:scroll; overflow-x:hidden;">
+                            <div class="row g-3">
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label w-100 m-0">Service Type</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="service_type" class="form-select service_type">
+                                                <option selected disabled>Select</option>
+                                                <option value="A">A</option>
+                                                <option value="B">b</option>
+                                                <option value="C">c</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label w-100 m-0">Transit Time</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="transit_time" type="text" class="form-control transit_time"
+                                                value="{{ old('transit_time') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label w-100 m-0">Detention Free Days</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="free_days" type="text" class="form-control free_days"
+                                                value="{{ old('free_days') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Shipper</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select name="shipper" class="shipper search_select2"
+                                                data-url="/admin/quotation/create" data-type="get_shipper"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Place of Receipt</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select name="place_of_receipt" class="place_of_receipt search_select2"
+                                                data-type="get_location" data-url="/admin/quotation/create"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Port of Loading <span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select name="port_of_loading" class="port_of_loading search_select2"
+                                                data-type="get_location" data-url="/admin/quotation/create"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Consignee</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select name="consignee" class="consignee search_select2"
+                                                data-url="/admin/quotation/create" data-type="get_consignee"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Port of Discharge <span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select name="port_of_discharge" class="port_of_discharge search_select2"
+                                                data-type="get_location" data-url="/admin/quotation/create"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Final Destination</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select name="final_destination" class="final_destination search_select2"
+                                                data-type="get_location" data-url="/admin/quotation/create"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 {{-- <div class="col-md-2 col-12">
                                     <div class="mb-2 input_flex">
@@ -556,31 +788,7 @@
                                         <input name="s_c" type="text" class="form-control s_c" />
                                     </div>
                                 </div> --}}
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Service Type:</label>
-                                        <select name="service_type" class="form-select service_type">
-                                            <option selected disabled>Select</option>
-                                            <option value="A">A</option>
-                                            <option value="B">b</option>
-                                            <option value="C">c</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Transit Time:</label>
-                                        <input name="transit_time" type="text" class="form-control transit_time"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Detention Free Days:</label>
-                                        <input name="free_days" type="text" class="form-control free_days"
-                                            placeholder="" />
-                                    </div>
-                                </div>
+
                                 {{-- <div class="col-md-3 col-12">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Vendor:</label>
@@ -624,25 +832,11 @@
                                 </div> --}}
                             </div>
 
-                            <hr />
+
 
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="row">
-                                        <div class="col-md-12 col-12">
-                                            <div class="mb-2 input_flex">
-                                                <label class="form-label">Shipper:</label>
-                                                <select name="shipper" class="shipper search_select2"
-                                                    data-url="/admin/quotation/create" data-type="get_shipper"></select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 col-12">
-                                            <div class="mb-2 input_flex">
-                                                <label class="form-label">Consignee:</label>
-                                                <select name="consignee" class="consignee search_select2"
-                                                    data-url="/admin/quotation/create" data-type="get_consignee"></select>
-                                            </div>
-                                        </div>
                                         {{-- <div class="col-md-12 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Pickup Location:</label>
@@ -667,38 +861,8 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-7" style="border-left:1px solid #ccc">
+                                <div class="col-md-7">
                                     <div class="row">
-                                        <div class="col-md-6 col-12">
-                                            <div class="mb-2 input_flex">
-                                                <label class="form-label">Place of Receipt:</label>
-                                                <select name="place_of_receipt" class="place_of_receipt search_select2"
-                                                    data-type="get_location" data-url="/admin/quotation/create"></select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="mb-2 input_flex">
-                                                <label class="form-label">Port of Loading: <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="port_of_loading" class="port_of_loading search_select2"
-                                                    data-type="get_location" data-url="/admin/quotation/create"></select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="mb-2 input_flex">
-                                                <label class="form-label">Port of Discharge: <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="port_of_discharge" class="port_of_discharge search_select2"
-                                                    data-type="get_location" data-url="/admin/quotation/create"></select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12">
-                                            <div class="mb-2 input_flex">
-                                                <label class="form-label">Final Destination:</label>
-                                                <select name="final_destination" class="final_destination search_select2"
-                                                    data-type="get_location" data-url="/admin/quotation/create"></select>
-                                            </div>
-                                        </div>
                                         {{-- <div class="col-md-6 col-12">
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Drop off Location:</label>

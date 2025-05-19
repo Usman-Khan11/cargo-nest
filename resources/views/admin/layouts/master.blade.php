@@ -55,6 +55,12 @@
             left: 1.25rem !important;
         }
     </style>
+@else
+    <style>
+        .layout-wrapper.layout-content-navbar {
+            zoom: 0.85;
+        }
+    </style>
 @endif
 
 <body>
@@ -167,7 +173,7 @@
         })
 
         $(document).ready(function() {
-            let iframe_height = $(window).height() - 100;
+            let iframe_height = $(window).height() + 30;
 
             let storedWindows = JSON.parse(localStorage.getItem("openedWindows")) || {};
             let storedWindowsLength = Object.keys(storedWindows).length;
@@ -179,11 +185,11 @@
                     const name = storedWindows[id].name;
                     const focus = storedWindows[id].focus;
 
-                    $('#myTabs').append(addTabList(id, name));
-                    $('#myTabsContent').append(addTabContent(id, url, iframe_height));
+                    $('#myNavsTabs').append(addTabList(id, name));
+                    $('#myNavsTabsContent').append(addTabContent(id, url, iframe_height));
 
                     if (focus) {
-                        $(`#myTabs [data-bs-target="#${id}"]`).tab("show");
+                        $(`#myNavsTabs [data-bs-target="#${id}"]`).tab("show");
                     }
                 }
             }, 300);
@@ -215,7 +221,7 @@
                     // focus false of all tabs
                     Object.keys(storedWindows).forEach(key => (storedWindows[key].focus = false));
 
-                    if (!$(`#myTabs [data-bs-target="#${id}"]`).length) {
+                    if (!$(`#myNavsTabs [data-bs-target="#${id}"]`).length) {
 
                         if (storedWindowsLength >= 11) {
                             notify('error', 'Tab Length Exceed!')
@@ -224,9 +230,9 @@
 
                         const tabContent = addTabContent(id, url, iframe_height);
 
-                        $('#myTabs').append(addTabList(id, name));
-                        $('#myTabsContent').append(tabContent);
-                        $(`#myTabs [data-bs-target="#${id}"]`).tab("show");
+                        $('#myNavsTabs').append(addTabList(id, name));
+                        $('#myNavsTabsContent').append(tabContent);
+                        $(`#myNavsTabs [data-bs-target="#${id}"]`).tab("show");
 
                         storedWindows[id] = {
                             name: name,
@@ -238,7 +244,7 @@
                     } else {
                         // focus true of this tab
                         Object.keys(storedWindows).forEach(key => (storedWindows[key].focus = key === id));
-                        $(`#myTabs [data-bs-target="#${id}"]`).tab("show");
+                        $(`#myNavsTabs [data-bs-target="#${id}"]`).tab("show");
                     }
 
                     // Update localStorage with metadata
@@ -249,7 +255,7 @@
             })
 
             // focus true on tab click
-            $('#myTabs [data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $('#myNavsTabs [data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
                 let id = $(this).data("id");
                 Object.keys(storedWindows).forEach(key => (storedWindows[key].focus = key === id));
                 localStorage.setItem("openedWindows", JSON.stringify(storedWindows));
@@ -265,8 +271,8 @@
                 // Update localStorage with metadata
                 localStorage.setItem("openedWindows", JSON.stringify(storedWindows));
 
-                if ($('#myTabs li').length > 0) {
-                    $('#myTabs li:first').find('button').click();
+                if ($('#myNavsTabs li').length > 0) {
+                    $('#myNavsTabs li:first').find('button').click();
                 }
 
                 storedWindowsLength--;

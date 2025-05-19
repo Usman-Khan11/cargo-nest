@@ -755,8 +755,8 @@
                                                     <th>Size Type</th>
                                                     <th>Rate Group</th>
                                                     <th>Qty</th>
-                                                    <th>Code</th>
-                                                    <th>Name</th>
+                                                    <th>Principal Code</th>
+                                                    <th>Principal Name</th>
                                                     <th>DG/Non DG</th>
                                                     <th>Gross WT/CNT</th>
                                                     <th>TEU</th>
@@ -3057,6 +3057,17 @@
 
                         var dg_type = $(`.dg_type`).get(key);
                         $(dg_type).val(value.dg_type).trigger('change');
+
+                        var e_name = $(`.e_name`).get(key);
+                        var e_code = $(`.e_code`).get(key);
+
+                        if (value.principals) {
+                            $(e_code).val(value.principals.party_code);
+                            $(e_name).val(value.principals.party_name);
+                        } else {
+                            $(e_code).val('');
+                            $(e_name).val('');
+                        }
                     });
                 }
             });

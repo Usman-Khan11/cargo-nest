@@ -476,7 +476,6 @@ class JobController extends Controller
     {
         $id = $request->id;
         $type = $request->type;
-        $data = null;
 
         $arr = [
             "booking_info" => null,
@@ -488,6 +487,48 @@ class JobController extends Controller
             "summary_charges" => null,
             "principal_charges" => null
         ];
+
+        $data = Job::Query();
+
+        if ($type == "first") {
+            $data = $data->orderBy('id', 'asc');
+        } else if ($type == "last") {
+            $data = $data->orderBy('id', 'desc');
+        } else if ($type == "forward") {
+            $data = $data->where('id', '>', $id);
+        } else if ($type == "backward") {
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
+        }
+
+        $arr["booking_info"] = $data->with(
+            'created_by',
+            'last_updated_by',
+            'approved_by',
+            'port_of_loading',
+            'port_of_discharge',
+            'final_destination',
+            'custom_clearance'
+        )->first();
+
+        $arr["equipments"] = JobEquipment::where('job_id', $arr["booking_info"]->id)->get();
+
+        $arr["routing"] = JobRouting::where('job_id', $arr["booking_info"]->id)
+            ->with(
+                'port_of_loading',
+                'port_of_discharge',
+                'final_destination',
+                'terminals'
+            )
+            ->first();
+
+        $arr["other_info"] = JobOtherInfo::where('job_id', $arr["booking_info"]->id)->first();
+
+        $arr["receivable_charges"] = JobReceivable::where('job_id', $arr["booking_info"]->id)->get();
+        $arr["payable_charges"] = JobPayable::where('job_id', $arr["booking_info"]->id)->get();
+        $arr["summary_charges"] = JobSummary::where('job_id', $arr["booking_info"]->id)->get();
+        $arr["principal_charges"] = JobPrincipal::where('job_id', $arr["booking_info"]->id)->get();
+
+        return $arr;
 
         if ($type == "first") {
             $arr["booking_info"] = Job::orderBy('id', 'asc')->with('created_by', 'last_updated_by', 'approved_by', 'port_of_loading', 'port_of_discharge', 'final_destination', 'custom_clearance')->first();
@@ -547,7 +588,7 @@ class JobController extends Controller
             $arr["quotation"] = Quotation::find($request->quot_id);
             $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $request->quot_id)->get();
             $arr["routing"] = QuotationRouting::where('quotation_id', $request->quot_id)->with('terminals', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')->first();
-            $arr["equipment"] = QuotationEquipment::where('quotation_id', $request->quot_id)->get();
+            $arr["equipment"] = QuotationEquipment::where('quotation_id', $request->quot_id)->with('principals')->get();
         }
 
         return $arr;
