@@ -20,8 +20,10 @@
                 padding-top: 15px !important;
             }
         </style>
-        <div>
-            <div class="tab-content bg-transparent p-0" id="myNavsTabsContent"></div>
+        <div class="content-wrapper position-relative">
+            <div>
+                <div class="tab-content bg-transparent p-0" id="myNavsTabsContent"></div>
+            </div>
         </div>
     @endif
     <!--<div class="container-xxl flex-grow-1 container-p-y">-->

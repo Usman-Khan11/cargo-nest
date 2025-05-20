@@ -921,8 +921,8 @@
                             onclick="approvalStatusChange('Approved')">Approved</button>
                         <button type="button" class="btn btn-primary btn-sm" id="un_approved_btn"
                             onclick="approvalStatusChange('Un-approved')">Un Approved</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="create_job" disabled>Create
-                            Job</button>
+                        {{-- <button type="button" class="btn btn-primary btn-sm" id="create_job" disabled>Create Job</button> --}}
+                        <a href="#" class="btn btn-primary btn-sm cus_nav_link" id="create_job">Create Job</a>
                         <button type="button" class="btn btn-primary btn-sm" id="cancel_job"
                             onclick="approvalStatusChange('Cancelled')" disabled>Cancelled</button>
                     </div>
@@ -1149,8 +1149,7 @@
                 }
 
                 $("#myForm").attr("action", "{{ route('admin.quotation.update') }}");
-                $("#create_job").attr("onclick",
-                    `window.location.assign('/admin/job/create?quot_id=${data.quotation.id}')`);
+                $("#create_job").attr("href", `/admin/job/create?quot_id=${data.quotation.id}`);
                 $("input[name=id]").val(data.quotation.id);
 
                 if (data.jobs) {

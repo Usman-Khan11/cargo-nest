@@ -54,11 +54,16 @@
             width: 100% !important;
             left: 1.25rem !important;
         }
+
+        .container-xxl {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
     </style>
 @else
     <style>
         .layout-wrapper.layout-content-navbar {
-            zoom: 0.85;
+            zoom: 0.77;
         }
     </style>
 @endif
@@ -173,7 +178,8 @@
         })
 
         $(document).ready(function() {
-            let iframe_height = $(window).height() + 30;
+            let nav_height = $("nav.layout-navbar").height();
+            let iframe_height = $(document).height() + nav_height + 20;
 
             let storedWindows = JSON.parse(localStorage.getItem("openedWindows")) || {};
             let storedWindowsLength = Object.keys(storedWindows).length;

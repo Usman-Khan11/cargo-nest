@@ -174,7 +174,7 @@ function quotationFormReset(route) {
     $("#myForm").find("select").trigger("change");
     $("#myForm")
         .find(
-            ".terminals, .place_of_receipt, .port_of_loading, .port_of_discharge, .final_destination, .custom_clearance, .client, .sale_rep, .commodity"
+            ".terminals, .place_of_receipt, .port_of_loading, .port_of_discharge, .final_destination, .custom_clearance, .client, .sale_rep, .commodity, .shipper, .vessel, .unit, .currency, .equip_principal"
         )
         .val(null)
         .trigger("change");
@@ -299,10 +299,10 @@ function enableJobButton(status) {
     let port_discharge = $(".port_of_discharge").val();
 
     if (status == "Approved" && port_loading && port_discharge && date) {
-        $("#create_job").removeAttr("disabled");
+        $("#create_job").removeClass("disabled");
         $("#statusImage").show();
     } else {
-        $("#create_job").attr("disabled", true);
+        $("#create_job").addClass("disabled");
         $("#statusImage").hide();
     }
 
@@ -323,7 +323,7 @@ function enableJobButton(status) {
     if (status == "Cancelled") {
         $("#cancel_job").attr("disabled", true);
         $("#approved_btn").attr("disabled", true);
-        $("#create_job").attr("disabled", true);
+        $("#create_job").addClass("disabled");
     }
 }
 
