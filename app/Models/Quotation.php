@@ -64,4 +64,9 @@ class Quotation extends Model
     {
         return $this->belongsTo(Admin::class, 'approved_by', 'id');
     }
+
+    public function equipments()
+    {
+        return $this->hasMany(QuotationEquipment::class, 'quotation_id', 'id');
+    }
 }

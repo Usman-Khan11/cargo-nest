@@ -63,11 +63,13 @@ $(document).ready(function () {
             style: "api",
         },
         processing: true,
-        searching: false,
+        searching: true,
         serverSide: true,
-        lengthChange: false,
+        lengthChange: true,
         pageLength: 10,
-        //   scrollX: true,
+        scrollY: 400,
+        // scrollX: 100,
+        autoWidth: true,
         ajax: {
             url: "/admin/quotation/create",
             type: "get",
@@ -79,20 +81,49 @@ $(document).ready(function () {
                 title: "Quotation No",
             },
             {
-                data: "date",
-                title: "Date",
+                data: "clients.party_name",
+                title: "Client",
+                render: function (data, type, full, meta) {
+                    if (full.clients) {
+                        return full.clients.party_name;
+                    } else {
+                        return '-';
+                    }
+                }
+
             },
             {
-                data: "mode",
-                title: "Mode",
+                data: "commodities.name",
+                title: "Commodity",
+                render: function (data, type, full, meta) {
+                    if (full.commodities) {
+                        return full.commodities.name;
+                    } else {
+                        return '-';
+                    }
+                }
             },
             {
-                data: "operation_type",
-                title: "Operation Type",
+                data: "sales_rep.emp_name",
+                title: "Sale Rep",
+                render: function (data, type, full, meta) {
+                    if (full.sales_rep) {
+                        return full.sales_rep.emp_name;
+                    } else {
+                        return '-';
+                    }
+                }
             },
             {
-                data: "ex_rate",
-                title: "Exchange Rate",
+                title: "Total Containers",
+                render: function (data, type, full, meta) {
+                    let html = '';
+                    let equipments = full.equipments || [];
+                    $(equipments).each(function (i, v) {
+                        html += `${v.qty}x${v.size_types ? v.size_types.size : ''} `;
+                    })
+                    return html;
+                }
             },
         ],
         rowCallback: function (row, data) {
@@ -104,8 +135,42 @@ $(document).ready(function () {
         },
     });
 
+    $('#quotationModal').on('shown.bs.modal', function (e) {
+        datatable.ajax.reload();
+    })
+
     $("input.ex_rate").keyup(function () {
         $("input.detail_ex_rate").val($(this).val());
+    })
+
+    $("select.sub_type").change(function () {
+        let val = $(this).val();
+
+        if (val == "fcl") {
+            $(".pkgs").closest('.row').hide();
+            $(".unit").closest('.row').hide();
+            $(".vol_cbm").closest('.row').hide();
+            $(".wt_unit").closest('.row').hide();
+            $(".bill_vol").closest('.row').hide();
+            $(".manual_vol").closest('.row').hide();
+            $(".grt").closest('.row').hide();
+            $(".nrt").closest('.row').hide();
+            $(".cwt_client").closest('.row').hide();
+            $(".cwt_line").closest('.row').hide();
+        }
+
+        if (val == "lcl") {
+            $(".pkgs").closest('.row').show();
+            $(".unit").closest('.row').show();
+            $(".vol_cbm").closest('.row').show();
+            $(".wt_unit").closest('.row').show();
+            $(".bill_vol").closest('.row').show();
+            $(".manual_vol").closest('.row').show();
+            $(".grt").closest('.row').show();
+            $(".nrt").closest('.row').show();
+            $(".cwt_client").closest('.row').show();
+            $(".cwt_line").closest('.row').show();
+        }
     })
 });
 
@@ -177,6 +242,7 @@ function detailCalculation(e) {
 }
 
 function quotationFormReset(route) {
+    fieldsEnable();
     document.getElementById("myForm").reset();
     $("#myForm").attr("action", route);
     $("#myForm").find("select").trigger("change");
@@ -246,7 +312,7 @@ function approvalStatusChange(status) {
         $("select[name=approval_status]").find(`option[value=${status}]`).attr("selected", true);
         $("select[name=approval_status]").val(status);
 
-        $("#myForm").find("input, select").attr('disabled', false);
+        fieldsEnable();
         $("#myForm").submit();
     }
 }
@@ -435,10 +501,18 @@ function initSearchSelect2($element) {
     });
 }
 
+function fieldsEnable() {
+    $("#myForm").find("input, select:not(#status_check)").attr('disabled', false);
+}
+
+function fieldsDisable() {
+    $("#myForm").find("input, select:not(#status_check)").attr('disabled', true);
+}
+
 function fieldsToggle(status) {
     if (status == "Approved") {
-        $("#myForm").find("input, select").attr('disabled', true);
+        fieldsDisable();
     } else {
-        $("#myForm").find("input, select").attr('disabled', false);
+        fieldsEnable();
     }
 }

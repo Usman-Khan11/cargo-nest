@@ -11,6 +11,11 @@ class QuotationEquipment extends Model
     protected $guarded = ['id'];
     protected $table = 'quotation_equipments';
 
+    public function size_types()
+    {
+        return $this->belongsTo(Equipment::class, 'size_type', 'id');
+    }
+
     public function principals()
     {
         return $this->belongsTo(PartyBasicInfo::class, 'principal', 'id');

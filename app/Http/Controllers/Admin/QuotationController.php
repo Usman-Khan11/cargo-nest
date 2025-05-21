@@ -236,7 +236,7 @@ class QuotationController extends Controller
                 return $data;
             }
 
-            $query = Quotation::Query();
+            $query = Quotation::with(['clients', 'commodities', 'sales_rep', 'equipments', 'equipments.size_types']);
             $query = $query->orderby('id', 'asc')->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }

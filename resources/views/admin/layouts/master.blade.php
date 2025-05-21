@@ -179,7 +179,7 @@
 
         $(document).ready(function() {
             let nav_height = $("nav.layout-navbar").height();
-            let iframe_height = $(document).height() + nav_height + 20;
+            let iframe_height = $(document).height() + nav_height + 40;
 
             let storedWindows = JSON.parse(localStorage.getItem("openedWindows")) || {};
             let storedWindowsLength = Object.keys(storedWindows).length;

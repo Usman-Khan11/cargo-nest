@@ -180,11 +180,16 @@
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-3">
-                                    <label class="form-label">Pkgs</label>
+                                    <label class="form-label">Job Type</label>
                                 </div>
                                 <div class="col-9">
-                                    <input name="pkgs" type="text" class="form-control pkgs"
-                                        value="{{ old('pkgs') }}" />
+                                    <select name="job_type" class="form-select job_type">
+                                        <option value="">Select</option>
+                                        <option value="direct">Direct</option>
+                                        <option value="coloaded">Coloaded</option>
+                                        <option value="coloaded">Cross Trade</option>
+                                        <option value="liner agency">Liner Agency</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -192,11 +197,14 @@
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-4">
-                                    <label class="form-label">Unit</label>
+                                    <label class="form-label">Sub Type</label>
                                 </div>
                                 <div class="col-8">
-                                    <select name="unit" class="unit search_select2" data-url="/admin/quotation/create"
-                                        data-type="get_units"></select>
+                                    <select name="sub_type" class="form-select sub_type">
+                                        <option value="fcl" selected>FCL</option>
+                                        <option value="lcl">LCL</option>
+                                        <option value="air">Air</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -230,7 +238,8 @@
                         <div class="col-4">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-2">
-                                    <label class="form-label">Client: <span class="text-danger">*</span></label>
+                                    <label class="form-label"><a href="{{ route('admin.party.create') }}">Client</a>:
+                                        <span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-10">
                                     <select name="client" class="client search_select2"
@@ -243,19 +252,8 @@
                         <div class="col-3">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-3">
-                                    <label class="form-label">Sale Rep</label>
-                                </div>
-                                <div class="col-9">
-                                    <select name="sale_rep" class="sale_rep search_select2"
-                                        data-url="/admin/quotation/create" data-type="get_sale_rep"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-3">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label"><a href="">Commodity:</a></label>
+                                    <label class="form-label"><a
+                                            href="{{ route('admin.commodity.create') }}">Commodity:</a></label>
                                 </div>
                                 <div class="col-9">
                                     <select name="commodity" class="commodity search_select2"
@@ -266,18 +264,44 @@
 
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Attn. Person</label>
+                                <div class="col-5">
+                                    <label class="form-label"><a
+                                            href="{{ route('admin.currency.create') }}">Currency</a></label>
                                 </div>
-                                <div class="col-9">
-                                    <input name="attn_person" type="text" class="form-control attn_person"
-                                        value="{{ old('attn_person') }}" />
+                                <div class="col-7">
+                                    <select name="currency" class="currency search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_currency"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Exchange Rate</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="ex_rate" type="text" class="form-control ex_rate"
+                                        value="{{ old('ex_rate') }}" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row g-3">
+                        <div class="col-4">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-2">
+                                    <label class="form-label"><a href="{{ route('admin.employee.create') }}">Sale
+                                            Rep</a></label>
+                                </div>
+                                <div class="col-10">
+                                    <select name="sale_rep" class="sale_rep search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_sale_rep"></select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-3">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-3">
@@ -300,32 +324,77 @@
 
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
+                                <div class="col-5">
+                                    <label class="form-label">Attn. Person</label>
+                                </div>
+                                <div class="col-7">
+                                    <input name="attn_person" type="text" class="form-control attn_person"
+                                        value="{{ old('attn_person') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <button class="btn btn-primary btn-sm mt-1 w-100" type="button"
+                                onclick="copyQuotationNumber()">Copy
+                                Quotation Number</button>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-4">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-2">
+                                    <label class="form-label"><a
+                                            href="{{ route('admin.vessel.create') }}">Vessel:</a></label>
+                                </div>
+                                <div class="col-10">
+                                    <select name="vessel" class="vessel search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_vessel"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label"><a href="{{ route('admin.voyage.create') }}">Voyage/Flight
+                                            No</a></label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="voyage" class="voyage search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_voyage"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <button class="btn btn-primary btn-sm mt-1 w-100">Quotation Clone</button>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
                                 <div class="col-3">
-                                    <label class="form-label">Job Type</label>
+                                    <label class="form-label">Pkgs</label>
                                 </div>
                                 <div class="col-9">
-                                    <select name="job_type" class="form-select job_type">
-                                        <option value="">Select</option>
-                                        <option value="direct">Direct</option>
-                                        <option value="coloaded">Coloaded</option>
-                                        <option value="coloaded">Cross Trade</option>
-                                        <option value="liner agency">Liner Agency</option>
-                                    </select>
+                                    <input name="pkgs" type="text" class="form-control pkgs"
+                                        value="{{ old('pkgs') }}" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
-                                <div class="col-4">
-                                    <label class="form-label">Sub Type</label>
+                                <div class="col-3">
+                                    <label class="form-label"><a
+                                            href="{{ route('admin.packages.create') }}">Unit</a></label>
                                 </div>
-                                <div class="col-8">
-                                    <select name="sub_type" class="form-select sub_type">
-                                        <option value="fcl" selected>FCL</option>
-                                        <option value="lcl">LCL</option>
-                                        <option value="air">Air</option>
-                                    </select>
+                                <div class="col-9">
+                                    <select name="unit" class="unit search_select2" data-url="/admin/quotation/create"
+                                        data-type="get_units"></select>
                                 </div>
                             </div>
                         </div>
@@ -344,12 +413,38 @@
 
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
-                                <div class="col-4">
-                                    <label class="form-label">Currency</label>
+                                <div class="col-3">
+                                    <label class="form-label">WT Unit</label>
                                 </div>
-                                <div class="col-8">
-                                    <select name="currency" class="currency search_select2"
-                                        data-url="/admin/quotation/create" data-type="get_currency"></select>
+                                <div class="col-9">
+                                    <input name="wt_unit" type="text" class="form-control wt_unit"
+                                        value="{{ old('wt_unit') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Bill Vol</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="bill_vol" type="text" class="form-control bill_vol"
+                                        value="{{ old('bill_vol') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input manual_vol" type="checkbox" value="1"
+                                            name="manual_vol" id="manual_vol">
+                                        <label class="form-check-label" for="manual_vol">
+                                            Manual Vol
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -358,48 +453,50 @@
                     <div class="row g-3">
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
-                                <div class="col-4">
-                                    <label class="form-label">Exchange Rate</label>
-                                </div>
-                                <div class="col-8">
-                                    <input name="ex_rate" type="text" class="form-control ex_rate"
-                                        value="{{ old('ex_rate') }}" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-3">
-                            <div class="row g-0 align-items-center mb-1">
                                 <div class="col-3">
-                                    <label class="form-label"><a href="">Vessel:</a></label>
+                                    <label class="form-label">GRT</label>
                                 </div>
                                 <div class="col-9">
-                                    <select name="vessel" class="vessel search_select2"
-                                        data-url="/admin/quotation/create" data-type="get_vessel"></select>
+                                    <input name="grt" type="text" class="form-control grt"
+                                        value="{{ old('grt') }}" />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
-                                <div class="col-4">
-                                    <label class="form-label">Voyage/Flight No</label>
+                                <div class="col-3">
+                                    <label class="form-label">NRT</label>
                                 </div>
-                                <div class="col-8">
-                                    <select name="voyage" class="voyage search_select2"
-                                        data-url="/admin/quotation/create" data-type="get_voyage"></select>
+                                <div class="col-9">
+                                    <input name="nrt" type="text" class="form-control nrt"
+                                        value="{{ old('nrt') }}" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-2">
-                            <button class="btn btn-primary btn-sm mt-1 w-100" type="button"
-                                onclick="copyQuotationNumber()">Copy
-                                Quotation Number</button>
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">CWt (Client)</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="cwt_client" type="text" class="form-control cwt_client"
+                                        value="{{ old('cwt_client') }}" />
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-2">
-                            <button class="btn btn-primary btn-sm mt-1 w-100">Quotation Clone</button>
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">CWt (Line)</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="cwt_line" type="text" class="form-control cwt_line"
+                                        value="{{ old('cwt_line') }}" />
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-3">
@@ -485,16 +582,16 @@
                     <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
                         <div class="card-datatable table-responsive pt-0">
                             <table class="datatables-basic table" style="width:450%;">
-                                <thead>
+                                <thead class="text-center">
                                     <tr>
                                         <th>...</th>
                                         <th>...</th>
                                         <th>Charges Code</th>
-                                        <th>Charges</th>
+                                        <th><a href="{{ route('admin.charges.create') }}">Charges</a></th>
                                         <th>Charges Description</th>
-                                        <th>Charges Category</th>
+                                        {{-- <th>Charges Category</th> --}}
                                         <th>--- Unit ---</th>
-                                        <th>Size Type</th>
+                                        <th><a href="{{ route('admin.equipment.create') }}">Size Type</a></th>
                                         <th>Goods Unit</th>
                                         <th>Rate Group</th>
                                         <th>Mode</th>
@@ -502,7 +599,7 @@
                                         <th>DG/Non-DG</th>
                                         <th>Qty</th>
                                         <th>Rate</th>
-                                        <th>Currency</th>
+                                        <th><a href="{{ route('admin.currency.create') }}">Currency</a></th>
                                         <th>Exch Rate</th>
                                         <th>Amount</th>
                                         <th>Local Amount</th>
@@ -512,7 +609,7 @@
                                         <th>Remarks</th>
                                         <th>Payable To</th>
                                         <th>Buying Remarks</th>
-                                        <th>Ord</th>
+                                        {{-- <th>Ord</th> --}}
                                         <th>Tariff Code</th>
                                     </tr>
                                 </thead>
@@ -531,7 +628,7 @@
                                         </td>
                                         <td><input type="text" class="form-control charges_desc" style="width: 100%;"
                                                 name="charges_desc[]" /></td>
-                                        <td><input type="text" class="form-control charges_category"
+                                        <td class="d-none"><input type="text" class="form-control charges_category"
                                                 style="width: 100%;" name="charges_category[]" /></td>
                                         <td>
                                             <select name="units[]" class="form-select units" style="width: 100%;">
@@ -618,8 +715,8 @@
                                         </td>
                                         <td><input class="form-control buying_remarks" type="text"
                                                 style="width: 100%;" name="buying_remarks[]" /></td>
-                                        <td><input class="form-control ord" type="text" style="width: 100%;"
-                                                name="ord[]" /></td>
+                                        <td class="d-none"><input class="form-control ord" type="text"
+                                                style="width: 100%;" name="ord[]" /></td>
                                         <td><input class="form-control tariff_code" type="text" style="width: 100%;"
                                                 name="tariff_code[]" /></td>
                                     </tr>
@@ -639,7 +736,9 @@
                                 <div class="col-3">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-4">
-                                            <label class="form-label w-100 m-0">Service Type</label>
+                                            <label class="form-label w-100 m-0"><a
+                                                    href="{{ route('admin.service_type.create') }}">Service
+                                                    Type</a></label>
                                         </div>
                                         <div class="col-8">
                                             <select name="service_type" class="form-select service_type select2">
@@ -686,7 +785,8 @@
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-2">
-                                            <label class="form-label w-100 m-0">Shipper</label>
+                                            <label class="form-label w-100 m-0"><a
+                                                    href="{{ route('admin.party.create') }}">Shipper</a></label>
                                         </div>
                                         <div class="col-10">
                                             <select name="shipper" class="shipper search_select2"
@@ -698,7 +798,9 @@
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-2">
-                                            <label class="form-label w-100 m-0">Place of Receipt</label>
+                                            <label class="form-label w-100 m-0"><a
+                                                    href="{{ route('admin.location.create') }}">Place of
+                                                    Receipt</a></label>
                                         </div>
                                         <div class="col-10">
                                             <select name="place_of_receipt" class="place_of_receipt search_select2"
@@ -710,7 +812,8 @@
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-2">
-                                            <label class="form-label w-100 m-0">Port of Loading <span
+                                            <label class="form-label w-100 m-0"><a
+                                                    href="{{ route('admin.location.create') }}">Port of Loading</a><span
                                                     class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-10">
@@ -725,7 +828,8 @@
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-2">
-                                            <label class="form-label w-100 m-0">Consignee</label>
+                                            <label class="form-label w-100 m-0"><a
+                                                    href="{{ route('admin.party.create') }}">Consignee</a></label>
                                         </div>
                                         <div class="col-10">
                                             <select name="consignee" class="consignee search_select2"
@@ -737,7 +841,8 @@
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-2">
-                                            <label class="form-label w-100 m-0">Port of Discharge <span
+                                            <label class="form-label w-100 m-0"><a
+                                                    href="{{ route('admin.location.create') }}">Port of Discharge</a><span
                                                     class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-10">
@@ -750,7 +855,9 @@
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-2">
-                                            <label class="form-label w-100 m-0">Final Destination</label>
+                                            <label class="form-label w-100 m-0"><a
+                                                    href="{{ route('admin.location.create') }}">Final
+                                                    Destination</a></label>
                                         </div>
                                         <div class="col-10">
                                             <select name="final_destination" class="final_destination search_select2"
@@ -900,13 +1007,13 @@
                                             class="btn btn-success btn-sm">Link</button>
                                     </th>
                                     {{-- <th width="5%">...</th> --}}
-                                    <th width="15%">Size/Type</th>
+                                    <th width="15%"><a href="{{ route('admin.equipment.create') }}">Size/Type</a></th>
                                     <th width="15%">RateGroup</th>
                                     <th width="12%">Qty</th>
                                     <th width="15%">DG/Non-DG</th>
                                     <th width="20%">Gross WT/CNT</th>
-                                    <th width="13%">TEU</th>
-                                    <th width="13%">Principal</th>
+                                    <th width="13%"><a href="{{ route('admin.equipment.create') }}">TEU</a></th>
+                                    <th width="13%"><a href="{{ route('admin.party.create') }}">Principal</a></th>
                                 </tr>
                             </thead>
                             <tbody class="eqp_detail_repeater">
@@ -948,18 +1055,23 @@
                                 <b>Approved At:</b> <span id="approved_at"></span>
                             </div>
                         </div>
-                        <div class="col-md-3 col-12">
+                        <div class="col-md-2 col-12">
                             <div class="mb-2 input_flex">
                                 <!--<label class="form-label">Job Number:</label>-->
                                 <!--<input name="job_no" type="text" class="form-control job_no" readonly/>-->
                                 <div class="form-control job_no bg-white"></div>
                             </div>
                         </div>
+
                         <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Total Receivable:</label>
-                                <input name="total_receivable" type="text" class="form-control total_receivable"
-                                    readonly />
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Total Receivable</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="total_receivable" type="text" class="form-control total_receivable"
+                                        readonly />
+                                </div>
                             </div>
                             <div>
                                 <b>Created By:</b> <span id="created_by"></span>
@@ -969,13 +1081,24 @@
                         </div>
 
                         <div class="col-md-3 col-12">
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Total Payable:</label>
-                                <input name="total_payable" type="text" class="form-control total_payable" readonly />
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Total Payable</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="total_payable" type="text" class="form-control total_payable"
+                                        readonly />
+                                </div>
                             </div>
-                            <div class="mb-2 input_flex">
-                                <label class="form-label">Total Profit:</label>
-                                <input name="total_profit" type="text" class="form-control total_profit" readonly />
+
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Total Profit</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="total_profit" type="text" class="form-control total_profit"
+                                        readonly />
+                                </div>
                             </div>
                         </div>
 
@@ -990,14 +1113,14 @@
 
     <!-- Modal -->
     <div class="modal fade" id="quotationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Quotation List</h5>
+                    <h5 class="modal-title text-center w-100" id="exampleModalLabel">Quotation List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="table-responsive w-100">
+                <div class="modal-body pt-0">
+                    <div class="">
                         <table class="table table-bordered table-sm quotation_record"></table>
                     </div>
                 </div>
@@ -1061,7 +1184,7 @@
                 $(".vol_cbm").val(data.quotation.vol_cbm);
                 $(".subject").val(data.quotation.subject);
                 $(".job_type").val(data.quotation.job_type);
-                $(".sub_type").val(data.quotation.sub_type);
+                $(".sub_type").val(data.quotation.sub_type).trigger('change');
                 $(".ex_rate").val(data.quotation.ex_rate);
                 $(".approval_status").val(data.quotation.approval_status);
                 $(".total_receivable").val(data.quotation.total_receivable);
