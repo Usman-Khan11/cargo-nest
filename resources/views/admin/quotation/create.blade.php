@@ -135,10 +135,10 @@
 
                         <div class="col-3">
                             <div class="row g-0 align-items-center mb-1">
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label class="form-label">Mode</label>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" value="Single-job" name="mode"
                                             id="single_job_mode" checked>
@@ -161,30 +161,6 @@
                     </div>
 
                     <div class="row g-3">
-                        <div class="col-3">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Sale Rep</label>
-                                </div>
-                                <div class="col-9">
-                                    <select name="sale_rep" class="sale_rep search_select2"
-                                        data-url="/admin/quotation/create" data-type="get_sale_rep"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-3">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Book Rep</label>
-                                </div>
-                                <div class="col-9">
-                                    <input name="book_rep" type="text" class="form-control book_rep"
-                                        value="{{ old('book_rep') }}" />
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-6">
@@ -201,6 +177,56 @@
                             </div>
                         </div>
 
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Pkgs</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="pkgs" type="text" class="form-control pkgs"
+                                        value="{{ old('pkgs') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Unit</label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="unit" class="unit search_select2" data-url="/admin/quotation/create"
+                                        data-type="get_units"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Subject</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="subject" type="text" class="form-control subject"
+                                        value="{{ old('subject') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Book Req</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="book_rep" type="text" class="form-control book_rep"
+                                        value="{{ old('book_rep') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
                         <div class="col-4">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-2">
@@ -210,6 +236,42 @@
                                     <select name="client" class="client search_select2"
                                         data-url="/admin/quotation/create" data-type="get_client"
                                         data-placeholder="Select Client"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Sale Rep</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="sale_rep" class="sale_rep search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_sale_rep"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label"><a href="">Commodity:</a></label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="commodity" class="commodity search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_commodity"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Attn. Person</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="attn_person" type="text" class="form-control attn_person"
+                                        value="{{ old('attn_person') }}" />
                                 </div>
                             </div>
                         </div>
@@ -232,80 +294,6 @@
                                         <option value="Cancelled">Cancelled</option>
                                         <option value="Lost">Lost</option>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Pkgs</label>
-                                </div>
-                                <div class="col-9">
-                                    <input name="pkgs" type="text" class="form-control pkgs"
-                                        value="{{ old('pkgs') }}" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Unit</label>
-                                </div>
-                                <div class="col-9">
-                                    <select name="unit" class="unit search_select2" data-url="/admin/quotation/create"
-                                        data-type="get_units"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-3">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Attn. Person</label>
-                                </div>
-                                <div class="col-9">
-                                    <input name="attn_person" type="text" class="form-control attn_person"
-                                        value="{{ old('attn_person') }}" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Vol / CBM</label>
-                                </div>
-                                <div class="col-9">
-                                    <input name="vol_cbm" type="text" class="form-control vol_cbm"
-                                        value="{{ old('vol_cbm') }}" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-3">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label"><a href="">Commodity:</a></label>
-                                </div>
-                                <div class="col-9">
-                                    <select name="commodity" class="commodity search_select2"
-                                        data-url="/admin/quotation/create" data-type="get_commodity"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-3">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label">Subject</label>
-                                </div>
-                                <div class="col-9">
-                                    <input name="subject" type="text" class="form-control subject"
-                                        value="{{ old('subject') }}" />
                                 </div>
                             </div>
                         </div>
@@ -343,11 +331,43 @@
                         </div>
 
                         <div class="col-2">
-                            <button class="btn btn-primary btn-sm mt-1">Quotation Clone</button>
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label">Vol/CBM</label>
+                                </div>
+                                <div class="col-9">
+                                    <input name="vol_cbm" type="text" class="form-control vol_cbm"
+                                        value="{{ old('vol_cbm') }}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Currency</label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="currency" class="currency search_select2"
+                                        data-url="/admin/quotation/create" data-type="get_currency"></select>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="row g-3">
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label">Exchange Rate</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="ex_rate" type="text" class="form-control ex_rate"
+                                        value="{{ old('ex_rate') }}" />
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-3">
                             <div class="row g-0 align-items-center mb-1">
                                 <div class="col-3">
@@ -373,33 +393,13 @@
                         </div>
 
                         <div class="col-2">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-4">
-                                    <label class="form-label">Currency</label>
-                                </div>
-                                <div class="col-8">
-                                    <select name="currency" class="currency search_select2"
-                                        data-url="/admin/quotation/create" data-type="get_currency"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-4">
-                                    <label class="form-label">Exchange Rate</label>
-                                </div>
-                                <div class="col-8">
-                                    <input name="ex_rate" type="text" class="form-control ex_rate"
-                                        value="{{ old('ex_rate') }}" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <button class="btn btn-primary btn-sm mt-1" type="button"
+                            <button class="btn btn-primary btn-sm mt-1 w-100" type="button"
                                 onclick="copyQuotationNumber()">Copy
                                 Quotation Number</button>
+                        </div>
+
+                        <div class="col-2">
+                            <button class="btn btn-primary btn-sm mt-1 w-100">Quotation Clone</button>
                         </div>
 
                         <div class="col-3">
@@ -642,11 +642,14 @@
                                             <label class="form-label w-100 m-0">Service Type</label>
                                         </div>
                                         <div class="col-8">
-                                            <select name="service_type" class="form-select service_type">
-                                                <option selected disabled>Select</option>
-                                                <option value="A">A</option>
-                                                <option value="B">b</option>
-                                                <option value="C">c</option>
+                                            <select name="service_type" class="form-select service_type select2">
+                                                <option value="">Select</option>
+                                                @foreach ($service_types as $service_type)
+                                                    @php
+                                                        $st = $service_type->code . '-' . $service_type->name;
+                                                    @endphp
+                                                    <option value="{{ $st }}">{{ $st }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -1151,6 +1154,7 @@
                 $("#myForm").attr("action", "{{ route('admin.quotation.update') }}");
                 $("#create_job").attr("href", `/admin/job/create?quot_id=${data.quotation.id}`);
                 $("input[name=id]").val(data.quotation.id);
+                fieldsToggle(data.quotation.approval_status);
 
                 if (data.jobs) {
                     $(data.jobs).each(function(key, value) {
@@ -1257,7 +1261,7 @@
                 $(".ship_date").val(data.quotation_routing.ship_date);
                 $(".arrive_date").val(data.quotation_routing.arrive_date);
                 $(".s_c").val(data.quotation_routing.s_c);
-                $(".service_type").val(data.quotation_routing.service_type);
+                $(".service_type").val(data.quotation_routing.service_type).trigger('change');
                 $(".transit_time").val(data.quotation_routing.transit_time);
                 $(".free_days").val(data.quotation_routing.free_days);
                 $(".other_instruct").val(data.quotation_routing.other_instruct);

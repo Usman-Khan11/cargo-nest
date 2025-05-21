@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
 use App\Models\DocsCompanyWise;
 use App\Models\Manifest;
+use App\Models\ServiceType;
 use App\Models\VoyageLocal;
 use Image;
 use Validator;
@@ -172,6 +173,8 @@ class JobController extends Controller
 
         $data['currencies'] = Currency::select(["id", "code as text"])->orderBy('id', 'desc')->get();
         $data['currencies'] = $data['currencies']->toArray();
+
+        $data['service_types'] = ServiceType::get();
 
 
         return view('admin.job.create', $data);

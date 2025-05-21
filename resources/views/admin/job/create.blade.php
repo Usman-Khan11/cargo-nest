@@ -1536,11 +1536,15 @@
                                             <div class="mb-2 input_flex">
                                                 <label class="form-label">Service Type</label>
                                                 <!--<input name="r_service_type" type="text" class="r_service_type form-control">-->
-                                                <select name="r_service_type" class="form-select r_service_type">
-                                                    <option selected disabled>Select</option>
-                                                    <option value="A">A</option>
-                                                    <option value="B">b</option>
-                                                    <option value="C">c</option>
+                                                <select name="r_service_type"
+                                                    class="form-select r_service_type select2 w-100">
+                                                    <option value="">Select</option>
+                                                    @foreach ($service_types as $service_type)
+                                                        @php
+                                                            $st = $service_type->code . '-' . $service_type->name;
+                                                        @endphp
+                                                        <option value="{{ $st }}">{{ $st }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

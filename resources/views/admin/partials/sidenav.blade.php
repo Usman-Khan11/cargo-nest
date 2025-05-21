@@ -2039,6 +2039,12 @@
                         <div data-i18n="INCO TERM">Incoterm</div>
                     </a>
                 </li>
+                <li class="menu-item {{ menuActive('admin.service_type.create') }}">
+                    <a href="{{ route('admin.service_type.create') }}" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-map-alt"></i>
+                        <div data-i18n="Service Type">Service Type</div>
+                    </a>
+                </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-world"></i>

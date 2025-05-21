@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
 use App\Models\DocsCompanyWise;
+use App\Models\ServiceType;
 use Image;
 use Validator;
 use Session;
@@ -272,6 +273,8 @@ class QuotationController extends Controller
 
         $data['charges'] = Charges::select(["id", "name as text"])->get();
         $data['charges'] = $data['charges']->toArray();
+
+        $data['service_types'] = ServiceType::get();
 
         $data['permissions'] = $this->permissions;
         return view('admin.quotation.create', $data);

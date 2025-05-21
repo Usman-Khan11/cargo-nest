@@ -109,6 +109,7 @@ use App\Http\Controllers\Admin\PrincipalSoaController;
 use App\Http\Controllers\Admin\PrincipalReceiptPaymentController;
 use App\Http\Controllers\Admin\ShippingAgencyLicenseController;
 use App\Http\Controllers\Admin\SystemPolicyController;
+use App\Http\Controllers\Admin\ServiceTypeController;
 
 Route::get('/clear', function () {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
@@ -956,6 +957,14 @@ Route::namespace('Admin')
             Route::post('ship_agency_license/update', [ShippingAgencyLicenseController::class, 'update'])->name('ship_agency_license.update');
             Route::post('ship_agency_license/get', [ShippingAgencyLicenseController::class, 'get_data'])->name('ship_agency_license.get');
             Route::get('ship_agency_license/get_all_data', [ShippingAgencyLicenseController::class, 'getAllData'])->name('ship_agency_license.get_all_data');
+
+
+            // SERVICE TYPE ROUTES
+            Route::get('service-type/create', [ServiceTypeController::class, 'create'])->name('service_type.create');
+            Route::get('service-type/delete/{id}', [ServiceTypeController::class, 'delete'])->name('service_type.delete');
+            Route::post('service-type/store', [ServiceTypeController::class, 'store'])->name('service_type.store');
+            Route::post('service-type/update', [ServiceTypeController::class, 'update'])->name('service_type.update');
+            Route::post('service-type/get', [ServiceTypeController::class, 'get_data'])->name('service_type.get');
         });
     });
 

@@ -103,6 +103,10 @@ $(document).ready(function () {
             $(row).attr("data-bs-dismiss", "modal");
         },
     });
+
+    $("input.ex_rate").keyup(function () {
+        $("input.detail_ex_rate").val($(this).val());
+    })
 });
 
 function addNewRow(e) {
@@ -116,9 +120,13 @@ function addNewRow(e) {
         "select.detail_currency",
     ]);
     $(".detail_repeater tr:last").find("input").val(null);
+    $(".detail_repeater tr:last").find("input.detail_ex_rate").val($("input.ex_rate").val());
+    $(".detail_repeater tr:last").find("select.detail_currency").val($("select.currency").val()).trigger('change');
     $(".detail_repeater tr:last")
-        .find("select option:first")
-        .attr("selected", true);
+        .find("select:not(.detail_currency)")
+        .each(function () {
+            $(this).find("option:first").prop("selected", true);
+        });
 }
 
 function delRow(e) {
@@ -233,14 +241,12 @@ function modeChange(e) {
 function approvalStatusChange(status) {
     let id = $("input[name=id]").val();
     if (id > 0) {
-        $("select[name=approval_status]")
-            .find(`option`)
-            .attr("selected", false);
+        $("select[name=approval_status]").find(`option`).attr("selected", false);
         $("select[name=approval_status]").attr("disabled", false);
-        $("select[name=approval_status]")
-            .find(`option[value=${status}]`)
-            .attr("selected", true);
+        $("select[name=approval_status]").find(`option[value=${status}]`).attr("selected", true);
         $("select[name=approval_status]").val(status);
+
+        $("#myForm").find("input, select").attr('disabled', false);
         $("#myForm").submit();
     }
 }
@@ -427,4 +433,12 @@ function initSearchSelect2($element) {
         minimumInputLength: 1,
         minimumResultsForSearch: 25,
     });
+}
+
+function fieldsToggle(status) {
+    if (status == "Approved") {
+        $("#myForm").find("input, select").attr('disabled', true);
+    } else {
+        $("#myForm").find("input, select").attr('disabled', false);
+    }
 }
