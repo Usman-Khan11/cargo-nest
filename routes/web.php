@@ -151,7 +151,7 @@ Route::namespace('Admin')
             Route::post('password/reset/change', [ResetPasswordController::class, 'reset'])->name('password.change');
         });
 
-        Route::middleware('admin')->group(function () {
+        Route::middleware(['admin'])->group(function () {
             Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
             Route::get('profile', [AdminController::class, 'profile'])->name('profile');
             Route::post('profile', [AdminController::class, 'profileUpdate'])->name('profile.update');

@@ -69,59 +69,179 @@
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <form id="myForm" method="post" action="{{ route('admin.user.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card mb-4" style="background-color: #f4ffed">
                         <div class="card-header">
-                            <h4 class="fw-bold" style="margin-bottom: 0rem">
-                                {{ $page_title }}
-                            </h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="fw-bold" style="margin-bottom: 0rem">
+                                        {{ $page_title }}
+                                    </h4>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#userModal"
+                                        class="btn btn-primary btn-sm">Show List</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <input name="id" type="hidden" value="0" />
+
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> User Name:</label>
-                                        <input name="name" type="text" class="form-control name"
-                                            value="{{ old('name') }}" />
+                                <div class="col-9">
+                                    <div class="row g-3">
+                                        <div class="col-4">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label">User Name:</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="name" type="text" class="form-control name"
+                                                        value="{{ old('name') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label">Login Name:</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="username" type="text" class="form-control username"
+                                                        value="{{ old('username') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label">Password:</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="password" type="password" class="form-control password"
+                                                        value="{{ old('password') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-3">
+                                                    <label class="form-label">Email:</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input name="email" type="email" class="form-control email"
+                                                        value="{{ old('email') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-3">
+                                                    <label class="form-label">Phone:</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input name="phone" type="number" class="form-control phone"
+                                                        value="{{ old('phone') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-3">
+                                                    <label class="form-label">Company:</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <select name="company_id" class="form-select company">
+                                                        @foreach ($companies as $company)
+                                                            <option value="{{ $company->id }}">{{ $company->displayName }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-3">
+                                                    <label class="form-label">Security Role:</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <select name="role_id" class="form-select role_id">
+                                                        @foreach ($roles as $role)
+                                                            <option value="{{ $role->id }}">{{ $role->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <div class="mb-2 mt-1 input_flex">
+                                                <label class="form-check-label mb-2">
+                                                    <input type="checkbox" name="status" value="1"
+                                                        class="form-check-input status" />
+                                                    Active
+                                                </label>
+                                                <label class="form-check-label mb-2 mx-3">
+                                                    <input type="checkbox" name="acount_block" value="1"
+                                                        class="form-check-input acount_block" />
+                                                    Account Block
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-8 mt-2">
+                                            <button type="button" class="btn btn-primary btn-sm">Mobile</button>
+                                            <button type="button" class="btn btn-primary btn-sm">Email Setting</button>
+                                            <button type="button" class="btn btn-primary btn-sm">Bulk Active</button>
+                                            <button type="button" class="btn btn-primary btn-sm" id="instances_mapping">
+                                                <i class="fa fa-cloud-download-alt"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm"><i
+                                                    class="fa fa-sync-alt"></i></button>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> Login Name:</label>
-                                        <input name="username" type="text" class="form-control username"
-                                            value="{{ old('username') }}" />
+                                <div class="col-3">
+                                    <div class="border bg-white">
+                                        <h5 class="text-center">Picture</h5>
+                                        <div id="imageContainer" class="text-center">
+                                            <img id="uploadedImage"
+                                                src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
+                                                width="50%" class="mb-2 mx-auto">
+                                        </div>
+                                        <div class="main-image text-center">
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="document.getElementById('uploadInput').click()">Upload</button>
+                                            <input type="file" hidden class="form-control" name="image"
+                                                id="uploadInput" accept="image/*" />
+                                            <button id="removeButton" type="button"
+                                                class="btn btn-danger btn-sm mx-3">Remove</button>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">User Password:</label>
-                                        <input name="password" type="password" class="form-control password"
-                                            value="{{ old('password') }}" />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Email:</label>
-                                        <input name="email" type="email" class="form-control email"
-                                            value="{{ old('email') }}" />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Phone:</label>
-                                        <input name="phone" type="number" class="form-control phone"
-                                            value="{{ old('phone') }}" />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
+                            <div class="row">
+                                {{-- <div class="col-md-6">
                                     <div class="mb-2 input_flex">
                                         <label class="form-label">Security Question:</label>
                                         <input name="security_que" type="text" class="form-control security_que"
@@ -135,73 +255,7 @@
                                         <input name="security_ans" type="text" class="form-control security_ans"
                                             value="{{ old('security_ans') }}" />
                                     </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="mb-2 mt-1 input_flex">
-                                        <label class="form-check-label mb-2">
-                                            <input type="checkbox" name="status" value="1"
-                                                class="form-check-input status" />
-                                            Active
-                                        </label>
-                                        <label class="form-check-label mb-2 mx-3">
-                                            <input type="checkbox" name="acount_block" value="1"
-                                                class="form-check-input acount_block" />
-                                            Account Block
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-7">
-                                    <div class="mb-2 ">
-                                        <label class="form-label">Company:</label>
-                                        <select name="company_id" class="form-select company">
-                                            @foreach ($companies as $company)
-                                                <option value="{{ $company->id }}">{{ $company->displayName }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-5">
-                                    <div class="mb-2 ">
-                                        <label class="form-label">Security Role:</label>
-                                        <select name="role_id" class="form-select role_id">
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-8 mt-2">
-                                    <button type="button" class="btn btn-primary btn-sm">Mobile</button>
-                                    <button type="button" class="btn btn-primary btn-sm">Email Setting</button>
-                                    <button type="button" class="btn btn-primary btn-sm">Bulk Active</button>
-                                    <button type="button" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-cloud-download-alt"></i></button>
-                                    <button type="button" class="btn btn-primary btn-sm"><i
-                                            class="fa fa-sync-alt"></i></button>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <h5>Picture</h5>
-
-                                    <div id="imageContainer">
-                                        <img id="uploadedImage"
-                                            src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
-                                            width="75%" class="mb-2">
-                                    </div>
-
-                                    <div class="main-image">
-                                        <button type="button" class="btn btn-primary btn-sm"
-                                            onclick="document.getElementById('uploadInput').click()">Upload</button>
-                                        <input type="file" hidden class="form-control" name="image"
-                                            id="uploadInput" accept="image/*" />
-                                        <button id="removeButton" type="button"
-                                            class="btn btn-danger btn-sm mx-3">Remove</button>
-                                    </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -217,7 +271,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="detail_repeater">
-                                    <tr>
+                                    {{-- <tr>
                                         <td>
                                             <i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
                                         </td>
@@ -232,7 +286,7 @@
                                             <input class="form-control" type="text" name="company[]"
                                                 style="width: 100%" />
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -240,7 +294,7 @@
                 </form>
             </div>
 
-            <div class="col-md-5">
+            {{-- <div class="col-md-5">
                 <div class="card mb-4" style="background-color: #f4ffed">
                     <div class="p-1">
                         <div class="responsive text-nowrap">
@@ -248,10 +302,29 @@
                         </div>
                     </div>
                 </div>
+            </div> --}}
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center w-100" id="exampleModalLabel">User List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="">
+                        <table class="table table-bordered table-sm quotation_record"></table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    @endsection @push('script')
+@endsection
+
+@push('script')
     <script>
         $("#submitButton").click(function() {
             $("#myForm").submit();
@@ -268,7 +341,7 @@
             if (data) {
                 $(".name").val(data.name);
                 $(".username").val(data.username);
-                $(".password").val(data.password);
+                $(".password").val(null);
                 $(".email").val(data.email);
                 $(".security_que").val(data.security_que);
                 $(".security_ans").val(data.security_ans);
@@ -309,7 +382,7 @@
         }
 
         function delRow(e) {
-            if ($(".detail_repeater tr").length <= 1) return;
+            // if ($(".detail_repeater tr").length <= 1) return;
             $(e).parent().parent().remove();
         }
 
@@ -374,5 +447,39 @@
                 $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`)
             }
         });
+
+        $('#userModal').on('shown.bs.modal', function(e) {
+            datatable.ajax.reload();
+        })
+
+        $("#instances_mapping").click(function() {
+            let company_id = $(".company").val();
+            let company_name = $(".company").find("option:selected").text();
+            let role_id = $(".role_id").val();
+            let role_name = $(".role_id").find("option:selected").text();
+
+            if (company_id && role_id) {
+                let $newRow = $(".detail_repeater").append(`
+                    <tr>
+                        <td>
+                            <i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
+                        </td>
+                        <td>
+                            <i onclick="addNewRow(this)" class="fa fa-clone fa-lg text-info"></i>
+                        </td>
+                        <td>
+                            <input type="hidden" value="${company_id}" name="i_company_id[]" />
+                            <input class="form-control" type="text" name="" readonly
+                                style="width: 100%" value="${company_name}" />
+                        </td>
+                        <td>
+                            <input type="hidden" value="${role_id}" name="i_role_id[]" />
+                            <input class="form-control" type="text" name="" readonly
+                                style="width: 100%" value="${role_name}"  />
+                        </td>
+                    </tr>
+                `);
+            }
+        })
     </script>
 @endpush

@@ -3,7 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 class CheckStatus
 {
     /**
@@ -15,12 +16,16 @@ class CheckStatus
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            $user = Auth()->user();
+        $guard = 'admin';
+
+        if (Auth::guard($guard)->check()) {
+            // $user = Auth()->user();
+            $user = Auth::guard('admin')->user();
+
             if ($user->status) {
                 return $next($request);
             } else {
-                return redirect()->route('user.authorization');
+                return redirect()->route('admin.login');
             }
         }
         abort(403);

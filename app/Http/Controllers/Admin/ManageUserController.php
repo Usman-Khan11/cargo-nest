@@ -74,7 +74,7 @@ class ManageUserController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:25', 'unique:admins'],
-            'email' => ['required', 'string', 'max:255', 'unique:admins'],
+            'email' => ['nullable', 'string', 'max:255', 'unique:admins'],
             'password' => ['required', 'string', 'max:20'],
         ]);
 
@@ -84,8 +84,8 @@ class ManageUserController extends Controller
         $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->security_que = $request->security_que;
-        $user->security_ans = $request->security_ans;
+        // $user->security_que = $request->security_que;
+        // $user->security_ans = $request->security_ans;
         $user->status = (isset($request->status)) ? 1 : 0;
         $user->acount_block = (isset($request->acount_block)) ? 1 : 0;
         $user->company_id = $request->company_id;
