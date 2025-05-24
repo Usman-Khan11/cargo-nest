@@ -163,6 +163,7 @@
                                                 </div>
                                                 <div class="col-9">
                                                     <select name="company_id" class="form-select company">
+                                                        <option value="">Select Company</option>
                                                         @foreach ($companies as $company)
                                                             <option value="{{ $company->id }}">{{ $company->displayName }}
                                                             </option>
@@ -179,6 +180,7 @@
                                                 </div>
                                                 <div class="col-9">
                                                     <select name="role_id" class="form-select role_id">
+                                                        <option value="">Select Security Role</option>
                                                         @foreach ($roles as $role)
                                                             <option value="{{ $role->id }}">{{ $role->name }}
                                                             </option>
@@ -338,15 +340,16 @@
 
         function edit_row(e, data) {
             data = JSON.parse(data);
+            console.log(data)
             if (data) {
                 $(".name").val(data.name);
                 $(".username").val(data.username);
                 $(".password").val(null);
                 $(".email").val(data.email);
-                $(".security_que").val(data.security_que);
-                $(".security_ans").val(data.security_ans);
-                $(".company").val(data.company_id).trigger('change');
-                $(".role_id").val(data.role_id).trigger('change');
+                // $(".security_que").val(data.security_que);
+                // $(".security_ans").val(data.security_ans);
+                // $(".company").val(data.company_id).trigger('change');
+                // $(".role_id").val(data.role_id).trigger('change');
 
                 $("input[name='acount_block']").prop('checked', false);
                 $("input[name='status']").prop('checked', false);
@@ -363,6 +366,39 @@
 
                 $("#myForm").attr("action", "{{ route('admin.user.update') }}");
                 $("input[name=id]").val(data.id);
+
+                $(".detail_repeater").html(null);
+                if (data.company_and_role.length) {
+                    let company_and_role = data.company_and_role;
+                    console.log(company_and_role)
+                    $(company_and_role).each(function(i, v) {
+                        let company_id = v.company_id;
+                        let company_name = v.company.displayName || '';
+                        let role_id = v.role_id;
+                        let role_name = v.role.name || '';
+
+                        $(".detail_repeater").append(`
+                            <tr>
+                                <td>
+                                    <i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
+                                </td>
+                                <td>
+                                    <i onclick="addNewRow(this)" class="fa fa-clone fa-lg text-info"></i>
+                                </td>
+                                <td>
+                                    <input type="hidden" value="${company_id}" name="i_company_id[]" />
+                                    <input class="form-control" type="text" name="" readonly
+                                        style="width: 100%" value="${company_name}" />
+                                </td>
+                                <td>
+                                    <input type="hidden" value="${role_id}" name="i_role_id[]" />
+                                    <input class="form-control" type="text" name="" readonly
+                                        style="width: 100%" value="${role_name}"  />
+                                </td>
+                            </tr>
+                        `);
+                    })
+                }
             }
         }
 
@@ -479,6 +515,9 @@
                         </td>
                     </tr>
                 `);
+
+                $('select.company').val(null).trigger('change');
+                $('select.role_id').val(null).trigger('change');
             }
         })
     </script>

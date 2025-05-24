@@ -90,9 +90,9 @@
         }
 
         /*.tree_div{
-        max-height:320px;
-        overflow-y:auto;
-    }*/
+                                                                                                                                                                                                                                                                                                                                                                                                            max-height:320px;
+                                                                                                                                                                                                                                                                                                                                                                                                            overflow-y:auto;
+                                                                                                                                                                                                                                                                                                                                                                                                        }*/
         .text-active {
             color: #71bf45;
         }
@@ -144,103 +144,165 @@
                         </div>
                         <div class="card-body">
                             <input name="id" type="hidden" value="0" />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> Parent Account:</label>
-                                        <select name="parent_acc" type="text" class="form-control parent_acc"
-                                            onchange="getSeries(this)"></select>
+
+                            <div class="row g-3">
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Account Code</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input value="{{-- $code --}}" name="acc_code" type="text"
+                                                class="form-control acc_code" readonly />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> Account Code:</label>
-                                        <input value="{{-- $code --}}" name="acc_code" type="text"
-                                            class="form-control acc_code" readonly />
+
+                                <div class="col-5">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Title Of Account</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="title" type="text" class="form-control title" required />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> Title Of Account:</label>
-                                        <input name="title" type="text" class="form-control title" required />
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Parent Account</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="parent_acc" type="text" class="form-control parent_acc"
+                                                onchange="getSeries(this)"></select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Alias:</label>
-                                        <input name="alias" type="text" class="form-control alias" required />
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Alias</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="alias" type="text" class="form-control alias" required />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2 mt-1 input_flex">
-                                        <label class="form-check-label mb-2">
-                                            <input type="checkbox" name="allow_voucher_entry" value="1"
-                                                class="form-check-input allow_voucher_entry" />
-                                            Allow Voucher Entry
-                                        </label>
-                                        <label class="form-check-label mb-2 mx-3">
-                                            <input type="checkbox" name="in_active" value="yes"
-                                                class="form-check-input in_active" />
-                                            In-Active
-                                        </label>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-6">
+                                            <label class="form-check-label mb-2">
+                                                <input type="checkbox" name="allow_voucher_entry" value="1"
+                                                    class="form-check-input allow_voucher_entry" />
+                                                Allow Voucher Entry
+                                            </label>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-check-label mb-2 mx-3">
+                                                <input type="checkbox" name="in_active" value="yes"
+                                                    class="form-check-input in_active" />
+                                                In-Active
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Max Child Account:</label>
-                                        <select name="max_child_acc" class="form-select max_child_acc">
-                                            <option value="99">99</option>
-                                        </select>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Max Child Account</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="max_child_acc" class="form-select max_child_acc">
+                                                <option value="99">99</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Category</label>
-                                        <select name="category" class="form-select category"></select>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Category</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="category" class="form-select category"></select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Sub Category</label>
-                                        <select name="sub_category" class="form-select sub_category"></select>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Sub Category</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="sub_category" class="form-select sub_category"></select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">P&L Category</label>
-                                        <select name="pl_category" class="form-select pl_category"></select>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">P&L Category</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="pl_category" class="form-select pl_category"></select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> REFRENCE NO:</label>
-                                        <input name="reference_no" type="text" class="form-control reference_no"
-                                            required />
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">REFRENCE NO</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="reference_no" type="text" class="form-control reference_no"
+                                                required />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> User Defined Feild 2:</label>
-                                        <input name="user_field_2" type="text" class="form-control user_field_2"
-                                            required />
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">User Defined Feild 2</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="user_field_2" type="text" class="form-control user_field_2"
+                                                required />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label"> User Defined Feild 3:</label>
-                                        <input name="user_field_3" type="text" class="form-control user_field_3"
-                                            required />
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">User Defined Feild 3</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="user_field_3" type="text" class="form-control user_field_3"
+                                                required />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">User Defined Feild 4:</label>
-                                        <input name="user_field_4" type="text" class="form-control user_field_4"
-                                            required />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 mt-3">
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-5">
+                                    <div class="">
                                         <button class="btn btn-primary btn-sm acc_movement_btn" type="button"
                                             data-bs-toggl="modal" data-bs-targe="#accountMovement">
                                             Account Movement
@@ -251,37 +313,81 @@
                                         </button>
                                     </div>
                                 </div>
+
+                                <div class="col-3"></div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">User Defined Feild 4</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="user_field_4" type="text" class="form-control user_field_4"
+                                                required />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <style>
+                        .datatables-basic tr th {
+                            font-size: 13px;
+                            color: #111 !important;
+                        }
+                    </style>
                     <div class="card mb-4" style="background-color: #f4ffed">
                         <div class="p-3">
-                            <table class="datatables-basic table">
+                            <table class="datatables-basic table table-sm">
                                 <thead>
-                                    <tr>
-                                        <th>...</th>
+                                    <tr class="text-center fw-bolder">
                                         <th>...</th>
                                         <th>Short Name</th>
                                         <th>Company</th>
+                                        <th>Credit Limit</th>
+                                        <th>Payable Credit Limit</th>
+                                        <th>Credit Days</th>
                                     </tr>
                                 </thead>
                                 <tbody class="detail_repeater">
-                                    <tr>
-                                        <td>
-                                            <i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
-                                        </td>
-                                        <td>
-                                            <i onclick="addNewRow(this)" class="fa fa-clone fa-lg text-info"></i>
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="text" name="short_name[]"
-                                                style="width: 100%" />
-                                        </td>
-                                        <td>
-                                            <input class="form-control" type="text" name="company[]"
-                                                style="width: 100%" />
-                                        </td>
-                                    </tr>
+                                    @foreach ($sub_companies as $sub_company)
+                                        <tr>
+                                            <td width="8%">
+                                                <label class="form-check-label mx-3">
+                                                    <input type="checkbox" name="company_active" value="yes"
+                                                        class="form-check-input company_active" />
+                                                </label>
+                                            </td>
+                                            {{-- <td>
+                                                <i onclick="delRow(this)"
+                                                    class="fa fa-circle-xmark fa-lg text-danger"></i>
+                                            </td>
+                                            <td>
+                                                <i onclick="addNewRow(this)" class="fa fa-clone fa-lg text-info"></i>
+                                            </td> --}}
+                                            <td width="15%">
+                                                <input class="form-control" type="text" name="short_name[]"
+                                                    style="width: 100%" readonly value="{{ $sub_company->shortName }}" />
+                                            </td>
+                                            <td width="30%">
+                                                <input class="form-control" type="text" name="company[]"
+                                                    style="width: 100%" value="{{ $sub_company->displayName }}" />
+                                            </td>
+                                            <td width="15%">
+                                                <input class="form-control" type="text" name=""
+                                                    style="width: 100%" />
+                                            </td>
+                                            <td width="17%">
+                                                <input class="form-control" type="text" name=""
+                                                    style="width: 100%" />
+                                            </td>
+                                            <td width="15%">
+                                                <input class="form-control" type="text" name=""
+                                                    style="width: 100%" />
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -292,7 +398,8 @@
     </div>
 
     <div class="modal fade" id="accountMovement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form method="post" action="{{ route('admin.chart_account.movement') }}" class="modal-dialog modal-dialog-centered">
+        <form method="post" action="{{ route('admin.chart_account.movement') }}"
+            class="modal-dialog modal-dialog-centered">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
@@ -316,9 +423,22 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">New Parent Account</label>
+                        <style>
+                            .input-group .position-relative {
+                                width: 75% !important;
+                            }
+                        </style>
                         <div class="input-group">
-                            <input type="text" class="form-control w-25 new_acc_code" name="new_acc_code" required>
-                            <input type="text" class="form-control w-75 new_acc_name" name="new_acc_name">
+                            <input type="text" class="form-control new_acc_code w-25" name="new_acc_code" required
+                                readonly>
+                            {{-- <input type="text" class="form-control w-75 new_acc_name" name="new_acc_name"> --}}
+                            <select name="new_acc_name" class="form-select select2 w-100" required>
+                                <option value="">Select</option>
+                                @foreach ($sub_accounts as $sub_account)
+                                    <option value="{{ $sub_account->acc_code }}">
+                                        {{ $sub_account->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -429,7 +549,7 @@
                             $(res.party).each(function(i, v) {
                                 if (v.party_basic_id) {
                                     html += '<li> ' + v.party_basic_id.party_name +
-                                    ' </li>';
+                                        ' </li>';
                                 }
                             })
                             $('.parties').append(html);
@@ -483,10 +603,17 @@
         }
 
         function chartAccFormReset(route) {
+            let title = $("input[name=title]").val();
+            let id = $("input[name=id]").val();
             document.getElementById('myForm').reset();
             $("#myForm").attr('action', route);
             $("#myForm").find("select").trigger("change");
             $("#myForm").find(".parent_acc").val(null).trigger("change");
+
+            if (title && id) {
+                var option = new Option(title, id, true, true);
+                $(".parent_acc").append(option).trigger('change');
+            }
         }
 
         $(".acc_movement_btn").click(function() {
@@ -521,6 +648,20 @@
                     $("#accountMovement").modal('show');
                 }
             })
+        })
+
+        $("select[name=new_acc_name]").change(function() {
+            let val = $(this).val();
+            $("input[name=new_acc_code]").val(val);
+        })
+
+        $('#accountMovement').on('shown.bs.modal', function(e) {
+            let acc_code = $("#accountMovement .main_acc_code").val();
+            // $.get("{{ route('admin.chart_account.get_sub_accounts') }}", {
+            //     acc_code
+            // }, function(res) {
+            //     console.log(res)
+            // })
         })
     </script>
 @endpush

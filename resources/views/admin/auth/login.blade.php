@@ -34,7 +34,7 @@
                                 <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login') }}">
                                     @csrf
 
-                                    <div class="mb-1">
+                                    <div class="mb-2">
                                         <label for="email" class="form-label">{{ __('Username') }}</label>
                                         <input type="text" class="form-control @error('username') is-invalid @enderror"
                                             name="username" value="{{ old('username') }}" required autocomplete="username"
@@ -47,7 +47,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="mb-1">
+                                    <div class="mb-2">
                                         <div class="d-flex justify-content-between">
                                             <label for="password" class="form-label">{{ __('Password') }}</label>
                                             <a href="{{ route('user.password.request') }}">
@@ -62,6 +62,22 @@
                                         </div>
 
                                         @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label for="email" class="form-label">{{ __('App Instance') }}</label>
+                                        <select name="company" class="form-select @error('company') is-invalid @enderror">
+                                            {{-- <option value="">Select</option> --}}
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id }}">@php echo $company->displayName; @endphp</option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('company')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

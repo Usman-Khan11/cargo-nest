@@ -59,6 +59,20 @@
             width: 100% !important;
             max-width: 100% !important;
         }
+
+        .light-style .select2-container--default .select2-selection,
+        .form-control,
+        .form-select {
+            border-radius: 0 !important;
+        }
+
+        .light-style .select2-container--default .select2-selection--single {
+            height: calc(1.5em + 2px + 0.7rem) !important;
+        }
+
+        .table> :not(caption)>*>* {
+            padding: 6px;
+        }
     </style>
 @else
     <style>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ChartAccount;
 use App\Models\PartyAccountDetail;
+use App\Models\SubCompany;
 use Image;
 use Validator;
 use Session;
@@ -52,6 +53,8 @@ class ChartAccountController extends Controller
         $data['seo_desc']       = "Chart Of Account";
         $data['seo_keywords']   = "Chart Of Account";
         $data['page_title'] = "Chart Of Account";
+        $data['sub_accounts'] = ChartAccount::whereNotNull('parent_acc')->latest()->get();
+        $data['sub_companies'] = SubCompany::all();
         return view('admin.chart_account.create', $data);
     }
 
@@ -210,5 +213,30 @@ class ChartAccountController extends Controller
 
         $notify[] = ['success', 'Account moved successfully.'];
         return back()->withNotify($notify);
+    }
+
+    public function get_sub_accounts(Request $request)
+    {
+        $account = ChartAccount::where('acc_code', $request->acc_code)->first();
+        $id = $account->parent_acc;
+        $arr = [];
+
+        while ($id != "" || $id != 0) {
+            $a = ChartAccount::where('id', $id)->first();
+            if ($a) {
+                $arr[] = $id;
+                $id = $a->parent_acc;
+            } else {
+                break;
+            }
+        }
+
+        $parent_account = ChartAccount::whereIn('acc_code', $arr)->whereNull('parent_acc')->first();
+
+        if ($parent_account) {
+            return ChartAccount::whereIn('acc_code', $arr)->whereNull('parent_acc')->first();
+        }
+
+        return $arr;
     }
 }

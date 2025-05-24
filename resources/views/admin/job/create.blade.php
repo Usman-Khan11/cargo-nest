@@ -712,9 +712,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-12">
-                                            <button type="button" class="btn btn-primary btn-sm"
+                                            <button type="button" class="btn btn-primary btn-sm" id="approved_btn"
                                                 onclick="approvalStatusChange('Approved')">Approved</button>
-                                            <button type="button" class="btn btn-primary btn-sm"
+                                            <button type="button" class="btn btn-primary btn-sm" id="un_approved_btn"
                                                 onclick="approvalStatusChange('Un-approved')">Un Approved</button>
                                             <div class="mb-2">
                                                 <label class="form-label">Approval Status:</label>
@@ -2861,6 +2861,8 @@
                     $(cpc_approval_log).val(value.cpc_approval_log);
                 })
             }
+
+            enableButton(res.booking_info.approval_status ? res.booking_info.approval_status : null);
         }
 
         $(".navigation").click(function() {
@@ -2911,6 +2913,8 @@
                 $("select[name=approval_status]").attr("disabled", false);
                 $("select[name=approval_status]").find(`option[value=${status}]`).attr("selected", true);
                 $("select[name=approval_status]").val(status);
+
+                fieldsEnable();
                 $('#myForm').submit();
             }
         }
@@ -3101,12 +3105,15 @@
 
 
         function jobFormReset(route) {
+            fieldsEnable();
             document.getElementById('myForm').reset();
             $("#myForm").attr('action', route);
             $("#myForm").find("select").trigger("change");
             $("#myForm").find(
                 ".custom_clearance, .r_terminal, .port_of_loading, .port_of_discharge, .final_destination, .r_place_of_receipt, .r_port_of_loading, .r_port_of_discharge, .r_final_destination"
             ).val(null).trigger("change");
+
+            enableButton("");
         }
 
         function enable_BL_button(job_id) {
@@ -3207,5 +3214,26 @@
                 });
             }
         })
+
+        function enableButton(status) {
+            if (status == "Approved") {
+                $("#approved_btn").attr("disabled", true);
+                $("#cancel_job").attr("disabled", true);
+                fieldsDisable();
+            } else {
+                $("#approved_btn").removeAttr("disabled");
+                $("#cancel_job").removeAttr("disabled");
+                fieldsEnable();
+            }
+
+        }
+
+        function fieldsEnable() {
+            $("#myForm").find("input, select:not(#status_check)").attr('disabled', false);
+        }
+
+        function fieldsDisable() {
+            $("#myForm").find("input, select:not(#status_check)").attr('disabled', true);
+        }
     </script>
 @endpush

@@ -202,13 +202,13 @@ class JobController extends Controller
     {
         $request->validate([
             'job_number' => ['required', 'string', 'max:255', 'unique:job'],
-            'nature' => 'required',
-            'job_date' => 'required',
-            'job_status' => 'required',
-            'shipt_status' => 'required',
-            'port_of_loading' => 'required',
-            'port_of_discharge' => 'required',
-            'client' => 'required',
+            'nature' => ['required'],
+            'job_date' => ['required'],
+            'job_status' => ['required'],
+            'shipt_status' => ['required'],
+            'port_of_loading' => ['required'],
+            'port_of_discharge' => ['required'],
+            'client' => ['required'],
         ]);
 
         $user_info = session()->get('user_info');

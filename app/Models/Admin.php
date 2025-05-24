@@ -40,4 +40,9 @@ class Admin extends Authenticatable
     {
         return $this->belongsTo(SubCompany::class, 'company_id', 'id');
     }
+
+    public function company_and_role()
+    {
+        return $this->hasMany(AdminCompanyAndRole::class, 'admin_id', 'id');
+    }
 }

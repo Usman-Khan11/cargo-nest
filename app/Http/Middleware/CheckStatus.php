@@ -22,7 +22,7 @@ class CheckStatus
             // $user = Auth()->user();
             $user = Auth::guard('admin')->user();
 
-            if ($user->status) {
+            if ($user->status == 1) {
                 return $next($request);
             } else {
                 return redirect()->route('admin.login');

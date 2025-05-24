@@ -22,21 +22,31 @@ class RedirectIfAdmin
             // $message = 'Login Successfully.!';
             // Session::flash('success', $message);
 
-            $user = Auth::guard('admin')->user();
-            session()->put('user_info', [
-                "user_id" => $user->id,
-                "role_id" => $user->role_id,
-                "role" => $user->role->name,
-                "company_id" => $user->company_id,
-                "company_name" => @$user->company->name,
-                "company_display_name" => @$user->company->displayName,
-                "company_short_name" => @$user->company->shortName,
-                "fiscal_year_id" => @$user->company->fiscal_year->id,
-                "fiscal_year" => @$user->company->fiscal_year->description,
-            ]);
+            // $user = Auth::guard('admin')->user();
+            // $company_and_role = $user->company_and_role ?? null;
+
+            // if (!$company_and_role) {
+            //     Auth::guard('admin')->logout();
+            //     return redirect()->route('admin.login');
+            // }
+
+            // $company_and_role = $company_and_role->where('company_id', 4)->first();
+
+            // session()->put('user_info', [
+            //     "user_id" => $user->id,
+            //     "role_id" => $company_and_role->role_id,
+            //     "role" => $company_and_role->role->name,
+            //     "company_id" => $company_and_role->company_id,
+            //     "company_name" => @$company_and_role->company->name,
+            //     "company_display_name" => @$company_and_role->company->displayName,
+            //     "company_short_name" => @$company_and_role->company->shortName,
+            //     "fiscal_year_id" => @$company_and_role->company->fiscal_year->id,
+            //     "fiscal_year" => @$company_and_role->company->fiscal_year->description,
+            // ]);
 
             return redirect()->route('admin.dashboard');
         }
+
         return $next($request);
     }
 }
