@@ -4,60 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Commodity;
-use Image;
-use Validator;
-use Session;
-use DataTables;
-use File;
+use App\Models\Voucher;
+use Yajra\DataTables\Facades\DataTables;
 
 class VoucherController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $data['seo_title']      = "Commodity";
-    //     $data['seo_desc']       = "Commodity";
-    //     $data['seo_keywords']   = "Commodity";
-    //     $data['page_title'] = "All Commodity";
-
-    //     if ($request->ajax()) {
-    //         $totalCount=0;
-    //         $recordsFiltered=0;
-    //         $pageSize = (int)($request->length) ? $request->length : 10;
-    //         $start=(int)($request->start) ? $request->start : 0;
-    //         $query=Commodity::Query();
-    //         $totalCount=$query->count(); 
-            
-    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-    //         return Datatables::of($query)
-    //             ->setOffset($start)->addIndexColumn()
-    //             ->with(['recordsTotal'=>$totalCount])
-    //             ->make(true);
-    //     }
-    //     return view('admin.commodity.index', $data);
-    // }
-    
-    
     public function create(Request $request)
     {
         if ($request->ajax()) {
             $query = Voucher::Query();
-            $query = $query->orderby('id','asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
+            $query = $query->orderby('id', 'asc')->get();
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
-        
+
         $data['seo_title']      = "Voucher";
         $data['seo_desc']       = "Voucher";
         $data['seo_keywords']   = "Voucher";
         $data['page_title'] = "Voucher";
         return view('admin.voucher.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit Voucher";
@@ -67,7 +34,7 @@ class VoucherController extends Controller
         $data['voucher'] = Voucher::where("id", $id)->first();
         return view('admin.voucher.edit', $data);
     }
-    
+
     public function delete($id)
     {
         $developer = Voucher::where("id", $id);
@@ -75,59 +42,96 @@ class VoucherController extends Controller
         $notify[] = ['success', 'Voucher Deleted Successfully.'];
         return back()->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'code' => 'required',
-            // 'name' => ['required', 'string', 'max:255', 'alpha', 'unique:commodities'],
+        $request->validate([
+            'voucher_no'         => 'required|string|max:30',
+            'date'              => 'required|date',
+            'type'              => 'nullable|string|max:50',
+            'company_id'        => 'required|integer',
+            'settlement'        => 'nullable|string|max:100',
+            'cost_center'       => 'nullable|string|max:50',
+            'bank_sub_type'     => 'nullable|string|max:100',
+            'currency_id'       => 'required|integer',
+            'exchange_rate'     => 'nullable|string|max:50',
+            'cheque_no'         => 'nullable|string|max:150',
+            'cheque_date'       => 'nullable|date',
+            'pay_to'           => 'nullable|string|max:150',
+            'print_on_letter_head' => 'nullable|boolean',
+            'extended_voucher'     => 'nullable|boolean',
+            'debit'            => 'nullable|string|max:50',
+            'credit'           => 'nullable|string|max:50',
+            'net_amount'       => 'nullable|string|max:50',
+            'show_narration'   => 'nullable|boolean',
+            'receipt_check'    => 'nullable|boolean',
+            'narration_check'  => 'nullable|boolean',
+            'apply_check'      => 'nullable|boolean',
+            'remark'           => 'nullable|string',
+            'drawn_at'         => 'nullable|string',
         ]);
-       
+
         $Voucher = new Voucher();
         $Voucher->fill($request->all());
         $Voucher->save();
-        
+
         $notify[] = ['success', 'Voucher Added Successfully.'];
         return redirect()->route('admin.voucher.create')->withNotify($notify);
     }
-    
+
     public function update(Request $request)
     {
-        $validated = $request->validate([
-            'code' => 'required',
-            'name' => 'required',
+        $request->validate([
+            'voucher_no'         => 'required|string|max:30',
+            'date'              => 'required|date',
+            'type'              => 'nullable|string|max:50',
+            'company_id'        => 'required|integer',
+            'settlement'        => 'nullable|string|max:100',
+            'cost_center'       => 'nullable|string|max:50',
+            'bank_sub_type'     => 'nullable|string|max:100',
+            'currency_id'       => 'required|integer',
+            'exchange_rate'     => 'nullable|string|max:50',
+            'cheque_no'         => 'nullable|string|max:150',
+            'cheque_date'       => 'nullable|date',
+            'pay_to'           => 'nullable|string|max:150',
+            'print_on_letter_head' => 'nullable|boolean',
+            'extended_voucher'     => 'nullable|boolean',
+            'debit'            => 'nullable|string|max:50',
+            'credit'           => 'nullable|string|max:50',
+            'net_amount'       => 'nullable|string|max:50',
+            'show_narration'   => 'nullable|boolean',
+            'receipt_check'    => 'nullable|boolean',
+            'narration_check'  => 'nullable|boolean',
+            'apply_check'      => 'nullable|boolean',
+            'remark'           => 'nullable|string',
+            'drawn_at'         => 'nullable|string',
         ]);
-        
+
         $Voucher = Voucher::where("id", $request->id)->first();
-        $Voucher->inactive = $request->inactive ? $request->inactive : '';
         $Voucher->fill($request->all());
         $Voucher->update();
-        
+
         $notify[] = ['success', 'Voucher Updated Successfully.'];
         return redirect()->route('admin.voucher.create')->withNotify($notify);
     }
-    
-    
+
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
-        $data = null;
-        
-        if($type == "first") {
-            $data = Voucher::orderBy('id', 'asc')->first();
+        $data = Voucher::with('company', 'currency');
+
+        if ($type == "first") {
+            $data = $data->orderBy('id', 'asc');
+        } else if ($type == "last") {
+            $data = $data->orderBy('id', 'desc');
+        } else if ($type == "forward") {
+            $data = $data->where('id', '>', $id);
+        } else if ($type == "backward") {
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
         }
-        else if($type == "last") {
-            $data = Voucher::orderBy('id', 'desc')->first();
-        }
-        else if($type == "forward") {
-            $data = Voucher::where('id', '>', $id)->first();
-        }
-        else if($type == "backward") {
-            $data = Voucher::where('id', '<', $id)->orderBy('id', 'desc')->first();
-        }
-        
-        return $data;
+
+        return $data->first();
     }
-    
 }

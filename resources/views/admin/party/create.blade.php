@@ -100,41 +100,48 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
-                        <input type="hidden" name="id" value="0" />
+                    <input type="hidden" name="id" value="0" />
+                    <div class="row justify-content-center">
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label w-100 m-0">Code</label>
+                                </div>
+                                <div class="col-8">
+                                    <input name="party_code" type="text" class="form-control party_code"
+                                        value="{{ $party_num }}" placeholder="" readonly />
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="col-md-3 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Code:</label>
-                                <input name="party_code" type="text" class="form-control party_code"
-                                    value="{{ $party_num }}" placeholder="" readonly />
+                        <div class="col-4">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-2">
+                                    <label class="form-label w-100 m-0">Name</label>
+                                </div>
+                                <div class="col-10">
+                                    <input name="party_name" type="text" class="form-control party_name"
+                                        placeholder="" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-5 col-12">
-                            <div class="mb-2">
-                                <label class="form-label">Name:</label>
-                                <input name="party_name" type="text" class="form-control party_name"
-                                    placeholder="" />
-                            </div>
+
+                        <div class="col-1">
+                            <label class="form-check-label mt-1">
+                                <input type="checkbox" name="party_inactive" value="In-Active"
+                                    class="form-check-input party_inactive" />
+                                Inactive
+                            </label>
                         </div>
-                        <div class="col-md-2">
-                            <div class="mb-2 mt-4">
-                                <label class="form-check-label mb-2">
-                                    <input type="checkbox" name="party_inactive" value="In-Active"
-                                        class="form-check-input party_inactive" />
-                                    Inactive
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-2 mt-4">
-                                <button type="button" class="btn btn-primary btn-sm showlist" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Show List
-                                </button>
-                            </div>
+
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary btn-sm showlist" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Show List
+                            </button>
                         </div>
                     </div>
+                    <br>
 
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item" id="tab_1">
@@ -197,178 +204,285 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="navs-top-basic_info" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Short Name:</label>
-                                        <input name="short_name" type="text" class="form-control short_name"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Registration Date:</label>
-                                        <input name="reg_date" type="date" value="{{ date('Y-m-d') }}"
-                                            class="form-control reg_date" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Licence No/Custom Code:</label>
-                                        <input name="license_no" type="text" class="form-control license_no"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Contact Person:</label>
-                                        <input name="contact_person" type="text" class="form-control contact_person"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">NTN:</label>
-                                        <input name="ntn" type="text" class="form-control ntn" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">STRN:</label>
-                                        <input name="strn" type="text" class="form-control strn" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Address 1:</label>
-                                        <input name="address1" type="text" class="form-control address1"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Address 2:</label>
-                                        <input name="address2" type="text" class="form-control address2"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Address 3:</label>
-                                        <input name="address3" type="text" class="form-control address3"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">City:</label>
-                                        <select name="city" class="city custom_select"></select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Zipcode:</label>
-                                        <input name="zipcode" type="text" class="form-control zipcode"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Tel #1:</label>
-                                        <input name="tel_1" type="text" class="form-control tel_1"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Tel #2:</label>
-                                        <input name="tel_2" type="text" class="form-control tel_2"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Facsimile:</label>
-                                        <input name="facsimile" type="text" class="form-control facsimile"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Mobile:</label>
-                                        <input name="mobile" type="text" class="form-control mobile"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Website:</label>
-                                        <input name="website" type="text" class="form-control website"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">E-mail:</label>
-                                        <input name="email" type="text" class="form-control email"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Account Dept E-mail:</label>
-                                        <input name="acc_dept_email" type="text" class="form-control acc_dept_email"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-12 mt-3">
-                                    <label class="form-check-label mb-2"><input name="operation" value="Operation"
-                                            type="checkbox"
-                                            class="form-check-input operation" /><span>&nbsp;Operation:</span></label>
-                                    <div class="d-flex">
-                                        <div class="mb-2">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Sea-Export"
-                                                class="form-check-input operation_check" /><span>&nbsp;Sea Export</span>
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label w-100 m-0">Short Name</label>
                                         </div>
-                                        <div class="mb-2 px-3">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Sea-Import"
-                                                class="form-check-input operation_check" /><span>&nbsp;Sea Import</span>
-                                        </div>
-                                        <div class="mb-2 px-3">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Air-Export"
-                                                class="form-check-input operation_check" /><span>&nbsp;Air Export</span>
-                                        </div>
-                                        <div class="mb-2 px-3">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Air-Import"
-                                                class="form-check-input operation_check" /><span>&nbsp;Air Import</span>
-                                        </div>
-                                        <div class="mb-2 px-3">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Logistics"
-                                                class="form-check-input operation_check" /><span>&nbsp;Logistics</span>
-                                        </div>
-                                        <div class="mb-2 px-3">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Warehouse"
-                                                class="form-check-input operation_check" /><span>&nbsp;Warehouse</span>
-                                        </div>
-                                        <div class="mb-2 px-3">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Depot"
-                                                class="form-check-input operation_check" /><span>&nbsp;Depot</span>
-                                        </div>
-                                        <div class="mb-2 px-3">
-                                            <label class="form-label"></label>
-                                            <input name="operation_check[]" type="checkbox" value="Other"
-                                                class="form-check-input operation_check" /><span>&nbsp;Other</span>
+                                        <div class="col-8">
+                                            <input name="short_name" type="text" class="form-control short_name"
+                                                placeholder="" />
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label w-100 m-0">Registration Date</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="reg_date" type="date" value="{{ date('Y-m-d') }}"
+                                                class="form-control reg_date" placeholder="" />
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label w-100 m-0">Licence No/Custom Code</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input name="license_no" type="text" class="form-control license_no"
+                                                placeholder="" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label w-100 m-0">Contact Person</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="contact_person" type="text"
+                                                class="form-control contact_person" placeholder="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">NTN</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="ntn" type="text" class="form-control ntn"
+                                                value="{{ old('ntn') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">STRN</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="strn" type="text" class="form-control strn"
+                                                value="{{ old('strn') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Address 1</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="address1" type="text" class="form-control address1"
+                                                value="{{ old('address1') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Address 2</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="address2" type="text" class="form-control address2"
+                                                value="{{ old('address2') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Address 3</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="address3" type="text" class="form-control address3"
+                                                value="{{ old('address3') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">City</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select name="city" class="city custom_select"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">Zipcode</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="zipcode" type="text" class="form-control zipcode"
+                                                value="{{ old('zipcode') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">Tel #1</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="tel_1" type="text" class="form-control tel_1"
+                                                value="{{ old('tel_1') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">Tel #2</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="tel_2" type="text" class="form-control tel_2"
+                                                value="{{ old('tel_2') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label w-100 m-0">Facsimile</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="facsimile" type="text" class="form-control facsimile"
+                                                value="{{ old('facsimile') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">Mobile</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="mobile" type="text" class="form-control mobile"
+                                                value="{{ old('mobile') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Website</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="website" type="text" class="form-control website"
+                                                value="{{ old('website') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">E-mail</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="email" type="text" class="form-control email"
+                                                value="{{ old('email') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="">
+                                        <label class="form-check-label mb-2"><input name="operation" value="Operation"
+                                                type="checkbox"
+                                                class="form-check-input operation" /><span>&nbsp;Operation:</span></label>
+                                        <div class="d-flex">
+                                            <div class="mb-2">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Sea-Export"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Sea
+                                                    Export</span>
+                                            </div>
+                                            <div class="mb-2 px-3">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Sea-Import"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Sea
+                                                    Import</span>
+                                            </div>
+                                            <div class="mb-2 px-3">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Air-Export"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Air
+                                                    Export</span>
+                                            </div>
+                                            <div class="mb-2 px-3">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Air-Import"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Air
+                                                    Import</span>
+                                            </div>
+                                            <div class="mb-2 px-3">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Logistics"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Logistics</span>
+                                            </div>
+                                            <div class="mb-2 px-3">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Warehouse"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Warehouse</span>
+                                            </div>
+                                            <div class="mb-2 px-3">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Depot"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Depot</span>
+                                            </div>
+                                            <div class="mb-2 px-3">
+                                                <label class="form-label"></label>
+                                                <input name="operation_check[]" type="checkbox" value="Other"
+                                                    class="form-check-input operation_check" /><span>&nbsp;Other</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label w-100 m-0">Account Dept E-mail</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="acc_dept_email" type="text"
+                                                class="form-control acc_dept_email"
+                                                value="{{ old('acc_dept_email') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-12 col-12 mt-3">
                                     <label class="form-check-label mb-2">Type:</label>
                                     <div class="row type_row">
@@ -529,12 +643,8 @@
                                                 </label><br />
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
-
-
 
                                 <div class="col-md-4 col-12 mt-5">
                                     <div class="d-flex">
@@ -589,207 +699,346 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="navs-top-other_info" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Type of Ownership:</label>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <input type="radio" value="corporation" name="ownership[]"
-                                                    class="form-check-input" checked /><span>&nbsp;Corporation</span>
-                                            </div>
-                                            <div>
-                                                <input type="radio" value="partnership" name="ownership[]"
-                                                    class="form-check-input" /><span>&nbsp;Partnership</span>
-                                            </div>
-                                            <div>
-                                                <input type="radio" value="sole-proprietorship" name="ownership[]"
-                                                    class="form-check-input" /><span>&nbsp;Sole Proprietorship</span>
-                                            </div>
-                                            <div>
-                                                <input type="radio" value="others" name="ownership[]"
-                                                    class="form-check-input" /><span>&nbsp;Others</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Affiliated Companies:</label>
-                                        <input type="text" name="affiliated_companies" class="form-control"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Fed ID No:</label>
-                                        <input type="text" name="fed_id" class="form-control" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Type of Business:</label>
-                                        <input type="text" name="business_type" class="form-control"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Year Company Established:</label>
-                                        <input type="text" name="year_company_establised" class="form-control"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label"># of Employees:</label>
-                                        <input type="text" name="no_of_employee" class="form-control"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Est Annual Sales:</label>
-                                        <input type="text" name="est_annual_sales" class="form-control"
-                                            placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">D & B#:</label>
-                                        <input type="text" name="d_b" class="form-control" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label class="form-label">NTN Name:</label>
-                                        <input type="text" name="ntn_name" class="form-control" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Buyer Type:</label>
-                                        <select name="buyer_type" class="form-select">
-                                            <option selected disabled></option>
-                                            <option value="End-Cunsumer">End Consumer</option>
-                                            <option value="Intermediary">Intermediary</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mt-4">
-                                    <div class="d-flex align-items-center">
+                            <div class="">
+                                <div class="mb-2">
+                                    <label class="form-label">Type of Ownership:</label>
+                                    <div class="d-flex justify-content-betwee gap-3">
                                         <div>
-                                            <input type="checkbox" name="specific_credit_card"
-                                                value="Specific-Credit-Card"
-                                                class="form-check-input" /><span>&nbsp;Specific Credit Card Charges
-                                                %</span>
+                                            <input type="radio" value="corporation" name="ownership[]"
+                                                class="form-check-input" checked /><span>&nbsp;Corporation</span>
                                         </div>
-                                        <div class="px-3">
-                                            <input type="number" name="specific_credit_card_box" class="form-control" />
+                                        <div>
+                                            <input type="radio" value="partnership" name="ownership[]"
+                                                class="form-check-input" /><span>&nbsp;Partnership</span>
+                                        </div>
+                                        <div>
+                                            <input type="radio" value="sole-proprietorship" name="ownership[]"
+                                                class="form-check-input" /><span>&nbsp;Sole Proprietorship</span>
+                                        </div>
+                                        <div>
+                                            <input type="radio" value="others" name="ownership[]"
+                                                class="form-check-input" /><span>&nbsp;Others</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 mt-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Due Days:</label>
-                                        <input type="text" name="due_days" class="form-control" placeholder="" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Affiliated Companies</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="affiliated_companies" class="form-control"
+                                                value="{{ old('affiliated_companies') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 mt-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Credit Unit:</label>
-                                        <input type="text" name="credit_unit" class="form-control" placeholder="" />
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Fed ID No</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="fed_id" class="form-control"
+                                                value="{{ old('fed_id') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 mt-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Expiry Date:</label>
-                                        <input type="text" name="expiry_dates" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Type of Business</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="business_type" class="form-control"
+                                                value="{{ old('business_type') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 mt-3">
-                                    <div class="mb-2 mt-4">
-                                        <button class="btn btn-primary">
-                                            Update due days on invoices
-                                        </button>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-6">
+                                            <label class="form-label">Year Company Established</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" name="year_company_establised" class="form-control"
+                                                value="{{ old('year_company_establised') }}" />
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label"># of Employees</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input type="text" name="no_of_employee" class="form-control"
+                                                value="{{ old('no_of_employee') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label">Est Annual Sales</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input type="text" name="est_annual_sales" class="form-control"
+                                                value="{{ old('est_annual_sales') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">D & B#</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="d_b" class="form-control"
+                                                value="{{ old('d_b') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">NTN Name</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" name="ntn_name" class="form-control"
+                                                value="{{ old('ntn_name') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Buyer Type</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="buyer_type" class="form-select">
+                                                <option selected disabled></option>
+                                                <option value="End-Cunsumer">End Consumer</option>
+                                                <option value="Intermediary">Intermediary</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    value="Specific-Credit-Card" id="specific_credit_card"
+                                                    name="specific_credit_card">
+                                                <label class="form-check-label" for="specific_credit_card">
+                                                    Specific Credit Card Charges %
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" name="specific_credit_card_box" class="form-control"
+                                                value="{{ old('specific_credit_card_box') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Due Days</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="due_days" class="form-control due_days"
+                                                value="{{ old('due_days') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Credit Unit</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="text" name="credit_unit" class="form-control credit_unit"
+                                                value="{{ old('credit_unit') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Expiry Date</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="date" name="expiry_dates" class="form-control expiry_dates"
+                                                value="{{ old('expiry_dates') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <button class="btn btn-primary btn-sm">
+                                        Update due days on invoices
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="navs-top-account" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <input type="checkbox" name="manual_account" value="Manual-Account"
-                                            style="width: 16px; height: 16px" /><span>&nbsp;Manual Account</span>
+                                <div class="col-12">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="Manual-Account"
+                                                    id="manual_account" name="manual_account">
+                                                <label class="form-check-label" for="manual_account">
+                                                    Manual Account
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Parent Account:</label>
-                                        <select name="parent_account" class="parent_account"></select>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Parent Account</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="parent_account" class="parent_account"></select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Account:</label>
-                                        <select name="account" class="account"></select>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Account</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="account" class="account"></select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Sale Rep:</label>
-                                        <input name="sale_rep" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Sale Rep</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="sale_rep" type="text" class="form-control sale_rep"
+                                                value="{{ old('sale_rep') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Doc Rep:</label>
-                                        <input name="doc_rep" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Doc Rep</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="doc_rep" type="text" class="form-control doc_rep"
+                                                value="{{ old('doc_rep') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Account Rep:</label>
-                                        <input name="account_rep" type="text" class="form-control" placeholder="" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Account Rep</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="account_rep" type="text" class="form-control account_rep"
+                                                value="{{ old('account_rep') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Referred By:</label>
-                                        <input name="referred_by" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Referred By</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="referred_by" type="text" class="form-control referred_by"
+                                                value="{{ old('referred_by') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label class="form-label">Currency:</label>
-                                        <select class="form-select" name="currency">
-                                            <option value="PKR">PKR</option>
-                                            <option value="USD">USD</option>
-                                            <option value="AED">AED</option>
-                                            <option value="GPB">GPB</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="BDT">BDT</option>
-                                            <option value="OMR">OMR</option>
-                                        </select>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Currency</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select class="form-select" name="currency">
+                                                <option value="PKR">PKR</option>
+                                                <option value="USD">USD</option>
+                                                <option value="AED">AED</option>
+                                                <option value="GPB">GPB</option>
+                                                <option value="EUR">EUR</option>
+                                                <option value="BDT">BDT</option>
+                                                <option value="OMR">OMR</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label class="form-label">Customer GRP:</label>
-                                        <input name="customer_grp" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Customer GRP</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="customer_grp" type="text" class="form-control customer_grp"
+                                                value="{{ old('customer_grp') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2 mt-4">
-                                        <input name="" class="sub_type sub_check form-check-input"
-                                            value="Show-Sub-type" type="checkbox" /><span>&nbsp; &nbsp;Show Sub
-                                            Type</span>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-12">
+                                            <div class="form-check mt-1">
+                                                <input class="form-check-input sub_type sub_check" type="checkbox"
+                                                    value="Show-Sub-type" id="sub_type" name="sub_type">
+                                                <label class="form-check-label" for="sub_type">
+                                                    Show Sub Type
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="sub_type_check">
-                                        <div class="d-flex justify-content-between mt-4">
+                                        <div class="d-flex justify-content-betwee gap-3">
                                             <div>
                                                 <input name="sub_type_input[]" type="checkbox" value="ACH"
                                                     class="form-check-input" /><span>&nbsp;ACH</span>
@@ -827,7 +1076,7 @@
                                                     class="form-check-input" /><span>&nbsp;Party</span>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between mt-3">
+                                        <div class="d-flex justify-content-betwee gap-3 mt-2">
                                             <div>
                                                 <input name="sub_type_input[]" type="checkbox" value="online-personal-ac"
                                                     class="form-check-input" /><span>&nbsp;Online Personal A/C</span>
@@ -858,92 +1107,169 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="navs-top-bank_details" role="tabpanel">
+                            <div class="">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="ach_authority"
+                                        id="ach_authority">
+                                    <label class="form-check-label" for="ach_authority">
+                                        ACH Authority
+                                    </label>
+                                </div>
+                            </div>
+
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <input type="checkbox" value="ach_authority"
-                                            style="width: 15px; height: 15px" />&nbsp; ACH Authority
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Account Title</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="account_title" type="text" class="form-control account_title"
+                                                value="{{ old('account_title') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="mb-2">
-                                        <label class="form-label">Account Title:</label>
-                                        <input name="account_title" type="text" class="form-control"
-                                            placeholder="" />
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label">Bank</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="bank" type="text" class="form-control bank"
+                                                value="{{ old('bank') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Bank:</label>
-                                        <input name="bank" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Bank Name</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="bank_name" type="text" class="form-control bank_name"
+                                                value="{{ old('bank_name') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label class="form-label">Bank Name:</label>
-                                        <input name="bank_name" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Account No</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="account_no" type="text" class="form-control account_no"
+                                                value="{{ old('account_no') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label class="form-label">Account No:</label>
-                                        <input name="account_no" type="text" class="form-control" placeholder="" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label">Iban</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="iban" type="text" class="form-control iban"
+                                                value="{{ old('iban') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label class="form-label">Iban:</label>
-                                        <input name="iban" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Branch Code</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="branch_code" type="text" class="form-control branch_code"
+                                                value="{{ old('branch_code') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Branch Code:</label>
-                                        <input name="branch_code" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Swift Code</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="swift_code" type="text" class="form-control swift_code"
+                                                value="{{ old('swift_code') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="mb-2">
-                                        <label class="form-label">Swift Code:</label>
-                                        <input name="swift_code" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Routing No</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="routing_no" type="text" class="form-control routing_no"
+                                                value="{{ old('routing_no') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">Routing No:</label>
-                                        <input name="iban" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">IFSC Code</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="ifsc" type="text" class="form-control ifsc"
+                                                value="{{ old('ifsc') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">IFSC Code:</label>
-                                        <input name="ifsc" type="text" class="form-control" placeholder="" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">MICR Code</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="micr" type="text" class="form-control micr"
+                                                value="{{ old('micr') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">MICR Code:</label>
-                                        <input name="micr" type="text" class="form-control" placeholder="" />
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Autherization Date</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="auth_date" type="date" class="form-control auth_date"
+                                                value="{{ old('auth_date') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Remarks:</label>
-                                        <textarea class="form-control" name="remarks" rows="4"></textarea>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Autherization By</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input name="auth_by" type="text" class="form-control auth_by"
+                                                value="{{ old('auth_by') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Autherization Date:</label>
-                                        <input name="auth_date" type="date" class="form-control" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label class="form-label">Autherization By:</label>
-                                        <input name="auth_by" type="text" class="form-control" placeholder="" />
-                                    </div>
-                                </div>
+                            </div>
+
+                            <div class="">
+                                <label class="form-label">Remarks:</label>
+                                <textarea class="form-control" name="remarks" rows="4"></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="navs-top-notification" role="tabpanel">
@@ -1083,52 +1409,84 @@
                         </div>
                         <div class="tab-pane fade" id="navs-top-localize" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Name:</label>
-                                        <input name="kyc_name" type="text" class="form-control" placeholder="" />
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label">Name</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="kyc_name" type="text" class="form-control kyc_name"
+                                                value="{{ old('kyc_name') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Address 1:</label>
-                                        <input name="kyc_address1" type="text" class="form-control"
-                                            placeholder="" />
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label">Address 1</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="kyc_address1" type="text"
+                                                class="form-control kyc_address1" value="{{ old('kyc_address1') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Address 2:</label>
-                                        <input name="kyc_address2" type="text" class="form-control"
-                                            placeholder="" />
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label">Address 2</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="kyc_address2" type="text"
+                                                class="form-control kyc_address2" value="{{ old('kyc_address2') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="mb-2">
-                                        <label class="form-label">Address 3:</label>
-                                        <input name="kyc_address3" type="text" class="form-control"
-                                            placeholder="" />
+
+                                <div class="col-4">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-2">
+                                            <label class="form-label">Address 3</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <input name="kyc_address3" type="text"
+                                                class="form-control kyc_address3" value="{{ old('kyc_address3') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-12">
-                                    <div class="mb-2 mt-4">
-                                        <label class="form-label"></label>
-                                        <input name="kyc" type="checkbox" value="KYC-Verification-Done"
-                                            style="width: 15px; height: 15px" /><span>&nbsp;KYC Verification Done</span>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    value="KYC-Verification-Done" id="kyc" name="kyc">
+                                                <label class="form-check-label" for="kyc">
+                                                    KYC Verification Done
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-12">
-                                    <div class="mb-2 mt-4">
-                                        <label class="form-label">KYC Date</label>
-                                        <input type="date" name="kyc_date" class="form-control" placeholder="" />
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">KYC Date</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="kyc_date" type="date" class="form-control kyc_date"
+                                                value="{{ old('kyc_date') }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-9 col-12">
-                                    <div class="mb-2 mt-4">
-                                        <label class="form-label">Remarks</label>
-                                        <textarea class="form-control" name="kyc_remarks" rows="4"></textarea>
-                                    </div>
-                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <label class="form-label">Remarks</label>
+                                <textarea class="form-control" name="kyc_remarks" rows="4"></textarea>
                             </div>
                         </div>
                     </div>

@@ -2934,6 +2934,8 @@
                     $("select.voyage").val(res.quotation.voyage).trigger("change");
                     $("select.commodity").val(res.quotation.commodity).trigger("change");
                     $("select.sales_rep").val(res.quotation.sale_rep).trigger("change");
+
+                    enableButton(null);
                 }
 
                 if (res.quotation_detail) {

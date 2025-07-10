@@ -323,6 +323,7 @@ Route::namespace('Admin')
             Route::post('sub_company/store', [SubCompanyController::class, 'store'])->name('sub_company.store');
             Route::post('sub_company/update', [SubCompanyController::class, 'update'])->name('sub_company.update');
             Route::post('sub_company/get', [SubCompanyController::class, 'get_data'])->name('sub_company.get');
+            Route::get('sub_company/get_all_data', [SubCompanyController::class, 'getAllData'])->name('sub_company.get_all_data');
 
             // MANIFEST ROUTES
             Route::get('manifest', [ManifestController::class, 'index'])->name('manifest');
@@ -610,6 +611,7 @@ Route::namespace('Admin')
             Route::get('voucher/delete/{id}', [VoucherController::class, 'delete'])->name('voucher.delete');
             Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
             Route::post('voucher/update', [VoucherController::class, 'update'])->name('voucher.update');
+            Route::post('voucher/get', [VoucherController::class, 'get_data'])->name('voucher.get');
 
             //  GL INVOICE TRANSACTION
             Route::get('gl_invoice', [GlInvoiceController::class, 'index'])->name('gl_invoice');

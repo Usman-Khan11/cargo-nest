@@ -214,4 +214,18 @@ class SubCompanyController extends Controller
 
         return $data;
     }
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_sub_company') {
+            $search_term = $request->search;
+            $data = SubCompany::Where(function ($query) use ($search_term) {
+                $query->where('name', 'like', "%$search_term%")
+                    ->orWhere('displayName', 'like', "%$search_term%")
+                    ->orWhere('shortName', 'like', "%$search_term%");
+            })
+                ->select(["id", "name as text"])->get();
+            return $data;
+        }
+    }
 }
