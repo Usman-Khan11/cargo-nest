@@ -816,6 +816,8 @@ function checkPermissions($action, $nav_id, $role_id, $user_id)
     $permission = Get_Permission($nav_id, $role_id);
 
     if (!in_array($action, $permission)) {
-        abort(403, 'Unauthorized action.');
+        $notify[] = ['error', 'Unauthorized action.'];
+        return back()->withNotify($notify);
+        // abort(403, 'Unauthorized action.');
     }
 }
