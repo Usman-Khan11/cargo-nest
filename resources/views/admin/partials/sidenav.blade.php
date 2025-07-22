@@ -44,7 +44,7 @@
             </a>
         </li>
 
-        @if (!in_array(auth()->guard('admin')->user()->id, [21, 22]))
+        @if (!in_array(auth()->guard('admin')->user()->id ?? 0, [21, 22]))
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-user"></i>
