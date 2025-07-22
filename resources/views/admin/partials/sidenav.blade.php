@@ -1072,6 +1072,12 @@
                                 <div data-i18n="General Setting">Activity</div>
                             </a>
                         </li>
+                        <li class="menu-item {{ menuActive('admin.container_movement.create') }}">
+                            <a href="{{ route('admin.container_movement.create') }}" class="menu-link">
+                                <i class="menu-icon tf-icons ti ti-user"></i>
+                                <div data-i18n="Container Movement">Container Movement</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="menu-item ">

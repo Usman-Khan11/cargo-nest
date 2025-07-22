@@ -95,6 +95,7 @@ use App\Http\Controllers\Admin\SiEquipmentInvoiceOtherController;
 use App\Http\Controllers\Admin\TerminalStockRequiremnetController;
 use App\Http\Controllers\Admin\BulkDeleteContainerActivityController;
 use App\Http\Controllers\Admin\ContainerActivityController;
+use App\Http\Controllers\Admin\ContainerMovementController;
 use App\Http\Controllers\Admin\GuaranteeFillingAnellationController;
 use App\Http\Controllers\Admin\GuaranteeLetterListController;
 use App\Http\Controllers\Admin\GuaranteeLetterProcessController;
@@ -531,6 +532,13 @@ Route::namespace('Admin')
             Route::post('ctrk/update', [CtrkController::class, 'update'])->name('ctrk.update');
             Route::post('ctrk/import', [CtrkController::class, 'bulkUpload'])->name('ctrk.import');
             Route::post('ctrk/get', [CtrkController::class, 'get_data'])->name('ctrk.get');
+
+            // CONTAINER MOVEMENTS ROUTES
+            Route::get('container-movement/create', [ContainerMovementController::class, 'create'])->name('container_movement.create');
+            Route::get('container-movement/delete/{id}', [ContainerMovementController::class, 'delete'])->name('container_movement.delete');
+            Route::post('container-movement/store', [ContainerMovementController::class, 'store'])->name('container_movement.store');
+            Route::post('container-movement/update', [ContainerMovementController::class, 'update'])->name('container_movement.update');
+            Route::post('container-movement/get', [ContainerMovementController::class, 'get_data'])->name('container_movement.get');
 
             // LOADING PROGRAM ROUTES
             Route::get('loading_program', [LoadingProgramController::class, 'index'])->name('loading_program');
