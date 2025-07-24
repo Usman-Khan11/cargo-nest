@@ -17,7 +17,7 @@ class ContainerMovementController extends Controller
 
     public function __construct()
     {
-        $this->name = "Container Movement";
+        $this->name = "Global Container Inventory";
         $this->nav_id = 5;
     }
 
@@ -26,13 +26,21 @@ class ContainerMovementController extends Controller
         $user_info = session()->get('user_info');
         checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
-        $data['seo_title']    = "Container Movement";
-        $data['seo_desc']     = "Container Movement";
-        $data['seo_keywords'] = "Container Movement";
-        $data['page_title']   = "Container Movement";
+        $data['seo_title']    = "Global Container Inventory";
+        $data['seo_desc']     = "Global Container Inventory";
+        $data['seo_keywords'] = "Global Container Inventory";
+        $data['page_title']   = "Global Container Inventory";
 
         if ($request->ajax()) {
-            $query = ContainerMovement::with(['container', 'created_by_user']);
+            $query = ContainerMovement::with([
+                'container',
+                'destination_agent',
+                'loc_from',
+                'loc_to',
+                'vessel',
+                'voyage',
+                'created_by_user'
+            ]);
             $query = $query->latest()->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
@@ -47,7 +55,7 @@ class ContainerMovementController extends Controller
         checkPermissions('delete', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         ContainerMovement::where("id", $id)->delete();
-        $notify[] = ['success', 'Container Movement Deleted Successfully.'];
+        $notify[] = ['success', 'Global Container Inventory Deleted Successfully.'];
         return redirect()->route('admin.container_movement.create')->withNotify($notify);
     }
 
@@ -57,7 +65,7 @@ class ContainerMovementController extends Controller
         checkPermissions('add', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         $request->validate([
-            'container_id' => 'required|string|max:150',
+            'container_id' => 'required|integer|exists:ctrk,id',
             'container_size' => 'required|string|max:100',
             'container_principal' => 'required|string|max:100',
             'destination_principal' => 'required|string|max:100',
@@ -65,14 +73,18 @@ class ContainerMovementController extends Controller
             'location_to' => 'required|string|max:150',
             'arrival_date' => 'required|date',
             'departure_date' => 'required|date',
+            'empty_return' => 'nullable|date',
             'status' => 'required|string|max:50',
+            'bl_no' => 'nullable|string|max:150',
+            'vessel_id' => 'required|integer|exists:vessels,id',
+            'voyage_id' => 'required|integer|exists:voyages,id',
         ]);
 
         $container_movement = new ContainerMovement();
         $container_movement->fill($request->all());
         $container_movement->save();
 
-        $notify[] = ['success', 'Container Movement Added Successfully.'];
+        $notify[] = ['success', 'Global Container Inventory Added Successfully.'];
         return back()->withNotify($notify);
     }
 
@@ -82,7 +94,7 @@ class ContainerMovementController extends Controller
         checkPermissions('edit', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
 
         $request->validate([
-            'container_id' => 'required|string|max:150',
+            'container_id' => 'required|integer|exists:ctrk,id',
             'container_size' => 'required|string|max:100',
             'container_principal' => 'required|string|max:100',
             'destination_principal' => 'required|string|max:100',
@@ -90,7 +102,11 @@ class ContainerMovementController extends Controller
             'location_to' => 'required|string|max:150',
             'arrival_date' => 'required|date',
             'departure_date' => 'required|date',
+            'empty_return' => 'nullable|date',
             'status' => 'required|string|max:50',
+            'bl_no' => 'nullable|string|max:150',
+            'vessel_id' => 'required|integer|exists:vessels,id',
+            'voyage_id' => 'required|integer|exists:voyages,id',
         ]);
 
         $container_movement = ContainerMovement::find($request->id);
@@ -99,7 +115,7 @@ class ContainerMovementController extends Controller
         $container_movement->created_by = $created_by;
         $container_movement->save();
 
-        $notify[] = ['success', 'Container Movement Updated Successfully.'];
+        $notify[] = ['success', 'Global Container Inventory Updated Successfully.'];
         return back()->withNotify($notify);
     }
 
@@ -107,7 +123,15 @@ class ContainerMovementController extends Controller
     {
         $id = $request->id;
         $type = $request->type;
-        $data = ContainerMovement::Query();
+        $data = ContainerMovement::with([
+            'container',
+            'destination_agent',
+            'loc_from',
+            'loc_to',
+            'vessel',
+            'voyage',
+            'created_by_user'
+        ]);
 
         if ($type == "first") {
             $data = $data->orderBy('id', 'asc');

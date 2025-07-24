@@ -405,5 +405,14 @@ class PartyController extends Controller
                 ->get();
             return $data;
         }
+
+        if (isset($request->type) && $request->type == 'get_delivery_agent') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
+                ->where('Type', 'Like', '%Delivery-Agent%')
+                ->select(["id", "party_name as text"])
+                ->get();
+            return $data;
+        }
     }
 }

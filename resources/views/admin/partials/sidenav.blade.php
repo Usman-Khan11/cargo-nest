@@ -1079,7 +1079,7 @@
                             <li class="menu-item {{ menuActive('admin.container_movement.create') }}">
                                 <a href="{{ route('admin.container_movement.create') }}" class="menu-link">
                                     <i class="menu-icon tf-icons ti ti-user"></i>
-                                    <div data-i18n="Container Movement">Container Movement</div>
+                                    <div data-i18n="Global Container Inventory">Global Container Inventory</div>
                                 </a>
                             </li>
                         </ul>
@@ -2480,7 +2480,7 @@
             <li class="menu-item {{ menuActive('admin.container_movement.create') }}">
                 <a href="{{ route('admin.container_movement.create') }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-user"></i>
-                    <div data-i18n="Container Movement">Container Movement</div>
+                    <div data-i18n="Global Container Inventory">Global Container Inventory</div>
                 </a>
             </li>
         @endif

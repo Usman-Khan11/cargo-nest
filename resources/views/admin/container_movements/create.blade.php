@@ -3,7 +3,7 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="formReset('/admin/container-movement/store')">
+            <div class="plus" onclick="containerFormReset('/admin/container-movement/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
@@ -90,27 +90,43 @@
                                             <label class="form-label">Container No</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="container_id" type="text" class="form-control container_id" />
-                                            {{-- <select name="container_id" class="form-select select2 container_id">
+                                            {{-- <input name="container_id" type="text" class="form-control container_id" /> --}}
+                                            <select name="container_id" class="form-select select2 container_id">
                                                 <option value="" selected>Select</option>
                                                 @foreach ($containers as $value)
                                                     <option data-sizetype="{{ $value->sizetype->code ?? '' }}"
                                                         data-principal="{{ $value->principals->party_name ?? '' }}"
                                                         value="{{ $value->id }}">{{ $value->container_no }}</option>
                                                 @endforeach
-                                            </select> --}}
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-3">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
+                                        <div class="col-5">
                                             <label class="form-label">Size / Type</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input name="container_size" type="text"
-                                                class="form-control container_size" />
+                                        <div class="col-7">
+                                            <input name="container_size" type="text" class="form-control container_size"
+                                                readonly />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Status</label>
+                                        </div>
+                                        <div class="col-9">
+                                            {{-- <input name="status" type="text" class="form-control status" /> --}}
+                                            <select name="status" class="form-select status">
+                                                <option value=""></option>
+                                                <option value="sound">Sound</option>
+                                                <option value="damaged">Damaged</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -143,17 +159,12 @@
 
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-3">
-                                            <label class="form-label">Status</label>
+                                        <div class="col-5">
+                                            <label class="form-label">Empty Return</label>
                                         </div>
-                                        <div class="col-9">
-                                            {{-- <input name="status" type="text" class="form-control status" /> --}}
-                                            <select name="status" class="form-select status">
-                                                <option value=""></option>
-                                                <option value="ready-for-movement">Ready for Movement</option>
-                                                <option value="damaged">Damaged</option>
-                                                <option value="under-repair">Under Repair</option>
-                                            </select>
+                                        <div class="col-7">
+                                            <input name="empty_return" type="date"
+                                                class="form-control empty_return" />
                                         </div>
                                     </div>
                                 </div>
@@ -166,11 +177,11 @@
                                             <label class="form-label">Location From</label>
                                         </div>
                                         <div class="col-9">
-                                            {{-- <select name="location_from" class="location_from search_select2"
+                                            <select name="location_from" class="location_from search_select2"
                                                 data-type="get_location"
-                                                data-url="{{ route('admin.location.get_all_data') }}"></select> --}}
-                                            <input name="location_from" type="text"
-                                                class="form-control location_from" />
+                                                data-url="{{ route('admin.location.get_all_data') }}"></select>
+                                            {{-- <input name="location_from" type="text"
+                                                class="form-control location_from" /> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -181,10 +192,10 @@
                                             <label class="form-label">Location To</label>
                                         </div>
                                         <div class="col-9">
-                                            {{-- <select name="location_to" class="location_to search_select2"
+                                            <select name="location_to" class="location_to search_select2"
                                                 data-type="get_location"
-                                                data-url="{{ route('admin.location.get_all_data') }}"></select> --}}
-                                            <input name="location_to" type="text" class="form-control location_to" />
+                                                data-url="{{ route('admin.location.get_all_data') }}"></select>
+                                            {{-- <input name="location_to" type="text" class="form-control location_to" /> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -209,11 +220,64 @@
                                 <div class="col-6">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
-                                            <label class="form-label">Dest. Principal</label>
+                                            <label class="form-label">Dest. Agent</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="destination_principal" type="text"
-                                                class="form-control destination_principal" />
+                                            {{-- <input name="destination_principal" type="text"
+                                                class="form-control destination_principal" /> --}}
+                                            <select name="destination_principal"
+                                                class="destination_principal search_select2"
+                                                data-type="get_delivery_agent"
+                                                data-url="{{ route('admin.party.get_all_data') }}"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Vessel</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="vessel_id" class="vessel search_select2" data-type="get_vessel"
+                                                data-url="{{ route('admin.vessel.get_all_data') }}"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Voyage</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="voyage_id" class="voyage select2"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">BL No</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="bl_no" type="text" class="form-control bl_no" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Aging</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <p></p>
                                         </div>
                                     </div>
                                 </div>
@@ -294,8 +358,15 @@
                     },
                 },
                 columns: [{
-                        data: "container_id",
+                        data: "container.container_no",
                         title: "Container No",
+                        render: function(data, type, full, meta) {
+                            if (full.container) {
+                                return full.container.container_no;
+                            }
+
+                            return '-';
+                        }
                     },
                     {
                         data: "container_size",
@@ -306,16 +377,37 @@
                         title: "Owner",
                     },
                     {
-                        data: "destination_principal",
-                        title: "Dest. Principal",
+                        data: "destination_agent.party_name",
+                        title: "Dest. Agent",
+                        render: function(data, type, full, meta) {
+                            if (full.destination_agent) {
+                                return full.destination_agent.party_name;
+                            }
+
+                            return '-';
+                        }
                     },
                     {
-                        data: "location_from",
+                        data: "loc_from.location",
                         title: "Location From",
+                        render: function(data, type, full, meta) {
+                            if (full.loc_from) {
+                                return full.loc_from.location;
+                            }
+
+                            return '-';
+                        }
                     },
                     {
-                        data: "location_to",
+                        data: "loc_to.location",
                         title: "Location To",
+                        render: function(data, type, full, meta) {
+                            if (full.loc_to) {
+                                return full.loc_to.location;
+                            }
+
+                            return '-';
+                        }
                     },
                     {
                         data: "departure_date",
@@ -324,6 +416,32 @@
                     {
                         data: "arrival_date",
                         title: "Arrival Date",
+                    },
+                    {
+                        data: "empty_return",
+                        title: "Empty Return",
+                    },
+                    {
+                        data: "vessel.vessel_name",
+                        title: "Vessel",
+                        render: function(data, type, full, meta) {
+                            if (full.vessel) {
+                                return full.vessel.vessel_name;
+                            }
+
+                            return '-';
+                        }
+                    },
+                    {
+                        data: "voyage.voy",
+                        title: "Voyage",
+                        render: function(data, type, full, meta) {
+                            if (full.voyage) {
+                                return full.voyage.voy;
+                            }
+
+                            return '-';
+                        }
                     },
                     {
                         data: "status",
@@ -354,7 +472,8 @@
         function edit_row(e, data) {
             data = JSON.parse(data);
             if (data) {
-                $(".container_id").val(data.container_id);
+                console.log(data)
+                $(".container_id").val(data.container_id).trigger('change');
                 $(".container_size").val(data.container_size);
                 $(".container_principal").val(data.container_principal);
                 $(".destination_principal").val(data.destination_principal);
@@ -362,10 +481,51 @@
                 $(".location_to").val(data.location_to);
                 $(".arrival_date").val(data.arrival_date);
                 $(".departure_date").val(data.departure_date);
+                $(".empty_return").val(data.empty_return);
                 $(".status").val(data.status);
+                $(".bl_no").val(data.bl_no);
+
+                if (data.loc_from) {
+                    var option = new Option(data.loc_from.location, data.loc_from.id, true, true);
+                    $(".location_from").append(option).trigger('change');
+                } else {
+                    $(".location_from").val(null).trigger('change');
+                }
+
+                if (data.loc_to) {
+                    var option = new Option(data.loc_to.location, data.loc_to.id, true, true);
+                    $(".location_to").append(option).trigger('change');
+                } else {
+                    $(".location_to").val(null).trigger('change');
+                }
+
+                if (data.destination_agent) {
+                    var option = new Option(data.destination_agent.party_name, data.destination_agent.id, true, true);
+                    $(".destination_principal").append(option).trigger('change');
+                } else {
+                    $(".destination_principal").val(null).trigger('change');
+                }
+
+                if (data.vessel) {
+                    var option = new Option(data.vessel.vessel_name, data.vessel.id, true, true);
+                    $(".vessel").append(option).trigger('change');
+                } else {
+                    $(".vessel").val(null).trigger('change');
+                }
+
+                setTimeout(() => {
+                    $(".voyage").val(data.voyage_id).trigger('change');
+                }, 500);
                 $("#myForm").attr("action", "{{ route('admin.container_movement.update') }}");
                 $("input[name=id]").val(data.id);
             }
+        }
+
+        function containerFormReset(route) {
+            document.getElementById("myForm").reset();
+            $("#myForm").attr("action", route);
+            $("#myForm").find(".search_select2").val(null).trigger("change");
+            $("#myForm").find("select").trigger("change");
         }
 
         $(".navigation").click(function() {
@@ -378,21 +538,41 @@
             }
         });
 
-        // $(".container_id").change(function() {
-        //     let sizetype = $(this).find("option:selected").data("sizetype");
-        //     let principal = $(this).find("option:selected").data("principal");
+        $(".container_id").change(function() {
+            let sizetype = $(this).find("option:selected").data("sizetype");
+            let principal = $(this).find("option:selected").data("principal");
 
-        //     if (sizetype) {
-        //         $(".container_size").val(sizetype);
-        //     } else {
-        //         $(".container_size").val('');
-        //     }
+            if (sizetype) {
+                $(".container_size").val(sizetype);
+            } else {
+                $(".container_size").val('');
+            }
 
-        //     if (principal) {
-        //         $(".container_principal").val(principal);
-        //     } else {
-        //         $(".container_principal").val('');
-        //     }
-        // })
+            // if (principal) {
+            //     $(".container_principal").val(principal);
+            // } else {
+            //     $(".container_principal").val('');
+            // }
+        })
+
+        $("select.vessel").change(function() {
+            var id = $(this).val();
+            $(".voyage").html(null);
+
+            if (!id) {
+                return;
+            }
+
+            $.get(
+                "{{ route('admin.voyage.get_all_data') }}?type=get_voyages_by_vessels", {
+                    fetch_vessel_voyages: id,
+                },
+                function(res) {
+                    $(".voyage").select2({
+                        data: res,
+                    });
+                }
+            );
+        });
     </script>
 @endpush
