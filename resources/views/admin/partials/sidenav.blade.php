@@ -2483,6 +2483,27 @@
                     <div data-i18n="Global Container Inventory">Global Container Inventory</div>
                 </a>
             </li>
+
+            <li class="menu-item {{ menuActive('admin.ctrk.create') }}">
+                <a href="{{ route('admin.ctrk.create') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-user"></i>
+                    <div data-i18n="General Setting">Ctrk Container</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ menuActive('admin.vessel.create') }}">
+                <a href="{{ route('admin.vessel.create') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-user"></i>
+                    <div data-i18n="General Setting">Vessel</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ menuActive('admin.voyage.create') }}">
+                <a href="{{ route('admin.voyage.create') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-user"></i>
+                    <div data-i18n="General Setting">Voyage</div>
+                </a>
+            </li>
         @endif
 
         <li class="menu-item {{ menuActive('admin.general_setting') }}">

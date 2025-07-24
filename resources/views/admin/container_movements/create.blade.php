@@ -271,13 +271,24 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-3">
-                                            <label class="form-label">Aging</label>
+                                        <div class="col-5">
+                                            <label class="form-label">Empty Out</label>
                                         </div>
-                                        <div class="col-9">
-                                            <p></p>
+                                        <div class="col-7">
+                                            <input name="empty_out" type="date" class="form-control empty_out" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-12">
+                                            <label class="form-label mt-2">
+                                                Aging: &nbsp;
+                                                <a class="aging_result"></a>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -422,6 +433,10 @@
                         title: "Empty Return",
                     },
                     {
+                        data: "empty_out",
+                        title: "Empty Out",
+                    },
+                    {
                         data: "vessel.vessel_name",
                         title: "Vessel",
                         render: function(data, type, full, meta) {
@@ -472,7 +487,6 @@
         function edit_row(e, data) {
             data = JSON.parse(data);
             if (data) {
-                console.log(data)
                 $(".container_id").val(data.container_id).trigger('change');
                 $(".container_size").val(data.container_size);
                 $(".container_principal").val(data.container_principal);
@@ -482,6 +496,7 @@
                 $(".arrival_date").val(data.arrival_date);
                 $(".departure_date").val(data.departure_date);
                 $(".empty_return").val(data.empty_return);
+                $(".empty_out").val(data.empty_out);
                 $(".status").val(data.status);
                 $(".bl_no").val(data.bl_no);
 
@@ -518,6 +533,7 @@
                 }, 500);
                 $("#myForm").attr("action", "{{ route('admin.container_movement.update') }}");
                 $("input[name=id]").val(data.id);
+                calculateAging();
             }
         }
 
@@ -574,5 +590,19 @@
                 }
             );
         });
+
+        function calculateAging() {
+            let empty_return = $(".empty_return").val();
+            let empty_out = $(".empty_out").val();
+
+            if (empty_return && empty_out) {
+                let returnDate = new Date(empty_return);
+                let outDate = new Date(empty_out);
+                let diffInMs = outDate - returnDate;
+                let diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+
+                $(".aging_result").text(diffInDays + " day(s)");
+            }
+        }
     </script>
 @endpush
