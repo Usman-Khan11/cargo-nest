@@ -68,7 +68,7 @@
 @endsection
 
 @php
-    $vessel_id = @$_GET['vessel_id'];
+    $vessel_id = $_GET['vessel_id'] ?? 0;
 @endphp
 
 @section('panel')
@@ -255,11 +255,12 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-2">
                                         <label class="form-label">Vessel:</label>
-                                        <select name="vessel_search" class="custom_select">
+                                        <select name="vessel_search" class="select2">
                                             <option selected disabled></option>
-                                            {{-- @foreach ($vessels as $value)
-                                            <option @if ($vessel_id == $value->id) selected @endif value="{{ $value->id }}">{{ $value->vessel_name }}</option>
-                                            @endforeach --}}
+                                            @foreach ($vessels as $value)
+                                                <option @if ($vessel_id == $value['id']) selected @endif
+                                                    value="{{ $value['id'] }}">{{ $value['text'] }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -393,11 +394,6 @@
         let vessel_id = $("select[name=vessel_search]").val();
 
         $(document).ready(function() {
-
-            $(".custom_select").select2({
-                data: @json($vessels)
-            });
-
             const search_select2 = $(".search_select2");
 
             if (search_select2.length) {
@@ -435,6 +431,7 @@
                 "searching": false,
                 "serverSide": true,
                 "lengthChange": false,
+                "ordering": false,
                 "pageLength": 10,
                 "scrollX": true,
                 "ajax": {

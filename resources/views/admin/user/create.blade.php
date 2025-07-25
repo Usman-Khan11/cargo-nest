@@ -196,11 +196,13 @@
                                             <div class="mb-2 mt-1 input_flex">
                                                 <label class="form-check-label mb-2">
                                                     <input type="checkbox" name="status" value="1"
+                                                        @if (old('status')) checked @endif
                                                         class="form-check-input status" />
                                                     Active
                                                 </label>
                                                 <label class="form-check-label mb-2 mx-3">
                                                     <input type="checkbox" name="acount_block" value="1"
+                                                        @if (old('acount_block')) checked @endif
                                                         class="form-check-input acount_block" />
                                                     Account Block
                                                 </label>
@@ -273,6 +275,31 @@
                                     </tr>
                                 </thead>
                                 <tbody class="detail_repeater">
+                                    {{-- @if (old('i_company_id'))
+                                        @foreach (old('i_company_id') as $k => $v)
+                                            <tr>
+                                                <td>
+                                                    <i onclick="delRow(this)"
+                                                        class="fa fa-circle-xmark fa-lg text-danger"></i>
+                                                </td>
+                                                <td>
+                                                    <i onclick="addNewRow(this)" class="fa fa-clone fa-lg text-info"></i>
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" value="{{ old('i_company_id')[$k] }}"
+                                                        name="i_company_id[]" />
+                                                    <input class="form-control" type="text" name="" readonly
+                                                        style="width: 100%" value="{{ old('company_name')[$k] }}" />
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" value="{{ old('i_role_id')[$k] }}"
+                                                        name="i_role_id[]" />
+                                                    <input class="form-control" type="text" name="" readonly
+                                                        style="width: 100%" value="{{ old('role_name')[$k] }}" />
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif --}}
                                     {{-- <tr>
                                         <td>
                                             <i onclick="delRow(this)" class="fa fa-circle-xmark fa-lg text-danger"></i>
@@ -310,7 +337,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-center w-100" id="exampleModalLabel">User List</h5>
@@ -336,6 +363,7 @@
             document.getElementById('myForm').reset();
             $("#myForm").attr("action", route);
             $("#myForm").find("select").trigger("change");
+            $(".detail_repeater").html('');
         }
 
         function edit_row(e, data) {
@@ -451,7 +479,7 @@
                 style: 'api'
             },
             "processing": true,
-            "searching": false,
+            "searching": true,
             "serverSide": true,
             "lengthChange": false,
             "pageLength": 10,

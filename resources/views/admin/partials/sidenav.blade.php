@@ -2476,6 +2476,13 @@
 
                 </ul>
             </li>
+
+            <li class="menu-item {{ menuActive('admin.general_setting') }}">
+                <a href="{{ route('admin.general_setting') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-settings"></i>
+                    <div data-i18n="General Setting">General Setting</div>
+                </a>
+            </li>
         @else
             <li class="menu-item {{ menuActive('admin.container_movement.create') }}">
                 <a href="{{ route('admin.container_movement.create') }}" class="menu-link">
@@ -2505,13 +2512,6 @@
                 </a>
             </li>
         @endif
-
-        <li class="menu-item {{ menuActive('admin.general_setting') }}">
-            <a href="{{ route('admin.general_setting') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-settings"></i>
-                <div data-i18n="General Setting">General Setting</div>
-            </a>
-        </li>
 
         <li class="menu-item {{ menuActive('admin.logout') }}">
             <a href="{{ route('admin.logout') }}" class="menu-link">

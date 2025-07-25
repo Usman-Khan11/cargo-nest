@@ -45,7 +45,7 @@ class ContainerMovementController extends Controller
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
-        $data['containers'] = Ctrk::with(['sizetype', 'principals'])->latest()->get();
+        $data['containers'] = Ctrk::with(['sizetype', 'principals'])->where('show_on_gci', 1)->latest()->get();
         return view('admin.container_movements.create', $data);
     }
 
@@ -71,12 +71,13 @@ class ContainerMovementController extends Controller
             'destination_principal' => 'required|string|max:100',
             'location_from' => 'required|string|max:150',
             'location_to' => 'required|string|max:150',
-            'arrival_date' => 'required|date',
-            'departure_date' => 'required|date',
+            'arrival_date' => 'nullable|date',
+            'departure_date' => 'nullable|date',
             'empty_return' => 'nullable|date',
             'empty_out' => 'nullable|date',
-            'status' => 'required|string|max:50',
+            'status' => 'nullable|string|max:50',
             'bl_no' => 'nullable|string|max:150',
+            'free_days' => 'nullable|integer|max:99|min:0',
             'vessel_id' => 'required|integer|exists:vessels,id',
             'voyage_id' => 'required|integer|exists:voyages,id',
         ]);
@@ -101,12 +102,13 @@ class ContainerMovementController extends Controller
             'destination_principal' => 'required|string|max:100',
             'location_from' => 'required|string|max:150',
             'location_to' => 'required|string|max:150',
-            'arrival_date' => 'required|date',
-            'departure_date' => 'required|date',
+            'arrival_date' => 'nullable|date',
+            'departure_date' => 'nullable|date',
             'empty_return' => 'nullable|date',
             'empty_out' => 'nullable|date',
-            'status' => 'required|string|max:50',
+            'status' => 'nullable|string|max:50',
             'bl_no' => 'nullable|string|max:150',
+            'free_days' => 'nullable|integer|max:99|min:0',
             'vessel_id' => 'required|integer|exists:vessels,id',
             'voyage_id' => 'required|integer|exists:voyages,id',
         ]);

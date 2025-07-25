@@ -82,13 +82,26 @@
     </style>
 @endif
 
+<style>
+    .dt-button-collection .dropdown-menu {
+        display: block;
+    }
+</style>
+
 <body>
     @yield('content')
+
+    @php
+        $old_count = count(old());
+    @endphp
 
     <script>
         function checkDelete() {
             return confirm('Are you sure?');
         }
+
+        let old_count = Number('{{ $old_count }}');
+        let is_fetch_last_entry = old_count === 0 ? true : false;
     </script>
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
@@ -107,6 +120,7 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/forms-selects.js') }}"></script>
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
     @stack('script')
     @include('admin.partials.notify')
 
@@ -199,7 +213,11 @@
             let storedWindowsLength = Object.keys(storedWindows).length;
 
             setTimeout(function() {
-                $(".navigation[data-type=last]").click();
+
+                if (is_fetch_last_entry) {
+                    $(".navigation[data-type=last]").click();
+                }
+
                 for (const id in storedWindows) {
                     const url = storedWindows[id].url;
                     const name = storedWindows[id].name;

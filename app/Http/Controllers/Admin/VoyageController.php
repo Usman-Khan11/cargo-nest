@@ -23,11 +23,23 @@ use Yajra\DataTables\Facades\DataTables;
 
 class VoyageController extends Controller
 {
+    protected $permissions;
+    protected $name;
+    protected $nav_id;
+
+    public function __construct()
+    {
+        $this->name = "Voyage";
+        $this->nav_id = 8;
+    }
+
     public function create(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         if ($request->ajax()) {
-            $query = Voyage::Query();
-            $query = $query->with('vessel', 'port_of_loading', 'port_of_discharge');
+            $query = Voyage::with('vessel', 'port_of_loading', 'port_of_discharge');
 
             if (isset($request->vessel_id)) {
                 $query = $query->where('vessel', $request->vessel_id);
@@ -37,7 +49,7 @@ class VoyageController extends Controller
                 $query = $query->where('voy', 'like', '%' . $request->voyage_name . '%');
             }
 
-            $query = $query->orderby('id', 'asc')->get();
+            $query = $query->latest()->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
@@ -67,6 +79,9 @@ class VoyageController extends Controller
 
     public function delete($id)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('delete', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         Voyage::where("id", $id)->delete();
         VoyageLocal::where("voyage_id", $id)->delete();
         VoyageDetail::where("voyage_id", $id)->delete();
@@ -77,6 +92,9 @@ class VoyageController extends Controller
 
     public function store(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('add', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $request->validate([
             'vessel' => 'required',
             'voy' => ['required', 'string', 'max:255', 'unique:voyages'],
@@ -150,6 +168,9 @@ class VoyageController extends Controller
 
     public function update(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('edit', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $request->validate([
             'vessel' => 'required',
             'voy' => 'required',

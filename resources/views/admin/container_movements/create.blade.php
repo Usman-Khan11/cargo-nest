@@ -96,6 +96,7 @@
                                                 @foreach ($containers as $value)
                                                     <option data-sizetype="{{ $value->sizetype->code ?? '' }}"
                                                         data-principal="{{ $value->principals->party_name ?? '' }}"
+                                                        @if (old('container_id') == $value->id) selected @endif
                                                         value="{{ $value->id }}">{{ $value->container_no }}</option>
                                                 @endforeach
                                             </select>
@@ -110,92 +111,81 @@
                                         </div>
                                         <div class="col-7">
                                             <input name="container_size" type="text" class="form-control container_size"
-                                                readonly />
+                                                readonly value="{{ old('container_size') }}" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-3">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-3">
-                                            <label class="form-label">Status</label>
-                                        </div>
-                                        <div class="col-9">
-                                            {{-- <input name="status" type="text" class="form-control status" /> --}}
-                                            <select name="status" class="form-select status">
-                                                <option value=""></option>
-                                                <option value="sound">Sound</option>
-                                                <option value="damaged">Damaged</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-2">
-                                <div class="col-4">
-                                    <div class="row g-0 align-items-center mb-1">
                                         <div class="col-5">
-                                            <label class="form-label">Departure Date</label>
+                                            <label class="form-label">Free Days</label>
                                         </div>
                                         <div class="col-7">
-                                            <input name="departure_date" type="date"
-                                                class="form-control departure_date" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-5">
-                                            <label class="form-label">Arrival Date</label>
-                                        </div>
-                                        <div class="col-7">
-                                            <input name="arrival_date" type="date"
-                                                class="form-control arrival_date" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-5">
-                                            <label class="form-label">Empty Return</label>
-                                        </div>
-                                        <div class="col-7">
-                                            <input name="empty_return" type="date"
-                                                class="form-control empty_return" />
+                                            <input name="free_days" type="number" class="form-control free_days"
+                                                min="0" max="99" value="{{ old('free_days', 0) }}" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-3">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-3">
-                                            <label class="form-label">Location From</label>
+                                        <div class="col-5">
+                                            <p class="mb-0 fw-bold text-dark">
+                                                Aging:
+                                            </p>
                                         </div>
-                                        <div class="col-9">
-                                            <select name="location_from" class="location_from search_select2"
-                                                data-type="get_location"
-                                                data-url="{{ route('admin.location.get_all_data') }}"></select>
-                                            {{-- <input name="location_from" type="text"
-                                                class="form-control location_from" /> --}}
+                                        <div class="col-7">
+                                            <p class="mb-0 fw-bold text-dark text-center">
+                                                <a class="aging_result"></a>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-3">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-3">
-                                            <label class="form-label">Location To</label>
+                                        <div class="col-6">
+                                            <p class="mb-0 fw-bold text-dark">
+                                                Detention:
+                                            </p>
                                         </div>
-                                        <div class="col-9">
-                                            <select name="location_to" class="location_to search_select2"
-                                                data-type="get_location"
-                                                data-url="{{ route('admin.location.get_all_data') }}"></select>
-                                            {{-- <input name="location_to" type="text" class="form-control location_to" /> --}}
+                                        <div class="col-6">
+                                            <p class="mb-0 fw-bold text-dark text-center">
+                                                <a class="detention_result"></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label">BL No</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input name="bl_no" type="text" class="form-control bl_no"
+                                                value="{{ old('bl_no') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label">Status</label>
+                                        </div>
+                                        <div class="col-7">
+                                            {{-- <input name="status" type="text" class="form-control status" /> --}}
+                                            <select name="status" class="form-select status">
+                                                <option value=""></option>
+                                                <option @if (old('status') == 'sound') selected @endif value="sound">
+                                                    Sound</option>
+                                                <option @if (old('status') == 'damaged') selected @endif value="damaged">
+                                                    Damaged</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -217,6 +207,33 @@
                                     </div>
                                 </div>
 
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label">ETD Date</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input name="departure_date" type="date"
+                                                class="form-control departure_date"
+                                                value="{{ old('departure_date') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label">ETA Date</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input name="arrival_date" type="date" class="form-control arrival_date"
+                                                value="{{ old('arrival_date') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-6">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
@@ -228,7 +245,80 @@
                                             <select name="destination_principal"
                                                 class="destination_principal search_select2"
                                                 data-type="get_delivery_agent"
-                                                data-url="{{ route('admin.party.get_all_data') }}"></select>
+                                                data-url="{{ route('admin.party.get_all_data') }}">
+                                                @if (old('destination_principal'))
+                                                    <option value="{{ old('destination_principal') }}" selected>
+                                                        {{ \App\Models\PartyBasicInfo::find(old('destination_principal'))->party_name ?? 'Select' }}
+                                                    </option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label">Empty Return</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input name="empty_return" type="date" class="form-control empty_return"
+                                                value="{{ old('empty_return') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-5">
+                                            <label class="form-label">Empty Out</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <input name="empty_out" type="date" class="form-control empty_out"
+                                                value="{{ old('empty_out') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Location From</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="location_from" class="location_from search_select2"
+                                                data-type="get_location"
+                                                data-url="{{ route('admin.location.get_all_data') }}">
+                                                @if (old('location_from'))
+                                                    <option value="{{ old('location_from') }}" selected>
+                                                        {{ \App\Models\Location::find(old('location_from'))->location ?? 'Select' }}
+                                                    </option>
+                                                @endif
+                                            </select>
+                                            {{-- <input name="location_from" type="text"
+                                                class="form-control location_from" /> --}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label">Location To</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="location_to" class="location_to search_select2"
+                                                data-type="get_location"
+                                                data-url="{{ route('admin.location.get_all_data') }}">
+                                                @if (old('location_to'))
+                                                    <option value="{{ old('location_to') }}" selected>
+                                                        {{ \App\Models\Location::find(old('location_to'))->location ?? 'Select' }}
+                                                    </option>
+                                                @endif
+                                            </select>
+                                            {{-- <input name="location_to" type="text" class="form-control location_to" /> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -242,7 +332,13 @@
                                         </div>
                                         <div class="col-9">
                                             <select name="vessel_id" class="vessel search_select2" data-type="get_vessel"
-                                                data-url="{{ route('admin.vessel.get_all_data') }}"></select>
+                                                data-url="{{ route('admin.vessel.get_all_data') }}">
+                                                @if (old('vessel_id'))
+                                                    <option value="{{ old('vessel_id') }}" selected>
+                                                        {{ \App\Models\Vessel::find(old('vessel_id'))->vessel_name ?? 'Select' }}
+                                                    </option>
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -253,42 +349,13 @@
                                             <label class="form-label">Voyage</label>
                                         </div>
                                         <div class="col-9">
-                                            <select name="voyage_id" class="voyage select2"></select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-3">
-                                            <label class="form-label">BL No</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <input name="bl_no" type="text" class="form-control bl_no" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-5">
-                                            <label class="form-label">Empty Out</label>
-                                        </div>
-                                        <div class="col-7">
-                                            <input name="empty_out" type="date" class="form-control empty_out" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-2">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-12">
-                                            <label class="form-label mt-2">
-                                                Aging: &nbsp;
-                                                <a class="aging_result"></a>
-                                            </label>
+                                            <select name="voyage_id" class="voyage select2">
+                                                @if (old('voyage_id'))
+                                                    <option value="{{ old('voyage_id') }}" selected>
+                                                        {{ \App\Models\Voyage::find(old('voyage_id'))->voy ?? 'Select' }}
+                                                    </option>
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -318,6 +385,8 @@
         });
 
         var datatable = null;
+        let title = 'Global Container Inventory Report';
+        let filename = 'global-container-inventory-report';
 
         $(document).ready(function() {
             const search_select2 = $(".search_select2");
@@ -361,12 +430,7 @@
                 ajax: {
                     url: "{{ route('admin.container_movement.create') }}",
                     type: "get",
-                    data: function(d) {
-                        var frm_data = $("#result_report_form").serializeArray();
-                        $.each(frm_data, function(key, val) {
-                            d[val.name] = val.value;
-                        });
-                    },
+                    data: function(d) {},
                 },
                 columns: [{
                         data: "container.container_no",
@@ -382,6 +446,10 @@
                     {
                         data: "container_size",
                         title: "Size / Type",
+                    },
+                    {
+                        data: "free_days",
+                        title: "Free Days",
                     },
                     {
                         data: "container_principal",
@@ -478,6 +546,53 @@
                         title: "Created At",
                     },
                 ],
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'excelHtml5',
+                        text: 'Export Excel',
+                        title: function() {
+                            return title;
+                        },
+                        className: "btn-success",
+                        filename: filename,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'Export PDF',
+                        title: function() {
+                            return title;
+                        },
+                        className: "btn-success",
+                        filename: filename,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Print Table',
+                        title: function() {
+                            return title;
+                        },
+                        className: "btn-success",
+                        filename: filename,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Column Visibility',
+                        className: "btn-success",
+                    }
+                ],
+                columnDefs: [{
+                    targets: [],
+                    visible: false
+                }],
                 rowCallback: function(row, data) {
                     $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`);
                 },
@@ -499,6 +614,7 @@
                 $(".empty_out").val(data.empty_out);
                 $(".status").val(data.status);
                 $(".bl_no").val(data.bl_no);
+                $(".free_days").val(data.free_days);
 
                 if (data.loc_from) {
                     var option = new Option(data.loc_from.location, data.loc_from.id, true, true);
@@ -533,7 +649,9 @@
                 }, 500);
                 $("#myForm").attr("action", "{{ route('admin.container_movement.update') }}");
                 $("input[name=id]").val(data.id);
+
                 calculateAging();
+                calculateDetention();
             }
         }
 
@@ -602,6 +720,29 @@
                 let diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
 
                 $(".aging_result").text(diffInDays + " day(s)");
+            }
+        }
+
+        function calculateDetention() {
+            let empty_return = $(".empty_return").val();
+            let free_days = parseInt($(".free_days").val());
+            let arrival_date = $(".arrival_date").val();
+
+            if (empty_return && arrival_date && !isNaN(free_days)) {
+                let returnDate = new Date(empty_return);
+                let arrivalDate = new Date(arrival_date);
+
+                let freePeriodEnd = new Date(arrivalDate);
+                freePeriodEnd.setDate(freePeriodEnd.getDate() + free_days);
+
+                let diffInMs = returnDate - freePeriodEnd;
+                let diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+
+                // diffInDays = diffInDays > 0 ? diffInDays : 0;
+
+                $(".detention_result").text(diffInDays + " day(s)");
+            } else {
+                $(".detention_result").text("");
             }
         }
     </script>

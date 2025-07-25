@@ -89,7 +89,8 @@
                                             <label class="form-label">Container#</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="container_no" type="text" class="form-control container_no" />
+                                            <input name="container_no" type="text" class="form-control container_no"
+                                                value="{{ old('container_no') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +104,8 @@
                                             <select name="size_type" class="form-select select2 size_type">
                                                 <option value="" selected>Select</option>
                                                 @foreach ($equipments as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->code }}</option>
+                                                    <option @if (old('size_type') == $value->id) selected @endif
+                                                        value="{{ $value->id }}">{{ $value->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -116,7 +118,8 @@
                                             <label class="form-label">YOM</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="yom" type="text" class="form-control yom" />
+                                            <input name="yom" type="text" class="form-control yom"
+                                                value="{{ old('yom') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +136,8 @@
                                             <select name="principal" class="form-select select2 principal">
                                                 <option value="" selected>Select</option>
                                                 @foreach ($principals as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->party_name }}</option>
+                                                    <option @if (old('principal') == $value->id) selected @endif
+                                                        value="{{ $value->id }}">{{ $value->party_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -146,8 +150,8 @@
                                             <label class="form-label">Weight Limit</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="weight_limit" type="text"
-                                                class="form-control weight_limit" />
+                                            <input name="weight_limit" type="text" class="form-control weight_limit"
+                                                value="{{ old('weight_limit') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +162,8 @@
                                             <label class="form-label">Top</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="top" type="text" class="form-control top" />
+                                            <input name="top" type="text" class="form-control top"
+                                                value="{{ old('top') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +176,8 @@
                                             <label class="form-label">Right</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="right" type="text" class="form-control right" />
+                                            <input name="right" type="text" class="form-control right"
+                                                value="{{ old('right') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +188,8 @@
                                             <label class="form-label">Left</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="left" type="text" class="form-control left" />
+                                            <input name="left" type="text" class="form-control left"
+                                                value="{{ old('left') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +200,8 @@
                                             <label class="form-label">Front</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="front" type="text" class="form-control front" />
+                                            <input name="front" type="text" class="form-control front"
+                                                value="{{ old('front') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -204,21 +212,33 @@
                                             <label class="form-label">Back</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="back" type="text" class="form-control back" />
+                                            <input name="back" type="text" class="form-control back"
+                                                value="{{ old('back') }}" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-12">
+                            <div class="row align-items-center">
+                                <div class="col-7">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-12">
                                             <label class="form-label">Remarks</label>
                                         </div>
                                         <div class="col-12">
-                                            <textarea name="remarks" rows="4" class="form-control remarks" placeholder=""></textarea>
+                                            <textarea name="remarks" rows="4" class="form-control remarks" placeholder="">{{ old('remarks') }}</textarea>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-5">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1"
+                                            @if (old('show_on_gci')) checked @endif name="show_on_gci"
+                                            id="show_on_gci">
+                                        <label class="form-check-label" for="show_on_gci">
+                                            Show on Global Container Inventory
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -316,6 +336,17 @@
                         }
                     },
                     {
+                        data: "show_on_gci",
+                        title: "Global Container Inventory",
+                        render: function(data, type, full, meta) {
+                            if (data == 1) {
+                                return 'Yes';
+                            } else {
+                                return 'No';
+                            }
+                        }
+                    },
+                    {
                         data: "weight_limit",
                         title: "Weight Limit",
                     },
@@ -342,8 +373,7 @@
                     {
                         data: "remarks",
                         title: "Remarks",
-                    },
-
+                    }
                 ],
                 rowCallback: function(row, data) {
                     $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`);
@@ -366,6 +396,7 @@
                 $(".front").val(data.front);
                 $(".back").val(data.back);
                 $(".remarks").val(data.remarks);
+                $("#show_on_gci").prop('checked', data.show_on_gci === 1);
                 $("#myForm").attr("action", "{{ route('admin.ctrk.update') }}");
                 $("input[name=id]").val(data.id);
             }

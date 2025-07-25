@@ -20,8 +20,21 @@ use Yajra\DataTables\Facades\DataTables;
 
 class VesselController extends Controller
 {
+    protected $permissions;
+    protected $name;
+    protected $nav_id;
+
+    public function __construct()
+    {
+        $this->name = "Vessel";
+        $this->nav_id = 7;
+    }
+
     public function index(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $data['seo_title']      = "Vessel";
         $data['seo_desc']       = "Vessel";
         $data['seo_keywords']   = "Vessel";
@@ -40,6 +53,9 @@ class VesselController extends Controller
 
     public function create(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         if ($request->ajax()) {
             $query = Vessel::Query();
             $query = $query->orderby('id', 'asc')->get();
@@ -73,6 +89,9 @@ class VesselController extends Controller
 
     public function delete($id)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('delete', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $developer = Vessel::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Vessel Deleted Successfully.'];
@@ -81,6 +100,9 @@ class VesselController extends Controller
 
     public function store(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('add', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $validated = $request->validate([
             'vessel_code' => 'required',
             'vessel_name' => ['required', 'string', 'max:255', 'unique:vessels'],
@@ -96,6 +118,9 @@ class VesselController extends Controller
 
     public function update(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('edit', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $validated = $request->validate([
             'vessel_code' => 'required',
             'vessel_name' => 'required',

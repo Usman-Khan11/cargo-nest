@@ -6,11 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ctrk;
 use App\Models\Equipment;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\AdminNotification;
 use App\Models\PartyBasicInfo;
 use Image;
 use Validator;
@@ -21,8 +16,21 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CtrkController extends Controller
 {
+    protected $permissions;
+    protected $name;
+    protected $nav_id;
+
+    public function __construct()
+    {
+        $this->name = "Ctrk Container";
+        $this->nav_id = 6;
+    }
+
     public function create(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         if ($request->ajax()) {
             $query = ctrk::with(['sizetype', 'principals']);
             $query = $query->orderby('id', 'asc')->get();
@@ -50,6 +58,9 @@ class CtrkController extends Controller
 
     public function delete($id)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('delete', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $developer = Ctrk::where("id", $id);
         $developer->delete();
         $notify[] = ['success', 'Ctrk Container Deleted Successfully.'];
@@ -58,6 +69,9 @@ class CtrkController extends Controller
 
     public function store(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('add', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $request->validate([
             'container_no' => ['required', 'string', 'max:150', 'unique:ctrk'],
             'size_type'    => ['required', 'exists:equipment,id'],
@@ -74,6 +88,7 @@ class CtrkController extends Controller
 
         $ctrk = new Ctrk();
         $ctrk->fill($request->all());
+        $ctrk->show_on_gci = $request->show_on_gci ?? 0;
         $ctrk->save();
 
         $notify[] = ['success', 'Ctrk Container Added Successfully.'];
@@ -82,6 +97,9 @@ class CtrkController extends Controller
 
     public function update(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('edit', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $request->validate([
             'container_no' => [
                 'required',
@@ -103,6 +121,7 @@ class CtrkController extends Controller
 
         $ctrk = Ctrk::where("id", $request->id)->first();
         $ctrk->fill($request->all());
+        $ctrk->show_on_gci = $request->show_on_gci ?? 0;
         $ctrk->save();
 
         $notify[] = ['success', 'Ctrk Container Updated Successfully.'];

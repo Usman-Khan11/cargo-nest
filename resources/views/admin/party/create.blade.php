@@ -1498,7 +1498,7 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Party listing</h1>
@@ -1506,30 +1506,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive w-100">
-                        <table class="table table-bordered table-sm quotation_record">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <table class="table table-bordered table-sm quotation_record"></table>
                     </div>
                 </div>
             </div>
@@ -1596,7 +1573,7 @@
                     style: "api",
                 },
                 processing: true,
-                searching: false,
+                searching: true,
                 serverSide: true,
                 lengthChange: false,
                 pageLength: 10,
@@ -1612,12 +1589,13 @@
                     },
                     {
                         data: "party_name",
-                        title: "Name",
+                        title: "Party Name",
+                        class: 'text-nowrap',
                     },
-                    {
-                        data: "short_name",
-                        title: "Short Name",
-                    },
+                    // {
+                    //     data: "short_name",
+                    //     title: "Short Name",
+                    // },
                     {
                         data: "reg_date",
                         title: "Registration Date",
@@ -1625,6 +1603,7 @@
                     {
                         data: "city",
                         title: "City",
+                        class: 'text-nowrap',
                         "render": function(data, type, full, meta) {
                             if (full.city) {
                                 return full.city.location;
@@ -1633,14 +1612,14 @@
                             }
                         }
                     },
-                    {
-                        data: "operation_check",
-                        title: "OperationType",
-                    },
-                    {
-                        data: "Type",
-                        title: "Type",
-                    },
+                    // {
+                    //     data: "operation_check",
+                    //     title: "OperationType",
+                    // },
+                    // {
+                    //     data: "Type",
+                    //     title: "Type",
+                    // },
                 ],
                 rowCallback: function(row, data) {
                     $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`);
