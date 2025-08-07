@@ -74,9 +74,21 @@ class RoleController extends Controller
 
         if ($request->ajax()) {
             if (isset($request->permArr)) {
-                NavPermission::where('role_id', $request->role_id)->delete();
+                // NavPermission::where('role_id', $request->role_id)->delete();
+
                 foreach ($request->permArr as $key => $value) {
-                    $nav_permission = new NavPermission();
+                    if ($key == 0) {
+                        NavPermission::where('role_id', $value['role_id'])
+                            ->where('nav_id', $value['nav_id'])
+                            ->delete();
+                    }
+
+                    $nav_permission = NavPermission::where('role_id', $value['role_id'])
+                        ->where('nav_id', $value['nav_id'])
+                        ->where('nav_key_id', $value['key_id'])
+                        ->first() ?? new NavPermission();
+
+                    // $nav_permission = new NavPermission();
                     $nav_permission->role_id = $value['role_id'];
                     $nav_permission->nav_id = $value['nav_id'];
                     $nav_permission->nav_key_id = $value['key_id'];

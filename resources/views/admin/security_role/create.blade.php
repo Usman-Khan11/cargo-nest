@@ -303,7 +303,7 @@
 
             if (perm.length <= 0) {
                 iziToast.error({
-                    message: 'Please selct at least one permission',
+                    message: 'Please select at least one permission',
                     position: "topRight"
                 });
 
