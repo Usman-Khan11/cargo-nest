@@ -3,7 +3,7 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="formReset('/admin/nav/store')">
+            <div class="plus" onclick="navFormReset('/admin/nav/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
@@ -80,64 +80,122 @@
                         </div>
                         <div class="card-body">
                             <input name="id" type="hidden" value="0" />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Name:</label>
-                                        <input name="name" type="text" class="form-control name"
-                                            value="{{ old('name') }}" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Slug:</label>
-                                        <input name="slug" type="text" class="form-control slug"
-                                            value="{{ old('slug') }}" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Parent:</label>
-                                        <select name="parent" class="form-select parent">
-                                            <option @if (old('parent') == 'general_ledger') selected @endif
-                                                value="general_ledger">General Ledger</option>
-                                            <option @if (old('parent') == 'sea_export') selected @endif value="sea_export">Sea
-                                                Export</option>
-                                            <option @if (old('parent') == 'sea_import') selected @endif value="sea_import">Sea
-                                                Import</option>
-                                            <option @if (old('parent') == 'container_inventary') selected @endif
-                                                value="container_inventary">Container Inventary</option>
-                                            <option @if (old('parent') == 'principal_account') selected @endif
-                                                value="principal_account">Principal Account</option>
-                                            <option @if (old('parent') == 'crm') selected @endif value="crm">CRM
-                                            </option>
-                                            <option @if (old('parent') == 'depo') selected @endif value="depo">Depo
-                                            </option>
-                                            <option @if (old('parent') == 'edi') selected @endif value="edi">Edi
-                                            </option>
-                                            <option @if (old('parent') == 'utilities') selected @endif value="utilities">
-                                                Utilities</option>
-                                            <option @if (old('parent') == 'payroll') selected @endif value="payroll">
-                                                Payroll</option>
-                                            <option @if (old('parent') == 'setups') selected @endif value="setups">
-                                                Setups</option>
-                                            <option @if (old('parent') == 'common') selected @endif value="common">
-                                                Common</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-2 input_flex">
-                                        <label class="form-label">Type:</label>
-                                        <select name="type" class="form-select type">
-                                            <option @if (old('type') == 'form') selected @endif value="form">Form
-                                            </option>
-                                            <option @if (old('type') == 'report') selected @endif value="report">
-                                                Report</option>
-                                        </select>
-                                    </div>
-                                </div>
 
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-1">
+                                            <label class="form-label w-100 m-0">Name</label>
+                                        </div>
+                                        <div class="col-11">
+                                            <input name="name" type="text" class="form-control name"
+                                                value="{{ old('name') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-1">
+                                            <label class="form-label w-100 m-0">Key</label>
+                                        </div>
+                                        <div class="col-11">
+                                            <input name="key" type="text" class="form-control key"
+                                                value="{{ old('key') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-1">
+                                            <label class="form-label w-100 m-0">Slug</label>
+                                        </div>
+                                        <div class="col-11">
+                                            <input name="slug" type="text" class="form-control slug"
+                                                value="{{ old('slug') }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-1">
+                                            <label class="form-label w-100 m-0">Parent</label>
+                                        </div>
+                                        <div class="col-11">
+                                            <select name="parent" class="form-select parent">
+                                                @foreach ($parents as $key => $parent)
+                                                    <option @if (old('parent') == $key) selected @endif
+                                                        value="{{ $key }}">{{ $parent }}</option>
+                                                @endforeach
+
+                                                {{-- <option @if (old('parent') == 'general_ledger') selected @endif
+                                                    value="general_ledger">General Ledger</option>
+                                                <option @if (old('parent') == 'sea_export') selected @endif
+                                                    value="sea_export">
+                                                    Sea
+                                                    Export</option>
+                                                <option @if (old('parent') == 'sea_import') selected @endif
+                                                    value="sea_import">
+                                                    Sea
+                                                    Import</option>
+                                                <option @if (old('parent') == 'container_inventary') selected @endif
+                                                    value="container_inventary">Container Inventary</option>
+                                                <option @if (old('parent') == 'principal_account') selected @endif
+                                                    value="principal_account">Principal Account</option>
+                                                <option @if (old('parent') == 'crm') selected @endif value="crm">
+                                                    CRM
+                                                </option>
+                                                <option @if (old('parent') == 'depo') selected @endif value="depo">
+                                                    Depo
+                                                </option>
+                                                <option @if (old('parent') == 'edi') selected @endif value="edi">
+                                                    Edi
+                                                </option>
+                                                <option @if (old('parent') == 'utilities') selected @endif
+                                                    value="utilities">
+                                                    Utilities</option>
+                                                <option @if (old('parent') == 'payroll') selected @endif value="payroll">
+                                                    Payroll</option>
+                                                <option @if (old('parent') == 'setups') selected @endif value="setups">
+                                                    Setups</option>
+                                                <option @if (old('parent') == 'common') selected @endif value="common">
+                                                    Common</option> --}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-1">
+                                            <label class="form-label w-100 m-0">Type</label>
+                                        </div>
+                                        <div class="col-11">
+                                            <select name="type" class="form-select type">
+                                                <option @if (old('type') == 'form') selected @endif value="form">
+                                                    Form
+                                                </option>
+                                                <option @if (old('type') == 'report') selected @endif value="report">
+                                                    Report</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="row">
                                 <div class="col-12">
                                     <h4 class="mb-0">Nav Keys</h4>
                                     <table class="datatables-basic table">
@@ -191,8 +249,8 @@
         function edit_row(e, data) {
             data = JSON.parse(data);
             if (data) {
-                console.log(data)
                 $(".name").val(data.name);
+                $(".key").val(data.key);
                 $(".slug").val(data.slug);
                 $(".parent").val(data.parent).trigger('change');
                 $(".type").val(data.type).trigger('change');
@@ -274,6 +332,14 @@
         function delRow(e) {
             if ($(".detail_repeater tr").length <= 1) return;
             $(e).parent().parent().remove();
+        }
+
+        function navFormReset(route) {
+            document.getElementById('myForm').reset();
+            $("#myForm").attr('action', route);
+            $("#myForm").find("select option:first").attr("selected", true);
+            $("#myForm").find("select").trigger("change");
+            $("#myForm detail_repeater").find("input").val('');
         }
     </script>
 @endpush

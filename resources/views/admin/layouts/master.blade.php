@@ -247,7 +247,7 @@
                     return;
                 }
 
-                if (name == "Logout") {
+                if (name == "Logout" || name == "Dashboard") {
                     localStorage.setItem("openedWindows", JSON.stringify({}));
                     window.location.assign(url)
                     return;
@@ -324,6 +324,33 @@
                     }
                 }, 100);
             });
+
+            $(".menu-inner a").each(function() {
+                if ($.trim($(this).text()) == '') {
+                    $(this).remove();
+                }
+            });
+
+            $(".menu-inner .menu-sub").each(function() {
+                if ($.trim($(this).text()) == '' || $.trim($(this).html()) == '') {
+                    console.log($(this))
+                    $(this).parent().remove();
+                }
+            });
+
+            $(".menu-inner li").each(function() {
+                if ($.trim($(this).text()) == '') {
+                    $(this).remove();
+                }
+            });
+
+            setTimeout(() => {
+                $(".menu-inner .menu-sub").each(function() {
+                    if ($.trim($(this).text()) == '' || $.trim($(this).html()) == '') {
+                        $(this).parent().remove();
+                    }
+                });
+            }, 10);
         })
 
         function addTabList(id, name) {

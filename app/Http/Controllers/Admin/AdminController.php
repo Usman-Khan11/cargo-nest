@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\AdminNotification;
+use App\Services\NavService;
 use Image;
 
 class AdminController extends Controller
@@ -20,6 +21,8 @@ class AdminController extends Controller
 
     public function dashboard()
     {
+        // $nav = new NavService();
+        // return $nav->get_nav();
         $data['seo_title']      = "Dashboard";
         $data['seo_desc']       = "Dashboard";
         $data['seo_keywords']   = "Dashboard";
@@ -90,20 +93,23 @@ class AdminController extends Controller
     }
 
 
-    public function notifications(){
-        $notifications = AdminNotification::orderBy('id','desc')->paginate(getPaginate());
+    public function notifications()
+    {
+        $notifications = AdminNotification::orderBy('id', 'desc')->paginate(getPaginate());
         $page_title = 'Notifications';
-        return view('admin.notifications',compact('page_title','notifications'));
+        return view('admin.notifications', compact('page_title', 'notifications'));
     }
 
-    public function notificationRead($id){
+    public function notificationRead($id)
+    {
         $notification = AdminNotification::findOrFail($id);
         $notification->read_status = 1;
         $notification->save();
         return redirect($notification->click_url);
     }
-    
-    public function generalSetting(){
+
+    public function generalSetting()
+    {
         $data['seo_title']      = "General Setting";
         $data['seo_desc']       = "General Setting";
         $data['seo_keywords']   = "General Setting";
@@ -111,8 +117,9 @@ class AdminController extends Controller
         $data['generalSetting'] = GeneralSetting::first();
         return view('admin.general_setting', $data);
     }
-    
-    public function saveGeneralSetting(Request $request){
+
+    public function saveGeneralSetting(Request $request)
+    {
         $generalSetting = GeneralSetting::first();
         $generalSetting->sitename = $request->sitename;
         $generalSetting->footer_desc = $request->footer_desc;
@@ -132,17 +139,16 @@ class AdminController extends Controller
         $generalSetting->meta_keywords = $request->meta_keywords;
         $generalSetting->meta_desc = $request->meta_desc;
 
-        if ($request->hasFile('logo')) 
-        {
+        if ($request->hasFile('logo')) {
             $files = $request->file('logo');
             $filename = 'logo.' . $files->getClientOriginalExtension();
             $directory = 'assets/img/logo/';
             $path = $files->move($directory, $filename);
             $generalSetting->logo = $filename;
         }
-        
+
         $generalSetting->save();
-        
+
         $notify[] = ['success', 'Setting Updated Successfully.'];
         return redirect()->route('admin.general_setting')->withNotify($notify);
     }
