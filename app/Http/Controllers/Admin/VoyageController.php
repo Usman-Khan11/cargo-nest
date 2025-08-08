@@ -97,7 +97,7 @@ class VoyageController extends Controller
 
         $request->validate([
             'vessel' => 'required',
-            'voy' => ['required', 'string', 'max:255', 'unique:voyages'],
+            'voy' => ['required', 'string', 'max:255'],
         ]);
 
         try {
