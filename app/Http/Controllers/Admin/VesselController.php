@@ -27,7 +27,7 @@ class VesselController extends Controller
     public function __construct()
     {
         $this->name = "Vessel";
-        $this->nav_id = 7;
+        $this->nav_id = 'vessel';
     }
 
     public function index(Request $request)

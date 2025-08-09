@@ -23,7 +23,7 @@ class CtrkController extends Controller
     public function __construct()
     {
         $this->name = "Ctrk Container";
-        $this->nav_id = 6;
+        $this->nav_id = 'ctrk_container';
     }
 
     public function create(Request $request)

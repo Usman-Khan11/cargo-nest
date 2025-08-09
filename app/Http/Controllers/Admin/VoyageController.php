@@ -30,7 +30,7 @@ class VoyageController extends Controller
     public function __construct()
     {
         $this->name = "Voyage";
-        $this->nav_id = 8;
+        $this->nav_id = 'voyage';
     }
 
     public function create(Request $request)

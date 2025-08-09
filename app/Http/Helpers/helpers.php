@@ -815,10 +815,10 @@ function checkPermissions($action, $nav_id, $role_id, $user_id)
         return;
     }
 
-    $permission = \App\Models\NavPermission::with('nav_key', 'nav')
+    $permission = \App\Models\NavPermission::with(['nav_key', 'nav'])
         ->where('role_id', $role_id)
         ->whereHas('nav', function ($query) use ($nav_id) {
-            $query->where('key', $nav_id);
+            $query->where('key', '=', $nav_id);
         })
         ->get();
 
