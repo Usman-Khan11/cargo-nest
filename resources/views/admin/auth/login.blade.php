@@ -68,21 +68,24 @@
                                         @enderror
                                     </div>
 
-                                    <div class="mb-2">
-                                        <label for="email" class="form-label">{{ __('App Instance') }}</label>
-                                        <select name="company" class="form-select @error('company') is-invalid @enderror">
-                                            {{-- <option value="">Select</option> --}}
-                                            @foreach ($companies as $company)
-                                                <option value="{{ $company->id }}">@php echo $company->displayName; @endphp</option>
-                                            @endforeach
-                                        </select>
-
-                                        @error('company')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    @if (0 == 1)
+                                        <div class="mb-2">
+                                            <label for="email" class="form-label">{{ __('App Instance') }}</label>
+                                            <select name="company"
+                                                class="form-select @error('company') is-invalid @enderror">
+                                                @foreach ($companies as $company)
+                                                    <option value="{{ $company->id }}">@php echo $company->displayName; @endphp</option>
+                                                @endforeach
+                                            </select>
+                                            @error('company')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    @else
+                                        <input type="hidden" name="company" value="{{ $sub_company->id }}">
+                                    @endif
 
                                     <button class="btn btn-primary w-100" type="submit"
                                         tabindex="4">{{ __('Sign In') }}</button>

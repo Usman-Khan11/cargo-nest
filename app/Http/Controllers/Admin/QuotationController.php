@@ -46,7 +46,7 @@ class QuotationController extends Controller
     public function __construct()
     {
         $this->name = "Quotation";
-        $this->nav_id = 1;
+        $this->nav_id = 'se_quotation';
     }
 
     // protected function checkPermissions($action)
@@ -326,6 +326,7 @@ class QuotationController extends Controller
             $quotation->created_by = Auth::guard('admin')->user()->id;
             $quotation->fill($request->all());
             $quotation->quotation_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
+            $quotation->sub_company_id = $user_info['company_id'];
             $quotation->save();
 
             // save quotation routing 
@@ -512,7 +513,7 @@ class QuotationController extends Controller
             "jobs" => null
         ];
 
-        $data = Quotation::Query();
+        $data = Quotation::where('sub_company_id', $user_info['company_id']);
 
         if ($type == "first") {
             $data = $data->orderBy('id', 'asc');
@@ -566,57 +567,57 @@ class QuotationController extends Controller
 
         return $arr;
 
-        if ($type == "first") {
-            $arr["quotation"] = Quotation::with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
-                ->orderBy('id', 'asc')
-                ->first();
+        // if ($type == "first") {
+        //     $arr["quotation"] = Quotation::with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+        //         ->orderBy('id', 'asc')
+        //         ->first();
 
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
-                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
-                ->first();
+        //     $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+        //         ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+        //         ->first();
 
-            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
-            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
-            $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
-        } elseif ($type == "last") {
-            $arr["quotation"] = Quotation::with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
-                ->orderBy('id', 'desc')
-                ->first();
+        //     $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+        //     $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        //     $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
+        // } elseif ($type == "last") {
+        //     $arr["quotation"] = Quotation::with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+        //         ->orderBy('id', 'desc')
+        //         ->first();
 
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
-                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
-                ->first();
+        //     $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+        //         ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+        //         ->first();
 
-            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
-            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
-            $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
-        } elseif ($type == "forward") {
-            $arr["quotation"] = Quotation::where('id', '>', $id)
-                ->with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
-                ->first();
+        //     $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+        //     $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        //     $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
+        // } elseif ($type == "forward") {
+        //     $arr["quotation"] = Quotation::where('id', '>', $id)
+        //         ->with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+        //         ->first();
 
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
-                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
-                ->first();
+        //     $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+        //         ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+        //         ->first();
 
-            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
-            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
-            $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
-        } elseif ($type == "backward") {
-            $arr["quotation"] = Quotation::where('id', '<', $id)
-                ->with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
-                ->orderBy('id', 'desc')
-                ->first();
+        //     $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+        //     $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        //     $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
+        // } elseif ($type == "backward") {
+        //     $arr["quotation"] = Quotation::where('id', '<', $id)
+        //         ->with('clients', 'sales_rep', 'units', 'commodities', 'incoterms', 'vessels', 'voyages', 'currencies', 'created_by', 'last_updated_by', 'approved_by')
+        //         ->orderBy('id', 'desc')
+        //         ->first();
 
-            $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
-                ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
-                ->first();
+        //     $arr["quotation_routing"] = QuotationRouting::where('quotation_id', $arr["quotation"]->id)
+        //         ->with('vendors', 'overseas_agent', 'sline_carriers', 'principals', 'terminals', 'shippers', 'consignees', 'custom_clearance', 'place_of_receipt', 'port_of_loading', 'port_of_discharge', 'final_destination')
+        //         ->first();
 
-            $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
-            $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
-            $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
-        }
+        //     $arr["quotation_detail"] = QuotationDetail::where('quotation_id', $arr["quotation"]->id)->get();
+        //     $arr["quotation_equipment"] = QuotationEquipment::where('quotation_id', $arr["quotation"]->id)->first();
+        //     $arr["jobs"] = Job::where('quotation', $arr["quotation"]->quotation_no)->get();
+        // }
 
-        return $arr;
+        // return $arr;
     }
 }

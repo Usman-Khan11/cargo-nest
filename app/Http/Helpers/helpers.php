@@ -809,13 +809,38 @@ function Get_Permission($nav_id, $role_id)
 
 function checkPermissions($action, $nav_id, $role_id, $user_id)
 {
+    $arr = [];
+
     if ($user_id == 1) {
         return;
     }
 
-    $permission = Get_Permission($nav_id, $role_id);
+    $permission = \App\Models\NavPermission::with('nav_key', 'nav')
+        ->where('role_id', $role_id)
+        ->whereHas('nav', function ($query) use ($nav_id) {
+            $query->where('key', $nav_id);
+        })
+        ->get();
 
-    if (!in_array($action, $permission)) {
+    foreach ($permission as $key => $value) {
+        if ($value->nav_key) {
+            $arr[] = $value->nav_key->value;
+        }
+    }
+
+    // $permission = Get_Permission($nav_id, $role_id);
+
+    if (!in_array($action, $arr)) {
         abort(403, 'Unauthorized action.');
     }
+}
+
+function domains()
+{
+    return [
+        "127.0.0.1:8000" => "4",
+        "tst.cargonst.com" => "4",
+        "mwwl.cargonst.com" => "0",
+        "mdn.cargonst.com" => "5",
+    ];
 }

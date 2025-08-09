@@ -23,11 +23,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CroController extends Controller
 {
+    protected $permissions;
     protected $name;
+    protected $nav_id;
 
     public function __construct()
     {
         $this->name = "CRO";
+        $this->nav_id = 'cro';
     }
 
     public function create(Request $request)
@@ -35,7 +38,7 @@ class CroController extends Controller
         $user_info = session()->get('user_info');
 
         if ($request->ajax()) {
-            $query = Cro::Query();
+            $query = Cro::where('sub_company_id', $user_info['company_id']);
             $query = $query->orderby('id', 'asc')->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
@@ -80,6 +83,7 @@ class CroController extends Controller
         $user_info = session()->get('user_info');
 
         $cro = new Cro();
+        $cro->sub_company_id = $user_info['company_id'];
         $cro->cro_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
         $cro->cro_type = $request->cro_type;
         $cro->job_number = $request->job_number;
@@ -213,9 +217,11 @@ class CroController extends Controller
 
     public function get_data(Request $request)
     {
+        $user_info = session()->get('user_info');
+
         $id = $request->id;
         $type = $request->type;
-        $data = Cro::Query();
+        $data = Cro::where('sub_company_id', $user_info['company_id']);
 
         if ($type == "first") {
             $data = $data->orderBy('id', 'asc');

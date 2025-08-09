@@ -45,6 +45,18 @@ class LoginController extends Controller
     }
     public function showLoginForm()
     {
+        $domains = domains();
+        $host = $_SERVER['HTTP_HOST'];
+        $sub_company_id = $domains[$host];
+        $company = SubCompany::where('id', $sub_company_id)->first();
+
+        if (!$company) {
+            abort(403, 'Unauthorized action.');
+            return;
+        } else {
+            $data['sub_company'] = $company;
+        }
+
         $data['seo_title']      = "Admin Sign In";
         $data['seo_desc']       = "Admin Sign In";
         $data['seo_keywords']   = "Admin Sign In";
@@ -72,8 +84,8 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-        Session::put('admin_username', $request->username);
-        Session::put('admin_name', $request->name);
+        session()->put('admin_username', $request->username);
+        session()->put('admin_name', $request->name);
 
         $request->validate([
             'company' => 'required|integer|exists:sub_company,id',

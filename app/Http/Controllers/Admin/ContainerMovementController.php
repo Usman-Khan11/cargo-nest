@@ -18,7 +18,7 @@ class ContainerMovementController extends Controller
     public function __construct()
     {
         $this->name = "Global Container Inventory";
-        $this->nav_id = 5;
+        $this->nav_id = 'container_movement';
     }
 
     public function create(Request $request)
@@ -40,7 +40,7 @@ class ContainerMovementController extends Controller
                 'vessel',
                 'voyage',
                 'created_by_user'
-            ]);
+            ])->where('sub_company_id', $user_info['company_id']);
             $query = $query->latest()->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
@@ -84,6 +84,7 @@ class ContainerMovementController extends Controller
 
         $container_movement = new ContainerMovement();
         $container_movement->fill($request->all());
+        $container_movement->sub_company_id = $user_info['company_id'];
         $container_movement->save();
 
         $notify[] = ['success', 'Global Container Inventory Added Successfully.'];
@@ -125,6 +126,9 @@ class ContainerMovementController extends Controller
 
     public function get_data(Request $request)
     {
+        $user_info = session()->get('user_info');
+        checkPermissions('view', $this->nav_id, $user_info['role_id'], $user_info['user_id']);
+
         $id = $request->id;
         $type = $request->type;
         $data = ContainerMovement::with([
@@ -135,7 +139,7 @@ class ContainerMovementController extends Controller
             'vessel',
             'voyage',
             'created_by_user'
-        ]);
+        ])->where('sub_company_id', $user_info['company_id']);
 
         if ($type == "first") {
             $data = $data->orderBy('id', 'asc');
