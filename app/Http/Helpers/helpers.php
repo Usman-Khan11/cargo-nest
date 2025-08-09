@@ -840,7 +840,7 @@ function domains()
     return [
         "127.0.0.1:8000" => "4",
         "tst.cargonst.com" => "4",
-        "mwwl.cargonst.com" => "0",
+        "mwwl.cargonst.com" => "4",
         "mdn.cargonst.com" => "5",
     ];
 }
