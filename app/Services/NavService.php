@@ -45,7 +45,7 @@ class NavService
                     "chart_of_account" => "Chart of Account",
                     "voucher_properties" => "Voucher Properties",
                     "opening_balance" => "Opening Balance",
-                    "account_integration" => "Account Integration"
+                    "account_integrate" => "Account Integration"
                 ],
                 "Transaction" => [
                     "voucher" => "Voucher",

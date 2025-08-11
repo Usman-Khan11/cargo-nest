@@ -3,13 +3,13 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="formReset('/admin/voucher/store')">
+            <div class="plus" onclick="voucherFormReset('/admin/voucher/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
                 <i class="fa fa-save" id="submitButton" title="Save"></i>
             </div>
-            <div class="xmark">
+            <div class="xmark" onclick="deleteData('/admin/voucher/delete')">
                 <i class="fa fa-circle-xmark" title="Delete"></i>
             </div>
             <div class="refresh">
@@ -89,8 +89,8 @@
                                             <label class="form-label">Voucher No</label>
                                         </div>
                                         <div class="col-8">
-                                            <input type ="number" class="form-control voucher_no" name="voucher_no"
-                                                value="{{ old('voucher_no') }}">
+                                            <input type ="text" class="form-control voucher_no" name="voucher_no"
+                                                value="{{ old('voucher_no', $voucher_no) }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -265,8 +265,10 @@
                                 </div>
 
                                 <div class="col-2">
-                                    <button class="btn btn-primary btn-sm">Upload</button>
-                                    <button class="btn btn-primary btn-sm">Continue</button>
+                                    <button type="button" class="btn btn-primary btn-sm">Upload</button>
+                                    <button type="button" class="btn btn-primary btn-sm">Continue</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#listModal">Show List</button>
                                 </div>
                             </div>
                         </div>
@@ -289,14 +291,14 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel"
                                     aria-labelledby="home-tab">
-                                    <div class="card-datatable table-responsive pt-0">
-                                        <table class="datatables-basic table" style="width: 135%;">
+                                    <div class="">
+                                        <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>--</th>
-                                                    <th>--</th>
-                                                    <th>Account Code</th>
-                                                    <th>Particular</th>
+                                                    <th width="4%">--</th>
+                                                    <th width="4%">--</th>
+                                                    {{-- <th>Account Code</th> --}}
+                                                    <th width="25%">Particular</th>
                                                     <th>Cost Center</th>
                                                     <th>Debit(VC)</th>
                                                     <th>Credit(VC)</th>
@@ -306,26 +308,58 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="detail_repeater">
-                                                <td><i onclick="delRow(this)"
-                                                        class="fa fa-circle-xmark fa-lg text-danger"></i></td>
-                                                <td><i onclick="addNewRow(this)" class="fa fa-print fa-lg text-info"></i>
-                                                </td>
-                                                <td><input name="" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
-                                                <td><input name="d_code" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
-                                                <td><input name="d_name" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
-                                                <td><input name="d_anticipated" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
-                                                <td><input name="d_done" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
-                                                <td><input name="d_date" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
-                                                <td><input name="d_remarks" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
-                                                <td><input name="d_action" class="form-control" type="text"
-                                                        style="width: 100%;" /></td>
+                                                <tr>
+                                                    <input type="hidden" name="detail_id" value="0">
+                                                    <td>
+                                                        <i onclick="delRow(this)"
+                                                            class="fa fa-circle-xmark fa-lg text-danger"></i>
+                                                    </td>
+                                                    <td>
+                                                        <i onclick="addNewRow(this)"
+                                                            class="fa fa-print fa-lg text-info"></i>
+                                                    </td>
+                                                    <td>
+                                                        <select name="detail_acc_code[]"
+                                                            class="form-select select2 detail_acc_code">
+                                                            <option value=""></option>
+                                                            @foreach ($chart_accounts as $chart_account)
+                                                                <option value="{{ $chart_account->id }}">
+                                                                    {{ $chart_account->acc_code }} -
+                                                                    {{ $chart_account->title }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    {{-- <td>
+                                                        <input name="detail_acc_name[]"
+                                                            class="form-control detail_acc_name" type="text" />
+                                                    </td> --}}
+                                                    <td>
+                                                        <input name="detail_cost_center[]"
+                                                            class="form-control detail_cost_center" type="text" />
+                                                    </td>
+                                                    <td>
+                                                        <input name="detail_debit_vc[]"
+                                                            class="form-control detail_debit_vc" type="text"
+                                                            onkeyup="detail_calculation()" />
+                                                    </td>
+                                                    <td>
+                                                        <input name="detail_credit_vc[]"
+                                                            class="form-control detail_credit_vc" type="text"
+                                                            onkeyup="detail_calculation()" />
+                                                    </td>
+                                                    <td>
+                                                        <input name="detail_debit_lc[]"
+                                                            class="form-control detail_debit_lc" type="text" />
+                                                    </td>
+                                                    <td>
+                                                        <input name="detail_credit_lc[]"
+                                                            class="form-control detail_credit_lc" type="text" />
+                                                    </td>
+                                                    <td>
+                                                        <input name="detail_narration[]"
+                                                            class="form-control detail_narration" type="text" />
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -475,6 +509,20 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Voucher List</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-sm quotation_record"></table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -566,7 +614,107 @@
                 $("#myForm").attr("action", "{{ route('admin.voucher.update') }}")
                 $("input[name=id]").val(data.id);
             }
+        }
 
+        var datatable = $(".quotation_record").DataTable({
+            select: {
+                style: "api",
+            },
+            processing: true,
+            searching: true,
+            serverSide: true,
+            lengthChange: true,
+            pageLength: 10,
+            scrollY: 400,
+            // scrollX: 100,
+            autoWidth: true,
+            ajax: {
+                url: "/admin/voucher/create",
+                type: "get",
+                data: function(d) {},
+            },
+            columns: [{
+                    data: "voucher_no",
+                    title: "Voucher No",
+                },
+                {
+                    data: "date",
+                    title: "Date",
+                },
+                {
+                    data: "company.name",
+                    title: "Company",
+                    render: function(data, type, full, meta) {
+                        if (full.company) {
+                            return full.company.name;
+                        } else {
+                            return '-';
+                        }
+                    }
+                },
+                {
+                    data: "debit",
+                    title: "Debit",
+                },
+                {
+                    data: "credit",
+                    title: "Credit",
+                },
+                {
+                    data: "net_amount",
+                    title: "Net Amount",
+                },
+            ],
+            rowCallback: function(row, data) {
+                data = {
+                    quotation: data,
+                };
+                $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`);
+                $(row).attr("data-bs-dismiss", "modal");
+            },
+        });
+
+        $('#listModal').on('shown.bs.modal', function(e) {
+            datatable.ajax.reload();
+        })
+
+        function voucherFormReset(route) {
+            document.getElementById("myForm").reset();
+            $("#myForm").attr("action", route);
+            $("#myForm").find(".search_select2").val(null).trigger("change");
+            $("#myForm").find("select").trigger("change");
+        }
+
+        function addNewRow(e) {
+            $("select.detail_acc_code").select2(
+                "destroy"
+            );
+            $(e).parent().parent().clone().appendTo(".detail_repeater");
+            initializeSelect2([
+                "select.detail_acc_code"
+            ]);
+            $(".detail_repeater tr:last").find("input").val(null);
+        }
+
+        function delRow(e) {
+            if ($(".detail_repeater tr").length <= 1) {
+                $(".detail_repeater tr:last").find("input").val(null);
+                return;
+            }
+            $(e).parent().parent().remove();
+        }
+
+        function detail_calculation() {
+            let debit_vc_total = 0;
+            let credit_vc_total = 0;
+
+            $(".detail_repeater tr").each(function() {
+                debit_vc_total += Number($(this).find('.detail_debit_vc').val());
+                credit_vc_total += Number($(this).find('.detail_credit_vc').val());
+            })
+
+            $(".debit").val(debit_vc_total);
+            $(".credit").val(credit_vc_total);
         }
     </script>
 @endpush

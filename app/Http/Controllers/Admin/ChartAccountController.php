@@ -182,6 +182,24 @@ class ChartAccountController extends Controller
             }
         }
 
+        if ($length == 7) {
+            $get_childs = ChartAccount::where('parent_acc', $data->id)->latest()->first();
+            if ($get_childs) {
+                $num = $get_childs->acc_code + 1;
+            } else {
+                $num = $data->acc_code . '01';
+            }
+        }
+
+        if ($length == 9) {
+            $get_childs = ChartAccount::where('parent_acc', $data->id)->latest()->first();
+            if ($get_childs) {
+                $num = $get_childs->acc_code + 1;
+            } else {
+                $num = $data->acc_code . '01';
+            }
+        }
+
         return $num;
     }
 
