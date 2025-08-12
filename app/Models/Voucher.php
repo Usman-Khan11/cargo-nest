@@ -20,4 +20,9 @@ class Voucher extends Model
     {
         return $this->belongsTo(Currency::class);
     }
+
+    public function account_details()
+    {
+        return $this->hasMany(VoucherAccountDetail::class);
+    }
 }

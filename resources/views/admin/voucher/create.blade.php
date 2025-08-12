@@ -102,7 +102,7 @@
                                         </div>
                                         <div class="col-9">
                                             <input type="date" class="form-control date" name="date"
-                                                value="{{ old('date') }}">
+                                                value="{{ old('date', date('Y-m-d')) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -126,9 +126,14 @@
                                             <label class="form-label">Company</label>
                                         </div>
                                         <div class="col-9">
-                                            <select name="company_id" class="company_id search_select2"
+                                            {{-- <select name="company_id" class="company_id search_select2"
                                                 data-url="{{ route('admin.sub_company.get_all_data') }}"
-                                                data-type="get_sub_company" data-placeholder="Select Company"></select>
+                                                data-type="get_sub_company" data-placeholder="Select Company"></select> --}}
+
+                                            <select name="company_id" class="company_id select2">
+                                                <option value="{{ $user_info['company_id'] }}">
+                                                    {{ $user_info['company_name'] }}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -179,9 +184,21 @@
                                             <label class="form-label">Currency</label>
                                         </div>
                                         <div class="col-9">
-                                            <select name="currency_id" class="currency_id search_select2"
+                                            {{-- <select name="currency_id" class="currency_id search_select2"
                                                 data-url="{{ route('admin.currency.get_all_data') }}"
-                                                data-type="get_currency" data-placeholder="Select Currency"></select>
+                                                data-type="get_currency" data-placeholder="Select Currency">
+                                                <option value="{{ $user_info['currency_id'] }}">
+                                                    {{ $user_info['currency_code'] }}</option>
+                                            </select> --}}
+
+                                            <select name="currency_id" class="currency_id select2">
+                                                {{-- <option value=""></option> --}}
+                                                @foreach ($currencies as $currency)
+                                                    <option value="{{ $currency->id }}"
+                                                        @if (old('currency_id', $user_info['currency_id']) == $currency->id) selected @endif>
+                                                        {{ $currency->code }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +210,7 @@
                                         </div>
                                         <div class="col-7">
                                             <input type="number" name="exchange_rate" class="form-control exchange_rate"
-                                                value="{{ old('exchange_rate') }}">
+                                                value="{{ old('exchange_rate', '1.0000') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -308,8 +325,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="detail_repeater">
-                                                <tr>
-                                                    <input type="hidden" name="detail_id" value="0">
+                                                @foreach (old('detail_acc_code', ['']) as $index => $desc)
+                                                    @include('admin.voucher.partials.account_details_row', [
+                                                        'index' => $index,
+                                                        'chart_accounts' => $chart_accounts,
+                                                    ])
+                                                @endforeach
+                                                {{-- <tr>
+                                                    <input type="hidden" name="detail_id[]" value="0"
+                                                        class="detail_id">
                                                     <td>
                                                         <i onclick="delRow(this)"
                                                             class="fa fa-circle-xmark fa-lg text-danger"></i>
@@ -329,10 +353,10 @@
                                                             @endforeach
                                                         </select>
                                                     </td>
-                                                    {{-- <td>
+                                                    <td>
                                                         <input name="detail_acc_name[]"
                                                             class="form-control detail_acc_name" type="text" />
-                                                    </td> --}}
+                                                    </td>
                                                     <td>
                                                         <input name="detail_cost_center[]"
                                                             class="form-control detail_cost_center" type="text" />
@@ -359,7 +383,7 @@
                                                         <input name="detail_narration[]"
                                                             class="form-control detail_narration" type="text" />
                                                     </td>
-                                                </tr>
+                                                </tr> --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -574,6 +598,7 @@
 
         function edit_row(e, data) {
             data = JSON.parse(data);
+            console.log(data)
             if (data) {
                 $(".voucher_no").val(data.voucher_no);
                 $(".date").val(data.date);
@@ -597,23 +622,57 @@
                 $(".remark").val(data.remark);
                 $(".drawn_at").val(data.drawn_at);
 
-                if (data.company) {
-                    var option = new Option(data.company.name, data.company.id, true, true);
-                    $(".company_id").append(option).trigger('change');
-                } else {
-                    $(".company_id").val(null).trigger('change');
-                }
+                $(".company_id").val(data.company_id).trigger('change');
+                // if (data.company) {
+                //     var option = new Option(data.company.name, data.company.id, true, true);
+                //     $(".company_id").append(option).trigger('change');
+                // } else {
+                //     $(".company_id").val(null).trigger('change');
+                // }
 
-                if (data.currency) {
-                    var option = new Option(data.currency.code, data.currency.id, true, true);
-                    $(".currency_id").append(option).trigger('change');
-                } else {
-                    $(".currency_id").val(null).trigger('change');
-                }
+                $(".currency_id").val(data.currency.id || 0).trigger('change');
+                // if (data.currency) {
+                //     var option = new Option(data.currency.code, data.currency.id, true, true);
+                //     $(".currency_id").append(option).trigger('change');
+                // } else {
+                //     $(".currency_id").val(null).trigger('change');
+                // }
 
                 $("#myForm").attr("action", "{{ route('admin.voucher.update') }}")
                 $("input[name=id]").val(data.id);
+
+                append_account_details(data.account_details || null);
             }
+        }
+
+        function append_account_details(data) {
+            if (!data) {
+                return;
+            }
+
+            $(".detail_repeater tr:gt(0)").remove();
+
+            if ($('select.detail_acc_code').hasClass('select2-hidden-accessible')) {
+                $('select.detail_acc_code').select2('destroy');
+            }
+
+            $(data).each(function(key, value) {
+                let $newRow = $(".detail_repeater tr:first").clone();
+
+                $newRow.find('.detail_id').val(value.id);
+                $newRow.find('.detail_acc_code').val(value.account_id).trigger('change');
+                $newRow.find('.detail_cost_center').val(value.cost_center);
+                $newRow.find('.detail_debit_vc').val(Number(value.debit_vc).toFixed(2));
+                $newRow.find('.detail_credit_vc').val(Number(value.credit_vc).toFixed(2));
+                $newRow.find('.detail_debit_lc').val(Number(value.debit_lc).toFixed(2));
+                $newRow.find('.detail_credit_lc').val(Number(value.credit_lc).toFixed(2));
+                $newRow.find('.detail_narration').val(value.narration);
+
+                $(".detail_repeater").append($newRow);
+            })
+
+            $(".detail_repeater tr:first").remove();
+            $('select.detail_acc_code').select2();
         }
 
         var datatable = $(".quotation_record").DataTable({
@@ -679,6 +738,7 @@
         })
 
         function voucherFormReset(route) {
+            $(".detail_repeater tr:gt(0)").remove();
             document.getElementById("myForm").reset();
             $("#myForm").attr("action", route);
             $("#myForm").find(".search_select2").val(null).trigger("change");
@@ -704,13 +764,32 @@
             $(e).parent().parent().remove();
         }
 
-        function detail_calculation() {
+        function detail_calculation(e) {
             let debit_vc_total = 0;
             let credit_vc_total = 0;
+            let exchange_rate = Number($(".exchange_rate").val()) || 1;
+            console.log(e)
 
             $(".detail_repeater tr").each(function() {
-                debit_vc_total += Number($(this).find('.detail_debit_vc').val());
-                credit_vc_total += Number($(this).find('.detail_credit_vc').val());
+                let debit_vc = Number($(this).find('.detail_debit_vc').val());
+                let credit_vc = Number($(this).find('.detail_credit_vc').val());
+
+                if (debit_vc > 0 && credit_vc <= 0) {
+                    $(this).find('.detail_debit_lc').val(debit_vc * exchange_rate);
+                } else {
+                    $(this).find('.detail_debit_vc').val('');
+                    $(this).find('.detail_debit_lc').val('');
+                }
+
+                if (credit_vc > 0 && debit_vc <= 0) {
+                    $(this).find('.detail_credit_lc').val(credit_vc * exchange_rate);
+                } else {
+                    $(this).find('.detail_credit_vc').val('');
+                    $(this).find('.detail_credit_lc').val('');
+                }
+
+                debit_vc_total += debit_vc;
+                credit_vc_total += credit_vc;
             })
 
             $(".debit").val(debit_vc_total);

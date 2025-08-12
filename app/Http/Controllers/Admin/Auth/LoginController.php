@@ -110,8 +110,9 @@ class LoginController extends Controller
 
             if ($user && $user->status) {
                 $company_and_role = $user->company_and_role->where('company_id', $request->company)->first();
+                $company = SubCompany::with('currency')->where('id', $request->company)->first();
 
-                if (!$company_and_role) {
+                if (!$company_and_role || !$company) {
                     Auth::guard('admin')->logout();
                     $notify[] = ['error', 'Invalid Access!'];
                     return redirect()->route('admin.login')->withNotify($notify);
@@ -127,6 +128,9 @@ class LoginController extends Controller
                     "company_short_name" => @$company_and_role->company->shortName,
                     "fiscal_year_id" => @$company_and_role->company->fiscal_year->id,
                     "fiscal_year" => @$company_and_role->company->fiscal_year->description,
+                    "currency_id" => $company->currency->id ?? 0,
+                    "currency_name" => $company->currency->name ?? '',
+                    "currency_code" => $company->currency->code ?? '',
                 ]);
             } else {
                 Auth::guard('admin')->logout();
