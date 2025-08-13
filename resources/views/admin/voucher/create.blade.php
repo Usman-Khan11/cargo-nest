@@ -114,7 +114,15 @@
                                         </div>
                                         <div class="col-9">
                                             <select class="form-select type" name="type">
-                                                <option></option>
+                                                <option value=""></option>
+                                                <option value="BPV">BPV</option>
+                                                <option value="BRV">BRV</option>
+                                                <option value="CPV">CPV</option>
+                                                <option value="CR">CR</option>
+                                                <option value="CRV">CRV</option>
+                                                <option value="JV">JV</option>
+                                                <option value="TV">TV</option>
+                                                <option value="TVR">TVR</option>
                                             </select>
                                         </div>
                                     </div>
@@ -598,7 +606,7 @@
 
         function edit_row(e, data) {
             data = JSON.parse(data);
-            console.log(data)
+
             if (data) {
                 $(".voucher_no").val(data.voucher_no);
                 $(".date").val(data.date);

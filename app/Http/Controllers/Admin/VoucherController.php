@@ -71,7 +71,7 @@ class VoucherController extends Controller
         $request->validate([
             'voucher_no'         => 'required|string|max:30',
             'date'              => 'required|date',
-            'type'              => 'nullable|string|max:50',
+            'type'              => 'required|string|max:50',
             'company_id'        => 'required|integer',
             'settlement'        => 'nullable|string|max:100',
             'cost_center'       => 'nullable|string|max:50',

@@ -630,12 +630,11 @@ Route::namespace('Admin')
             Route::post('gl_invoice/update', [GlInvoiceController::class, 'update'])->name('gl_invoice.update');
 
             //  GL BILL TRANSACTION
-            Route::get('gl_bill', [GlBillController::class, 'index'])->name('gl_bill');
             Route::get('gl_bill/create', [GlBillController::class, 'create'])->name('gl_bill.create');
-            Route::get('gl_bill/edit/{id}', [GlBillController::class, 'edit'])->name('gl_bill.edit');
             Route::get('gl_bill/delete/{id}', [GlBillController::class, 'delete'])->name('gl_bill.delete');
             Route::post('gl_bill/store', [GlBillController::class, 'store'])->name('gl_bill.store');
             Route::post('gl_bill/update', [GlBillController::class, 'update'])->name('gl_bill.update');
+            Route::post('gl_bill/get', [GlBillController::class, 'get_data'])->name('gl_bill.get');
 
             //  GL BILL TRANSACTION
             Route::get('bank_reconcilation', [BankReconcilationController::class, 'index'])->name('bank_reconcilation');
