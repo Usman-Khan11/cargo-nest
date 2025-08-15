@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ChartAccount;
 use App\Models\Currency;
+use App\Models\DocsCompanyWise;
 use App\Models\GlBill;
+use App\Models\GlBillInvoiceDetail;
 use App\Models\PartyBasicInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,15 +15,27 @@ use Yajra\DataTables\Facades\DataTables;
 
 class GlBillController extends Controller
 {
+    protected $permissions;
+    protected $name;
+    protected $nav_id;
+
+    public function __construct()
+    {
+        $this->name = "Bill";
+        $this->nav_id = 'bill';
+    }
+
     public function create(Request $request)
     {
         $user_info = session()->get('user_info');
 
         if ($request->ajax()) {
-            $query = GlBill::Query();
+            $query = GlBill::with(['invoice_details', 'currency', 'company']);
             $query = $query->orderby('id', 'asc')->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
+
+        $data['bill_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
 
         $data['seo_title']      = "Bill";
         $data['seo_desc']       = "Bill";
@@ -47,7 +61,7 @@ class GlBillController extends Controller
     private function bill_validation($request)
     {
         $request->validate([
-            'voucher_no' => 'required|string|max:20|exists:vouchers,voucher_no',
+            'voucher_no' => 'required|string|max:20',
             'bill_no' => 'required|string|max:20',
             'gst_invoice_no' => 'required|string|max:20',
             'date' => 'required|date',
@@ -64,22 +78,36 @@ class GlBillController extends Controller
             'invoice_amount' => 'required|numeric|min:0|max:999999999999.999999',
             'tax_amount' => 'required|numeric|min:0|max:999999999999.999999',
             'net_amount' => 'required|numeric|min:0|max:999999999999.999999',
+
+            // Invoice Detail
+            'detail_acc_code.*'    => 'required|integer|exists:chart_accounts,id',
+            'detail_cost_center.*' => 'nullable|string|max:100',
+            'detail_dr_cr.*'       => 'nullable|string|max:10',
+            'detail_amount_vc.*'   => 'nullable|numeric|min:0',
+            'detail_amount_lc.*'   => 'nullable|numeric|min:0',
+            'detail_narration.*'   => 'nullable|string|max:250',
+            'detail_tax_type.*'    => 'nullable|string|max:50',
         ]);
     }
 
     public function store(Request $request)
     {
+        $user_info = session()->get('user_info');
         $this->bill_validation($request);
 
         try {
             DB::beginTransaction();
+            $bill_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
 
             $gl_bill = new GlBill();
             $gl_bill->fill($request->all());
+            $gl_bill->voucher_no = $bill_no;
+            $gl_bill->bill_no = $bill_no;
+            $gl_bill->gst_invoice_no = $bill_no;
             $gl_bill->save();
 
-            // save voucher detail
-            // $this->save_voucher_detail($request, $voucher->id);
+            // save invoice detail
+            $this->save_invoice_detail($request, $gl_bill->id);
 
             DB::commit();
             $notify[] = ['success', 'Bill created successfully.'];
@@ -103,8 +131,8 @@ class GlBillController extends Controller
             $gl_bill->fill($request->all());
             $gl_bill->save();
 
-            // save voucher detail
-            // $this->save_voucher_detail($request, $voucher->id);
+            // save invoice detail
+            $this->save_invoice_detail($request, $gl_bill->id);
 
             DB::commit();
             $notify[] = ['success', 'Bill updated successfully.'];
@@ -116,13 +144,44 @@ class GlBillController extends Controller
         return redirect()->route('admin.gl_bill.create')->withNotify($notify);
     }
 
+    private function save_invoice_detail($request, $bill_id)
+    {
+        $detail_acc_code = $request->detail_acc_code ?? [];
+        $ids = [];
+
+        foreach ($detail_acc_code as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+
+            $bill_detail = GlBillInvoiceDetail::where('id', $request->detail_id[$key])->first();
+
+            if (!$bill_detail) {
+                $bill_detail = new GlBillInvoiceDetail();
+                $bill_detail->gl_bill_id = $bill_id;
+            }
+
+            $bill_detail->account_id = $request->detail_acc_code[$key];
+            $bill_detail->cost_center = $request->detail_cost_center[$key];
+            $bill_detail->dr_cr = $request->detail_dr_cr[$key];
+            $bill_detail->amount_vc = $request->detail_amount_vc[$key];
+            $bill_detail->amount_lc = $request->detail_amount_lc[$key];
+            $bill_detail->narration = $request->detail_narration[$key];
+            $bill_detail->tax_type = $request->detail_tax_type[$key];
+            $bill_detail->save();
+
+            $ids[] = $bill_detail->id;
+        }
+
+        GlBillInvoiceDetail::where('gl_bill_id', $bill_id)->whereNotIn('id', $ids)->delete();
+    }
 
     public function get_data(Request $request)
     {
         $user_info = session()->get('user_info');
         $id = $request->id;
         $type = $request->type;
-        $data = GlBill::with(['company', 'currency'])->where('company_id', $user_info['company_id']);
+        $data = GlBill::with(['company', 'currency', 'invoice_details'])->where('company_id', $user_info['company_id']);
 
         if ($type == "first") {
             $data = $data->orderBy('id', 'asc');

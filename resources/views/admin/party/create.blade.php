@@ -415,7 +415,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-8">
+                                <div class="col-8 border border-primary">
                                     <div class="">
                                         <label class="form-check-label mb-2"><input name="operation" value="Operation"
                                                 type="checkbox"
@@ -483,7 +483,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12 col-12 mt-3">
+                                <div class="col-md-12 col-12 mt-3 border border-primary p-2">
                                     <label class="form-check-label mb-2">Type:</label>
                                     <div class="row type_row">
 
@@ -934,7 +934,7 @@
                                             <label class="form-label">Account</label>
                                         </div>
                                         <div class="col-9">
-                                            <select name="account" class="account"></select>
+                                            <select name="account" class="account" disabled></select>
                                         </div>
                                     </div>
                                 </div>
@@ -1519,6 +1519,38 @@
         var datatable = null;
 
         $(document).ready(function() {
+            $(".operation").click(function() {
+                if ($(this).prop('checked') == true) {
+                    $(`input.operation_check`).prop('checked', true);
+                } else {
+                    $(`input.operation_check`).prop('checked', false);
+                }
+
+                $(`input.operation_check[value="Depot"]`).prop('checked', false);
+                $(`input.operation_check[value="Other"]`).prop('checked', false);
+            })
+
+            $("input[name=calculation_type]").click(function() {
+                let val = $(this).val();
+
+                if (val == "non-gl-parties") {
+                    $("select.parent_account").prop('disabled', true);
+                    $("select.account").prop('disabled', true);
+                } else {
+                    $("select.parent_account").prop('disabled', false);
+                    $("select.account").prop('disabled', true);
+                }
+            })
+
+            $("#manual_account").click(function() {
+                if ($(this).prop('checked') == true) {
+                    $("select.parent_account").prop('disabled', true);
+                    $("select.account").prop('disabled', false);
+                } else {
+                    $("select.parent_account").prop('disabled', false);
+                    $("select.account").prop('disabled', true);
+                }
+            })
 
             $(".custom_select").select2({
                 ajax: {

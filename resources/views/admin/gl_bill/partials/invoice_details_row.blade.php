@@ -10,7 +10,7 @@
         <select name="detail_acc_code[]" class="form-select select2 detail_acc_code">
             <option value=""></option>
             @foreach ($chart_accounts as $chart_account)
-                <option value="{{ $chart_account->id }}" @if (old('detail_cost_center.' . $index) == $chart_account->id) selected @endif>
+                <option value="{{ $chart_account->id }}" @if (old('detail_acc_code.' . $index) == $chart_account->id) selected @endif>
                     {{ $chart_account->acc_code }} -
                     {{ $chart_account->title }}</option>
             @endforeach
@@ -23,8 +23,8 @@
     </td>
     <td>
         <select name="detail_dr_cr[]" class="form-select detail_dr_cr">
-            <option value="D">D</option>
-            <option value="C">C</option>
+            <option @if (old('detail_dr_cr.' . $index) == 'D') selected @endif value="D">D</option>
+            <option @if (old('detail_dr_cr.' . $index) == 'C') selected @endif value="C">C</option>
         </select>
     </td>
     <td>
@@ -41,10 +41,10 @@
     </td>
     <td>
         <select name="detail_tax_type[]" class="form-select detail_tax_type">
-            <option value="na">N/A</option>
-            <option value="stax">STAX</option>
-            <option value="vat">VAT</option>
-            <option value="astx">ASTX</option>
+            <option @if (old('detail_tax_type.' . $index) == 'na') selected @endif value="na">N/A</option>
+            <option @if (old('detail_tax_type.' . $index) == 'stax') selected @endif value="stax">STAX</option>
+            <option @if (old('detail_tax_type.' . $index) == 'vat') selected @endif value="vat">VAT</option>
+            <option @if (old('detail_tax_type.' . $index) == 'astx') selected @endif value="astx">ASTX</option>
         </select>
     </td>
 </tr>

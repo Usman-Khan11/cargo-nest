@@ -21,4 +21,9 @@ class GlBill extends Model
     {
         return $this->belongsTo(Currency::class);
     }
+
+    public function invoice_details()
+    {
+        return $this->hasMany(GlBillInvoiceDetail::class);
+    }
 }

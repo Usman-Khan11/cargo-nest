@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input type ="text" class="form-control voucher_no" name="voucher_no"
-                                                value="{{ old('voucher_no') }}" readonly>
+                                                value="{{ old('voucher_no', $bill_no) }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input type ="text" class="form-control bill_no" name="bill_no"
-                                                value="{{ old('bill_no') }}" readonly>
+                                                value="{{ old('bill_no', $bill_no) }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="col-7">
                                             <input type ="text" class="form-control gst_invoice_no" name="gst_invoice_no"
-                                                value="{{ old('gst_invoice_no') }}">
+                                                value="{{ old('gst_invoice_no', $bill_no) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -477,7 +477,39 @@
 
                 $("#myForm").attr("action", "{{ route('admin.gl_bill.update') }}")
                 $("input[name=id]").val(data.id);
+
+                append_invoice_details(data.invoice_details || null);
             }
+        }
+
+        function append_invoice_details(data) {
+            if (!data) {
+                return;
+            }
+
+            $(".detail_repeater tr:gt(0)").remove();
+
+            if ($('select.detail_acc_code').hasClass('select2-hidden-accessible')) {
+                $('select.detail_acc_code').select2('destroy');
+            }
+
+            $(data).each(function(key, value) {
+                let $newRow = $(".detail_repeater tr:first").clone();
+
+                $newRow.find('.detail_id').val(value.id);
+                $newRow.find('.detail_acc_code').val(value.account_id).trigger('change');
+                $newRow.find('.detail_cost_center').val(value.cost_center);
+                $newRow.find('.detail_dr_cr').val(value.dr_cr).trigger('change');
+                $newRow.find('.detail_amount_vc').val(Number(value.amount_vc).toFixed(2));
+                $newRow.find('.detail_amount_lc').val(Number(value.amount_lc).toFixed(2));
+                $newRow.find('.detail_narration').val(value.narration);
+                $newRow.find('.detail_tax_type').val(value.tax_type).trigger('change');
+
+                $(".detail_repeater").append($newRow);
+            })
+
+            $(".detail_repeater tr:first").remove();
+            $('select.detail_acc_code').select2();
         }
 
         $('.exchange_rate').keyup(function() {

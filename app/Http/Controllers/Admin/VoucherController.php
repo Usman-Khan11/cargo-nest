@@ -69,7 +69,7 @@ class VoucherController extends Controller
     private function voucher_validation($request)
     {
         $request->validate([
-            'voucher_no'         => 'required|string|max:30',
+            'voucher_no'        => 'required|string|max:30',
             'date'              => 'required|date',
             'type'              => 'required|string|max:50',
             'company_id'        => 'required|integer',
@@ -106,13 +106,16 @@ class VoucherController extends Controller
 
     public function store(Request $request)
     {
+        $user_info = session()->get('user_info');
         $this->voucher_validation($request);
 
         try {
             DB::beginTransaction();
+            $voucher_no = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
 
             $voucher = new Voucher();
             $voucher->fill($request->all());
+            $voucher->voucher_no = $voucher_no;
             $voucher->save();
 
             // save voucher detail
