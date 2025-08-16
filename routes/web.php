@@ -587,6 +587,7 @@ Route::namespace('Admin')
             Route::post('chart_account/get', [ChartAccountController::class, 'get_data'])->name('chart_account.get');
             Route::post('chart_account/movement', [ChartAccountController::class, 'movement'])->name('chart_account.movement');
             Route::get('chart_account/get_sub_accounts', [ChartAccountController::class, 'get_sub_accounts'])->name('chart_account.get_sub_accounts');
+            Route::get('chart_account/get_all_data', [ChartAccountController::class, 'getAllData'])->name('chart_account.get_all_data');
 
             //  VOUCHER PROPERTIES INSTRUCTION
             Route::get('voucher_properties', [VoucherPropertiesController::class, 'index'])->name('voucher_properties');

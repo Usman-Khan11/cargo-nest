@@ -74,494 +74,846 @@
                 <form id="myForm" method="post" action="{{ route('admin.account_integrate.store') }}"
                     enctype="multipart/form-data">
                     @csrf
-                    <div class="card mb-4">
+                    <input name="id" type="hidden" value="0" />
+                    <div class="card">
                         <div class="card-header">
                             <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
-                            <!--<hr />-->
                         </div>
                         <div class="card-body">
-                            <input name="id" type="hidden" />
-                            <div class="row">
-                                <h5>Parrent Account</h5>
-                                <label>Vender</label>
-                                <div class="col-md-4">
-
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">City:</label>
-                                        <input id="cost" name="City:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-4">
-                                        <label for="cost" class="form-label">A/C:</label>
-                                        <input id="cost" name="A/C" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">All City A/C:</label>
-                                        <input id="cost" name="All City A/C" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label>Consignee(Import Part Parent)</label>
-                                <div class="col-md-4">
-
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">City:</label>
-                                        <input id="cost" name="City" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-4">
-                                        <label for="cost" class="form-label">A/C:</label>
-                                        <input id="cost" name="A/C" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">All City A/C:</label>
-                                        <input id="cost" name="All City A/C" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label>Shipper (Export Part Parent)</label>
-                                <div class="col-md-4">
-
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">City:</label>
-                                        <input id="cost" name="City:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-4">
-                                        <label for="cost" class="form-label">A/C:</label>
-                                        <input id="cost" name="A/C:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">All City A/C:</label>
-                                        <input id="cost" name="All City A/C:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <h5>General Parent Account</h5>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">Principle A/C:</label>
-                                        <input id="cost" name="Principle A/C:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">Comission Agent A/C:</label>
-                                        <input id="cost" name="Comission Agent A/C:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">Terminel A/C:</label>
-                                        <input id="cost" name="Terminel A/C:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-2">
-                                        <label for="cost" class="form-label">OverSeas Agent A/C:</label>
-                                        <input id="cost" name="OverSeas Agent A/C:" type="text" step="0.01"
-                                            class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <h5>Export Common Account</h5>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <label>Revenue</label>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Ocean Freight:</label>
-                                                <input id="cost" name="Ocean Freight" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Documentation:</label>
-                                                <input id="cost" name="Documentation" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">LCL:</label>
-                                                <input id="cost" name="LCL" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">FCL:</label>
-                                                <input id="cost" name="FCL" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">AIR:</label>
-                                                <input id="cost" name="AIR" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Break Bulk:</label>
-                                                <input id="cost" name="Break Bulk:" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <label>Expense</label>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Ocean Freight:</label>
-                                                <input id="cost" name="Ocean Freight" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Documentation:</label>
-                                                <input id="cost" name="Documentation:" type="text"
-                                                    step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">LCL:</label>
-                                                <input id="cost" name="LCL" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">FCL:</label>
-                                                <input id="cost" name="FCL:" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">AIR:</label>
-                                                <input id="cost" name="AIR" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Break Bulk:</label>
-                                                <input id="cost" name="Break Bulk" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <h5>Import Common Account</h5>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <label>Revenue</label>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Ocean Freight:</label>
-                                                <input id="cost" name="Ocean Freight" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Documentation:</label>
-                                                <input id="cost" name="Documentation" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">LCL:</label>
-                                                <input id="cost" name="LCL" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">FCL:</label>
-                                                <input id="cost" name="FCL" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">AIR:</label>
-                                                <input id="cost" name="AIR" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Break Bulk:</label>
-                                                <input id="cost" name="Break Bulk" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Sec Receivable:</label>
-                                                <input id="cost" name="Sec Receivable" type="text"
-                                                    step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <label>Expense</label>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Ocean Freight:</label>
-                                                <input id="cost" name="Ocean Freight" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Documentation:</label>
-                                                <input id="cost" name="Documentation" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">LCL:</label>
-                                                <input id="cost" name="LCL" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">FCL:</label>
-                                                <input id="cost" name="FCL" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">AIR:</label>
-                                                <input id="cost" name="AIR" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Break Bulk:</label>
-                                                <input id="cost" name="Break Bulk" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Sec Payable:</label>
-                                                <input id="cost" name="Sec Payable" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <h5>Logistic Common Account</h5>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <label>Revenue</label>
-                                        <div class="col-md-12">
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Account:</label>
-                                                <input id="cost" name="Account" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <label>Expense</label>
-                                        <div class="col-md-12">
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Account:</label>
-                                                <input id="cost" name="Account" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <h5>Other Account</h5>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Security In Hand:</label>
-                                                <input id="cost" name="Security In Hand" type="text"
-                                                    step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">WIP:</label>
-                                                <input id="cost" name="WIP" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Principle:</label>
-                                                <input id="cost" name="Principle" type="text" step="0.01"
-                                                    class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Bank Charges:</label>
-                                                <input id="cost" name="Port Of Finel Dest" type="text"
-                                                    step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Exchange Rate G/L:</label>
-                                                <input id="cost" name="Exchange Rate G/L" type="text"
-                                                    step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Advance Against Running
-                                                    Detention:</label>
-                                                <input id="cost" name="Advance Against Running Detention"
-                                                    type="text" step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Mergin Account:</label>
-                                                <input id="cost" name="Mergin Account" type="text"
-                                                    step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-
-                                            <div class="mb-2">
-                                                <label for="cost" class="form-label">Round Fectoe Account:</label>
-                                                <input id="cost" name="FRound Fectoe Account" type="text"
-                                                    step="0.01" class="form-control" required>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-5">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="responsive text-nowrap">
-                            <table class="table table-bordered table-sm quotation_record">
-                                <thead class="table-primary">
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
                                     <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th colspan="3">
+                                            <h4 class="m-0 text-center">Parent Account</h4>
+                                        </th>
+                                    </tr>
+                                    <tr class="bg-primary">
+                                        <th colspan="3">
+                                            <h5 class="m-0 text-white">Vendor</h5>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">City</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="vendor_city_id"
+                                                        class="vendor_city_id form-select search_select2"
+                                                        data-type="get_city"
+                                                        data-url="/admin/location/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="vendor_account_id"
+                                                        class="vendor_account_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">All City Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="vendor_all_city_acc_id"
+                                                        class="vendor_all_city_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th colspan="3">
+                                            <h5 class="m-0 text-white">Consignee (Import Party Parent)</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">City</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="consignee_city_id"
+                                                        class="consignee_city_id form-select search_select2"
+                                                        data-type="get_city"
+                                                        data-url="/admin/location/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="consignee_acc_id"
+                                                        class="consignee_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">All City Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="consignee_all_city_acc_id"
+                                                        class="consignee_all_city_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th colspan="3">
+                                            <h5 class="m-0 text-white">Shipper (Export Party Parent)</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">City</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="shipper_city_id"
+                                                        class="shipper_city_id form-select search_select2"
+                                                        data-type="get_city"
+                                                        data-url="/admin/location/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="shipper_acc_id"
+                                                        class="shipper_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="33.33%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">All City Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="shipper_all_city_acc_id"
+                                                        class="shipper_all_city_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th colspan="2">
+                                            <h5 class="m-0 text-white">General Parent Account</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Principal Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="general_principal_acc_id"
+                                                        class="general_principal_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Commission Agent
+                                                        Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="general_commission_agent_acc_id"
+                                                        class="general_commission_agent_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Terminal Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="general_terminal_acc_id"
+                                                        class="general_terminal_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Overseas Agent Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="general_overseas_agent_acc_id"
+                                                        class="general_overseas_agent_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th colspan="2">
+                                            <h5 class="m-0 text-white">Export Common Account</h5>
+                                        </th>
+                                    </tr>
+                                    <tr style="background: rgb(113, 191, 69, 0.2) !important">
+                                        <th class="text-center">Revenue</th>
+                                        <th class="text-center">Expense</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Ocean Freight</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_revenue_ocean_freight_acc_id"
+                                                        class="export_revenue_ocean_freight_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Ocean Freight</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_expense_ocean_freight_acc_id"
+                                                        class="export_expense_ocean_freight_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Documentation</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_revenue_documentation_acc_id"
+                                                        class="export_revenue_documentation_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Documentation</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_expense_documentation_acc_id"
+                                                        class="export_expense_documentation_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">LCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_revenue_lcl_acc_id"
+                                                        class="export_revenue_lcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">LCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_expense_lcl_acc_id"
+                                                        class="export_expense_lcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">FCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_revenue_fcl_acc_id"
+                                                        class="export_revenue_fcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">FCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_expense_fcl_acc_id"
+                                                        class="export_expense_fcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Air</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_revenue_air_acc_id"
+                                                        class="export_revenue_air_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Air</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_expense_air_acc_id"
+                                                        class="export_expense_air_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">BreakBulk</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_revenue_break_bulk_acc_id"
+                                                        class="export_revenue_break_bulk_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">BreakBulk</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="export_expense_break_bulk_acc_id"
+                                                        class="export_expense_break_bulk_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th colspan="2">
+                                            <h5 class="m-0 text-white">Import Common Account</h5>
+                                        </th>
+                                    </tr>
+                                    <tr style="background: rgb(113, 191, 69, 0.2) !important">
+                                        <th class="text-center">Revenue</th>
+                                        <th class="text-center">Expense</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Ocean Freight</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_revenue_ocean_freight_acc_id"
+                                                        class="import_revenue_ocean_freight_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Ocean Freight</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_expense_ocean_freight_acc_id"
+                                                        class="import_expense_ocean_freight_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Delivery Order</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_revenue_delivery_order_acc_id"
+                                                        class="import_revenue_delivery_order_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Delivery Order</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_expense_delivery_order_acc_id"
+                                                        class="import_expense_delivery_order_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">LCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_revenue_lcl_acc_id"
+                                                        class="import_revenue_lcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">LCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_expense_lcl_acc_id"
+                                                        class="import_expense_lcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">FCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_revenue_fcl_acc_id"
+                                                        class="import_revenue_fcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">FCL</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_expense_fcl_acc_id"
+                                                        class="import_expense_fcl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Air</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_revenue_air_acc_id"
+                                                        class="import_revenue_air_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Air</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_expense_air_acc_id"
+                                                        class="import_expense_air_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">BreakBulk</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_revenue_break_bulk_acc_id"
+                                                        class="import_revenue_break_bulk_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">BreakBulk</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_expense_break_bulk_acc_id"
+                                                        class="import_expense_break_bulk_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Sec Receivable</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_revenue_sec_receivable_acc_id"
+                                                        class="import_revenue_sec_receivable_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Sec Payable</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="import_expense_sec_payable_acc_id"
+                                                        class="import_expense_sec_payable_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th colspan="2">
+                                            <h5 class="m-0 text-white">Logistics Common Account</h5>
+                                        </th>
+                                    </tr>
+                                    <tr style="background: rgb(113, 191, 69, 0.2) !important">
+                                        <th class="text-center">Revenue</th>
+                                        <th class="text-center">Expense</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="logistics_revenue_acc_id"
+                                                        class="logistics_revenue_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="logistics_expense_acc_id"
+                                                        class="logistics_expense_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered align-middle table-sm">
+                                <thead>
+                                    <tr class="bg-primary">
+                                        <th colspan="2">
+                                            <h5 class="m-0 text-white">Other Account</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Security Inhand</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_security_inhand_acc_id"
+                                                        class="other_security_inhand_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Exchange Rate G/L</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_exchange_rate_gl_acc_id"
+                                                        class="other_exchange_rate_gl_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">WIP</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_wip_acc_id"
+                                                        class="other_wip_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    {{-- Advanced against running detention --}}
+                                                    <label class="form-label text-center w-100">Adv. Against Rung
+                                                        Dtn</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_advanced_against_running_detention_acc_id"
+                                                        class="other_advanced_against_running_detention_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Principal</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_principal_acc_id"
+                                                        class="other_principal_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Margin Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_margin_acc_id"
+                                                        class="other_margin_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Bank Charges
+                                                        Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_bank_charges_acc_id"
+                                                        class="other_bank_charges_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Round Factor
+                                                        Account</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_round_factor_acc_id"
+                                                        class="other_round_factor_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Convenience Fees
+                                                        Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_convenience_fees_acc_id"
+                                                        class="other_convenience_fees_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label text-center w-100">Negative Round
+                                                        Factor Acc</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select name="other_negative_round_factor_acc_id"
+                                                        class="other_negative_round_factor_acc_id form-select search_select2"
+                                                        data-type="get_chart_account"
+                                                        data-url="/admin/chart_account/get_all_data"></select>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-
-
         </div>
     </div>
 @endsection
@@ -570,61 +922,85 @@
 @push('script')
     <script>
         $('#submitButton').click(function() {
-            // Trigger form submission
             $('#myForm').submit();
         });
 
         $(document).ready(function() {
-            var datatable = $('.quotation_record').DataTable({
-                select: {
-                    style: 'api'
-                },
-                "processing": true,
-                "searching": false,
-                "serverSide": true,
-                "lengthChange": false,
-                "pageLength": 15,
-                "scrollX": true,
-                "ajax": {
-                    "url": "{{ route('admin.account_integrate.create') }}",
-                    "type": "get",
-                    "data": function(d) {
-                        var frm_data = $('#result_report_form').serializeArray();
-                        $.each(frm_data, function(key, val) {
-                            d[val.name] = val.value;
-                        });
-                    },
-                },
-                columns: [{
-                        data: 'code',
-                        title: 'Code'
-                    },
-                    {
-                        data: 'location',
-                        title: 'Location'
-                    },
-                    {
-                        data: 'location_check',
-                        title: 'Check'
-                    },
-                    {
-                        data: 'latitude',
-                        title: 'Latitude'
-                    },
-                    {
-                        data: 'longitude',
-                        title: 'Longitude'
-                    }
+            const search_select2 = $(".search_select2");
 
-                ],
-                "rowCallback": function(row, data) {
-                    $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`)
-                }
-            });
+            if (search_select2.length) {
+                $(search_select2).each(function(i, v) {
+                    let url = $(v).data("url");
+                    let type = $(v).data("type");
+                    let placeholder = $(v).data("placeholder") || 'Search for...';
+
+                    $(v).select2({
+                        ajax: {
+                            url: url,
+                            dataType: "json",
+                            data: (params) => ({
+                                search: params.term,
+                                type: type,
+                            }),
+                            processResults: (data) => ({
+                                results: data
+                            }),
+                        },
+                        cache: true,
+                        allowClear: true,
+                        placeholder: placeholder,
+                        minimumInputLength: 1,
+                        minimumResultsForSearch: 25,
+                    });
+                });
+            }
+            // var datatable = $('.quotation_record').DataTable({
+            //     select: {
+            //         style: 'api'
+            //     },
+            //     "processing": true,
+            //     "searching": false,
+            //     "serverSide": true,
+            //     "lengthChange": false,
+            //     "pageLength": 15,
+            //     "scrollX": true,
+            //     "ajax": {
+            //         "url": "{{ route('admin.account_integrate.create') }}",
+            //         "type": "get",
+            //         "data": function(d) {
+            //             var frm_data = $('#result_report_form').serializeArray();
+            //             $.each(frm_data, function(key, val) {
+            //                 d[val.name] = val.value;
+            //             });
+            //         },
+            //     },
+            //     columns: [{
+            //             data: 'code',
+            //             title: 'Code'
+            //         },
+            //         {
+            //             data: 'location',
+            //             title: 'Location'
+            //         },
+            //         {
+            //             data: 'location_check',
+            //             title: 'Check'
+            //         },
+            //         {
+            //             data: 'latitude',
+            //             title: 'Latitude'
+            //         },
+            //         {
+            //             data: 'longitude',
+            //             title: 'Longitude'
+            //         }
+
+            //     ],
+            //     "rowCallback": function(row, data) {
+            //         $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`)
+            //     }
+            // });
         });
-
-
-
 
         function edit_row(e, data) {
             data = JSON.parse(data);
@@ -645,16 +1021,9 @@
                 $(".epass_code").val(data.epass_code);
                 $(".country_region").val(data.country_region);
 
-                //var locations = JSON.stringify(data.location_check);
-                //locations = JSON.parse(locations);
-                //console.log(locations);
-
-
-
                 $("#myForm").attr("action", "{{ route('admin.location.update') }}")
                 $("input[name=id]").val(data.id);
             }
-
         }
 
         $(".navigation").click(function() {

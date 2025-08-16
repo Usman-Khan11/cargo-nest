@@ -257,4 +257,16 @@ class ChartAccountController extends Controller
 
         return $arr;
     }
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_chart_account') {
+            $search_term = $request->search;
+            $data = ChartAccount::where('acc_code', 'like', "%$search_term%")
+                ->orWhere('title', 'like', "%$search_term%")
+                ->select('id', DB::raw('CONCAT(title) as text'))
+                ->take(20)->get();
+            return $data;
+        }
+    }
 }
