@@ -954,74 +954,37 @@
                     });
                 });
             }
-            // var datatable = $('.quotation_record').DataTable({
-            //     select: {
-            //         style: 'api'
-            //     },
-            //     "processing": true,
-            //     "searching": false,
-            //     "serverSide": true,
-            //     "lengthChange": false,
-            //     "pageLength": 15,
-            //     "scrollX": true,
-            //     "ajax": {
-            //         "url": "{{ route('admin.account_integrate.create') }}",
-            //         "type": "get",
-            //         "data": function(d) {
-            //             var frm_data = $('#result_report_form').serializeArray();
-            //             $.each(frm_data, function(key, val) {
-            //                 d[val.name] = val.value;
-            //             });
-            //         },
-            //     },
-            //     columns: [{
-            //             data: 'code',
-            //             title: 'Code'
-            //         },
-            //         {
-            //             data: 'location',
-            //             title: 'Location'
-            //         },
-            //         {
-            //             data: 'location_check',
-            //             title: 'Check'
-            //         },
-            //         {
-            //             data: 'latitude',
-            //             title: 'Latitude'
-            //         },
-            //         {
-            //             data: 'longitude',
-            //             title: 'Longitude'
-            //         }
-
-            //     ],
-            //     "rowCallback": function(row, data) {
-            //         $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`)
-            //     }
-            // });
         });
 
         function edit_row(e, data) {
             data = JSON.parse(data);
             if (data) {
-                $(".code").val(data.code);
-                $(".locate").val(data.location);
-                $(".location_check").removeAttr('checked');
-                $(`.location_check[value=${data.location_check}]`).attr('checked', true);
+                for (const [key, value] of Object.entries(data)) {
+                    if (key.endsWith("_id")) {
+                        let relation = key.endsWith("_id") ? key.replace(/_id$/, "") : key;
+                        relation = data[relation];
 
-                $(".co_ordinates").val(data.co_ordinates);
-                $(".inactive").removeAttr('checked');
-                $(`.inactive[value=${data.inactive}]`).attr('checked', true);
+                        if (relation && relation.id) {
+                            var option = new Option(
+                                relation.location || relation.title || value,
+                                relation.id || value,
+                                true,
+                                true
+                            );
 
-                $(".latitude").val(data.latitude);
-                $(".state").val(data.state);
-                $(".longitude").val(data.longitude);
-                $(".phone_prefix").val(data.phone_prefix);
-                $(".epass_code").val(data.epass_code);
-                $(".country_region").val(data.country_region);
+                            $(`.${key}`).append(option).trigger('change');
+                        }
+                    }
+                }
 
-                $("#myForm").attr("action", "{{ route('admin.location.update') }}")
+                // if (data.vendor_city) {
+                //     var option = new Option(data.vendor_city.location, data.vendor_city.id, true, true);
+                //     $(".vendor_city_id").append(option).trigger('change');
+                // } else {
+                //     $(".vendor_city_id").val(null).trigger('change');
+                // }
+
+                $("#myForm").attr("action", "{{ route('admin.account_integrate.update') }}")
                 $("input[name=id]").val(data.id);
             }
         }

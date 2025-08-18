@@ -612,6 +612,7 @@ Route::namespace('Admin')
             Route::get('account_integrate/delete/{id}', [AccountIntegrateController::class, 'delete'])->name('account_integrate.delete');
             Route::post('account_integrate/store', [AccountIntegrateController::class, 'store'])->name('account_integrate.store');
             Route::post('account_integrate/update', [AccountIntegrateController::class, 'update'])->name('account_integrate.update');
+            Route::post('account_integrate/get', [AccountIntegrateController::class, 'get_data'])->name('account_integrate.get');
 
             //  VOUCHER TRANSACTION
             Route::get('voucher', [VoucherController::class, 'index'])->name('voucher');

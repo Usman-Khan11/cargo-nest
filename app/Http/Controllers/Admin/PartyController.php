@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AccountIntegrationParentAccount;
 use Illuminate\Http\Request;
 use App\Models\PartyBasicInfo;
 use App\Models\PartyOtherInfo;
@@ -132,6 +133,9 @@ class PartyController extends Controller
         $this->notifications($request, $partybasicinfo->id);
         $this->insurance($request, $partybasicinfo->id);
         $this->cost_center($request, $partybasicinfo->id);
+
+        // link with chart account
+        $this->link_with_chart_accounts($request);
 
         $notify[] = ['success', 'Party Added Successfully.'];
         return redirect()->route('admin.party.create')->withNotify($notify);
@@ -317,6 +321,9 @@ class PartyController extends Controller
         $this->insurance($request, $partybasicinfo->id);
         $this->cost_center($request, $partybasicinfo->id);
 
+        // link with chart account
+        $this->link_with_chart_accounts($request);
+
         $notify[] = ['success', 'Party Updated Successfully.'];
         return redirect()->route('admin.party.create')->withNotify($notify);
     }
@@ -413,6 +420,71 @@ class PartyController extends Controller
                 ->select(["id", "party_name as text"])
                 ->get();
             return $data;
+        }
+    }
+
+    public function link_with_chart_accounts($request)
+    {
+        $types = $request->Type ?? [];
+        $code = "P-" . $request->party_code;
+        $parent_acc = null;
+        $chart_account = ChartAccount::where("acc_code", $code)->first() ?? new ChartAccount();
+        $account_integration = AccountIntegrationParentAccount::first();
+
+        if (!$account_integration) {
+            return;
+        }
+
+        $calculation_type = $request->calculation_type;
+        $operation = $request->operation_check;
+
+        // Customer
+        if ($calculation_type == "customer") {
+            // Shipper
+            if ((in_array('Sea-Export', $operation) || in_array('Air-Export', $operation)) && in_array('Shipper', $types)) {
+                if (!empty($account_integration->shipper_city_id) && $request->city == $account_integration->shipper_city_id) {
+                    $parent_acc = $account_integration->shipper_acc_id;
+                } else {
+                    $parent_acc = $account_integration->shipper_all_city_acc_id;
+                }
+            }
+            // Consignee
+            else if ((in_array('Sea-Import', $operation) || in_array('Air-Import', $operation)) && in_array('Consignee', $types)) {
+                if (!empty($account_integration->consignee_city_id) && $request->city == $account_integration->consignee_city_id) {
+                    $parent_acc = $account_integration->consignee_acc_id;
+                } else {
+                    $parent_acc = $account_integration->consignee_all_city_acc_id;
+                }
+            }
+        }
+        // Vendor
+        else if ($calculation_type == "vendor") {
+            if (in_array('Local-Vendor', $types)) {
+                if (!empty($account_integration->vendor_city_id) && $request->city == $account_integration->vendor_city_id) {
+                    $parent_acc = $account_integration->vendor_account_id;
+                } else {
+                    $parent_acc = $account_integration->vendor_all_city_acc_id;
+                }
+            }
+        }
+        // Customer + Vendor
+        else if ($calculation_type == "customer-vendor") {
+            if (in_array('Principal', $types)) {
+                $parent_acc = $account_integration->general_principal_acc_id;
+            } else if (in_array('Overseas-Agent', $types)) {
+                $parent_acc = $account_integration->general_overseas_agent_acc_id;
+            } else if (in_array('Commision-Agent', $types)) {
+                $parent_acc = $account_integration->general_commission_agent_acc_id;
+            } else if (in_array('Terminal', $types)) {
+                $parent_acc = $account_integration->general_terminal_acc_id;
+            }
+        }
+
+        if (!empty($parent_acc)) {
+            $chart_account->acc_code = $code;
+            $chart_account->parent_acc = $parent_acc;
+            $chart_account->title = $request->party_name;
+            $chart_account->save();
         }
     }
 }
