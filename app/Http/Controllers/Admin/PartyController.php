@@ -86,14 +86,19 @@ class PartyController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function store(Request $request)
+    private function party_validation($request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'party_code' => 'required',
             'party_name' => ['required', 'string', 'max:255', 'unique:party_basic_infos'],
             'operation_check' => 'required',
             'Type' => 'required',
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $this->party_validation($request);
 
         $partybasicinfo = new PartyBasicInfo();
         $partybasicinfo->party_type = $request->calculation_type;
@@ -135,7 +140,7 @@ class PartyController extends Controller
         $this->cost_center($request, $partybasicinfo->id);
 
         // link with chart account
-        $this->link_with_chart_accounts($request);
+        $this->link_with_chart_accounts($request, $partybasicinfo->id);
 
         $notify[] = ['success', 'Party Added Successfully.'];
         return redirect()->route('admin.party.create')->withNotify($notify);
@@ -166,9 +171,7 @@ class PartyController extends Controller
 
     public function account_detail_store($request, $id)
     {
-        PartyAccountDetail::where('party_basic_id', $id)->delete();
-
-        $partyaccountdetail = new PartyAccountDetail();
+        $partyaccountdetail = PartyAccountDetail::where('party_basic_id', $id)->first() ?? new PartyAccountDetail();
         $partyaccountdetail->party_basic_id = $id;
         $partyaccountdetail->manual_account = $request->manual_account;
         $partyaccountdetail->parent_account = $request->parent_account;
@@ -275,7 +278,7 @@ class PartyController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'party_code' => 'required',
             'party_name' => ['required', 'string', 'max:255'],
             'operation_check' => 'required',
@@ -322,7 +325,7 @@ class PartyController extends Controller
         $this->cost_center($request, $partybasicinfo->id);
 
         // link with chart account
-        $this->link_with_chart_accounts($request);
+        $this->link_with_chart_accounts($request, $partybasicinfo->id);
 
         $notify[] = ['success', 'Party Updated Successfully.'];
         return redirect()->route('admin.party.create')->withNotify($notify);
@@ -332,21 +335,26 @@ class PartyController extends Controller
     {
         $id = $request->id;
         $type = $request->type;
-        $data = null;
-
-        $arr = ["quotation" => null, "quotation_routing" => null, "quotation_detail" => null, "quotation_equipment" => null, "jobs" => null];
+        $data = PartyBasicInfo::with([
+            'other_info',
+            'account_detail',
+            'account_detail.parent_account_link',
+            'account_detail.account_link',
+            'party_ach_bank_detail',
+            'party_notifications'
+        ]);
 
         if ($type == "first") {
-            $data = PartyBasicInfo::orderBy('id', 'asc')->with('city')->first();
+            $data = $data->orderBy('id', 'asc');
         } else if ($type == "last") {
-            $data = PartyBasicInfo::orderBy('id', 'desc')->with('city')->first();
+            $data = $data->orderBy('id', 'desc');
         } else if ($type == "forward") {
-            $data = PartyBasicInfo::where('id', '>', $id)->with('city')->first();
+            $data = $data->where('id', '>', $id);
         } else if ($type == "backward") {
-            $data = PartyBasicInfo::where('id', '<', $id)->orderBy('id', 'desc')->with('city')->first();
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
         }
 
-        return $data;
+        return $data->first();
     }
 
     public function getAllData(Request $request)
@@ -423,7 +431,7 @@ class PartyController extends Controller
         }
     }
 
-    public function link_with_chart_accounts($request)
+    public function link_with_chart_accounts($request, $party_id)
     {
         $types = $request->Type ?? [];
         $code = "P-" . $request->party_code;
@@ -485,6 +493,13 @@ class PartyController extends Controller
             $chart_account->parent_acc = $parent_acc;
             $chart_account->title = $request->party_name;
             $chart_account->save();
+
+            $partyaccountdetail = PartyAccountDetail::where('party_basic_id', $party_id)->first();
+            if ($partyaccountdetail) {
+                $partyaccountdetail->parent_account = $parent_acc;
+                $partyaccountdetail->account = $chart_account->id;
+                $partyaccountdetail->save();
+            }
         }
     }
 }

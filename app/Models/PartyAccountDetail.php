@@ -18,4 +18,14 @@ class PartyAccountDetail extends Model
     {
         return $this->belongsTo(PartyBasicInfo::class, 'party_basic_id', 'id');
     }
+
+    public function parent_account_link()
+    {
+        return $this->belongsTo(ChartAccount::class, 'parent_account', 'id');
+    }
+
+    public function account_link()
+    {
+        return $this->belongsTo(ChartAccount::class, 'account', 'id');
+    }
 }

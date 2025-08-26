@@ -1845,23 +1845,7 @@
                 // PARTY BASIC INFO END
 
                 // PARTY ACCOUNT DETAIL INFO
-                $(".manual_account").removeAttr("checked");
-                $(`.manual_account[value=${data.manual_account}]`).attr("checked", true);
-
-                $(".parent_account").val(data.parent_account);
-                $(".account").val(data.account);
-                $(".sale_rep").val(data.sale_rep);
-                $(".doc_rep").val(data.doc_rep);
-                $(".account_rep").val(data.account_rep);
-                $(".referred_by").val(data.referred_by);
-                $(".currency").val(data.currency);
-                $(".customer_grp").val(data.customer_grp);
-
-                $(".sub_type").removeAttr("checked");
-                $(`.sub_type[value=${data.sub_type}]`).attr("checked", true);
-
-                $(".sub_type_input").removeAttr("checked");
-                $(`.sub_type_input[value=${data.sub_type_input}]`).attr("checked", true);
+                append_account_detail(data.account_detail)
                 // PARTY ACCOUNT DETAIL INFO END
 
                 // ACH BANK DETAIL INFO
@@ -1885,6 +1869,42 @@
                 $("#myForm").attr("action", "{{ route('admin.party.update') }}");
                 $("input[name=id]").val(data.id);
             }
+        }
+
+        function append_account_detail(data) {
+            if (!data) {
+                return;
+            }
+            console.log(data)
+            $(".manual_account").removeAttr("checked");
+            $(`.manual_account[value=${data.manual_account}]`).attr("checked", true);
+
+            if (data.parent_account_link) {
+                var option = new Option(data.parent_account_link.title, data.parent_account_link.id, true, true);
+                $(".parent_account").append(option).trigger('change');
+            } else {
+                $(".parent_account").val(null).trigger('change');
+            }
+
+            if (data.account_link) {
+                var option = new Option(data.account_link.title, data.account_link.id, true, true);
+                $(".account").append(option).trigger('change');
+            } else {
+                $(".account").val(null).trigger('change');
+            }
+
+            $(".sale_rep").val(data.sale_rep);
+            $(".doc_rep").val(data.doc_rep);
+            $(".account_rep").val(data.account_rep);
+            $(".referred_by").val(data.referred_by);
+            $(".currency").val(data.currency);
+            $(".customer_grp").val(data.customer_grp);
+
+            $(".sub_type").removeAttr("checked");
+            $(`.sub_type[value=${data.sub_type}]`).attr("checked", true);
+
+            // $(".sub_type_input").removeAttr("checked");
+            // $(`.sub_type_input[value=${data.sub_type_input}]`).attr("checked", true);
         }
 
         $(".navigation").click(function() {
