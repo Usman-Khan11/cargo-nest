@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountIntegrateChargesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -256,6 +257,7 @@ Route::namespace('Admin')
             Route::post('charges/store', [ChargesController::class, 'store'])->name('charges.store');
             Route::post('charges/update', [ChargesController::class, 'update'])->name('charges.update');
             Route::post('charges/get', [ChargesController::class, 'get_data'])->name('charges.get');
+            Route::get('charges/get_all_data', [ChargesController::class, 'getAllData'])->name('charges.get_all_data');
 
             // EQUIPMENT ROUTES
             Route::get('equipment', [EquipmentController::class, 'index'])->name('equipment');
@@ -613,6 +615,13 @@ Route::namespace('Admin')
             Route::post('account_integrate/store', [AccountIntegrateController::class, 'store'])->name('account_integrate.store');
             Route::post('account_integrate/update', [AccountIntegrateController::class, 'update'])->name('account_integrate.update');
             Route::post('account_integrate/get', [AccountIntegrateController::class, 'get_data'])->name('account_integrate.get');
+
+            //  ACCOUNT INTEGRATION : CHARGES
+            Route::get('account_integrate_charges/delete/{id}', [AccountIntegrateChargesController::class, 'delete'])->name('account_integrate_charges.delete');
+            Route::get('account_integrate_charges/create', [AccountIntegrateChargesController::class, 'create'])->name('account_integrate_charges.create');
+            Route::post('account_integrate_charges/store', [AccountIntegrateChargesController::class, 'store'])->name('account_integrate_charges.store');
+            Route::post('account_integrate_charges/update', [AccountIntegrateChargesController::class, 'update'])->name('account_integrate_charges.update');
+            Route::post('account_integrate_charges/get', [AccountIntegrateChargesController::class, 'get_data'])->name('account_integrate_charges.get');
 
             //  VOUCHER TRANSACTION
             Route::get('voucher', [VoucherController::class, 'index'])->name('voucher');

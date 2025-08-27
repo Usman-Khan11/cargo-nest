@@ -33,9 +33,9 @@ class ChargesController extends Controller
     //         $start=(int)($request->start) ? $request->start : 0;
     //         $query=Charges::Query();
     //         $totalCount=$query->count(); 
-            
+
     //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
+
     //         return Datatables::of($query)
     //             ->setOffset($start)->addIndexColumn()
     //             ->with(['recordsTotal'=>$totalCount])
@@ -43,28 +43,28 @@ class ChargesController extends Controller
     //     }
     //     return view('admin.charges.index', $data);
     // }
-    
-    
+
+
     public function create(Request $request)
     {
-         if ($request->ajax()) {
+        if ($request->ajax()) {
             $query = Charges::Query();
             $query = $query->with('currency');
-            $query = $query->orderby('id','asc')->get();
+            $query = $query->orderby('id', 'asc')->get();
             return Datatables::of($query)->addIndexColumn()->make(true);
         }
-        
+
         $data['seo_title']      = "Charges";
         $data['seo_desc']       = "Charges";
         $data['seo_keywords']   = "Charges";
         $data['page_title'] = "Charges";
-        
-        $data['currencies'] = Currency::select(["id", "code as text"])->orderBy('id','desc')->get();
+
+        $data['currencies'] = Currency::select(["id", "code as text"])->orderBy('id', 'desc')->get();
         $data['currencies'] = $data['currencies']->toArray();
-        
+
         return view('admin.charges.create', $data);
     }
-    
+
     public function edit($id)
     {
         $data['seo_title']      = "Edit Charges";
@@ -74,7 +74,7 @@ class ChargesController extends Controller
         $data['charges'] = Charges::where("id", $id)->first();
         return view('admin.charges.edit', $data);
     }
-    
+
     public function delete($id)
     {
         $developer = Charges::where("id", $id);
@@ -82,7 +82,7 @@ class ChargesController extends Controller
         $notify[] = ['success', 'Charges Deleted Successfully.'];
         return redirect()->route('admin.charges.create')->withNotify($notify);
     }
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -92,11 +92,11 @@ class ChargesController extends Controller
             // 'localize_name' => 'required',
             'short_name' => 'required',
         ]);
-        
+
         $charges = new Charges();
         $charges->code = $request->code;
         $charges->currency = $request->currency;
-        $charges->name = $request->	name;
+        $charges->name = $request->name;
         $charges->localize_name = $request->localize_name;
         $charges->short_name = $request->short_name;
         $charges->charges_type = $request->charges_type;
@@ -107,16 +107,16 @@ class ChargesController extends Controller
         $charges->tag = $request->tag;
         $charges->printing_name = $request->printing_name;
         $charges->calculation_type = $request->calculation_type;
-        $charges->tax=$request->tax;
+        $charges->tax = $request->tax;
         $charges->payable_party_type = $request->payable_party_type;
         $charges->recevable_party_type = $request->recevable_party_type;
         $charges->c_category = $request->c_category;
         $charges->save();
-        
+
         $notify[] = ['success', 'Charges Added Successfully.'];
         return redirect()->route('admin.charges.create')->withNotify($notify);
     }
-    
+
     public function update(Request $request)
     {
         $validated = $request->validate([
@@ -126,11 +126,11 @@ class ChargesController extends Controller
             // 'localize_name' => 'required',
             'short_name' => 'required',
         ]);
-        
+
         $charges = Charges::where("id", $request->id)->first();
         $charges->code = $request->code;
         $charges->currency = $request->currency;
-        $charges->name = $request->	name;
+        $charges->name = $request->name;
         $charges->localize_name = $request->localize_name;
         $charges->short_name = $request->short_name;
         $charges->charges_type = $request->charges_type;
@@ -141,37 +141,47 @@ class ChargesController extends Controller
         $charges->tag = $request->tag;
         $charges->printing_name = $request->printing_name;
         $charges->calculation_type = $request->calculation_type;
-        $charges->tax=($request->tax);
+        $charges->tax = ($request->tax);
         $charges->payable_party_type = $request->payable_party_type;
         $charges->recevable_party_type = $request->recevable_party_type;
         $charges->c_category = $request->c_category;
         $charges->update();
-        
+
         $notify[] = ['success', 'Charges Updated Successfully.'];
         return redirect()->route('admin.charges.create')->withNotify($notify);
     }
-    
-    
+
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
         $data = null;
-        
-        if($type == "first") {
+
+        if ($type == "first") {
             $data = Charges::orderBy('id', 'asc')->with('currency')->first();
-        }
-        else if($type == "last") {
+        } else if ($type == "last") {
             $data = Charges::orderBy('id', 'desc')->with('currency')->first();
-        }
-        else if($type == "forward") {
+        } else if ($type == "forward") {
             $data = Charges::where('id', '>', $id)->with('currency')->first();
-        }
-        else if($type == "backward") {
+        } else if ($type == "backward") {
             $data = Charges::where('id', '<', $id)->orderBy('id', 'desc')->with('currency')->first();
         }
-        
+
         return $data;
     }
-    
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_charges') {
+            $search_term = $request->search;
+            $data = Charges::where('code', 'like', "%$search_term%")
+                ->orWhere('name', 'like', "%$search_term%")
+                ->orWhere('localize_name', 'like', "%$search_term%")
+                ->orWhere('short_name', 'like', "%$search_term%")
+                ->select('id', DB::raw("CONCAT(code, ' - ', name) as text"))
+                ->take(25)->get();
+            return $data;
+        }
+    }
 }

@@ -844,3 +844,36 @@ function domains()
         "mdn.cargonst.com" => "5",
     ];
 }
+
+function job_types()
+{
+    return [
+        'direct'       => 'Direct',
+        'coloaded'     => 'Coloaded',
+        'cross_trade'  => 'Cross Trade',
+        'liner_agency' => 'Liner Agency'
+    ];
+}
+
+function sub_types()
+{
+    return [
+        'break_bulk' => 'Break Bulk',
+        'car'        => 'Car',
+        'fcl'        => 'FCL',
+        'lcl'        => 'LCL',
+    ];
+}
+
+function operations()
+{
+    return [
+        'sea_export' => 'Sea Export',
+        'sea_import' => 'Sea Import',
+        'air_export' => 'Air Export',
+        'air_import' => 'Air Import',
+        'logistics'  => 'Logistics',
+        'warehouse'  => 'Warehouse',
+        'other'      => 'Other',
+    ];
+}

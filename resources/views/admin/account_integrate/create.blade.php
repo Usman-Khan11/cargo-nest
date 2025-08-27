@@ -63,7 +63,6 @@
                 <i class="fa fa-file-lines"></i>
             </div>
         </div>
-
     </div>
 @endsection
 
@@ -77,7 +76,17 @@
                     <input name="id" type="hidden" value="0" />
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 class="fw-bold" style="margin-bottom: 0rem;">{{ $page_title }}</h4>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <a href="" class="btn btn-primary">Get Fiels List</a>
+                                    <a href="" class="btn btn-outline-primary">WIP Policy</a>
+                                    <a href="{{ route('admin.account_integrate_charges.create') }}"
+                                        class="btn btn-outline-primary">View Advance</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered align-middle table-sm">

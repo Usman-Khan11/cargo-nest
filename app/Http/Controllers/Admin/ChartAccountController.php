@@ -264,7 +264,7 @@ class ChartAccountController extends Controller
             $search_term = $request->search;
             $data = ChartAccount::where('acc_code', 'like', "%$search_term%")
                 ->orWhere('title', 'like', "%$search_term%")
-                ->select('id', DB::raw('CONCAT(title) as text'))
+                ->select('id', DB::raw("CONCAT(acc_code, ' - ', title) as text"))
                 ->take(20)->get();
             return $data;
         }
