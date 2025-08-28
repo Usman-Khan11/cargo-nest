@@ -3,13 +3,13 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="chargesFormReset('/admin/account_integrate_charges/store')">
+            <div class="plus" onclick="commonAccountFormReset('/admin/account_integrate_party_parent/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
                 <i class="fa fa-save" id="submitButton" title="Save"></i>
             </div>
-            <div class="xmark" onclick="deleteData('/admin/account_integrate_charges/delete')">
+            <div class="xmark" onclick="deleteData('/admin/account_integrate_party_parent/delete')">
                 <i class="fa fa-circle-xmark" title="Delete"></i>
             </div>
             <div class="refresh">
@@ -89,66 +89,22 @@
             </div>
             <div class="card-body">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="#" class="btn btn-secondary">Charges</a>
+                    <a href="{{ route('admin.account_integrate_charges.create') }}"
+                        class="btn btn-outline-secondary">Charges</a>
                     <a href="{{ route('admin.account_integrate_common_account.create') }}"
-                        class="btn btn-outline-secondary">Common Account</a>
-                    <a href="{{ route('admin.account_integrate_party_parent.create') }}"
-                        class="btn btn-outline-secondary">Party Parent</a>
+                        class="btn btn-outline-secondary">Common
+                        Account</a>
+                    <a href="#" class="btn btn-secondary">Party Parent</a>
                 </div>
 
-                <form id="myForm" method="post" action="{{ route('admin.account_integrate_charges.store') }}">
+                <form id="myForm" method="post" action="{{ route('admin.account_integrate_party_parent.store') }}">
                     @csrf
                     <input name="id" type="hidden" value="0" />
 
                     <div class="bg-primary my-1 p-2">
-                        <h5 class="m-0 text-white">General Accounts</h5>
+                        <h5 class="m-0 text-white">Party Parent Accounts</h5>
                     </div>
 
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-2">
-                                    <label class="form-label w-100">Charges</label>
-                                </div>
-                                <div class="col-10">
-                                    <select name="charges_id" class="charges_id form-select search_select2"
-                                        data-type="get_charges" data-url="/admin/charges/get_all_data"></select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-3">
-                                    <label class="form-label w-100">Job Type</label>
-                                </div>
-                                <div class="col-9">
-                                    <select name="job_type" class="job_type form-select">
-                                        <option value="all">All</option>
-                                        @foreach (job_types() as $key => $value)
-                                            <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2">
-                            <div class="row g-0 align-items-center mb-1">
-                                <div class="col-4">
-                                    <label class="form-label w-100">Account Type</label>
-                                </div>
-                                <div class="col-8">
-                                    <select name="account_type" class="account_type form-select select2">
-                                        <option value=""></option>
-                                        @foreach (account_types_charges() as $key => $value)
-                                            <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-4">
                             <div class="row g-0 align-items-center mb-1">
@@ -157,8 +113,22 @@
                                 </div>
                                 <div class="col-10">
                                     <select name="account_id" class="account_id form-select search_select2"
-                                        data-type="get_chart_account"
-                                        data-url="/admin/chart_account/get_all_data"></select>
+                                        data-type="get_chart_account" data-url="/admin/chart_account/get_all_data"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-4">
+                                    <label class="form-label w-100">Party Type</label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="party_type" class="party_type form-select">
+                                        <option value="customer">Customer</option>
+                                        <option value="vendor">Vendor</option>
+                                        <option value="customer-vendor">Customer/Vendor</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -178,6 +148,20 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-2">
+                                    <label class="form-label w-100">City Code</label>
+                                </div>
+                                <div class="col-10">
+                                    <select name="city_id" class="city_id form-select search_select2"
+                                        data-type="get_city" data-url="/admin/location/get_all_data"></select>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-2">
                             <div class="row g-0 align-items-center mb-1">
@@ -188,6 +172,22 @@
                                     <select name="sub_type" class="sub_type form-select">
                                         <option value="all">All</option>
                                         @foreach (sub_types() as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="row g-0 align-items-center mb-1">
+                                <div class="col-3">
+                                    <label class="form-label w-100">Job Type</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="job_type" class="job_type form-select">
+                                        <option value="all">All</option>
+                                        @foreach (job_types() as $key => $value)
                                             <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
@@ -214,7 +214,7 @@
 
             $(".navigation").click(function() {
                 let id = $("input[name=id]").val();
-                let route = "/admin/account_integrate_charges/get";
+                let route = "/admin/account_integrate_party_parent/get";
                 let type = $(this).attr("data-type");
                 let data = getList(route, type, id);
                 if (data != null) {
@@ -261,16 +261,16 @@
                 "ordering": false,
                 "scrollX": true,
                 "ajax": {
-                    "url": "{{ route('admin.account_integrate_charges.create') }}",
+                    "url": "{{ route('admin.account_integrate_party_parent.create') }}",
                     "type": "get",
                     "data": function(d) {},
                 },
                 columns: [{
-                        data: 'charges.name',
-                        title: 'Charges',
+                        data: 'account.title',
+                        title: 'Account',
                         "render": function(data, type, full, meta) {
-                            if (full.charges) {
-                                return full.charges.code + ' - ' + full.charges.name;
+                            if (full.account) {
+                                return full.account.acc_code + ' - ' + full.account.title;
                             } else {
                                 return '-';
                             }
@@ -278,26 +278,30 @@
                     },
                     {
                         data: 'operation_value',
-                        title: 'Operation'
+                        title: 'Operation',
+                    },
+                    {
+                        data: 'party_type',
+                        title: 'Party Type',
+                        "render": function(data, type, full, meta) {
+                            let a = data.replace('-', '/');
+                            return `<span class="text-capitalize">${a}</span>`;
+                        }
                     },
                     {
                         data: 'sub_type_value',
                         title: 'Sub Type'
                     },
                     {
-                        data: 'account_type_value',
-                        title: 'Account Type'
-                    },
-                    {
                         data: 'job_type_value',
                         title: 'Job Type'
                     },
                     {
-                        data: 'account.title',
-                        title: 'Account',
+                        data: 'city.location',
+                        title: 'City',
                         "render": function(data, type, full, meta) {
-                            if (full.account) {
-                                return full.account.acc_code + ' - ' + full.account.title;
+                            if (full.city) {
+                                return full.city.code + ' - ' + full.city.location;
                             } else {
                                 return '-';
                             }
@@ -314,16 +318,9 @@
             data = JSON.parse(data);
             if (data) {
                 $(".job_type").val(data.job_type).trigger('change');
-                $(".account_type").val(data.account_type).trigger('change');
+                $(".party_type").val(data.party_type).trigger('change');
                 $(".operation").val(data.operation).trigger('change');
                 $(".sub_type").val(data.sub_type).trigger('change');
-
-                if (data.charges) {
-                    var option = new Option(data.charges.code + ' - ' + data.charges.name, data.charges.id, true, true);
-                    $(".charges_id").append(option).trigger('change');
-                } else {
-                    $(".charges_id").val(null).trigger('change');
-                }
 
                 if (data.account) {
                     var option = new Option(data.account.acc_code + ' - ' + data.account.title, data.account.id, true,
@@ -333,15 +330,23 @@
                     $(".account_id").val(null).trigger('change');
                 }
 
-                $("#myForm").attr("action", "{{ route('admin.account_integrate_charges.update') }}")
+                if (data.city) {
+                    var option = new Option(data.city.code + ' - ' + data.city.location, data.city.id, true,
+                        true);
+                    $(".city_id").append(option).trigger('change');
+                } else {
+                    $(".city_id").val(null).trigger('change');
+                }
+
+                $("#myForm").attr("action", "{{ route('admin.account_integrate_party_parent.update') }}")
                 $("input[name=id]").val(data.id);
             }
         }
 
-        function chargesFormReset(route) {
+        function commonAccountFormReset(route) {
             document.getElementById("myForm").reset();
             $("#myForm").attr("action", route);
-            $("#myForm").find(".charges_id, .account_id, .account_type").val(null).trigger("change");
+            $("#myForm").find(".account_id, .city_id").val(null).trigger("change");
             $("input[name=id]").val(0);
         }
     </script>

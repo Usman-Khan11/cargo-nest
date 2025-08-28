@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AccountIntegrationCharges extends Model
+class AccountIntegrateCommonAccount extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $table = 'account_integration_charges';
+    protected $table = 'account_integrate_common_accounts';
     protected $appends = ['operation_value', 'job_type_value', 'sub_type_value', 'account_type_value'];
 
     public function getOperationValueAttribute()
@@ -30,12 +30,7 @@ class AccountIntegrationCharges extends Model
 
     public function getAccountTypeValueAttribute()
     {
-        return account_types_charges()[$this->account_type] ?? $this->account_type;
-    }
-
-    public function charges()
-    {
-        return $this->belongsTo(Charges::class, 'charges_id', 'id');
+        return account_types_common()[$this->account_type] ?? $this->account_type;
     }
 
     public function account()

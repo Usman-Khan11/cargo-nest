@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AccountIntegrationCharges extends Model
+class AccountIntegratePartyParent extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $table = 'account_integration_charges';
-    protected $appends = ['operation_value', 'job_type_value', 'sub_type_value', 'account_type_value'];
+    protected $table = 'account_integrate_party_parents';
+    protected $appends = ['operation_value', 'job_type_value', 'sub_type_value'];
 
     public function getOperationValueAttribute()
     {
@@ -28,18 +28,13 @@ class AccountIntegrationCharges extends Model
         return sub_types()[$this->sub_type] ?? $this->sub_type;
     }
 
-    public function getAccountTypeValueAttribute()
-    {
-        return account_types_charges()[$this->account_type] ?? $this->account_type;
-    }
-
-    public function charges()
-    {
-        return $this->belongsTo(Charges::class, 'charges_id', 'id');
-    }
-
     public function account()
     {
         return $this->belongsTo(ChartAccount::class, 'account_id', 'id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(Location::class, 'city_id', 'id');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AccountIntegrateChargesController;
+use App\Http\Controllers\Admin\AccountIntegrateCommonAccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -66,6 +67,7 @@ use App\Http\Controllers\Admin\ChartAccountController;
 use App\Http\Controllers\Admin\VoucherPropertiesController;
 use App\Http\Controllers\Admin\OpeningBalanceController;
 use App\Http\Controllers\Admin\AccountIntegrateController;
+use App\Http\Controllers\Admin\AccountIntegratePartyParentController;
 use App\Http\Controllers\Admin\VoucherController;
 use App\Http\Controllers\Admin\GlInvoiceController;
 use App\Http\Controllers\Admin\GlBillController;
@@ -622,6 +624,20 @@ Route::namespace('Admin')
             Route::post('account_integrate_charges/store', [AccountIntegrateChargesController::class, 'store'])->name('account_integrate_charges.store');
             Route::post('account_integrate_charges/update', [AccountIntegrateChargesController::class, 'update'])->name('account_integrate_charges.update');
             Route::post('account_integrate_charges/get', [AccountIntegrateChargesController::class, 'get_data'])->name('account_integrate_charges.get');
+
+            //  ACCOUNT INTEGRATION : COMMON ACCOUNT
+            Route::get('account_integrate_common_account/delete/{id}', [AccountIntegrateCommonAccountController::class, 'delete'])->name('account_integrate_common_account.delete');
+            Route::get('account_integrate_common_account/create', [AccountIntegrateCommonAccountController::class, 'create'])->name('account_integrate_common_account.create');
+            Route::post('account_integrate_common_account/store', [AccountIntegrateCommonAccountController::class, 'store'])->name('account_integrate_common_account.store');
+            Route::post('account_integrate_common_account/update', [AccountIntegrateCommonAccountController::class, 'update'])->name('account_integrate_common_account.update');
+            Route::post('account_integrate_common_account/get', [AccountIntegrateCommonAccountController::class, 'get_data'])->name('account_integrate_common_account.get');
+
+            //  ACCOUNT INTEGRATION : PARTY PARENT
+            Route::get('account_integrate_party_parent/delete/{id}', [AccountIntegratePartyParentController::class, 'delete'])->name('account_integrate_party_parent.delete');
+            Route::get('account_integrate_party_parent/create', [AccountIntegratePartyParentController::class, 'create'])->name('account_integrate_party_parent.create');
+            Route::post('account_integrate_party_parent/store', [AccountIntegratePartyParentController::class, 'store'])->name('account_integrate_party_parent.store');
+            Route::post('account_integrate_party_parent/update', [AccountIntegratePartyParentController::class, 'update'])->name('account_integrate_party_parent.update');
+            Route::post('account_integrate_party_parent/get', [AccountIntegratePartyParentController::class, 'get_data'])->name('account_integrate_party_parent.get');
 
             //  VOUCHER TRANSACTION
             Route::get('voucher', [VoucherController::class, 'index'])->name('voucher');

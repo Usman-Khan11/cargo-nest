@@ -3,39 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AccountIntegrationCharges;
+use App\Models\AccountIntegrateCommonAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class AccountIntegrateChargesController extends Controller
+class AccountIntegrateCommonAccountController extends Controller
 {
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            $query = AccountIntegrationCharges::with(['charges', 'account']);
+            $query = AccountIntegrateCommonAccount::with(['account']);
             $query = $query->latest()->get();
             return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
-        $data['seo_title']    = "Account Integration Charges";
-        $data['seo_desc']     = "Account Integration Charges";
-        $data['seo_keywords'] = "Account Integration Charges";
-        $data['page_title']   = "Account Integration Charges";
-        return view('admin.account_integrate.charges', $data);
+        $data['seo_title']    = "Account Integration Common Account";
+        $data['seo_desc']     = "Account Integration Common Account";
+        $data['seo_keywords'] = "Account Integration Common Account";
+        $data['page_title']   = "Account Integration Common Account";
+        return view('admin.account_integrate.common_account', $data);
     }
 
     public function delete($id)
     {
-        AccountIntegrationCharges::where("id", $id)->delete();
-        $notify[] = ['success', 'Charges Deleted Successfully.'];
+        AccountIntegrateCommonAccount::where("id", $id)->delete();
+        $notify[] = ['success', 'Common Account Deleted Successfully.'];
         return back()->withNotify($notify);
     }
 
-    private function charges_validation($request)
+    private function common_account_validation($request)
     {
         $request->validate([
-            'charges_id'   => 'required|integer|exists:charges,id',
             'account_id'   => 'required|integer|exists:chart_accounts,id',
             'job_type'     => 'required|string|max:30',
             'account_type' => 'required|string|max:30',
@@ -47,18 +46,18 @@ class AccountIntegrateChargesController extends Controller
     public function store(Request $request)
     {
         $user_info = session()->get('user_info');
-        $this->charges_validation($request);
+        $this->common_account_validation($request);
 
         try {
             DB::beginTransaction();
 
-            $charges = new AccountIntegrationCharges();
-            $charges->fill($request->all());
-            $charges->save();
+            $common_account = new AccountIntegrateCommonAccount();
+            $common_account->fill($request->all());
+            $common_account->save();
 
             DB::commit();
-            $notify[] = ['success', 'Charges created successfully.'];
-            return redirect()->route('admin.account_integrate_charges.create')->withNotify($notify);
+            $notify[] = ['success', 'Common Account created successfully.'];
+            return redirect()->route('admin.account_integrate_common_account.create')->withNotify($notify);
         } catch (\Exception $e) {
             DB::rollBack();
             $notify[] = ['error', $e->getLine() . ': ' . $e->getMessage()];
@@ -69,18 +68,18 @@ class AccountIntegrateChargesController extends Controller
     public function update(Request $request)
     {
         $user_info = session()->get('user_info');
-        $this->charges_validation($request);
+        $this->common_account_validation($request);
 
         try {
             DB::beginTransaction();
 
-            $charges = AccountIntegrationCharges::where('id', $request->id)->firstOrFail();
-            $charges->fill($request->all());
-            $charges->save();
+            $common_account = AccountIntegrateCommonAccount::where('id', $request->id)->firstOrFail();
+            $common_account->fill($request->all());
+            $common_account->save();
 
             DB::commit();
-            $notify[] = ['success', 'Charges updated successfully.'];
-            return redirect()->route('admin.account_integrate_charges.create')->withNotify($notify);
+            $notify[] = ['success', 'Common Account updated successfully.'];
+            return redirect()->route('admin.account_integrate_common_account.create')->withNotify($notify);
         } catch (\Exception $e) {
             DB::rollBack();
             $notify[] = ['error', $e->getLine() . ': ' . $e->getMessage()];
@@ -93,7 +92,7 @@ class AccountIntegrateChargesController extends Controller
         $user_info = session()->get('user_info');
         $id = $request->id;
         $type = $request->type;
-        $data = AccountIntegrationCharges::with(['charges', 'account']);
+        $data = AccountIntegrateCommonAccount::with(['account']);
 
         if ($type == "first") {
             $data = $data->orderBy('id', 'asc');
