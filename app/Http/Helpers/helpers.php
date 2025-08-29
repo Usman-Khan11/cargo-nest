@@ -881,20 +881,20 @@ function operations()
 function account_types_common()
 {
     return [
-        'agency_wip'                    => 'Agency WIP',
-        'bank_charges_account'          => 'Bank Charges Account',
-        'convenience_fees_account'      => 'Convenience Fees Account',
-        'exchange_rate_gl'              => 'Exchange Rate G/L',
+        // 'agency_wip'                    => 'Agency WIP',
+        // 'bank_charges_account'          => 'Bank Charges Account',
+        // 'convenience_fees_account'      => 'Convenience Fees Account',
+        // 'exchange_rate_gl'              => 'Exchange Rate G/L',
         'expense'                       => 'Expense',
         'revenue'                       => 'Revenue',
-        'negative_round_factor_account' => 'Negative Round Factor Account',
-        'margin_account'                => 'Margin Account',
+        // 'negative_round_factor_account' => 'Negative Round Factor Account',
+        // 'margin_account'                => 'Margin Account',
         'principal_reimbursement'       => 'Principal / Reimbursement',
-        'salary_advanced'               => 'Salary Advanced',
-        'round_factor_account'          => 'Round Factor Account',
-        'security_inhand'               => 'Security Inhand',
-        'adv_against_rung_dtn'          => 'Adv. Against Rung Dtn',
-        'security_receivable'           => 'Security Receivable',
+        // 'salary_advanced'               => 'Salary Advanced',
+        // 'round_factor_account'          => 'Round Factor Account',
+        // 'security_inhand'               => 'Security Inhand',
+        // 'adv_against_rung_dtn'          => 'Adv. Against Rung Dtn',
+        // 'security_receivable'           => 'Security Receivable',
         'wip'                           => 'WIP',
     ];
 }

@@ -492,6 +492,7 @@ class PartyController extends Controller
             $chart_account->acc_code = $code;
             $chart_account->parent_acc = $parent_acc;
             $chart_account->title = $request->party_name;
+            $chart_account->allow_voucher_entry = 1;
             $chart_account->save();
 
             $partyaccountdetail = PartyAccountDetail::where('party_basic_id', $party_id)->first();

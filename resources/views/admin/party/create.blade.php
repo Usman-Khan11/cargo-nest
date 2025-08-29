@@ -1,7 +1,7 @@
 @extends('admin.layouts.app') @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="formReset('/admin/party/store')">
+            <div class="plus" onclick="partyFormReset('/admin/party/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
@@ -1916,5 +1916,13 @@
                 edit_row("", JSON.stringify(data));
             }
         });
+
+        function partyFormReset(route) {
+            document.getElementById("myForm").reset();
+            $("#myForm").attr("action", route);
+            $("#myForm").find(".select2, select, .custom_select").val(null).trigger("change");
+            $("#myForm").find("input[type=checkbox]").prop("checked", false);
+            $("input[name=id]").val(0);
+        }
     </script>
 @endpush
