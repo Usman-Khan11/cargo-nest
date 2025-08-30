@@ -89,10 +89,11 @@
             display: none;
         }
 
-        /*.tree_div{
-                                                                                                                                                                                                                                                                                                                                                                                                            max-height:320px;
-                                                                                                                                                                                                                                                                                                                                                                                                            overflow-y:auto;
-                                                                                                                                                                                                                                                                                                                                                                                                        }*/
+        /* .tree_div { */
+        /* max-height: 320px; */
+        /* overflow-y: auto; */
+        /* } */
+
         .text-active {
             color: #71bf45;
         }
@@ -152,7 +153,7 @@
                                             <label class="form-label">Account Code</label>
                                         </div>
                                         <div class="col-8">
-                                            <input value="{{-- $code --}}" name="acc_code" type="text"
+                                            <input value="{{ old('acc_code') }}" name="acc_code" type="text"
                                                 class="form-control acc_code" readonly />
                                         </div>
                                     </div>
@@ -164,7 +165,8 @@
                                             <label class="form-label">Title Of Account</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="title" type="text" class="form-control title" required />
+                                            <input name="title" type="text" class="form-control title" required
+                                                value="{{ old('title') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +191,8 @@
                                             <label class="form-label">Alias</label>
                                         </div>
                                         <div class="col-8">
-                                            <input name="alias" type="text" class="form-control alias" required />
+                                            <input name="alias" type="text" class="form-control alias" required
+                                                value="{{ old('alias') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -199,14 +202,16 @@
                                         <div class="col-6">
                                             <label class="form-check-label mb-2">
                                                 <input type="checkbox" name="allow_voucher_entry" value="1"
-                                                    class="form-check-input allow_voucher_entry" />
+                                                    class="form-check-input allow_voucher_entry"
+                                                    @if (old('allow_voucher_entry') == 1) checked @endif />
                                                 Allow Voucher Entry
                                             </label>
                                         </div>
                                         <div class="col-6">
                                             <label class="form-check-label mb-2 mx-3">
                                                 <input type="checkbox" name="in_active" value="yes"
-                                                    class="form-check-input in_active" />
+                                                    class="form-check-input in_active"
+                                                    @if (old('in_active') == 1) checked @endif />
                                                 In-Active
                                             </label>
                                         </div>
@@ -270,7 +275,7 @@
                                         </div>
                                         <div class="col-9">
                                             <input name="reference_no" type="text" class="form-control reference_no"
-                                                required />
+                                                required value="{{ old('reference_no') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -282,7 +287,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input name="user_field_2" type="text" class="form-control user_field_2"
-                                                required />
+                                                required value="{{ old('user_field_2') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +299,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input name="user_field_3" type="text" class="form-control user_field_3"
-                                                required />
+                                                required value="{{ old('user_field_3') }}" />
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +328,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input name="user_field_4" type="text" class="form-control user_field_4"
-                                                required />
+                                                required value="{{ old('user_field_4') }}" />
                                         </div>
                                     </div>
                                 </div>

@@ -38,7 +38,6 @@ use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\SwitchblController;
 use App\Http\Controllers\Admin\StuffingController;
 use App\Http\Controllers\Admin\MilestoneController;
-use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ReceiptController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\LetterController;
@@ -111,6 +110,7 @@ use App\Http\Controllers\Admin\FiscalYearController;
 use App\Http\Controllers\Admin\PrincipalManualSoaController;
 use App\Http\Controllers\Admin\PrincipalSoaController;
 use App\Http\Controllers\Admin\PrincipalReceiptPaymentController;
+use App\Http\Controllers\Admin\SEInvoiceController;
 use App\Http\Controllers\Admin\ShippingAgencyLicenseController;
 use App\Http\Controllers\Admin\SystemPolicyController;
 use App\Http\Controllers\Admin\ServiceTypeController;
@@ -404,14 +404,11 @@ Route::namespace('Admin')
             Route::post('milestone/update', [MilestoneController::class, 'update'])->name('milestone.update');
             Route::post('milestone/get', [MilestoneController::class, 'get_data'])->name('milestone.get');
 
-            // INVOICE ROUTES
-            Route::get('invoice', [InvoiceController::class, 'index'])->name('invoice');
-            Route::get('invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
-            Route::get('invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
-            Route::get('invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
-            Route::post('invoice/store', [InvoiceController::class, 'store'])->name('invoice.store');
-            Route::post('invoice/update', [InvoiceController::class, 'update'])->name('invoice.update');
-            Route::post('invoice/get', [InvoiceController::class, 'get_data'])->name('invoice.get');
+            // SE: INVOICE ROUTES
+            Route::get('se_invoice/create', [SEInvoiceController::class, 'create'])->name('se_invoice.create');
+            Route::post('se_invoice/store', [SEInvoiceController::class, 'store'])->name('se_invoice.store');
+            Route::post('se_invoice/update', [SEInvoiceController::class, 'update'])->name('se_invoice.update');
+            Route::post('se_invoice/get', [SEInvoiceController::class, 'get_data'])->name('se_invoice.get');
 
             // RECEIPT ROUTES
             Route::get('receipt', [ReceiptController::class, 'index'])->name('receipt');

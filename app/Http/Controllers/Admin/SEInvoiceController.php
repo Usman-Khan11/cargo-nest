@@ -6,21 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\InvoiceDetail;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\AdminNotification;
 use App\Models\DocsCompanyWise;
 use App\Models\Job;
 use App\Models\JobReceivable;
 use App\Models\PartyBasicInfo;
-use Image;
-use Validator;
-use Session;
-use File;
 
-class InvoiceController extends Controller
+class SEInvoiceController extends Controller
 {
     protected $name;
 
@@ -55,7 +46,7 @@ class InvoiceController extends Controller
                     'currency'
                 )
                 ->get();
-            return view('admin.invoice.partials.charges', $data);
+            return view('admin.se_invoice.partials.charges', $data);
         }
 
         if (isset($request->type) && $request->type == 'put_invoice_charges') {
@@ -66,22 +57,12 @@ class InvoiceController extends Controller
                     'currency'
                 )
                 ->get();
-            return view('admin.invoice.partials.charges_data', $data);
+            return view('admin.se_invoice.partials.charges_data', $data);
         }
 
         $data['invoice_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
 
-        return view('admin.invoice.create', $data);
-    }
-
-    public function edit($id)
-    {
-        $data['seo_title']      = "Se Invoice";
-        $data['seo_desc']       = "Se Invoice";
-        $data['seo_keywords']   = "Se Invoice";
-        $data['page_title'] = "Se Invoice";
-        $data['invoice'] = Invoice::where("id", $id)->first();
-        return view('admin.invoice.edit', $data);
+        return view('admin.se_invoice.create', $data);
     }
 
     public function delete($id)
@@ -90,7 +71,7 @@ class InvoiceController extends Controller
         InvoiceDetail::where("invoice_id", $id)->delete();
 
         $notify[] = ['success', 'Invoice Deleted Successfully.'];
-        return redirect()->route('admin.invoice.create')->withNotify($notify);
+        return redirect()->route('admin.se_invoice.create')->withNotify($notify);
     }
 
     public function store(Request $request)
@@ -122,7 +103,7 @@ class InvoiceController extends Controller
         }
 
         $notify[] = ['success', 'Invoice Added Successfully.'];
-        return redirect()->route('admin.invoice.create')->withNotify($notify);
+        return redirect()->route('admin.se_invoice.create')->withNotify($notify);
     }
 
     public function update(Request $request)
@@ -152,7 +133,7 @@ class InvoiceController extends Controller
         }
 
         $notify[] = ['success', 'Invoice Updated Successfully.'];
-        return redirect()->route('admin.invoice.create')->withNotify($notify);
+        return redirect()->route('admin.se_invoice.create')->withNotify($notify);
     }
 
     public function get_data_by_job($job_id)
@@ -216,7 +197,7 @@ class InvoiceController extends Controller
                 'currency'
             )->get();
 
-        $arr['invoice_details'] = view('admin.invoice.partials.charges_data', ['charges' => $charges])->render();
+        $arr['invoice_details'] = view('admin.se_invoice.partials.charges_data', ['charges' => $charges])->render();
 
         return $arr;
     }

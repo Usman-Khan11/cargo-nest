@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ChartAccount;
 use App\Models\PartyAccountDetail;
 use App\Models\SubCompany;
-use Image;
-use Validator;
-use Session;
-use DataTables;
-use File;
+use Illuminate\Validation\Rule;
 
 class ChartAccountController extends Controller
 {
@@ -83,12 +79,34 @@ class ChartAccountController extends Controller
         return back()->withNotify($notify);
     }
 
+    private function chart_accoubt_validation($request)
+    {
+        $request->validate([
+            'title'               => 'required|string|max:50',
+            'parent_acc'          => 'nullable|integer|exists:chart_accounts,parent_acc',
+            'acc_code'            => [
+                'required',
+                'string',
+                'max:25',
+                Rule::unique('chart_accounts', 'acc_code')->ignore($request->id),
+            ],
+            'alias'               => 'nullable|string|max:110',
+            'allow_voucher_entry' => 'sometimes|boolean',
+            'in_active'           => 'sometimes|boolean',
+            'max_child_acc'       => 'nullable|string|max:25',
+            'category'            => 'nullable|string|max:30',
+            'sub_category'        => 'nullable|string|max:30',
+            'pl_category'         => 'nullable|string|max:30',
+            'reference_no'        => 'nullable|string|max:100',
+            'user_field_2'        => 'nullable|string|max:100',
+            'user_field_3'        => 'nullable|string|max:100',
+            'user_field_4'        => 'nullable|string|max:100'
+        ]);
+    }
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:200'],
-            'acc_code' => ['required', 'string', 'max:25', 'unique:chart_accounts']
-        ]);
+        $this->chart_accoubt_validation($request);
 
         $chartaccount = new ChartAccount();
 
@@ -116,12 +134,16 @@ class ChartAccountController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:200'],
-            'acc_code' => ['required', 'string', 'max:25']
-        ]);
+        $this->chart_accoubt_validation($request);
 
-        $chartaccount = ChartAccount::where("id", $request->id)->first();
+        $chartaccount = ChartAccount::where("id", $request->id)->firstOrFail();
+
+        if (ChartAccount::where("parent_acc", $chartaccount->id)->count() > 0 && $request->allow_voucher_entry == 1) {
+            $notify[] = ['error', 'This is a parent account.'];
+            return back()->withInput()->withNotify($notify);
+        }
+
+        $chartaccount->allow_voucher_entry = null;
         $chartaccount->fill($request->all());
         $chartaccount->update();
 

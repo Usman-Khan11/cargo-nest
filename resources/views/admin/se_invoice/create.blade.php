@@ -3,13 +3,13 @@
 @section('top_nav_panel')
     <div class="col-md-4">
         <div class="d-flex">
-            <div class="plus" onclick="formReset('/admin/invoice/store')">
+            <div class="plus" onclick="formReset('/admin/se_invoice/store')">
                 <i class="fa fa-square-plus" title="Add"></i>
             </div>
             <div class="save">
                 <i class="fa fa-save" id="submitButton" title="Save"></i>
             </div>
-            <div class="xmark" onclick="deleteData('/admin/invoice/delete')">
+            <div class="xmark" onclick="deleteData('/admin/se_invoice/delete')">
                 <i class="fa fa-circle-xmark" title="Delete"></i>
             </div>
             <div class="refresh">
@@ -68,7 +68,7 @@
 
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <form id="myForm" method="post" action="{{ route('admin.invoice.store') }}" enctype="multipart/form-data">
+        <form id="myForm" method="post" action="{{ route('admin.se_invoice.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-12">
@@ -84,8 +84,8 @@
                                 <input name="job_id" type="hidden" class="job_id" value="0" />
                             @endif
 
-                            <div class="row">
-                                <div class="col-3">
+                            <div class="row g-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
                                             <label class="form-label w-100 m-0">Tran #</label>
@@ -97,19 +97,19 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label class="form-label w-100 m-0">Inv Date</label>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-9">
                                             <input name="inv_date" value="{{ old('inv_date') }}" type="date"
                                                 class="form-control inv_date" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
                                             <label class="form-label w-100 m-0">Reference</label>
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
                                             <label class="form-label w-100 m-0">Status</label>
@@ -135,10 +135,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
                                             <label class="form-label w-100 m-0">Category</label>
@@ -152,7 +150,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="mt-2 d-flex">
                                         <div class="form-check">
                                             <input class="form-check-input option" type="radio" name="option"
@@ -166,8 +164,10 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-5">
+                            <div class="row g-3">
+                                <div class="col-3">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-2">
                                             <label class="form-label w-100 m-0">Client</label>
@@ -179,10 +179,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-3">
+                                    <button type="button" class="btn btn-primary btn-sm pick_charges mx-2">Pick
+                                        Charges</button>
+                                    <button type="button" class="btn btn-primary btn-sm mx-2">Job Receipt</button>
+                                    <button type="button" class="btn btn-primary btn-sm mx-2">Advance Search</button>
+                                </div>
+
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
                                             <label class="form-label w-100 m-0">Sequence</label>
@@ -194,12 +199,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Invoice Type</label>
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">Invc Type</label>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-9">
                                             <select name="invoice_type" class="invoice_type form-select">
                                                 <option value="SI">SI</option>
                                                 <option value="CN">CN</option>
@@ -209,24 +214,26 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
+                                        {{-- <div class="col-4">
                                             <label class="form-label w-100 m-0">Ref. Tran #</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="ref_tran_number" type="text"
+                                        </div> --}}
+                                        <div class="col-9">
+                                            <input name="ref_tran_number" type="text" placeholder="Ref. Tran #"
                                                 value="{{ old('ref_tran_number') }}" class="form-control ref_tran_number">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-3">
+                            <div class="row g-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label class="form-label w-100 m-0">Operation</label>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-9">
                                             <select name="operation" class="operation form-select">
                                                 <option value="air import">Air Import</option>
                                                 <option value="air export">Air Export</option>
@@ -239,13 +246,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
-                                            <label class="form-label w-100 m-0">Job#</label>
+                                            <label class="form-label w-100 m-0">Job #</label>
                                         </div>
                                         <div class="col-9">
                                             <input name="job_number" type="text" value="{{ old('job_number') }}"
@@ -254,7 +259,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-4">
                                             <label class="form-label w-100 m-0">Currency</label>
@@ -273,33 +278,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Cost Center</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <select name="cost_center" class="form-select cost_center">
-                                                <option value="Head Office">Head Office</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <button type="button" class="btn btn-primary btn-sm pick_charges">Pick
-                                        Charges</button>
-                                    <button type="button" class="btn btn-primary btn-sm">Job Receipt</button>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label class="form-label w-100 m-0">Invoice To</label>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-9">
                                             <select name="invoice_to" class="form-select invoice_to">
                                                 <option value="invoiceTo">Invoice To</option>
                                                 <option value="clearingAgent">Clearing Agent</option>
@@ -314,18 +298,18 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-5">
-                                            <div class="form-check">
+                                        <div class="col-4">
+                                            <div class="form-check mb-0">
                                                 <input class="form-check-input manual" type="checkbox" value="Manual"
                                                     id="manual" name="manual">
-                                                <label class="form-check-label" for="manual">
+                                                <label class="form-label m-0" for="manual">
                                                     Manual
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label class="form-label w-100 m-0">Due Days </label>
                                         </div>
                                         <div class="col-4">
@@ -334,11 +318,26 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-4">
+                            <div class="row g-3">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
-                                            <label class="form-label w-100 m-0">Invoice A/C</label>
+                                            <label class="form-label w-100 m-0">Cost Cntr</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select name="cost_center" class="form-select cost_center">
+                                                <option value="Head Office">Head Office</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">Invc A/C</label>
                                         </div>
                                         <div class="col-9">
                                             <input name="invoice_ac" type="text" value="{{ old('invoice_ac') }}"
@@ -347,8 +346,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-2">
-                                    <div class="form-check">
+                                <div class="col-1">
+                                    <div class="form-check mb-0 mt-1">
                                         <input class="form-check-input auto_round_off" type="checkbox"
                                             value="Auto Round Off" id="auto_round_off" name="auto_round_off">
                                         <label class="form-check-label" for="auto_round_off">
@@ -356,24 +355,9 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Storage End Date</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="storage_end_date" type="date"
-                                                value="{{ old('storage_end_date') }}"
-                                                class="form-control storage_end_date">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-2">
-                                    <div class="form-check">
+                                <div class="col-1">
+                                    <div class="form-check mb-0 mt-1">
                                         <input class="form-check-input tax_charges" type="checkbox" value="Tax Charges"
                                             id="tax_charges" name="tax_charges">
                                         <label class="form-check-label" for="tax_charges">
@@ -382,10 +366,23 @@
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-2">
                                     <div class="row g-0 align-items-center mb-1">
                                         <div class="col-3">
-                                            <label class="form-label w-100 m-0">Invoice Title</label>
+                                            <label class="form-label w-100 m-0">Storage End Date</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input name="storage_end_date" type="date"
+                                                value="{{ old('storage_end_date') }}"
+                                                class="form-control storage_end_date">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-3">
+                                            <label class="form-label w-100 m-0">Invc Title</label>
                                         </div>
                                         <div class="col-9">
                                             <select name="invoice_title" class="form-select invoice_title">
@@ -412,7 +409,8 @@
                                 </div>
 
                                 <div class="col-2">
-                                    <button type="button" class="btn btn-primary btn-sm mx-2">Advance Search</button>
+                                    <button type="button" class="btn btn-primary btn-sm">Signature</button>
+                                    <button type="button" class="btn btn-primary btn-sm">Update Ex Rate</button>
                                 </div>
                             </div>
                         </div>
@@ -421,9 +419,15 @@
                 <div class="col-md-12">
                     <div class="card mt-3">
                         <div class="card-body">
+                            <style>
+                                #charges_table thead th {
+                                    color: #fff;
+                                }
+                            </style>
+                            {{-- <button type="button" class="btn btn-primary btn-sm">Charges</button> --}}
                             <div class="card-datatable table-responsive pt-0">
                                 <table class="table table-sm table-bordered text-nowrap text-center" id="charges_table">
-                                    <thead class="table-dark">
+                                    <thead class="text-white" style="--bs-table-bg: #71bf45 !important;">
                                         <tr>
                                             <th>...</th>
                                             <th>S.No</th>
@@ -459,162 +463,186 @@
                         <div class="card-body">
 
                             <div class="row">
-                                <div class="col-6">
-                                    <div class="row g-0 align-items-center mb-1">
+                                <div class="col-7">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-1">
+                                                    <label class="form-label w-100 m-0">Remarks</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="remarks" type="text" value="{{ old('remarks') }}"
+                                                        class="form-control remarks">
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="form-check mb-0 mt-1 ms-3">
+                                                        <input class="form-check-input manual_remark" type="checkbox"
+                                                            value="1" id="manual_remark" name="manual_remark">
+                                                        <label class="form-check-label" for="manual_remark">
+                                                            Manual Remark
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-3">
+                                                    <label class="form-label w-100 m-0">Voucher No</label>
+                                                </div>
+                                                <div class="col-9">
+                                                    <input name="voucher_no" type="text"
+                                                        value="{{ old('voucher_no') }}"
+                                                        class="form-control voucher_no ms-1">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-2">
-                                            <label class="form-label w-100 m-0">Remarks</label>
+                                            <button type="button" class="btn btn-primary btn-sm">Voucher
+                                                No</button>
                                         </div>
-                                        <div class="col-10">
-                                            <input name="remarks" type="text" value="{{ old('remarks') }}"
-                                                class="form-control remarks">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Total Amount</label>
+                                        <div class="col-3">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-6">
+                                                    <label class="form-label w-100 m-0">Settled Amount</label>
+                                                </div>
+                                                <div class="col-6">
+                                                    <input name="settled_amount" type="number" readonly
+                                                        value="{{ old('settled_amount') }}"
+                                                        class="form-control settled_amount">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-8">
-                                            <input name="total_amount" type="number" value="{{ old('total_amount') }}"
-                                                class="form-control total_amount">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Net Amount</label>
+                                        <div class="col-3">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-6">
+                                                    <label class="form-label w-100 m-0">Invoice Balance</label>
+                                                </div>
+                                                <div class="col-6">
+                                                    <input name="invoice_balance" type="number" readonly
+                                                        value="{{ old('invoice_balance') }}"
+                                                        class="form-control invoice_balance">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-8">
-                                            <input name="net_amount" type="number" value="{{ old('net_amount') }}"
-                                                class="form-control net_amount">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Voucher No</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="voucher_no" type="text" value="{{ old('voucher_no') }}"
-                                                class="form-control voucher_no">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-3"></div>
-
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Discount</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="discount" type="number" value="{{ old('discount') }}"
-                                                class="form-control discount">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Tax Amount</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="tax_amount" type="number" value="{{ old('tax_amount') }}"
-                                                class="form-control tax_amount">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-2">
-                                            <label class="form-label w-100 m-0">Bank Detail</label>
-                                        </div>
-                                        <div class="col-10">
-                                            <input name="bank_detail" type="text" value="{{ old('bank_detail') }}"
-                                                class="form-control bank_detail">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Net Amount Inc Tax</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="net_amount_inc_tax" type="number"
-                                                value="{{ old('net_amount_inc_tax') }}"
-                                                class="form-control net_amount_inc_tax">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-4">
-                                            <label class="form-label w-100 m-0">Local Amount</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="local_amount" type="number" value="{{ old('local_amount') }}"
-                                                class="form-control local_amount">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-8"></div>
-                                <div class="col-4">
-                                    <div class="row g-0 align-items-center mb-1">
                                         <div class="col-6">
-                                            <label class="form-label w-100 m-0">LC Amount after Add Tax</label>
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label w-100 m-0">Bank Detail</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input name="bank_detail" type="text"
+                                                        value="{{ old('bank_detail') }}"
+                                                        class="form-control bank_detail">
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-5">
+                                    <div class="row">
                                         <div class="col-6">
-                                            <input name="lc_amount" type="number" value="{{ old('lc_amount') }}"
-                                                class="form-control lc_amount">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Total Amount</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="total_amount" type="number"
+                                                        value="{{ old('total_amount') }}"
+                                                        class="form-control total_amount">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Net Amount</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="net_amount" type="number"
+                                                        value="{{ old('net_amount') }}" class="form-control net_amount">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Discount</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="discount" type="number" value="{{ old('discount') }}"
+                                                        class="form-control discount">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Tax Amount</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="tax_amount" type="number"
+                                                        value="{{ old('tax_amount') }}" class="form-control tax_amount">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Net Amount Inc Tax</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="net_amount_inc_tax" type="number"
+                                                        value="{{ old('net_amount_inc_tax') }}"
+                                                        class="form-control net_amount_inc_tax">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Local Amount</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="local_amount" type="number"
+                                                        value="{{ old('local_amount') }}"
+                                                        class="form-control local_amount">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4"></div>
+
+                                        <div class="col-8">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-5 text-end">
+                                                    <label class="form-label w-100 m-0">LC Amount after Add Tax</label>
+                                                </div>
+                                                <div class="col-1"></div>
+                                                <div class="col-6">
+                                                    <input name="lc_amount" type="number"
+                                                        value="{{ old('lc_amount') }}" class="form-control lc_amount"
+                                                        style="width: 98%; margin-left:auto;">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-5">
-                                            <label class="form-label w-100 m-0">Settled Amount</label>
-                                        </div>
-                                        <div class="col-7">
-                                            <input name="settled_amount" type="number"
-                                                value="{{ old('settled_amount') }}" class="form-control settled_amount">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
-                                        <div class="col-5">
-                                            <label class="form-label w-100 m-0">Invoice Balance</label>
-                                        </div>
-                                        <div class="col-7">
-                                            <input name="invoice_balance" type="number"
-                                                value="{{ old('invoice_balance') }}"
-                                                class="form-control invoice_balance">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -725,7 +753,7 @@
                 $(".invoice_balance").val(data.invoice_balance);
                 $(".lc_amount").val(data.lc_amount);
 
-                $("#myForm").attr("action", "{{ route('admin.invoice.update') }}");
+                $("#myForm").attr("action", "{{ route('admin.se_invoice.update') }}");
                 $("input[name=id]").val(data.id);
                 $("input[name=job_id]").val(data.job_id);
             }
@@ -738,7 +766,7 @@
 
         $(".navigation").click(function() {
             let id = $("input[name=id]").val();
-            let route = "/admin/invoice/get";
+            let route = "/admin/se_invoice/get";
             let type = $(this).attr("data-type");
             let data = getList(route, type, id);
             if (data != null) {
@@ -763,7 +791,7 @@
             let invoice_id = $("input[name=id]").val();
 
             if (job_id > 0) {
-                $.get("/admin/invoice/create", {
+                $.get("/admin/se_invoice/create", {
                     job_id,
                     invoice_id,
                     type: "get_invoice_charges"
@@ -788,7 +816,7 @@
             const values = Array.from(checkboxes).map(cb => cb.value);
 
             if (values.length) {
-                $.get("/admin/invoice/create", {
+                $.get("/admin/se_invoice/create", {
                     values,
                     type: "put_invoice_charges"
                 }, function(res) {
