@@ -128,9 +128,12 @@
                                         </div>
                                         <div class="col-9">
                                             <select name="status" class="form-select status">
-                                                <option value="active">Active</option>
-                                                <option value="incomplete">Incomplete</option>
-                                                <option value="void">Void</option>
+                                                <option @if (old('status') == 'active') selected @endif value="active">
+                                                    Active</option>
+                                                <option @if (old('status') == 'incomplete') selected @endif
+                                                    value="incomplete">Incomplete</option>
+                                                <option @if (old('status') == 'void') selected @endif value="void">
+                                                    Void</option>
                                             </select>
                                         </div>
                                     </div>
@@ -143,8 +146,10 @@
                                         </div>
                                         <div class="col-9">
                                             <select name="category" class="form-select category">
-                                                <option value="regular">Regular</option>
-                                                <option value="securityDeposit">Security Deposit</option>
+                                                <option @if (old('category') == 'regular') selected @endif value="regular">
+                                                    Regular</option>
+                                                <option @if (old('category') == 'security_deposit') selected @endif
+                                                    value="security_deposit">Security Deposit</option>
                                             </select>
                                         </div>
                                     </div>
@@ -206,9 +211,12 @@
                                         </div>
                                         <div class="col-9">
                                             <select name="invoice_type" class="invoice_type form-select">
-                                                <option value="SI">SI</option>
-                                                <option value="CN">CN</option>
-                                                <option value="Zero">Zero</option>
+                                                <option @if (old('invoice_type') == 'SI') selected @endif value="SI">SI
+                                                </option>
+                                                <option @if (old('invoice_type') == 'CN') selected @endif value="CN">CN
+                                                </option>
+                                                <option @if (old('invoice_type') == 'zero') selected @endif value="zero">
+                                                    Zero</option>
                                             </select>
                                         </div>
                                     </div>
@@ -235,13 +243,9 @@
                                         </div>
                                         <div class="col-9">
                                             <select name="operation" class="operation form-select">
-                                                <option value="air import">Air Import</option>
-                                                <option value="air export">Air Export</option>
-                                                <option value="sea export">Sea Import</option>
-                                                <option value="sea export">Sea Export</option>
-                                                <option value="logistics">Logistics</option>
-                                                <option value="warehouse">Warehouse</option>
-                                                <option value="other">Other</option>
+                                                @foreach (operations() as $key => $value)
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -266,13 +270,10 @@
                                         </div>
                                         <div class="col-8">
                                             <select name="currency" class="form-select currency">
-                                                <option value="PKR">PKR</option>
-                                                <option value="USD">USD</option>
-                                                <option value="AED">AED</option>
-                                                <option value="GBP">GBP</option>
-                                                <option value="EUR">EUR</option>
-                                                <option value="BDT">BDT</option>
-                                                <option value="OMR">OMR</option>
+                                                <option value=""></option>
+                                                @foreach ($currencies as $currency)
+                                                    <option value="{{ $currency->id }}">{{ $currency->text }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -288,10 +289,10 @@
                                                 <option value="invoiceTo">Invoice To</option>
                                                 <option value="clearingAgent">Clearing Agent</option>
                                                 <option value="importer">Importer</option>
-                                                <option value="coloader">Coloader</option>
+                                                <option value="Forwarder-Coloader">Coloader</option>
                                                 <option value="client">Client</option>
                                                 <option value="clientImporter">Client/Importer</option>
-                                                <option value="shipper">Shipper</option>
+                                                <option value="Shipper">Shipper</option>
                                                 <option value="other">Other</option>
                                             </select>
                                         </div>
@@ -340,8 +341,9 @@
                                             <label class="form-label w-100 m-0">Invc A/C</label>
                                         </div>
                                         <div class="col-9">
-                                            <input name="invoice_ac" type="text" value="{{ old('invoice_ac') }}"
-                                                class="form-control invoice_ac">
+                                            {{-- <input name="invoice_ac" type="text" value="{{ old('invoice_ac') }}"
+                                                class="form-control invoice_ac"> --}}
+                                            <select name="invoice_ac" class="invoice_ac select2 form-select"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -465,6 +467,64 @@
                             <div class="row">
                                 <div class="col-7">
                                     <div class="row">
+                                        <div class="col-12">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-1">
+                                                    <button type="button"
+                                                        class="btn btn-primary btn-sm w-100 types_toggle">Show/Hide</button>
+                                                </div>
+                                                <div class="col-10 ms-3 types_row">
+                                                    <div class="form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" value="hbl"
+                                                            id="hbl_check" name="types[]">
+                                                        <label class="form-check-label" for="hbl_check">
+                                                            HBL
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" value="mbl"
+                                                            id="mbl_check" name="types[]">
+                                                        <label class="form-check-label" for="mbl_check">
+                                                            MBL
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" value="job_no"
+                                                            id="job_no_check" name="types[]">
+                                                        <label class="form-check-label" for="job_no_check">
+                                                            Job Nos
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" value="file_no"
+                                                            id="file_no_check" name="types[]">
+                                                        <label class="form-check-label" for="file_no_check">
+                                                            File No
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-check-inline">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            value="reference_no" id="reference_no_check" name="types[]">
+                                                        <label class="form-check-label" for="reference_no_check">
+                                                            Reference No
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-check-inline">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            value="vehicle_no" id="vehicle_no_check" name="types[]">
+                                                        <label class="form-check-label" for="vehicle_no_check">
+                                                            Vehicle No
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-12">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-1">
@@ -708,6 +768,59 @@
             $(".client").select2({
                 data: @json($client)
             });
+
+            $(".types_toggle").click(function(e) {
+                e.preventDefault();
+                $(".types_row").toggle();
+            })
+
+            const search_select2 = $(".search_select2");
+
+            if (search_select2.length) {
+                $(search_select2).each(function(i, v) {
+                    let url = $(v).data("url");
+                    let type = $(v).data("type");
+                    let placeholder = $(v).data("placeholder") || 'Search for...';
+
+                    $(v).select2({
+                        ajax: {
+                            url: url,
+                            dataType: "json",
+                            data: (params) => ({
+                                search: params.term,
+                                type: type,
+                            }),
+                            processResults: (data) => ({
+                                results: data
+                            }),
+                        },
+                        cache: true,
+                        allowClear: true,
+                        placeholder: placeholder,
+                        minimumInputLength: 1,
+                        minimumResultsForSearch: 25,
+                    });
+                })
+            }
+
+            $("select.invoice_to").change(function() {
+                let invoice_to = $(this).val();
+
+                if (invoice_to) {
+                    $.get("{{ route('admin.se_invoice.create') }}", {
+                        get_invoice_acc: 1,
+                        invoice_to
+                    }, function(res) {
+                        $(".invoice_ac").html('');
+                        if (res) {
+                            $(res).each(function(i, v) {
+                                $(".invoice_ac").append(
+                                    `<option value="${v.id}">${v.text}</option>`);
+                            })
+                        }
+                    })
+                }
+            })
         })
 
         $('#submitButton').click(function() {

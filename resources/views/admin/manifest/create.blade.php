@@ -66,6 +66,16 @@
     </div>
 @endsection
 
+@section('style')
+    <style>
+        label.w-100 {
+            text-align: right;
+            padding-right: 8px;
+            text-wrap: nowrap;
+        }
+    </style>
+@endsection
+
 @section('panel')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
@@ -73,60 +83,57 @@
                 <form id="myForm" method="post" action="{{ route('admin.manifest.store') }}"
                     enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id" value="0">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="fw-bold">{{ $page_title }}</h4>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <input type="hidden" name="id" value="0">
+                            <div class="row g-3">
                                 <div class="col-md-6">
-
-                                    <div class="row">
-                                        <div class="col-4">
+                                    <div class="row gy-1 gx-3">
+                                        <div class="col-6">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Tran #</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <input name="tran" value="{{ old('tran', $manifest_no) }}"
                                                         type="text" class="form-control tran" readonly />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Doc #</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <input name="doc" value="{{ old('doc') }}" type="text"
                                                         class="form-control doc" />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Year</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <input name="year" value="{{ old('year') }}" type="text"
                                                         class="form-control year" />
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Shipping Line/Agent</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <select name="agent" class="agent search_select2"
                                                         data-url="{{ route('admin.party.get_all_data') }}"
                                                         data-type="get_sline_carrier"></select>
@@ -134,12 +141,41 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Operation</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <select name="operation" class="form-select operation">
+                                                        {{-- <option value=""></option> --}}
+                                                        @foreach (operations() as $key => $value)
+                                                            <option value="{{ $key }}">{{ $value }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Book No</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="book_no" type="text" class="form-control book_no"
+                                                        value="{{ old('book_no') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Vessel</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <select name="vessel" class="vessel search_select2"
                                                         data-url="{{ route('admin.vessel.get_all_data') }}"
                                                         data-type="get_vessel"></select>
@@ -147,12 +183,36 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Voyage</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <select name="voyage_no" class="voyage_no search_select2"
+                                                        data-url="/admin/cro/create" data-type="get_voyage"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">ETD Date</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="etd_date" type="date" value="{{ old('etd_date') }}"
+                                                        class="form-control etd_date" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Terminals</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <select name="terminals" class="terminals search_select2"
                                                         data-url="{{ route('admin.party_location.get_all_data') }}"
                                                         data-type="get_terminal_location"></select>
@@ -160,12 +220,36 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">EGM No</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="egm_no" type="text" class="form-control egm_no"
+                                                        value="{{ old('egm_no') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">EGM Date</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="egm_date" type="date" value="{{ old('egm_date') }}"
+                                                        class="form-control egm_date" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Shipping License</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <select name="license" class="license search_select2"
                                                         data-url="{{ route('admin.ship_agency_license.get_all_data') }}"
                                                         data-type="get_ship_agency_license"></select>
@@ -173,12 +257,37 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Seq No</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="seq_no" type="text" class="form-control seq_no"
+                                                        value="{{ old('seq_no') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0"># of Install</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="install_count" type="text"
+                                                        value="{{ old('install_count') }}"
+                                                        class="form-control install_count" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Local Port</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <select name="port" class="port search_select2"
                                                         data-url="{{ route('admin.location.get_all_data') }}"
                                                         data-type="get_local_port"></select>
@@ -186,12 +295,36 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">VIR No</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="vir_no" type="text" class="form-control vir_no"
+                                                        value="{{ old('vir_no') }}" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Guarantee</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="guarantee" type="text"
+                                                        value="{{ old('guarantee') }}" class="form-control guarantee" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
                                                     <label class="form-label w-100 m-0">Ship Company</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <input name="ship_company" type="text"
                                                         value="{{ old('ship_company') }}"
                                                         class="form-control ship_company" />
@@ -199,12 +332,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
-                                                    <label class="form-label w-100 m-0">Captain Name</label>
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Captain</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-8">
                                                     <input name="captain_name" type="text"
                                                         value="{{ old('captain_name') }}"
                                                         class="form-control captain_name" />
@@ -212,59 +345,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
-                                                    <label class="form-label w-100 m-0">Berth/Wharf</label>
-                                                </div>
-                                                <div class="col-9">
-                                                    <input name="berth_wharf" type="text"
-                                                        value="{{ old('berth_wharf') }}"
-                                                        class="form-control berth_wharf" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
-                                                    <label class="form-label w-100 m-0">Remarks</label>
-                                                </div>
-                                                <div class="col-9">
-                                                    <textarea name="remarks" class="form-control remarks">{{ old('remarks') }}</textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-3">
-                                                    <label class="form-label w-100 m-0">Same Bottom Cargo</label>
-                                                </div>
-                                                <div class="col-9">
-                                                    <textarea name="same_bottom_cargo" class="form-control same_bottom_cargo">{{ old('same_bottom_cargo') }}</textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Manifest Ref#</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="manifest_ref" type="text"
-                                                        value="{{ old('manifest_ref') }}"
-                                                        class="form-control manifest_ref" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-4">
                                                     <label class="form-label w-100 m-0">Shad No</label>
@@ -279,61 +360,20 @@
                                         <div class="col-6">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Ground Date</label>
+                                                    <label class="form-label w-100 m-0">Berth/Wharf</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input name="ground_date" type="date"
-                                                        value="{{ old('ground_date') }}"
-                                                        class="form-control ground_date" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Docs Rcvd From S/Line</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="docs_rcvd" type="date"
-                                                        value="{{ old('docs_rcvd') }}" class="form-control docs_rcvd" />
+                                                    <input name="berth_wharf" type="text"
+                                                        value="{{ old('berth_wharf') }}"
+                                                        class="form-control berth_wharf" />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-6">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Time</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="time" type="time" class="form-control time"
-                                                        value="{{ old('time') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Agent Code</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="agent_code" type="text"
-                                                        value="{{ old('agent_code') }}"
-                                                        class="form-control agent_code" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Cost Center</label>
+                                                    <label class="form-label w-100 m-0">Cost Cntr</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <select name="cost_center" class="form-select cost_center">
@@ -342,17 +382,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-3">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Line Code</label>
+                                                    <label class="form-label w-100 m-0">Time</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input name="line_code" type="text"
-                                                        value="{{ old('line_code') }}" class="form-control line_code" />
+                                                    <input name="time" type="time" class="form-control time"
+                                                        value="{{ old('time') }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -373,140 +411,8 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Operation</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <select name="operation" class="form-select operation">
-                                                        <option Selected></option>
-                                                        <option value="sea-import">Sea Import</option>
-                                                        <option value="sea-export">Sea Export</option>
-                                                        <option value="air-import">Air Import</option>
-                                                        <option value="air-export">Air Export</option>
-                                                        <option value="logistics">Logistics</option>
-                                                        <option value="warehouse">Warehouse</option>
-                                                        <option value="other">Other</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Book No</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="book_no" type="text" class="form-control book_no"
-                                                        value="{{ old('book_no') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">ETD Date</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="etd_date" type="date" value="{{ old('etd_date') }}"
-                                                        class="form-control etd_date" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Voyage</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <select name="voyage_no" class="voyage_no search_select2"
-                                                        data-url="/admin/cro/create" data-type="get_voyage"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">EGM No</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="egm_no" type="text" class="form-control egm_no"
-                                                        value="{{ old('egm_no') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">EGM Date</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="egm_date" type="date" value="{{ old('egm_date') }}"
-                                                        class="form-control egm_date" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Seq No</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="seq_no" type="text" class="form-control seq_no"
-                                                        value="{{ old('seq_no') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">No of Install</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="install_count" type="text"
-                                                        value="{{ old('install_count') }}"
-                                                        class="form-control install_count" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">VIR No</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="vir_no" type="text" class="form-control vir_no"
-                                                        value="{{ old('vir_no') }}" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="row g-0 align-items-center mb-1">
@@ -520,9 +426,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row">
                                         <div class="col-6">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-4">
@@ -535,23 +439,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row g-0 align-items-center mb-1">
-                                                <div class="col-4">
-                                                    <label class="form-label w-100 m-0">Guarantee</label>
-                                                </div>
-                                                <div class="col-8">
-                                                    <input name="guarantee" type="text"
-                                                        value="{{ old('guarantee') }}" class="form-control guarantee" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-6">
                                             <div class="row g-0 align-items-center mb-1">
                                                 <div class="col-4">
@@ -566,12 +454,94 @@
                                         </div>
 
                                         <div class="col-6">
-                                            <button type="button" class="btn btn-primary btn-sm">Clear</button>
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Ground Date</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="ground_date" type="date"
+                                                        value="{{ old('ground_date') }}"
+                                                        class="form-control ground_date" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Docs Rcv Frm S/Line</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="docs_rcvd" type="date"
+                                                        value="{{ old('docs_rcvd') }}" class="form-control docs_rcvd" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Manifest Ref#</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="manifest_ref" type="text"
+                                                        value="{{ old('manifest_ref') }}"
+                                                        class="form-control manifest_ref" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Agent Code</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="agent_code" type="text"
+                                                        value="{{ old('agent_code') }}"
+                                                        class="form-control agent_code" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-4">
+                                                    <label class="form-label w-100 m-0">Line Code</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input name="line_code" type="text"
+                                                        value="{{ old('line_code') }}" class="form-control line_code" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label w-100 m-0">Remarks</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <textarea name="remarks" class="form-control remarks">{{ old('remarks') }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="row g-0 align-items-center mb-1">
+                                                <div class="col-2">
+                                                    <label class="form-label w-100 m-0">Same Bottom Cargo</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <textarea name="same_bottom_cargo" class="form-control same_bottom_cargo">{{ old('same_bottom_cargo') }}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="mt-2">
+                                    <div class="mt-2 text-center">
                                         <div>
+                                            <button type="button" class="btn btn-primary btn-sm">Clear</button>
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                 class="btn btn-primary btn-sm">Show Manifest List</button>
                                             <button type="button" id="se_job_btn" class="btn btn-primary btn-sm">Show
@@ -581,12 +551,31 @@
                                             <button type="button" class="btn btn-primary btn-sm">PEDI</button>
                                         </div>
                                     </div>
+
+                                    <div class="mt-2 text-center">
+                                        <button type="button" class="btn btn-primary btn-md">Weboc</button>
+                                        <button type="button" class="btn btn-primary btn-md">Crucial Changes</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Draft</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Finalize</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Create & Allocate
+                                            Job</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Letter Generation</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Letter</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+
+            <style>
+                #get_hbls thead th,
+                #get_mbls thead th {
+                    background: #71bf45;
+                    color: #fff;
+                }
+            </style>
 
             <div class="col-md-12">
                 <div id="job_allocation" class="card mt-1">

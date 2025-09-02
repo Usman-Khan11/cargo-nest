@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\InvoiceDetail;
@@ -10,6 +11,7 @@ use App\Models\DocsCompanyWise;
 use App\Models\Job;
 use App\Models\JobReceivable;
 use App\Models\PartyBasicInfo;
+use Illuminate\Support\Facades\DB;
 
 class SEInvoiceController extends Controller
 {
@@ -60,7 +62,13 @@ class SEInvoiceController extends Controller
             return view('admin.se_invoice.partials.charges_data', $data);
         }
 
+        if (isset($request->get_invoice_acc) && isset($request->invoice_to)) {
+            $invoice_to = $request->invoice_to;
+            return PartyBasicInfo::where('Type', 'Like', "%{$invoice_to}%")->select(["id", "party_name as text"])->orderBy('id', 'desc')->get();
+        }
+
         $data['invoice_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
+        $data['currencies'] = Currency::select(["id", "code as text"])->orderBy('id', 'desc')->get();
 
         return view('admin.se_invoice.create', $data);
     }
@@ -86,24 +94,33 @@ class SEInvoiceController extends Controller
             'job_id'      => 'required',
         ]);
 
-        $invoice = new Invoice();
-        $invoice->fill($request->all());
-        $invoice->tran_number = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
-        $invoice->save();
+        try {
+            DB::beginTransaction();
 
-        $charges_ids = $request->charges_ids;
-        if ($charges_ids) {
-            foreach ($charges_ids as $key => $value) {
-                $invoice_details = new InvoiceDetail();
-                $invoice_details->invoice_id = $invoice->id;
-                $invoice_details->job_id = $request->job_id;
-                $invoice_details->charges_id = $value;
-                $invoice_details->save();
+            $invoice = new Invoice();
+            $invoice->fill($request->all());
+            $invoice->tran_number = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name, true);
+            $invoice->save();
+
+            $charges_ids = $request->charges_ids;
+            if ($charges_ids) {
+                foreach ($charges_ids as $key => $value) {
+                    $invoice_details = new InvoiceDetail();
+                    $invoice_details->invoice_id = $invoice->id;
+                    $invoice_details->job_id = $request->job_id;
+                    $invoice_details->charges_id = $value;
+                    $invoice_details->save();
+                }
             }
+
+            DB::commit();
+            $res = ["success" => 1, "message" => "Invoice Added Successfully."];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $res = ["success" => 0, "message" => $e->getLine() . ': ' . $e->getMessage()];
         }
 
-        $notify[] = ['success', 'Invoice Added Successfully.'];
-        return redirect()->route('admin.se_invoice.create')->withNotify($notify);
+        return response()->json($res);
     }
 
     public function update(Request $request)
@@ -116,24 +133,34 @@ class SEInvoiceController extends Controller
             'job_id'      => 'required',
         ]);
 
-        $invoice = Invoice::where("id", $request->id)->first();
-        $invoice->fill($request->all());
-        $invoice->save();
+        try {
+            DB::beginTransaction();
 
-        InvoiceDetail::where('invoice_id', $invoice->id)->delete();
-        $charges_ids = $request->charges_ids;
-        if ($charges_ids) {
-            foreach ($charges_ids as $key => $value) {
-                $invoice_details = new InvoiceDetail();
-                $invoice_details->invoice_id = $invoice->id;
-                $invoice_details->job_id = $request->job_id;
-                $invoice_details->charges_id = $value;
-                $invoice_details->save();
+            $invoice = Invoice::where("id", $request->id)->first();
+            $invoice->types = [];
+            $invoice->fill($request->all());
+            $invoice->save();
+
+            InvoiceDetail::where('invoice_id', $invoice->id)->delete();
+            $charges_ids = $request->charges_ids;
+            if ($charges_ids) {
+                foreach ($charges_ids as $key => $value) {
+                    $invoice_details = new InvoiceDetail();
+                    $invoice_details->invoice_id = $invoice->id;
+                    $invoice_details->job_id = $request->job_id;
+                    $invoice_details->charges_id = $value;
+                    $invoice_details->save();
+                }
             }
+
+            DB::commit();
+            $res = ["success" => 1, "message" => "Invoice Updated Successfully."];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $res = ["success" => 0, "message" => $e->getLine() . ': ' . $e->getMessage()];
         }
 
-        $notify[] = ['success', 'Invoice Updated Successfully.'];
-        return redirect()->route('admin.se_invoice.create')->withNotify($notify);
+        return response()->json($res);
     }
 
     public function get_data_by_job($job_id)

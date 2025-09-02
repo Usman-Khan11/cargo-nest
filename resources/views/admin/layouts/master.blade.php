@@ -333,7 +333,6 @@
 
             $(".menu-inner .menu-sub").each(function() {
                 if ($.trim($(this).text()) == '' || $.trim($(this).html()) == '') {
-                    console.log($(this))
                     $(this).parent().remove();
                 }
             });
@@ -375,6 +374,50 @@
                 .replace(/[\s\W-]+/g, "-") // Replace spaces and non-alphanumeric characters with a hyphen
                 .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
         }
+
+        $("#myForm").submit(function(e) {
+            e.preventDefault();
+
+            let method = $(this).attr('method');
+            let url = $(this).attr('action');
+
+            if (!url) {
+                notify('error', 'Form action is null or undefined.');
+                return;
+            }
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: $(this).serialize(),
+                beforeSend: function() {
+                    $(".loader").show();
+                },
+                success: function(response) {
+                    if (response.success == 1) {
+                        notify('success', response.message);
+                    } else if (response.success == 0) {
+                        notify('error', response.message);
+                    } else {
+                        notify('success', 'Form submitted successfully.');
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+
+                        $.each(errors, function(key, value) {
+                            notify('error', value[0]);
+                        });
+                    } else {
+                        notify('error', xhr.responseJSON.message || 'Request failed');
+                    }
+                },
+                complete: function() {
+                    $(".loader").hide();
+                }
+            });
+        })
     </script>
 </body>
 
