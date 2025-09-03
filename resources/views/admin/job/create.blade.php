@@ -3208,7 +3208,7 @@
             let job_id = $("input[name=id]").val();
 
             if (job_id) {
-                window.location.assign('{{ route('admin.invoice.create') }}?job_id=' + job_id);
+                window.location.assign('{{ route('admin.se_invoice.create') }}?job_id=' + job_id);
             } else {
                 iziToast.error({
                     message: 'Something went wrong!',

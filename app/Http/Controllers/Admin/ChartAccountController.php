@@ -92,6 +92,7 @@ class ChartAccountController extends Controller
             ],
             'alias'               => 'nullable|string|max:110',
             'allow_voucher_entry' => 'sometimes|boolean',
+            'voucher_type'        => 'nullable|string|max:20',
             'in_active'           => 'sometimes|boolean',
             'max_child_acc'       => 'nullable|string|max:25',
             'category'            => 'nullable|string|max:30',
@@ -289,6 +290,19 @@ class ChartAccountController extends Controller
                 ->select('id', DB::raw("CONCAT(acc_code, ' - ', title) as text"))
                 ->take(20)->get();
             return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_chart_account_by_voucher_type') {
+            $search_term = $request->search;
+            $voucher_type = $request->voucher_type ?? '';
+
+            $data = ChartAccount::where('acc_code', 'like', "%$search_term%")->orWhere('title', 'like', "%$search_term%");
+
+            if (!empty($voucher_type)) {
+                $data = $data->where('voucher_type', $voucher_type);
+            }
+
+            return $data->select('id', DB::raw("CONCAT(acc_code, ' - ', title) as text"))->take(20)->get();
         }
     }
 }

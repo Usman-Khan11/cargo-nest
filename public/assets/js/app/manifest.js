@@ -43,4 +43,23 @@ $(document).ready(function () {
             }
         );
     });
+
+    $("select.search_vessel").change(function () {
+        var id = $(this).val();
+        $(".search_voyage").html(null);
+
+        $.get(
+            "/admin/voyage/get_all_data",
+            {
+                fetch_vessel_voyages: id,
+                type: 'get_voyages_by_vessels'
+            },
+            function (res) {
+                $(".search_voyage").append(`<option value=""></option>`);
+                $(res).each(function (i, v) {
+                    $(".search_voyage").append(`<option value="${v.id}">${v.text}</option>`);
+                })
+            }
+        );
+    });
 })

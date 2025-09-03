@@ -35,27 +35,35 @@ class ManifestController extends Controller
         $user_info = session()->get('user_info');
 
         if ($request->ajax()) {
-            $totalCount = 0;
-            $recordsFiltered = 0;
-            $pageSize = (int)($request->length) ? $request->length : 10;
-            $start = (int)($request->start) ? $request->start : 0;
-            $query = Manifest::Query();
-            $totalCount = $query->count();
+            $query = Manifest::with([
+                'vessels',
+                'voyages',
+                'terminals',
+                'shipping_line',
+                'shipping_license',
+                'local_port'
+            ]);
 
-            $query = $query->orderby('id', 'desc')->skip($start)->take($pageSize)->latest()->get();
+            if (isset($request->vessel) && !empty($request->vessel)) {
+                $query = $query->where('vessel', $request->vessel);
+            }
 
-            return DataTables::of($query)
-                ->setOffset($start)->addIndexColumn()
-                ->with(['recordsTotal' => $totalCount])
-                ->make(true);
+            if (isset($request->voyage) && !empty($request->voyage)) {
+                $query = $query->where('voyage_no', $request->voyage);
+            }
+
+            $query = $query->orderby('id', 'asc')->get();
+            return DataTables::of($query)->addIndexColumn()->make(true);
         }
 
         $data['manifest_no'] = DocsCompanyWise::getDocNumber($user_info['company_id'], $user_info['fiscal_year_id'], $this->name);
 
-        $data['seo_title']      = "Manifest";
-        $data['seo_desc']       = "Manifest";
-        $data['seo_keywords']   = "Manifest";
-        $data['page_title'] = "Manifest";
+        $data['vessels'] = Vessel::select('id', DB::raw('CONCAT(vessel_name) as text'))->get()->toArray();
+
+        $data['seo_title']      = "SE Manifest";
+        $data['seo_desc']       = "SE Manifest";
+        $data['seo_keywords']   = "SE Manifest";
+        $data['page_title'] = "SE Manifest";
 
         return view('admin.manifest.create', $data);
     }

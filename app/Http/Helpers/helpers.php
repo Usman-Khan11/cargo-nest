@@ -912,3 +912,17 @@ function account_types_charges()
         'wip'                      => 'WIP',
     ];
 }
+
+function chart_account_types()
+{
+    return [
+        "BPV" => "BPV",
+        "BRV" => "BRV",
+        "CPV" => "CPV",
+        "CR"  => "CR",
+        "CRV" => "CRV",
+        "JV"  => "JV",
+        "TV"  => "TV",
+        "TVR" => "TVR",
+    ];
+}

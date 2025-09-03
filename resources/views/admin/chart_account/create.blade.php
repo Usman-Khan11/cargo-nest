@@ -319,7 +319,21 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3"></div>
+                                <div class="col-3">
+                                    <div class="row g-0 align-items-center mb-1">
+                                        <div class="col-4">
+                                            <label class="form-label">Voucher Type</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="voucher_type" class="form-select voucher_type">
+                                                <option value=""></option>
+                                                @foreach (chart_account_types() as $key => $value)
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-4">
                                     <div class="row g-0 align-items-center mb-1">
@@ -472,6 +486,7 @@
                 $(".category").val(data.category).trigger('change');
                 $(".sub_category").val(data.sub_category).trigger('change');
                 $(".pl_category").val(data.pl_category).trigger('change');
+                $(".voucher_type").val(data.voucher_type).trigger('change');
                 $(".reference_no").val(data.reference_no);
                 $(".user_field_2").val(data.user_field_2);
                 $(".user_field_3").val(data.user_field_3);

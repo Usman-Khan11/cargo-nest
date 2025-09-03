@@ -115,14 +115,9 @@
                                         <div class="col-9">
                                             <select class="form-select type" name="type">
                                                 <option value=""></option>
-                                                <option value="BPV">BPV</option>
-                                                <option value="BRV">BRV</option>
-                                                <option value="CPV">CPV</option>
-                                                <option value="CR">CR</option>
-                                                <option value="CRV">CRV</option>
-                                                <option value="JV">JV</option>
-                                                <option value="TV">TV</option>
-                                                <option value="TVR">TVR</option>
+                                                @foreach (chart_account_types() as $key => $value)
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -152,8 +147,12 @@
                                             <label class="form-label">Settlement</label>
                                         </div>
                                         <div class="col-9">
-                                            <input class="form-control settlement" name="settlement"
-                                                value="{{ old('settlement') }}">
+                                            {{-- <input class="form-control settlement" name="settlement"
+                                                value="{{ old('settlement') }}"> --}}
+
+                                            <select name="settlement" class="settlement search_select2"
+                                                data-url="{{ route('admin.chart_account.get_all_data') }}"
+                                                data-type="get_chart_account_by_voucher_type"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -592,6 +591,13 @@
                     });
                 });
             }
+
+            $("select.type").change(function() {
+                let type = $(this).val();
+                let url = '{{ route('admin.chart_account.get_all_data') }}' + '?voucher_type=' + type;
+
+                $(".settlement").attr("data-url", url);
+            })
         });
 
         $(".navigation").click(function() {

@@ -9,6 +9,12 @@ class Manifest extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $appends = ['operation_value'];
+
+    public function getOperationValueAttribute()
+    {
+        return operations()[$this->operation] ?? $this->operation;
+    }
 
     public function vessels()
     {

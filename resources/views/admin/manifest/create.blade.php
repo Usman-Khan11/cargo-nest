@@ -542,9 +542,11 @@
                                     <div class="mt-2 text-center">
                                         <div>
                                             <button type="button" class="btn btn-primary btn-sm">Clear</button>
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                class="btn btn-primary btn-sm">Show Manifest List</button>
-                                            <button type="button" id="se_job_btn" class="btn btn-primary btn-sm">Show
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#manifestListModal" class="btn btn-primary btn-sm">Show
+                                                Manifest List</button>
+                                            <button type="button" id="se_job_btn" data-type="hide"
+                                                class="btn btn-primary btn-sm">Show
                                                 Jobs</button>
                                             <button type="button" class="btn btn-primary btn-sm">Show Summary</button>
                                             <button type="button" class="btn btn-primary btn-sm">Pre Alert</button>
@@ -611,14 +613,24 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="manifestListModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollabl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Manifest List</h5>
+                    <h5 class="modal-title" id="">Manifest List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <form action="#" id="list_search_form" class="row mb-2">
+                        <div class="form-group col-4">
+                            <label class="form-label">Vessel</label>
+                            <select name="vessel" class="form-select select2 search_vessel"></select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="form-label">Voyage</label>
+                            <select name="voyage" class="form-select select2 search_voyage"></select>
+                        </div>
+                    </form>
                     <div class="responsive text-nowrap">
                         <table class="table table-bordered table-sm quotation_record"></table>
                     </div>
@@ -631,6 +643,7 @@
 @push('script')
     <script src="{{ asset('assets/js/app/manifest.js') }}"></script>
     <script type="text/javascript">
+        let vessels = @json($vessels);
         $(document).ready(function() {
             var datatable = $('.quotation_record').DataTable({
                 select: {
@@ -640,39 +653,47 @@
                 "serverSide": true,
                 "lengthChange": false,
                 "searching": false,
-                "pageLength": 15,
+                "pageLength": 10,
                 "scrollX": true,
                 "ajax": {
                     "url": "{{ route('admin.manifest.create') }}",
                     "type": "get",
                     "data": function(d) {
-                        var frm_data = $('#result_report_form').serializeArray();
+                        var frm_data = $('#list_search_form').serializeArray();
                         $.each(frm_data, function(key, val) {
                             d[val.name] = val.value;
                         });
                     },
                 },
-                columns: [
-
-                    {
-                        data: 'operation',
+                columns: [{
+                        data: 'operation_value',
                         title: 'Operation'
                     },
                     {
-                        data: 'agent',
-                        title: 'ShippingLine Agent'
+                        data: 'shipping_line.party_name',
+                        title: 'ShippingLine Agent',
+                        "render": function(data, type, full, meta) {
+                            if (full.shipping_line) {
+                                return full.shipping_line.party_name;
+                            }
+
+                            return '-';
+                        }
                     },
                     {
                         data: 'year',
                         title: 'Year'
                     },
                     {
-                        data: 'vessel',
-                        title: 'Vessel'
-                    },
-                    {
-                        data: 'license',
-                        title: 'ShippingLicens'
+                        data: 'shipping_license.name',
+                        title: 'Shipping Licens',
+                        "render": function(data, type, full, meta) {
+                            if (full.shipping_license) {
+                                return full.shipping_license.name;
+                            }
+
+                            return '-';
+                        }
                     },
                     {
                         data: 'manifest_ref',
@@ -684,6 +705,20 @@
                     $(row).attr("onclick", `edit_row(this,'${JSON.stringify(data)}')`)
                 }
             });
+
+            $('#manifestListModal').on('shown.bs.modal', function() {
+                datatable.ajax.reload();
+
+                $(".search_vessel").html('');
+                $(".search_vessel").append(`<option value=""></option>`);
+                $(vessels).each(function(i, v) {
+                    $(".search_vessel").append(`<option value="${v.id}">${v.text}</option>`);
+                })
+            });
+
+            $(".search_vessel, .search_voyage").change(function() {
+                datatable.ajax.reload();
+            })
         });
 
         function edit_row(e, data) {
@@ -785,7 +820,15 @@
             $("#job_allocation").hide();
 
             $("#se_job_btn").click(function() {
+                let type = $(this).data('type');
                 let manifest_id = $("input[name=id]").val();
+
+                if (type == "show") {
+                    $("#job_allocation").hide();
+                    $(this).data('type', 'hide');
+                    $(this).text('Show Jobs');
+                    return;
+                }
 
                 if (manifest_id > 0) {
                     $.get("/admin/manifest/allocation", {
@@ -803,6 +846,8 @@
                     })
 
                     $("#job_allocation").show();
+                    $(this).data('type', 'show');
+                    $(this).text('Hide Jobs');
                 } else {
                     alert('Something went wrong!')
                 }
