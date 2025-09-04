@@ -127,6 +127,8 @@ class ChartAccountController extends Controller
 
         $chartaccount->fill($request->all());
         $chartaccount->details = $arr;
+        $category = chartAccountCategorySelection($request->parent_acc ?? '');
+        $chartaccount->category = $category['category'];
         $chartaccount->save();
 
         $notify[] = ['success', 'Chart Of Account Added Successfully.'];
@@ -146,6 +148,8 @@ class ChartAccountController extends Controller
 
         $chartaccount->allow_voucher_entry = null;
         $chartaccount->fill($request->all());
+        $category = chartAccountCategorySelection($request->parent_acc ?? '');
+        $chartaccount->category = $category['category'];
         $chartaccount->update();
 
         $notify[] = ['success', 'Chart Of Account Updated Successfully.'];

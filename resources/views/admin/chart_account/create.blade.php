@@ -101,6 +101,7 @@
 @endsection
 
 @php
+    $categories = chart_account_categories();
     $accounts = fetchAccounts();
     $tree = buildTree($accounts);
 @endphp
@@ -239,7 +240,8 @@
                                             <label class="form-label">Category</label>
                                         </div>
                                         <div class="col-9">
-                                            <select name="category" class="form-select category"></select>
+                                            {{-- <select name="category" class="form-select category"></select> --}}
+                                            <input type="text" name="category" class="form-control category" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -320,7 +322,7 @@
                                 </div>
 
                                 <div class="col-3">
-                                    <div class="row g-0 align-items-center mb-1">
+                                    <div class="row g-0 align-items-center mb-1 d-none">
                                         <div class="col-4">
                                             <label class="form-label">Voucher Type</label>
                                         </div>
@@ -472,6 +474,8 @@
 
 @push('script')
     <script>
+        let categories = @json($categories);
+
         $("#submitButton").click(function() {
             $("#myForm").submit();
         });
@@ -484,7 +488,6 @@
                 $(".alias").val(data.alias);
                 $(".max_child_acc").val(data.max_child_acc).trigger('change');
                 $(".category").val(data.category).trigger('change');
-                $(".sub_category").val(data.sub_category).trigger('change');
                 $(".pl_category").val(data.pl_category).trigger('change');
                 $(".voucher_type").val(data.voucher_type).trigger('change');
                 $(".reference_no").val(data.reference_no);
@@ -497,6 +500,13 @@
                 $("input[name='allow_voucher_entry'][value='" + data.allow_voucher_entry + "']").prop('checked', true);
                 $("input[name='in_active'][value='" + data.in_active + "']").prop('checked', true);
 
+                if (data.allow_voucher_entry == 1) {
+                    appendCategories(data.category);
+                } else {
+                    $(".sub_category").html('');
+                }
+
+                $(".sub_category").val(data.sub_category).trigger('change');
                 $("#myForm").attr("action", "{{ route('admin.chart_account.update') }}");
                 $("input[name=id]").val(data.id);
 
@@ -683,5 +693,20 @@
             //     console.log(res)
             // })
         })
+
+        function appendCategories(category) {
+            $("select.sub_category").html(`<option value=""></option>`);
+
+            for (const [key, value] of Object.entries(categories)) {
+                if (key == category) {
+                    let sub_categories = value;
+
+                    for (const [keyy, valuee] of Object.entries(sub_categories)) {
+                        $("select.sub_category").append(`<option value="${valuee}">${valuee}</option>`);
+                    }
+                }
+            }
+
+        }
     </script>
 @endpush

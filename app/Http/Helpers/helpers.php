@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ChartAccount;
 use App\Models\Extension;
 use App\Models\GeneralSetting;
 use App\Models\Nav;
@@ -924,5 +925,71 @@ function chart_account_types()
         "JV"  => "JV",
         "TV"  => "TV",
         "TVR" => "TVR",
+    ];
+}
+
+function chartAccountCategorySelection($parent_acc)
+{
+    $id = 0;
+    $category = '';
+
+    while ($parent_acc != "" || $parent_acc != "0") {
+        $parent = ChartAccount::find($parent_acc);
+
+        if (!$parent) {
+            break;
+        }
+
+        $id = $parent->id;
+        $category = $parent->title;
+
+        $parent_acc = $parent->parent_acc;
+    }
+
+    return ["id" => $id, "category" => $category];
+}
+
+function chart_account_categories()
+{
+    return [
+        "ASSETS" => [
+            "bank"              => "Bank",
+            "cash"              => "Cash",
+            "cash_withdrawl"    => "Cash Withdrawl",
+            "customer"          => "Customer",
+            "customer-vendor"   => "Customer/Vendor",
+            "cwip"              => "CWIP",
+            "fixed_asset"       => "Fixed Asset",
+            "general_inventory" => "General Inventory"
+        ],
+        "CAPITAL" => [
+            "drawing" => "Drawing",
+            "equity"  => "Equity",
+            "general" => "General",
+            "p_and_l" => "P&L"
+        ],
+        "LIABILITY" => [
+            "customer-vendor" => "Customer/Vendor",
+            "general"         => "General",
+            "vendor"          => "Vendor",
+            "wip"             => "WIP"
+        ],
+        "REVENUE" => [
+            "general"            => "General",
+            "operational_income" => "Operational Income",
+            "other_income"       => "Other Income"
+        ],
+        "EXPENSE" => [
+            "admin_expense"         => "Admin Expense",
+            "cogm"                  => "COGM",
+            "cogs"                  => "COGS",
+            "employee"              => "Employee",
+            "general"               => "General",
+            "manufacturing_expense" => "Manufacturing Expense",
+            "other_expense"         => "Other Expense",
+            "selling_expense"       => "Selling Expense",
+            "services"              => "Services",
+            "taxation"              => "Taxation"
+        ]
     ];
 }

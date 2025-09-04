@@ -489,10 +489,19 @@ class PartyController extends Controller
         }
 
         if (!empty($parent_acc)) {
+            $categories = chart_account_categories();
+            $category = chartAccountCategorySelection($parent_acc ?? '');
+            $category = $category['category'];
+
+            $sub_categories = $categories[$category] ?? [];
+            $sub_category =  $sub_categories[$request->calculation_type] ?? '';
+
             $chart_account->acc_code = $code;
             $chart_account->parent_acc = $parent_acc;
             $chart_account->title = $request->party_name;
             $chart_account->allow_voucher_entry = 1;
+            $chart_account->category = $category;
+            $chart_account->sub_category = $sub_category;
             $chart_account->save();
 
             $partyaccountdetail = PartyAccountDetail::where('party_basic_id', $party_id)->first();
