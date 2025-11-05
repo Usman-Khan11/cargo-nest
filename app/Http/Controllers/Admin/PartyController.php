@@ -440,7 +440,8 @@ class PartyController extends Controller
         $account_integration = AccountIntegrationParentAccount::first();
 
         if (!$account_integration) {
-            return;
+            $res = ["success" => 0, "message" => "Account integration parent account not found."];
+            return response()->json($res);
         }
 
         $calculation_type = $request->calculation_type;
@@ -489,6 +490,11 @@ class PartyController extends Controller
         }
 
         if (!empty($parent_acc)) {
+            if (ChartAccount::where("parent_acc", $parent_acc->id)->count() >= $parent_acc->max_child_acc) {
+                $res = ["success" => 0, "message" => "Max child account limit reached."];
+                return response()->json($res);
+            }
+
             $categories = chart_account_categories();
             $category = chartAccountCategorySelection($parent_acc ?? '');
             $category = $category['category'];

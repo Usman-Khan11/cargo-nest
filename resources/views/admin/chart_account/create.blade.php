@@ -227,6 +227,10 @@
                                         <div class="col-8">
                                             <select name="max_child_acc" class="form-select max_child_acc">
                                                 <option value="99">99</option>
+                                                <option value="999">999</option>
+                                                <option value="9999">9999</option>
+                                                <option value="99999">99999</option>
+                                                <option value="999999">999999</option>
                                             </select>
                                         </div>
                                     </div>

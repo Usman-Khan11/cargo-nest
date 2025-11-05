@@ -83,7 +83,7 @@ class ChartAccountController extends Controller
     {
         $request->validate([
             'title'               => 'required|string|max:50',
-            'parent_acc'          => 'nullable|integer|exists:chart_accounts,parent_acc',
+            'parent_acc'          => 'nullable|integer|exists:chart_accounts,id',
             'acc_code'            => [
                 'required',
                 'string',
@@ -112,9 +112,16 @@ class ChartAccountController extends Controller
         $chartaccount = new ChartAccount();
 
         $get = ChartAccount::where('id', $request->parent_acc)->first();
-        if ($get && $get->allow_voucher_entry == 1) {
-            $notify[] = ['error', 'Voucher enter is enabled of this account.'];
-            return back()->withNotify($notify);
+        if ($get) {
+            if ($get->allow_voucher_entry == 1) {
+                $res = ["success" => 0, "message" => "Voucher enter is enabled of this account."];
+                return response()->json($res);
+            }
+
+            if (ChartAccount::where("parent_acc", $get->id)->count() >= $get->max_child_acc) {
+                $res = ["success" => 0, "message" => "Max child account limit reached."];
+                return response()->json($res);
+            }
         }
 
         $arr = [];
@@ -131,8 +138,8 @@ class ChartAccountController extends Controller
         $chartaccount->category = $category['category'];
         $chartaccount->save();
 
-        $notify[] = ['success', 'Chart Of Account Added Successfully.'];
-        return redirect()->route('admin.chart_account.create')->withNotify($notify);
+        $res = ["success" => 1, "message" => "Chart Of Account Added Successfully."];
+        return response()->json($res);
     }
 
     public function update(Request $request)
@@ -142,8 +149,8 @@ class ChartAccountController extends Controller
         $chartaccount = ChartAccount::where("id", $request->id)->firstOrFail();
 
         if (ChartAccount::where("parent_acc", $chartaccount->id)->count() > 0 && $request->allow_voucher_entry == 1) {
-            $notify[] = ['error', 'This is a parent account.'];
-            return back()->withInput()->withNotify($notify);
+            $res = ["success" => 0, "message" => "This is a parent account."];
+            return response()->json($res);
         }
 
         $chartaccount->allow_voucher_entry = null;
@@ -152,8 +159,8 @@ class ChartAccountController extends Controller
         $chartaccount->category = $category['category'];
         $chartaccount->update();
 
-        $notify[] = ['success', 'Chart Of Account Updated Successfully.'];
-        return redirect()->route('admin.chart_account.create')->withNotify($notify);
+        $res = ["success" => 1, "message" => "Chart Of Account Updated Successfully."];
+        return response()->json($res);
     }
 
 
@@ -252,12 +259,12 @@ class ChartAccountController extends Controller
             $account->acc_code = $this->getSeries($new_account->id);
             $account->save();
         } else {
-            $notify[] = ['error', 'Account only move in parent ancestors.'];
-            return back()->withNotify($notify);
+            $res = ["success" => 0, "message" => "Account only move in parent ancestors."];
+            return response()->json($res);
         }
 
-        $notify[] = ['success', 'Account moved successfully.'];
-        return back()->withNotify($notify);
+        $res = ["success" => 1, "message" => "Account moved move successfully."];
+        return response()->json($res);
     }
 
     public function get_sub_accounts(Request $request)
