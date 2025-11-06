@@ -94,8 +94,8 @@
                                                         <label class="form-label">Emp Code</label>
                                                     </div>
                                                     <div class="col-8">
-                                                        <input name="emp_code" type="text" class="form-control emp_code"
-                                                            value="{{ old('emp_code') }}" />
+                                                        <input name="code" type="text" class="form-control code"
+                                                            value="{{ old('code') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,8 +106,8 @@
                                                         <label class="form-label">Employee Name</label>
                                                     </div>
                                                     <div class="col-8">
-                                                        <input name="emp_name" type="text" class="form-control emp_name"
-                                                            value="{{ old('emp_name') }}" />
+                                                        <input name="name" type="text" class="form-control name"
+                                                            value="{{ old('name') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -433,6 +433,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-3">
+                                                        <label class="form-label">Cost Center</label>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <select name="cost_center" class="form-select cost_center">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -506,6 +519,51 @@
                                                             class="form-control account_number"
                                                             value="{{ old('account_number') }}" />
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <div class="row px-1">
+                                            <div class="col-md-6">
+                                                <div class="p-3"
+                                                    style="border: 1px solid #eee; background-color: #e7fcdc;">
+                                                    <label class="form-check-label mb-2">
+                                                        <input type="checkbox" name="rep[]" value="Sales-Rep"
+                                                            class="form-check-input rep">
+                                                        Sales Rep
+                                                    </label><br>
+                                                    <label class="form-check-label mb-2">
+                                                        <input type="checkbox" name="rep[]" value="Docs-Rep"
+                                                            class="form-check-input rep">
+                                                        Docs Rep
+                                                    </label><br>
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" name="rep[]" value="Account-Rep"
+                                                            class="form-check-input rep">
+                                                        Account Rep
+                                                    </label>
+                                                </div>
+
+                                                <button type="button" class="btn btn-primary btn-sm mt-2"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"> Show List
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <h5>Image</h5>
+                                                <div id="imageContainer">
+                                                    <img id="uploadedImage"
+                                                        src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
+                                                        width="75%" class="mb-2">
+                                                </div>
+                                                <div class="main-image">
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                        onclick="document.getElementById('uploadInput').click()">Upload</button>
+                                                    <input type="file" hidden class="form-control" name="image"
+                                                        id="uploadInput" accept="image/*" />
+                                                    <button id="removeButton" type="button"
+                                                        class="btn btn-danger btn-sm mx-3">Remove</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -815,16 +873,265 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-6">
+                                    <div class="border">
+                                        <h5 class="mb-1 p-1 px-2 text-white bg-primary text-center">
+                                            Employee Documents
+                                        </h5>
+                                        <div class="row px-1">
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Resume</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="resume" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Offer Letter</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="offer_letter" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Joining Letter</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="joining_letter" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Appointment Letter</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="appointment_letter"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Contract Paper</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="contract_paper" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">ID Proff Front</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="id_front" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">ID Proff Back</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="id_back" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Character Certificate</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="character_certificate"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Education Document (16 Years)</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="education_doc_16_years"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Education Document (14 Years)</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="education_doc_14_years"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Education Document (Other)</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="education_doc_other"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="row g-0 align-items-center mb-1">
+                                                    <div class="col-4">
+                                                        <label class="form-label">Education Document (Other 2)</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="file" name="education_doc_other_2"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="border">
+                                        <h5 class="mb-1 p-1 px-2 text-white bg-primary text-center">
+                                            Reference
+                                        </h5>
+
+                                        <div>
+                                            <table class="table table-bordered text-center" id="reference_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <button type="button" class="btn btn-primary btn-sm"
+                                                                onclick="addReference()">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </th>
+                                                        <th width="20%">Name</th>
+                                                        <th width="20%">CNIC</th>
+                                                        <th width="20%">Contact No</th>
+                                                        <th width="20%">Company</th>
+                                                        <th width="20%">Designation</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                                onclick="deleteReference(this)">
+                                                                <i class="fa fa-trash-alt"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="reference[0][name]"
+                                                                class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="reference[0][cnic]"
+                                                                class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="reference[0][contact_no]"
+                                                                class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="reference[0][company]"
+                                                                class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="reference[0][designation]"
+                                                                class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="border mt-2">
+                                        <h5 class="mb-1 p-1 px-2 text-white bg-primary text-center">
+                                            Dependants
+                                        </h5>
+
+                                        <div>
+                                            <table class="table table-bordered text-center" id="dependants_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="10%">
+                                                            <button type="button" class="btn btn-primary btn-sm"
+                                                                onclick="addDependant()">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </th>
+                                                        <th width="30%">Dependant</th>
+                                                        <th width="30%">Relation</th>
+                                                        <th width="30%">Contact No</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                                onclick="deleteDependant(this)">
+                                                                <i class="fa fa-trash-alt"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="dependant[0][name]"
+                                                                class="form-control">
+                                                        </td>
+                                                        <td>
+                                                            <select name="dependant[0][relation]" class="form-select">
+                                                                <option value="1">Parent</option>
+                                                                <option value="2">Spouse</option>
+                                                                <option value="3">Children</option>
+                                                                <option value="4">Siblings</option>
+                                                                <option value="8">Other</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="dependant[0][contact_no]"
+                                                                class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-
-
 
                             <div class="row">
                                 <div class="col-md-9">
-
-                                    <div class="row">
-
+                                    {{-- <div class="row">
                                         <div class="col-md-3">
                                             <div class="mb-2">
                                                 <label class="form-label">Pre-Emp Code:</label>
@@ -848,223 +1155,8 @@
                                                     class="form-control machine_code">
                                             </div>
                                         </div>
-                                    </div>
-
-
-
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-6"
-                                                    style="border: 1px solid #eee; background-color: #e7fcdc;">
-                                                    <div class="py-3">
-                                                        <label class="form-check-label mb-2">
-                                                            <input type="checkbox" name="rep[]" value="Sales-Rep"
-                                                                class="form-check-input rep">
-                                                            Sales Rep
-                                                        </label><br>
-                                                        <label class="form-check-label mb-2">
-                                                            <input type="checkbox" name="rep[]" value="Docs-Rep"
-                                                                class="form-check-input rep">
-                                                            Docs Rep
-                                                        </label><br>
-                                                        <label class="form-check-label">
-                                                            <input type="checkbox" name="rep[]" value="Account-Rep"
-                                                                class="form-check-input rep">
-                                                            Account Rep
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal"> Show List
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <label class="form-label">Department</label>
-                                                <select name="department" class="form-select department">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <label class="form-label">Location</label>
-                                                <select name="location" class="form-select location">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <label class="form-label">Cost Center</label>
-                                                <select name="cost_center" class="form-select cost_center">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <label class="form-label">Designation</label>
-                                                <select name="designation" class="form-select designation">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <label class="form-label">Line Manager</label>
-                                                <select name="line_manager" class="form-select line_manager">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <label class="form-label">Company</label>
-                                                <select name="company" class="form-select company">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mb-2">
-                                                <label class="form-label">Salary Payable Account:</label>
-                                                <input name="salary_payable" type="text"
-                                                    class="form-control salary_payable">
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    </div> --}}
                                 </div>
-
-                                <div class="col-md-3 text-center">
-                                    <h5>Image</h5>
-
-                                    <div id="imageContainer">
-                                        <img id="uploadedImage"
-                                            src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
-                                            width="75%" class="mb-2">
-                                    </div>
-
-                                    <div class="main-image">
-                                        <button type="button" class="btn btn-primary btn-sm"
-                                            onclick="document.getElementById('uploadInput').click()">Upload</button>
-                                        <input type="file" hidden class="form-control" name="image"
-                                            id="uploadInput" accept="image/*" />
-                                        <button id="removeButton" type="button"
-                                            class="btn btn-danger btn-sm mx-3">Remove</button>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <h5>personal Info</h5>
-
-
-                                    <div class="col-md-2">
-                                        <div class="mb-2">
-                                            <label>Region:</label>
-                                            <select name="region" class="form-control region">
-                                                <option value=""></option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="mb-2">
-                                            <label>Marriage Date:</label>
-                                            <input type="date" name="marrage_date" class="form-control marrage_date">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="mb-2">
-                                            <label class="form-label">NIC (Old):</label>
-                                            <input name="NIC_Old" type="text" class="form-control NIC_Old">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="mb-2">
-                                            <label class="form-label">Nic:</label>
-                                            <input name="nic" type="text" class="form-control nic">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="mb-2">
-                                            <label class="form-label">Issue Date:</label>
-                                            <input name="issue_date" type="date" class="form-control issue_date">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="mb-2">
-                                            <label class="form-label">Expiry:</label>
-                                            <input name="expiry" type="date" class="form-control expiry">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="mb-2">
-                                            <label class="form-label">Phone (Res):</label>
-                                            <input name="phone_res" type="text" class="form-control phone_res">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="mb-2">
-                                            <label class="form-label">Email:</label>
-                                            <input name="email" type="email" class="form-control email">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Mobile No 1:</label>
-                                            <input name="mobile_no_1" type="text" class="form-control mobile_no_1">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Mobile No 2:</label>
-                                            <input name="mobile_no_2" type="text" class="form-control mobile_no_2">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Address No 1:</label>
-                                            <input name="address_no_1" type="text" class="form-control address_no_1">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Address No 2:</label>
-                                            <input name="address_no_2" type="text" class="form-control address_no_2">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Bank:</label>
-                                            <input name="bank" type="text" class="form-control bank">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Account No:</label>
-                                            <input name="account_no" type="text" class="form-control account_no">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-2">
-                                            <label class="form-label">Last Working Date:</label>
-                                            <input name="last_working_date" type="date"
-                                                class="form-control last_working_date">
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -1072,9 +1164,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1085,32 +1174,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="table-responsive w-100">
-                        <table class="table table-bordered table-sm quotation_record">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <table class="table table-bordered table-sm quotation_record"></table>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -1274,5 +1341,67 @@
             document.getElementById('removeButton').style.display = 'none';
             document.getElementById('uploadInput').value = '';
         });
+
+        function addReference() {
+            let $lastRow = $("#reference_table tbody tr:last");
+            let $newRow = $lastRow.clone();
+
+            $newRow.find("textarea, input").val('');
+            $("#reference_table tbody").append($newRow);
+            referenceReindexRows();
+        }
+
+        function deleteReference(e) {
+            if ($("#reference_table tbody tr").length > 1) {
+                $(e).closest("tr").remove();
+                referenceReindexRows();
+            } else {
+                $("#reference_table tbody tr:last").find("textarea, input").val('');
+            }
+        }
+
+        function referenceReindexRows() {
+            $("#reference_table tbody tr").each(function(index) {
+                $(this).find("input").each(function() {
+                    let name = $(this).attr("name");
+                    if (name) {
+                        name = name.replace(/\[\d+\]/, "[" + index + "]");
+                        $(this).attr("name", name);
+                    }
+                });
+            });
+        }
+
+        function addDependant() {
+            let $lastRow = $("#dependants_table tbody tr:last");
+            let $newRow = $lastRow.clone();
+
+            $newRow.find("textarea, input").val('');
+            $newRow.find("select").val('').trigger('change');
+            $("#dependants_table tbody").append($newRow);
+            DependantsReindexRows();
+        }
+
+        function deleteDependant(e) {
+            if ($("#dependants_table tbody tr").length > 1) {
+                $(e).closest("tr").remove();
+                DependantsReindexRows();
+            } else {
+                $("#dependants_table tbody tr:last").find("textarea, input").val('');
+                $("#dependants_table tbody tr:last").find("select").val('').trigger('change');
+            }
+        }
+
+        function DependantsReindexRows() {
+            $("#dependants_table tbody tr").each(function(index) {
+                $(this).find("input, select").each(function() {
+                    let name = $(this).attr("name");
+                    if (name) {
+                        name = name.replace(/\[\d+\]/, "[" + index + "]");
+                        $(this).attr("name", name);
+                    }
+                });
+            });
+        }
     </script>
 @endpush

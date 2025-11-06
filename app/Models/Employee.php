@@ -4,12 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $guarded = ['id'];
-    protected $table = 'employee';
-    
-    protected $casts = ['rep'=>'array'];
+    protected $table = 'employees';
+
+    protected $casts = [
+        'rep'           => 'array',
+        'limit_company' => 'array',
+        'reference'     => 'array',
+        'dependant'     => 'array'
+    ];
 }
