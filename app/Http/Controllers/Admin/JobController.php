@@ -137,7 +137,7 @@ class JobController extends Controller
         $data['commodities'] = Commodity::select(["id", "name as text"])->get();
         $data['commodities'] = $data['commodities']->toArray();
 
-        $data['employees'] = Employee::where('rep', 'like', '%Sales-Rep%')->select(["id", "emp_name as text"])->get();
+        $data['employees'] = Employee::where('rep', 'like', '%Sales-Rep%')->select(["id", "name as text"])->get();
         $data['employees'] = $data['employees']->toArray();
 
         $data['shipping_lines'] = PartyBasicInfo::where('Type', 'like', '%Shipping-Line%')->select(["id", "party_name as text"])->get();

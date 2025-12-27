@@ -282,9 +282,9 @@
                                                         <label class="form-label">CNIC Issue</label>
                                                     </div>
                                                     <div class="col-8">
-                                                        <input name="cnic_issue_date" type="date"
-                                                            class="form-control cnic_issue_date"
-                                                            value="{{ old('cnic_issue_date') }}" />
+                                                        <input name="cnic_issue" type="date"
+                                                            class="form-control cnic_issue"
+                                                            value="{{ old('cnic_issue') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -837,7 +837,12 @@
                                                     </div>
                                                     <div class="col-8">
                                                         <select name="limit_company[]" multiple
-                                                            class="form-select limit_company select2"></select>
+                                                            class="form-select limit_company select2">
+                                                            @foreach ($companies as $company)
+                                                                <option value="{{ $company->id }}">
+                                                                    {{ $company->shortName }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -884,8 +889,14 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Resume</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="resume" class="form-control">
+                                                    </div>
+                                                    <div class="col-1 resume_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -895,8 +906,14 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Offer Letter</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="offer_letter" class="form-control">
+                                                    </div>
+                                                    <div class="col-1 offer_letter_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -906,8 +923,14 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Joining Letter</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="joining_letter" class="form-control">
+                                                    </div>
+                                                    <div class="col-1 joining_letter_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -917,9 +940,15 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Appointment Letter</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="appointment_letter"
                                                             class="form-control">
+                                                    </div>
+                                                    <div class="col-1 appointment_letter_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -929,8 +958,14 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Contract Paper</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="contract_paper" class="form-control">
+                                                    </div>
+                                                    <div class="col-1 contract_paper_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -940,8 +975,14 @@
                                                     <div class="col-4">
                                                         <label class="form-label">ID Proff Front</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="id_front" class="form-control">
+                                                    </div>
+                                                    <div class="col-1 id_front_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -951,8 +992,14 @@
                                                     <div class="col-4">
                                                         <label class="form-label">ID Proff Back</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="id_back" class="form-control">
+                                                    </div>
+                                                    <div class="col-1 id_back_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -962,9 +1009,15 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Character Certificate</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="character_certificate"
                                                             class="form-control">
+                                                    </div>
+                                                    <div class="col-1 character_certificate_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -974,9 +1027,15 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Education Document (16 Years)</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="education_doc_16_years"
                                                             class="form-control">
+                                                    </div>
+                                                    <div class="col-1 education_doc_16_years_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -986,9 +1045,15 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Education Document (14 Years)</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="education_doc_14_years"
                                                             class="form-control">
+                                                    </div>
+                                                    <div class="col-1 education_doc_14_years_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -998,9 +1063,15 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Education Document (Other)</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="education_doc_other"
                                                             class="form-control">
+                                                    </div>
+                                                    <div class="col-1 education_doc_other_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1010,9 +1081,15 @@
                                                     <div class="col-4">
                                                         <label class="form-label">Education Document (Other 2)</label>
                                                     </div>
-                                                    <div class="col-8">
+                                                    <div class="col-7">
                                                         <input type="file" name="education_doc_other_2"
                                                             class="form-control">
+                                                    </div>
+                                                    <div class="col-1 education_doc_other_2_btn">
+                                                        <a href="#" download
+                                                            class="btn btn-xs btn-outline-success w-100 h-100 py-2 m-0">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1052,23 +1129,23 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" name="reference[0][name]"
-                                                                class="form-control">
+                                                                class="form-control reference_name">
                                                         </td>
                                                         <td>
                                                             <input type="text" name="reference[0][cnic]"
-                                                                class="form-control">
+                                                                class="form-control reference_cnic">
                                                         </td>
                                                         <td>
                                                             <input type="text" name="reference[0][contact_no]"
-                                                                class="form-control">
+                                                                class="form-control reference_contact_no">
                                                         </td>
                                                         <td>
                                                             <input type="text" name="reference[0][company]"
-                                                                class="form-control">
+                                                                class="form-control reference_company">
                                                         </td>
                                                         <td>
                                                             <input type="text" name="reference[0][designation]"
-                                                                class="form-control">
+                                                                class="form-control reference_designation">
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -1106,20 +1183,21 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" name="dependant[0][name]"
-                                                                class="form-control">
+                                                                class="form-control dependant_name">
                                                         </td>
                                                         <td>
-                                                            <select name="dependant[0][relation]" class="form-select">
-                                                                <option value="1">Parent</option>
-                                                                <option value="2">Spouse</option>
-                                                                <option value="3">Children</option>
-                                                                <option value="4">Siblings</option>
-                                                                <option value="8">Other</option>
+                                                            <select name="dependant[0][relation]"
+                                                                class="form-select dependant_relation">
+                                                                <option value="parent">Parent</option>
+                                                                <option value="spouse">Spouse</option>
+                                                                <option value="children">Children</option>
+                                                                <option value="siblings">Siblings</option>
+                                                                <option value="other">Other</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" name="dependant[0][contact_no]"
-                                                                class="form-control">
+                                                                class="form-control dependant_contact_no">
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -1205,11 +1283,11 @@
                     data: function(d) {},
                 },
                 columns: [{
-                        data: "emp_code",
+                        data: "code",
                         title: "Emp Code",
                     },
                     {
-                        data: "emp_name",
+                        data: "name",
                         title: "Emp Name",
                     },
                     {
@@ -1224,7 +1302,7 @@
                         data: "image",
                         title: "Image",
                         "render": function(data, type, full, meta) {
-                            return `<img src="{{ asset('assets/upload/') }}/${full.image}" width="100px" loading="lazy" />`;
+                            return `<img src="/${full.image}" width="100px" loading="lazy" />`;
                         }
                     },
                 ],
@@ -1246,61 +1324,213 @@
         function edit_row(e, data) {
             data = JSON.parse(data);
             if (data) {
-                $(".emp_code").val(data.emp_code);
-                $(".pre_emp_code").val(data.pre_emp_code);
-                $(".title").val(data.title);
-                $(".machine_code").val(data.machine_code);
-                $(".emp_name").val(data.emp_name);
-                $(".father_name").val(data.father_name);
-
-                $(".inactive").removeAttr('checked');
-                $(`.inactive[value=${data.inactive}]`).attr('checked', true);
-
-                $(".nationality").val(data.nationality);
-                $(".date").val(data.date);
-                $(".appoint_date").val(data.appoint_date);
-                $(".empoitment_status").val(data.empoitment_status);
-
-                $(".rep").removeAttr('checked');
-                $(`.rep[value=${data.rep}]`).attr('checked', true);
-
-                $(".department").val(data.department);
-                $(".location").val(data.location);
-                $(".cost_center").val(data.cost_center);
-                $(".designation").val(data.designation);
-                $(".line_manager").val(data.line_manager);
-                $(".company").val(data.company);
-                $(".salary_payable").val(data.salary_payable);
+                $(".code").val(data.code);
+                $(".name").val(data.name);
+                $(".name").val(data.name);
+                $(".gender").val(data.gender).trigger('change');
                 $(".dob").val(data.dob);
-                $(".gender").val(data.gender);
-                $(".region").val(data.region);
-                $(".maritel_status").val(data.maritel_status);
-                $(".marrage_date").val(data.marrage_date);
-                $(".NIC_Old").val(data.NIC_Old);
-                $(".nic").val(data.nic);
-                $(".issue_date").val(data.issue_date);
-                $(".expiry").val(data.expiry);
-                $(".phone_res").val(data.phone_res);
-                $(".email").val(data.email);
-                $(".mobile_no_1").val(data.mobile_no_1);
-                $(".mobile_no_2").val(data.mobile_no_2);
-                $(".address_no_1").val(data.address_no_1);
-                $(".address_no_2").val(data.address_no_2);
-                $(".bank").val(data.bank);
-                $(".account_no").val(data.account_no);
-                $(".last_working_date").val(data.last_working_date);
+                $(".father_name").val(data.father_name);
+                $(".maritel_status").val(data.maritel_status).trigger('change');
+                $(".blood_group").val(data.blood_group).trigger('change');
+                $(".mother_name").val(data.mother_name);
+                $(".tax_no").val(data.tax_no);
+                $(".nationality").val(data.nationality);
+                $(".qualification").val(data.qualification);
+                $(".work_experience").val(data.work_experience);
+                $(".cnic").val(data.cnic);
+                $(".health_issue").val(data.health_issue);
+                $(".cnic_issue").val(data.cnic_issue);
+                $(".cnic_expiry").val(data.cnic_expiry);
+
+                $(".official_email").val(data.official_email);
+                $(".personal_email").val(data.personal_email);
+                $(".country").val(data.country);
+                $(".city").val(data.city);
+                $(".state").val(data.state);
+                $(".address").val(data.address);
+                $(".zip").val(data.zip);
+                $(".phone").val(data.phone);
+                $(".cell_phone").val(data.cell_phone);
+                $(".alt_phone").val(data.alt_phone);
+                $(".cost_center").val(data.cost_center).trigger('change');
+
+                $(".payment_mode").val(data.payment_mode).trigger('change');
+                $(".bank_name").val(data.bank_name).trigger('change');
+                $(".branch_name").val(data.branch_name);
+                $(".account_title").val(data.account_title);
+                $(".account_number").val(data.account_number);
+
+                $(`.rep`).prop("checked", false);
+                let rep = data.rep || [];
+                rep.forEach(element => {
+                    $(`.rep[value="${element}"]`).prop("checked", true);
+                });
 
                 if (data.image) {
-                    $('#uploadedImage').attr('src', "{{ asset('assets/upload/') }}/" + data.image)
+                    $('#uploadedImage').attr('src', `/${data.image}`)
                 } else {
                     $('#uploadedImage').attr('src',
                         "https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
                     )
                 }
 
+                $(".last_salary").val(data.last_salary);
+                $(".joining_date").val(data.joining_date);
+                $(".salary_account").val(data.salary_account).trigger('change');
+                $(".job_status").val(data.job_status).trigger('change');
+                $(".salary_policy").val(data.salary_policy).trigger('change');
+                $(".job_type").val(data.job_type).trigger('change');
+                $(".department").val(data.department).trigger('change');
+                $(".designation").val(data.designation).trigger('change');
+                $(".line_manager").val(data.line_manager).trigger('change');
+                $(".immediate_manager").val(data.immediate_manager).trigger('change');
+                $(".immediate_manager_2").val(data.immediate_manager_2).trigger('change');
+                $(".immediate_manager_3").val(data.immediate_manager_3).trigger('change');
+                $(".basic_salary").val(data.basic_salary);
+                $(".overtime_hourly_rate").val(data.overtime_hourly_rate);
+                $(".fixed_hourly_rate").val(data.fixed_hourly_rate);
+                $(".fixed_sunday_hourly_rate").val(data.fixed_sunday_hourly_rate);
+                $(".eobi").val(data.eobi);
+                $(".bonus").val(data.bonus);
+                $(".bonus_duration_month").val(data.bonus_duration_month);
+                $(".is_attendance_punching_enabled").val(data.is_attendance_punching_enabled).trigger('change');
+                $(".employee_shift").val(data.employee_shift);
+                $('.limit_company').val(data.limit_company || []).trigger('change');
+
+                addReferenceRow(data.reference);
+                addDependantRow(data.dependant);
+
+                if (data.resume) {
+                    $(".resume_btn").show().find("a").attr('href', `/${data.resume}`);
+                } else {
+                    $('.resume_btn').hide();
+                    $('.resume_btn a').attr('href', '#');
+                }
+
+                if (data.offer_letter) {
+                    $(".offer_letter_btn").show().find("a").attr('href', `/${data.offer_letter}`);
+                } else {
+                    $('.offer_letter_btn').hide();
+                    $('.offer_letter_btn a').attr('href', '#');
+                }
+
+                if (data.joining_letter) {
+                    $(".joining_letter_btn").show().find("a").attr('href', `/${data.joining_letter}`);
+                } else {
+                    $('.joining_letter_btn').hide();
+                    $('.joining_letter_btn a').attr('href', '#');
+                }
+
+                if (data.appointment_letter) {
+                    $(".appointment_letter_btn").show().find("a").attr('href', `/${data.appointment_letter}`);
+                } else {
+                    $('.appointment_letter_btn').hide();
+                    $('.appointment_letter_btn a').attr('href', '#');
+                }
+
+                if (data.contract_paper) {
+                    $(".contract_paper_btn").show().find("a").attr('href', `/${data.contract_paper}`);
+                } else {
+                    $('.contract_paper_btn').hide();
+                    $('.contract_paper_btn a').attr('href', '#');
+                }
+
+                if (data.id_front) {
+                    $(".id_front_btn").show().find("a").attr('href', `/${data.id_front}`);
+                } else {
+                    $('.id_front_btn').hide();
+                    $('.id_front_btn a').attr('href', '#');
+                }
+
+                if (data.id_back) {
+                    $(".id_back_btn").show().find("a").attr('href', `/${data.id_back}`);
+                } else {
+                    $('.id_back_btn').hide();
+                    $('.id_back_btn a').attr('href', '#');
+                }
+
+                if (data.character_certificate) {
+                    $(".character_certificate_btn").show().find("a").attr('href', `/${data.character_certificate}`);
+                } else {
+                    $('.character_certificate_btn').hide();
+                    $('.character_certificate_btn a').attr('href', '#');
+                }
+
+                if (data.education_doc_16_years) {
+                    $(".education_doc_16_years_btn").show().find("a").attr('href', `/${data.education_doc_16_years}`);
+                } else {
+                    $('.education_doc_16_years_btn').hide();
+                    $('.education_doc_16_years_btn a').attr('href', '#');
+                }
+
+                if (data.education_doc_14_years) {
+                    $(".education_doc_14_years_btn").show().find("a").attr('href', `/${data.education_doc_14_years}`);
+                } else {
+                    $('.education_doc_14_years_btn').hide();
+                    $('.education_doc_14_years_btn a').attr('href', '#');
+                }
+
+                if (data.education_doc_other) {
+                    $(".education_doc_other_btn").show().find("a").attr('href', `/${data.education_doc_other}`);
+                } else {
+                    $('.education_doc_other_btn').hide();
+                    $('.education_doc_other_btn a').attr('href', '#');
+                }
+
+                if (data.education_doc_other_2) {
+                    $(".education_doc_other_2_btn").show().find("a").attr('href', `/${data.education_doc_other_2}`);
+                } else {
+                    $('.education_doc_other_2_btn').hide();
+                    $('.education_doc_other_2_btn a').attr('href', '#');
+                }
+
                 $("#myForm").attr("action", "{{ route('admin.employee.update') }}");
                 $("input[name=id]").val(data.id);
             }
+        }
+
+        function addReferenceRow(reference) {
+            $("#reference_table tbody tr:gt(0)").remove();
+
+            if (!reference) {
+                $("#reference_table tbody tr").find("input").val('');
+                return;
+            }
+
+            $(reference).each(function(key, value) {
+                let $newRow = $("#reference_table tbody tr:first").clone();
+
+                $newRow.find('.reference_name').val(value.name);
+                $newRow.find('.reference_cnic').val(value.cnic);
+                $newRow.find('.reference_contact_no').val(value.contact_no);
+                $newRow.find('.reference_company').val(value.company);
+                $newRow.find('.reference_designation').val(value.designation);
+
+                $("#reference_table tbody").append($newRow);
+            })
+
+            $("#reference_table tbody tr:first").remove();
+        }
+
+        function addDependantRow(dependant) {
+            $("#dependants_table tbody tr:gt(0)").remove();
+
+            if (!dependant) {
+                $("#dependants_table tbody tr").find("input").val('');
+                return;
+            }
+
+            $(dependant).each(function(key, value) {
+                let $newRow = $("#dependants_table tbody tr:first").clone();
+
+                $newRow.find('.dependant_name').val(value.name);
+                $newRow.find('.dependant_relation').val(value.relation);
+                $newRow.find('.dependant_contact_no').val(value.contact_no);
+
+                $("#dependants_table tbody").append($newRow);
+            })
+
+            $("#dependants_table tbody tr:first").remove();
         }
 
 
@@ -1313,7 +1543,6 @@
                 edit_row('', JSON.stringify(data));
             }
         })
-
 
         document.getElementById('uploadInput').addEventListener('change', function(event) {
             const file = event.target.files[0];

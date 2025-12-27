@@ -114,10 +114,10 @@ class QuotationController extends Controller
                 $search_term = $request->search;
                 $data = Employee::whereJsonContains('rep', 'Sales-Rep')
                     ->orWhere(function ($query) use ($search_term) {
-                        $query->where('emp_name', 'like', "%$search_term%")
+                        $query->where('name', 'like', "%$search_term%")
                             ->orWhere('emp_code', 'like', "%$search_term%");
                     })
-                    ->select(['id', 'emp_name as text'])
+                    ->select(['id', 'name as text'])
                     ->get();
                 return $data;
             }

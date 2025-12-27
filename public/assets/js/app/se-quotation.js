@@ -104,11 +104,11 @@ $(document).ready(function () {
                 }
             },
             {
-                data: "sales_rep.emp_name",
+                data: "sales_rep.name",
                 title: "Sale Rep",
                 render: function (data, type, full, meta) {
                     if (full.sales_rep) {
-                        return full.sales_rep.emp_name;
+                        return full.sales_rep.name;
                     } else {
                         return '-';
                     }

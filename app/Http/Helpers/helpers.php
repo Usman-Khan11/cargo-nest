@@ -70,30 +70,27 @@ function getNumber($length = 8)
     return $randomString;
 }
 
-// function uploadImage($file, $location, $size = null, $old = null, $thumb = null)
-// {
-//     $path = makeDirectory($location);
-//     if (!$path) throw new Exception('File could not been created.');
+function uploadImage($file, $directory, $old_file = '')
+{
+    if (!$file || !$directory) {
+        return '';
+    }
 
-//     if (!empty($old)) {
-//         removeFile($location . '/' . $old);
-//         removeFile($location . '/thumb_' . $old);
-//     }
-//     $filename = uniqid() . time() . '.' . $file->getClientOriginalExtension();
-//     $image = Image::make($file);
-//     if (!empty($size)) {
-//         $size = explode('x', strtolower($size));
-//         $image->resize($size[0], $size[1]);
-//     }
-//     $image->save($location . '/' . $filename);
+    deleteImage($old_file);
 
-//     if (!empty($thumb)) {
-//         $thumb = explode('x', $thumb);
-//         Image::make($file)->resize($thumb[0], $thumb[1])->save($location . '/thumb_' . $filename);
-//     }
+    $directory = $directory . date('Y') . '/' . date('m') . '/';
 
-//     return $filename;
-// }
+    $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+    $path = $file->move($directory, $filename);
+    return $directory . $filename;
+}
+
+function deleteImage($file)
+{
+    if (!empty($file) && file_exists(public_path($file))) {
+        unlink(public_path($file));
+    }
+}
 
 // function uploadFile($file, $location, $size = null, $old = null)
 // {

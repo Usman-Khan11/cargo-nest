@@ -1200,7 +1200,7 @@
                 }
 
                 if (data.quotation.sales_rep) {
-                    var option = new Option(data.quotation.sales_rep.emp_name, data.quotation.sales_rep
+                    var option = new Option(data.quotation.sales_rep.name, data.quotation.sales_rep
                         .id, true, true);
                     $(".sale_rep").append(option).trigger('change');
                 } else {

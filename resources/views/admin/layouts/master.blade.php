@@ -378,18 +378,23 @@
         $("#myForm").submit(function(e) {
             e.preventDefault();
 
-            let method = $(this).attr('method');
-            let url = $(this).attr('action');
+            let form = this;
+            let url = $(form).attr('action');
+            let method = $(form).attr('method');
 
             if (!url) {
                 notify('error', 'Form action is null or undefined.');
                 return;
             }
 
+            let formData = new FormData(form);
+
             $.ajax({
                 url: url,
                 method: method,
-                data: $(this).serialize(),
+                data: formData,
+                processData: false,
+                contentType: false,
                 beforeSend: function() {
                     $(".loader").show();
                 },

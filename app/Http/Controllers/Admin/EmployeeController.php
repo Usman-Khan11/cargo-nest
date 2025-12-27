@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\SubCompany;
 use Yajra\DataTables\Facades\DataTables;
 
-class EmployeeController extends Controller
+class EmployeeController extends AppBaseController
 {
     public function create(Request $request)
     {
@@ -23,6 +23,8 @@ class EmployeeController extends Controller
         // } else {
         //     $data['employee_num'] = 1;
         // }
+
+        $data['companies'] = SubCompany::select('id', 'name', 'shortName')->get();
 
         $data['seo_title']      = "Employee";
         $data['seo_desc']       = "Employee";
@@ -99,124 +101,211 @@ class EmployeeController extends Controller
             'limit_company'                  => 'nullable',
             'is_attendance_punching_enabled' => 'nullable|in:0,1',
             'employee_shift'                 => 'nullable|string|max:30',
+
+            'image'                 => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'resume'                => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'offer_letter'          => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'joining_letter'        => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'appointment_letter'    => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'contract_paper'        => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'character_certificate' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+
+            'id_front' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'id_back'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+
+            'education_doc_16_years' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'education_doc_14_years' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'education_doc_other'    => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'education_doc_other_2'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048'
         ]);
     }
 
     public function store(Request $request)
     {
+        $this->employee_validate($request);
 
+        try {
+            $employee = new Employee();
+            $employee->fill($request->except([
+                '_token',
+                'last_salary',
+                'basic_salary',
+                'overtime_hourly_rate',
+                'fixed_hourly_rate',
+                'fixed_sunday_hourly_rate',
+                'eobi',
+                'bonus',
+                'bonus_duration_month',
+                'image',
+                'resume',
+                'offer_letter',
+                'joining_letter',
+                'appointment_letter',
+                'contract_paper',
+                'character_certificate',
+                'id_front',
+                'id_back',
+                'education_doc_16_years',
+                'education_doc_14_years',
+                'education_doc_other',
+                'education_doc_other_2'
+            ]));
 
-        $employee = new Employee();
-        $employee->emp_code = $request->emp_code;
-        $employee->pre_emp_code = $request->pre_emp_code;
-        $employee->title = $request->title;
-        $employee->machine_code = $request->machine_code;
-        $employee->emp_name = $request->emp_name;
-        $employee->father_name = $request->father_name;
-        $employee->inactive = $request->inactive;
-        $employee->nationality = $request->nationality;
-        $employee->date = $request->date;
-        $employee->appoint_date = $request->appoint_date;
-        $employee->empoitment_status = $request->empoitment_status;
-        $employee->rep = $request->rep;
-        $employee->department = $request->department;
-        $employee->location = $request->location;
-        $employee->cost_center = $request->cost_center;
-        $employee->designation = $request->designation;
-        $employee->line_manager = $request->line_manager;
-        $employee->company = $request->company;
+            $employee->last_salary = $request->last_salary ?? 0;
+            $employee->basic_salary = $request->basic_salary ?? 0;
+            $employee->overtime_hourly_rate = $request->overtime_hourly_rate ?? 0;
+            $employee->fixed_hourly_rate = $request->fixed_hourly_rate ?? 0;
+            $employee->fixed_sunday_hourly_rate = $request->fixed_sunday_hourly_rate ?? 0;
+            $employee->eobi = $request->eobi ?? 0;
+            $employee->bonus = $request->bonus ?? 0;
+            $employee->bonus_duration_month = $request->bonus_duration_month ?? 0;
 
-        if ($request->hasFile('image')) {
-            $files = $request->file('image');
-            $filename = uniqid() . '.' . $files->getClientOriginalExtension();
-            $directory = 'assets/upload/';
-            $path = $files->move($directory, $filename);
-            $employee->image = $filename;
+            if ($request->hasFile('image')) {
+                $employee->image = uploadImage($request->file('image'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('resume')) {
+                $employee->resume = uploadImage($request->file('resume'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('offer_letter')) {
+                $employee->offer_letter = uploadImage($request->file('offer_letter'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('joining_letter')) {
+                $employee->joining_letter = uploadImage($request->file('joining_letter'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('appointment_letter')) {
+                $employee->appointment_letter = uploadImage($request->file('appointment_letter'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('contract_paper')) {
+                $employee->contract_paper = uploadImage($request->file('contract_paper'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('id_front')) {
+                $employee->id_front = uploadImage($request->file('id_front'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('id_back')) {
+                $employee->id_back = uploadImage($request->file('id_back'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('character_certificate')) {
+                $employee->character_certificate = uploadImage($request->file('character_certificate'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('education_doc_16_years')) {
+                $employee->education_doc_16_years = uploadImage($request->file('education_doc_16_years'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('education_doc_14_years')) {
+                $employee->education_doc_14_years = uploadImage($request->file('education_doc_14_years'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('education_doc_other')) {
+                $employee->education_doc_other = uploadImage($request->file('education_doc_other'), 'assets/uploads/');
+            }
+
+            if ($request->hasFile('education_doc_other_2')) {
+                $employee->education_doc_other_2 = uploadImage($request->file('education_doc_other_2'), 'assets/uploads/');
+            }
+
+            $employee->save();
+
+            return $this->sendSuccess('Employee Added Successfully.');
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage());
         }
-
-        $employee->salary_payable = $request->salary_payable;
-        $employee->dob = $request->dob;
-        $employee->gender = $request->gender;
-        $employee->region = $request->region;
-        $employee->marital_status = $request->marital_status;
-        $employee->marriage_date = $request->marriage_date;
-        $employee->nic_old = $request->nic_old;
-        $employee->nic = $request->nic;
-        $employee->issue_date = $request->issue_date;
-        $employee->expiry = $request->expiry;
-        $employee->phone_res = $request->phone_res;
-        $employee->email = $request->email;
-        $employee->mobile_no_1 = $request->mobile_no_1;
-        $employee->mobile_no_2 = $request->mobile_no_2;
-        $employee->address_no_1 = $request->address_no_1;
-        $employee->address_no_2 = $request->address_no_2;
-        $employee->bank = $request->bank;
-        $employee->account_no = $request->account_no;
-        $employee->last_working_date = $request->last_working_date;
-        $employee->save();
-
-        $notify[] = ['success', 'Employee Added Successfully.'];
-        return redirect()->route('admin.employee.create')->withNotify($notify);
     }
 
     public function update(Request $request)
     {
-        $request->validate([
-            'emp_name' => 'required'
-        ]);
+        $this->employee_validate($request);
 
-        $employee = Employee::where("id", $request->id)->first();
+        try {
+            $employee = Employee::where("id", $request->id)->firstOrFail();
+            $employee->fill($request->except([
+                '_token',
+                'last_salary',
+                'basic_salary',
+                'overtime_hourly_rate',
+                'fixed_hourly_rate',
+                'fixed_sunday_hourly_rate',
+                'eobi',
+                'bonus',
+                'bonus_duration_month',
+                'image'
+            ]));
 
-        $employee->emp_code = $request->emp_code;
-        $employee->pre_emp_code = $request->pre_emp_code;
-        $employee->title = $request->title;
-        $employee->machine_code = $request->machine_code;
-        $employee->emp_name = $request->emp_name;
-        $employee->father_name = $request->father_name;
-        $employee->inactive = $request->inactive;
-        $employee->nationality = $request->nationality;
-        $employee->date = $request->date;
-        $employee->appoint_date = $request->appoint_date;
-        $employee->empoitment_status = $request->empoitment_status;
-        $employee->rep = $request->rep;
-        $employee->department = $request->department;
-        $employee->location = $request->location;
-        $employee->cost_center = $request->cost_center;
-        $employee->designation = $request->designation;
-        $employee->line_manager = $request->line_manager;
-        $employee->company = $request->company;
+            $employee->last_salary = $request->last_salary ?? 0;
+            $employee->basic_salary = $request->basic_salary ?? 0;
+            $employee->overtime_hourly_rate = $request->overtime_hourly_rate ?? 0;
+            $employee->fixed_hourly_rate = $request->fixed_hourly_rate ?? 0;
+            $employee->fixed_sunday_hourly_rate = $request->fixed_sunday_hourly_rate ?? 0;
+            $employee->eobi = $request->eobi ?? 0;
+            $employee->bonus = $request->bonus ?? 0;
+            $employee->bonus_duration_month = $request->bonus_duration_month ?? 0;
 
-        if ($request->hasFile('image')) {
-            $files = $request->file('image');
-            $filename = uniqid() . '.' . $files->getClientOriginalExtension();
-            $directory = 'assets/upload/';
-            $path = $files->move($directory, $filename);
-            $employee->image = $filename;
+            if ($request->hasFile('image')) {
+                $employee->image = uploadImage($request->file('image'), 'assets/uploads/', $employee->image);
+            }
+
+            if ($request->hasFile('resume')) {
+                $employee->resume = uploadImage($request->file('resume'), 'assets/uploads/', $employee->resume);
+            }
+
+            if ($request->hasFile('offer_letter')) {
+                $employee->offer_letter = uploadImage($request->file('offer_letter'), 'assets/uploads/', $employee->offer_letter);
+            }
+
+            if ($request->hasFile('joining_letter')) {
+                $employee->joining_letter = uploadImage($request->file('joining_letter'), 'assets/uploads/', $employee->joining_letter);
+            }
+
+            if ($request->hasFile('appointment_letter')) {
+                $employee->appointment_letter = uploadImage($request->file('appointment_letter'), 'assets/uploads/', $employee->appointment_letter);
+            }
+
+            if ($request->hasFile('contract_paper')) {
+                $employee->contract_paper = uploadImage($request->file('contract_paper'), 'assets/uploads/', $employee->contract_paper);
+            }
+
+            if ($request->hasFile('id_front')) {
+                $employee->id_front = uploadImage($request->file('id_front'), 'assets/uploads/', $employee->id_front);
+            }
+
+            if ($request->hasFile('id_back')) {
+                $employee->id_back = uploadImage($request->file('id_back'), 'assets/uploads/', $employee->id_back);
+            }
+
+            if ($request->hasFile('character_certificate')) {
+                $employee->character_certificate = uploadImage($request->file('character_certificate'), 'assets/uploads/', $employee->character_certificate);
+            }
+
+            if ($request->hasFile('education_doc_16_years')) {
+                $employee->education_doc_16_years = uploadImage($request->file('education_doc_16_years'), 'assets/uploads/', $employee->education_doc_16_years);
+            }
+
+            if ($request->hasFile('education_doc_14_years')) {
+                $employee->education_doc_14_years = uploadImage($request->file('education_doc_14_years'), 'assets/uploads/', $employee->education_doc_14_years);
+            }
+
+            if ($request->hasFile('education_doc_other')) {
+                $employee->education_doc_other = uploadImage($request->file('education_doc_other'), 'assets/uploads/', $employee->education_doc_other);
+            }
+
+            if ($request->hasFile('education_doc_other_2')) {
+                $employee->education_doc_other_2 = uploadImage($request->file('education_doc_other_2'), 'assets/uploads/', $employee->education_doc_other_2);
+            }
+
+            $employee->save();
+
+            return $this->sendSuccess('Employee Added Successfully.');
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage());
         }
-
-        $employee->salary_payable = $request->salary_payable;
-        $employee->dob = $request->dob;
-        $employee->gender = $request->gender;
-        $employee->region = $request->region;
-        $employee->marital_status = $request->marital_status;
-        $employee->marriage_date = $request->marriage_date;
-        $employee->nic_old = $request->nic_old;
-        $employee->nic = $request->nic;
-        $employee->issue_date = $request->issue_date;
-        $employee->expiry = $request->expiry;
-        $employee->phone_res = $request->phone_res;
-        $employee->email = $request->email;
-        $employee->mobile_no_1 = $request->mobile_no_1;
-        $employee->mobile_no_2 = $request->mobile_no_2;
-        $employee->address_no_1 = $request->address_no_1;
-        $employee->address_no_2 = $request->address_no_2;
-        $employee->bank = $request->bank;
-        $employee->account_no = $request->account_no;
-        $employee->last_working_date = $request->last_working_date;
-        $employee->update();
-
-        $notify[] = ['success', 'Employee Updated Successfully.'];
-        return redirect()->route('admin.employee.create')->withNotify($notify);
     }
 
     public function get_data(Request $request)
