@@ -121,6 +121,8 @@
     <script src="{{ asset('assets/js/forms-selects.js') }}"></script>
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
     @stack('script')
     @include('admin.partials.notify')
 

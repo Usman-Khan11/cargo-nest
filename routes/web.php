@@ -114,6 +114,7 @@ use App\Http\Controllers\Admin\SEInvoiceController;
 use App\Http\Controllers\Admin\ShippingAgencyLicenseController;
 use App\Http\Controllers\Admin\SystemPolicyController;
 use App\Http\Controllers\Admin\ServiceTypeController;
+use App\Http\Controllers\Admin\SiJobController;
 
 Route::get('/clear', function () {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
@@ -999,6 +1000,9 @@ Route::namespace('Admin')
             Route::post('service-type/store', [ServiceTypeController::class, 'store'])->name('service_type.store');
             Route::post('service-type/update', [ServiceTypeController::class, 'update'])->name('service_type.update');
             Route::post('service-type/get', [ServiceTypeController::class, 'get_data'])->name('service_type.get');
+
+            // SI: JOB
+            Route::get('si-job', [SiJobController::class, 'index'])->name('si_job.index');
         });
     });
 
