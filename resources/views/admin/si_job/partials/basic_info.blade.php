@@ -352,7 +352,8 @@
                  <label class="form-label w-100 m-0">Client</label>
              </div>
              <div class="col-9">
-                 <x-select name="basic_info.client_id" realName="basic_info[client_id]" :options="[]" />
+                 <x-select name="basic_info.client_id" realName="basic_info[client_id]" :options="[]"
+                     data-type="get_client" data-url="/admin/party/get_all_data" class="search_select2" />
              </div>
          </div>
 
@@ -361,7 +362,8 @@
                  <label class="form-label w-100 m-0">Consignee</label>
              </div>
              <div class="col-9">
-                 <x-select name="basic_info.consignee_id" realName="basic_info[consignee_id]" :options="[]" />
+                 <x-select name="basic_info.consignee_id" realName="basic_info[consignee_id]" :options="[]"
+                     data-type="get_consignee" data-url="/admin/party/get_all_data" class="search_select2" />
              </div>
          </div>
 
@@ -370,7 +372,8 @@
                  <label class="form-label w-100 m-0">Commodity</label>
              </div>
              <div class="col-9">
-                 <x-select name="basic_info.commodity_id" realName="basic_info[commodity_id]" :options="[]" />
+                 <x-select name="basic_info.commodity_id" realName="basic_info[commodity_id]" :options="[]"
+                     data-type="get_commodity" data-url="/admin/commodity/get_all_data" class="search_select2" />
              </div>
          </div>
 
@@ -380,7 +383,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.port_of_loading_id" realName="basic_info[port_of_loading_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_location" data-url="/admin/location/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -390,7 +394,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.port_of_discharge_id" realName="basic_info[port_of_discharge_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_location" data-url="/admin/location/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -400,7 +405,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.final_destination_id" realName="basic_info[final_destination_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_location" data-url="/admin/location/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -410,7 +416,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.custom_clearance_id" realName="basic_info[custom_clearance_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_clearing_agent" data-url="/admin/party/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -419,7 +426,8 @@
                  <label class="form-label w-100 m-0">Vessel</label>
              </div>
              <div class="col-9">
-                 <x-select name="basic_info.vessel_id" realName="basic_info[vessel_id]" :options="[]" />
+                 <x-select name="basic_info.vessel_id" realName="basic_info[vessel_id]" :options="[]"
+                     data-type="get_vessel" data-url="/admin/vessel/get_all_data" class="search_select2" />
              </div>
          </div>
      </div>
@@ -431,7 +439,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.transportation_id" realName="basic_info[transportation_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_transporter" data-url="/admin/party/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -441,7 +450,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.forwarder_coloader_id" realName="basic_info[forwarder_coloader_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_forwarder_coloader" data-url="/admin/party/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -451,7 +461,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.sales_representative_id" realName="basic_info[sales_representative_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_sales_rep" data-url="/admin/employee/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -461,7 +472,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.sline_carrier_id" realName="basic_info[sline_carrier_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_sline_carrier" data-url="/admin/party/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -470,8 +482,8 @@
                  <label class="form-label w-100 m-0">Local Vendor</label>
              </div>
              <div class="col-9">
-                 <x-select name="basic_info.local_vendor_id" realName="basic_info[local_vendor_id]"
-                     :options="[]" />
+                 <x-select name="basic_info.local_vendor_id" realName="basic_info[local_vendor_id]" :options="[]"
+                     data-type="get_local_vendor" data-url="/admin/party/get_all_data" class="search_select2" />
              </div>
          </div>
 
@@ -481,7 +493,8 @@
              </div>
              <div class="col-9">
                  <x-select name="basic_info.overseas_agent_id" realName="basic_info[local_vendor_id]"
-                     :options="[]" />
+                     :options="[]" data-type="get_overseas" data-url="/admin/party/get_all_data"
+                     class="search_select2" />
              </div>
          </div>
 
@@ -490,7 +503,8 @@
                  <label class="form-label w-100 m-0">Principal</label>
              </div>
              <div class="col-9">
-                 <x-select name="basic_info.principal_id" realName="basic_info[principal_id]" :options="[]" />
+                 <x-select name="basic_info.principal_id" realName="basic_info[principal_id]" :options="[]"
+                     data-type="get_principal" data-url="/admin/party/get_all_data" class="search_select2" />
              </div>
          </div>
 

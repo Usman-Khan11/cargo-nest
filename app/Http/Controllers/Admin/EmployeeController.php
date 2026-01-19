@@ -326,4 +326,19 @@ class EmployeeController extends AppBaseController
 
         return $data;
     }
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_sales_rep') {
+            $search_term = $request->search;
+            $data = Employee::where('rep', 'LIKE', '%Sales-Rep%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('name', 'like', "%{$search_term}%")
+                        ->orWhere('code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'name as text'])
+                ->get();
+            return $data;
+        }
+    }
 }

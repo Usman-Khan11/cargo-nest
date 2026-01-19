@@ -361,71 +361,144 @@ class PartyController extends Controller
     {
         if (isset($request->type) && $request->type == 'get_client') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', "%$search_term%")
-                ->whereIn('party_type', ['customer', 'customer-vendor'])
-                ->select(["id", "party_name as text"])->get();
+            $data = PartyBasicInfo::whereIn('party_type', ['customer', 'customer-vendor'])
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
+                ->get();
             return $data;
         }
 
         if (isset($request->type) && $request->type == 'get_overseas') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
-                ->where('Type', 'Like', '%Overseas-Agent%')
-                ->select(["id", "party_name as text"])
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Overseas-Agent%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
                 ->get();
             return $data;
         }
 
         if (isset($request->type) && $request->type == 'get_shipper') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
-                ->where('Type', 'Like', '%Shipper%')
-                ->select(["id", "party_name as text"])
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Shipper%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
                 ->get();
             return $data;
         }
 
         if (isset($request->type) && $request->type == 'get_clearing_agent') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
-                ->where('Type', 'Like', '%CHA-CHB%')
-                ->select(["id", "party_name as text"])
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%CHA-CHB%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
                 ->get();
             return $data;
         }
 
         if (isset($request->type) && $request->type == 'get_transporter') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
-                ->where('Type', 'Like', '%Transporter%')
-                ->select(["id", "party_name as text"])
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Transporter%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
                 ->get();
             return $data;
         }
 
         if (isset($request->type) && $request->type == 'get_sline_carrier') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
-                ->where('Type', 'Like', '%Shipping-Line%')
-                ->select(["id", "party_name as text"])
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Shipping-Line%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
                 ->get();
             return $data;
         }
 
         if (isset($request->type) && $request->type == 'get_terminals') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
-                ->where('Type', 'Like', '%Terminal%')
-                ->select(["id", "party_name as text"])
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Terminal%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
                 ->get();
             return $data;
         }
 
         if (isset($request->type) && $request->type == 'get_delivery_agent') {
             $search_term = $request->search;
-            $data = PartyBasicInfo::where('party_name', 'like', '%' . $search_term . '%')
-                ->where('Type', 'Like', '%Delivery-Agent%')
-                ->select(["id", "party_name as text"])
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Delivery-Agent%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_forwarder_coloader') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Forwarder-Coloader%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_local_vendor') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Local-Vendor%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_principal') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Principal%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
+                ->get();
+            return $data;
+        }
+
+        if (isset($request->type) && $request->type == 'get_consignee') {
+            $search_term = $request->search;
+            $data = PartyBasicInfo::where('Type', 'LIKE', '%Consignee%')
+                ->where(function ($query) use ($search_term) {
+                    $query->where('party_name', 'like', "%{$search_term}%")
+                        ->orWhere('party_code', 'like', "%{$search_term}%");
+                })
+                ->select(['id', 'party_name as text'])
                 ->get();
             return $data;
         }

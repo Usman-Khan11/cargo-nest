@@ -21,16 +21,16 @@
             <div class="ban">
                 <i class="fa fa-ban" title="Void"></i>
             </div>
-            <div class="backward navigation" data-type="first">
+            <div class="backward" onclick="navigation('{{ route('admin.si_job.get') }}', 'first')">
                 <i class="fa fa-backward-step" title="First"></i>
             </div>
-            <div class="backward navigation" data-type="backward">
+            <div class="backward" onclick="navigation('{{ route('admin.si_job.get') }}', 'backward')">
                 <i class="fa fa-backward" title="Backward"></i>
             </div>
-            <div class="forward navigation" data-type="forward">
+            <div class="forward" onclick="navigation('{{ route('admin.si_job.get') }}', 'forward')">
                 <i class="fa fa-forward" title="Forward"></i>
             </div>
-            <div class="forward navigation" data-type="last">
+            <div class="forward" onclick="navigation('{{ route('admin.si_job.get') }}', 'last')">
                 <i class="fa fa-forward-step" title="Last"></i>
             </div>
         </div>

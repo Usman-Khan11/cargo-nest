@@ -210,7 +210,7 @@ class LocationController extends Controller
             $data = Location::where('code', 'like', "%$search_term%")
                 ->orWhere('location', 'like', "%$search_term%")
                 ->select('id', DB::raw('CONCAT(location) as text'))
-                ->take(50)->get();
+                ->take(25)->get();
             return $data;
         }
 

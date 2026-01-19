@@ -320,6 +320,7 @@ Route::namespace('Admin')
             Route::post('employee/store', [EmployeeController::class, 'store'])->name('employee.store');
             Route::post('employee/update', [EmployeeController::class, 'update'])->name('employee.update');
             Route::post('employee/get', [EmployeeController::class, 'get_data'])->name('employee.get');
+            Route::get('employee/get_all_data', [EmployeeController::class, 'getAllData'])->name('employee.get_all_data');
 
             // SUB COMPANY ROUTES
             Route::get('sub_company', [SubCompanyController::class, 'index'])->name('sub_company');
@@ -1000,9 +1001,11 @@ Route::namespace('Admin')
             Route::post('service-type/store', [ServiceTypeController::class, 'store'])->name('service_type.store');
             Route::post('service-type/update', [ServiceTypeController::class, 'update'])->name('service_type.update');
             Route::post('service-type/get', [ServiceTypeController::class, 'get_data'])->name('service_type.get');
+            Route::get('service-type/get_all_data', [ServiceTypeController::class, 'getAllData'])->name('service_type.get_all_data');
 
             // SI: JOB
             Route::get('si-job', [SiJobController::class, 'index'])->name('si_job.index');
+            Route::post('si-job/get', [SiJobController::class, 'get_data'])->name('si_job.get');
         });
     });
 

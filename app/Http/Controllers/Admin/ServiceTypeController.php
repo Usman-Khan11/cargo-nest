@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ServiceType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class ServiceTypeController extends Controller
@@ -84,5 +85,17 @@ class ServiceTypeController extends Controller
         }
 
         return $data->first();
+    }
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_service_types') {
+            $search_term = $request->search;
+            $data = ServiceType::where('code', 'like', "%$search_term%")
+                ->orWhere('name', 'like', "%$search_term%")
+                ->select('id', DB::raw('CONCAT(name) as text'))
+                ->take(20)->get();
+            return $data;
+        }
     }
 }

@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    initSearchSelect2();
+
     $("#newForm").on("submit", function (e) {
         e.preventDefault();
 
@@ -53,6 +55,60 @@ function submitForm() {
     $("#newForm").submit();
 }
 
-function navigation(type = 'first') {
+function navigation(route, type = 'first') {
+    let id = $("#newForm").find("input[name=id]").val() || 0;
+    let token = $('#newForm input[name="_token"]').val();
 
+    $.ajax({
+        url: route,
+        method: 'POST',
+        data: {
+            id: id,
+            type: type,
+            _token: token
+        },
+        beforeSend: function () {
+            $(".loader").show();
+        },
+        success: function (response) {
+            console.log(response)
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            notify('error', 'Failed to fetch record.');
+        },
+        complete: function () {
+            $(".loader").hide();
+        }
+    });
+}
+
+function initSearchSelect2() {
+    const search_select2 = $(".search_select2");
+
+    if (search_select2.length) {
+        $(search_select2).each(function (i, v) {
+            if (!$(v).hasClass('select2-hidden-accessible')) {
+                let url = $(v).data("url");
+                let type = $(v).data("type");
+                let placeholder = $(v).data("placeholder") || 'Search for...';
+
+                $(v).select2({
+                    ajax: {
+                        url: url,
+                        dataType: "json",
+                        data: (params) => ({
+                            search: params.term,
+                            type: type,
+                        }),
+                        processResults: (data) => ({ results: data }),
+                    },
+                    cache: true,
+                    allowClear: true,
+                    placeholder: placeholder,
+                    minimumInputLength: 2,
+                    // minimumResultsForSearch: 25,
+                });
+            }
+        })
+    }
 }
