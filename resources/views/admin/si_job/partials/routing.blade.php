@@ -151,7 +151,8 @@
                 <label class="form-label w-100 m-0">Voyage</label>
             </div>
             <div class="col-4">
-                <x-select name="routing.voyage_id" realName="routing[voyage_id]" :options="[]" />
+                <x-select name="routing.voyage_id" realName="routing[voyage_id]" class="select2"
+                    :options="[]" />
             </div>
             <div class="col-3 text-end">
                 <button type="button" class="btn btn-primary btn-sm">Show Transhipment</button>

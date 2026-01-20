@@ -8,7 +8,8 @@
 @endphp
 
 
-<select name="{{ $realName ?? ($isMultiple ? $name . '[]' : $name) }}" id="{{ $id ?? $name }}"
+<select name="{{ $realName ?? ($isMultiple ? $name . '[]' : $name) }}"
+    id="{{ str_replace(['.', '[', ']'], '_', $id ?? $name) }}"
     {{ $attributes->merge(['class' => 'form-select ' . ($errors->has($name) ? 'is-invalid' : '')]) }}>
 
     @if ($placeholder && !$isMultiple)

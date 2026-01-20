@@ -55,12 +55,13 @@ function submitForm() {
     $("#newForm").submit();
 }
 
-function navigation(route, type = 'first') {
+function navigation(type = 'first') {
     let id = $("#newForm").find("input[name=id]").val() || 0;
     let token = $('#newForm input[name="_token"]').val();
+    let navigation_url = $("#newForm").data("navigation_url");
 
     $.ajax({
-        url: route,
+        url: navigation_url,
         method: 'POST',
         data: {
             id: id,
@@ -71,6 +72,7 @@ function navigation(route, type = 'first') {
             $(".loader").show();
         },
         success: function (response) {
+            $('#formResponse').html(response.data);
             console.log(response)
         },
         error: function (xhr, textStatus, errorThrown) {

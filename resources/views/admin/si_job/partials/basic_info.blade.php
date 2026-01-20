@@ -513,7 +513,8 @@
                  <label class="form-label w-100 m-0">Voyage</label>
              </div>
              <div class="col-9">
-                 <x-select name="basic_info.voyage_id" realName="basic_info[voyage_id]" :options="[]" />
+                 <x-select name="basic_info.voyage_id" realName="basic_info[voyage_id]" class="select2"
+                     :options="[]" />
              </div>
          </div>
      </div>

@@ -10,12 +10,13 @@
     ];
 @endphp
 
-<form id="newForm" method="post" action="{{ route('admin.si_job.index') }}" enctype="multipart/form-data">
+<form id="newForm" method="post" action="{{ route('admin.si_job.store') }}" enctype="multipart/form-data"
+    data-navigation_url="{{ route('admin.si_job.get') }}">
     @csrf
     <ul class="nav nav-tabs" id="" role="tablist" style="background-color:#f4ffed;">
         @foreach ($tabs as $k => $v)
             <li class="nav-item" role="presentation">
-                <button class="nav-link @if ($k == 'basic_info') active @endif" data-bs-toggle="tab"
+                <button class="nav-link @if ($k == 'bl_details') active @endif" data-bs-toggle="tab"
                     data-bs-target="#tab_{{ $k }}" type="button" role="tab">
                     {{ $v }}
                 </button>
@@ -24,7 +25,7 @@
     </ul>
     <div class="tab-content" id="myTabContent" style="background-color:#f4ffed;">
         @foreach ($tabs as $k => $v)
-            <div class="tab-pane fade @if ($k == 'basic_info') show active @endif" id="tab_{{ $k }}"
+            <div class="tab-pane fade @if ($k == 'bl_details') show active @endif" id="tab_{{ $k }}"
                 role="tabpanel">
                 @include('admin.si_job.partials.' . $k)
             </div>

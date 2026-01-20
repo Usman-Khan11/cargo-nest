@@ -1005,6 +1005,7 @@ Route::namespace('Admin')
 
             // SI: JOB
             Route::get('si-job', [SiJobController::class, 'index'])->name('si_job.index');
+            Route::post('si-job/store', [SiJobController::class, 'store'])->name('si_job.store');
             Route::post('si-job/get', [SiJobController::class, 'get_data'])->name('si_job.get');
         });
     });
