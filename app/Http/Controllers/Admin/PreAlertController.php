@@ -2,132 +2,132 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\PreAlertInput;
+use App\Models\PreAlertInputRow;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Commodity;
-use Image;
-use Validator;
-use Session;
-use DataTables;
-use File;
 
-class PreAlertController extends Controller
+class PreAlertController extends AppBaseController
 {
-    // public function index(Request $request)
-    // {
-    //     $data['seo_title']      = "Commodity";
-    //     $data['seo_desc']       = "Commodity";
-    //     $data['seo_keywords']   = "Commodity";
-    //     $data['page_title'] = "All Commodity";
+    public function index(Request $request)
+    {
+        $data['seo_title']    = "Pre Alert Input";
+        $data['seo_desc']     = "Pre Alert Input";
+        $data['seo_keywords'] = "Pre Alert Input";
+        $data['page_title']   = "Pre Alert Input";
 
-    //     if ($request->ajax()) {
-    //         $totalCount=0;
-    //         $recordsFiltered=0;
-    //         $pageSize = (int)($request->length) ? $request->length : 10;
-    //         $start=(int)($request->start) ? $request->start : 0;
-    //         $query=Commodity::Query();
-    //         $totalCount=$query->count(); 
-            
-    //         $query = $query->orderby('id','desc')->skip($start)->take($pageSize)->latest()->get();
-            
-    //         return Datatables::of($query)
-    //             ->setOffset($start)->addIndexColumn()
-    //             ->with(['recordsTotal'=>$totalCount])
-    //             ->make(true);
-    //     }
-    //     return view('admin.commodity.index', $data);
-    // }
-    
-    
-    public function create(Request $request)
-    {
-        if ($request->ajax()) {
-            $query = PreAlert::Query();
-            $query = $query->orderby('id','asc')->get();
-            return Datatables::of($query)->addIndexColumn()->make(true);
-        }
-        
-        $data['seo_title']      = "Pre Alert Input";
-        $data['seo_desc']       = "Pre Alert Input";
-        $data['seo_keywords']   = "Pre Alert Input";
-        $data['page_title'] = "Pre Alert Input";
-        return view('admin.pre_alert_input.create', $data);
+        return view('admin.pre_alert_input.index', $data);
     }
-    
-    public function edit($id)
-    {
-        $data['seo_title']      = "Edit Pre Alert Input";
-        $data['seo_desc']       = "Edit Pre Alert Input";
-        $data['seo_keywords']   = "Edit Pre Alert Input";
-        $data['page_title'] = "Edit Pre Alert Input";
-        $data['prealert'] = PreAlert::where("id", $id)->first();
-        return view('admin.pre_alert_input.edit', $data);
-    }
-    
+
     public function delete($id)
     {
-        $developer = PreAlert::where("id", $id);
-        $developer->delete();
-        $notify[] = ['success', 'Pre Alert Input Deleted Successfully.'];
-        return back()->withNotify($notify);
+        $pre_alert_input = PreAlertInput::where('id', $id)->first();
+
+        if ($pre_alert_input) {
+            PreAlertInputRow::where('pre_alert_input_id', $pre_alert_input->id)->delete();
+            $pre_alert_input->delete();
+
+            return true;
+        }
+
+        return false;
     }
-    
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'code' => 'required',
-            // 'name' => ['required', 'string', 'max:255', 'alpha', 'unique:commodities'],
+        $request->validate([
+            'tran_no'           => 'required',
+            'overseas_agent_id' => 'required|exists:party_basic_infos,id',
+            'vessel_id'         => 'required|exists:vessels,id',
+            'voyage_id'         => 'required|exists:voyages,id',
+
+            'row.*.container_id' => 'nullable|exists:vessels,id',
+            'row.*.size_type_id' => 'nullable|exists:vessels,id',
+            'row.*.rate_group'   => 'nullable|string|max:100',
+            'row.*.principal_id' => 'nullable|exists:vessels,id',
         ]);
-       
-        $pre_alert_input = new PreAlert();
-        $pre_alert_input ->fill($request->all());
-        $pre_alert_input ->save();
-         
-        $notify[] = ['success', 'Pre Alert Input Added Successfully.'];
-        return redirect()->route('admin.pre_alert_input.create')->withNotify($notify);
-    }
-    
-    public function update(Request $request)
-    {
-        $validated = $request->validate([
-            'code' => 'required',
-            'name' => 'required',
+
+        $pre_alert_input = PreAlertInput::where('id', $request->id)->first() ?? new PreAlertInput();
+        $pre_alert_input->tran_no = $request->tran_no;
+        $pre_alert_input->overseas_agent_id = $request->overseas_agent_id;
+        $pre_alert_input->vessel_id = $request->vessel_id;
+        $pre_alert_input->voyage_id = $request->voyage_id;
+        $pre_alert_input->is_filter = $request->is_filter ?? 0;
+        $pre_alert_input->save();
+
+        $rows = $request->row ?? [];
+        $ids = [];
+
+        foreach ($rows as $key => $value) {
+            $pre_alert_input_row = PreAlertInputRow::where('id', $value['id'])->first() ?? new PreAlertInputRow();
+            $pre_alert_input_row->pre_alert_input_id = $pre_alert_input->id;
+            $pre_alert_input_row->soc = $value['soc'] ?? 0;
+            $pre_alert_input_row->part_fcl = $value['part_fcl'] ?? 0;
+            $pre_alert_input_row->container_id = $value['container_id'] ?? 0;
+            $pre_alert_input_row->size_type_id = $value['size_type_id'] ?? 0;
+            $pre_alert_input_row->rate_group = $value['rate_group'];
+            $pre_alert_input_row->principal_id = $value['principal_id'] ?? 0;
+            $pre_alert_input_row->save();
+
+            $ids[] = $pre_alert_input_row->id;
+        }
+
+        PreAlertInputRow::where('pre_alert_input_id', $pre_alert_input->id)->whereNotIn('id', $ids)->delete();
+
+        $msg = $request->id > 0 ? 'Pre Alert Updated Successfully.' : 'Pre Alert Added Successfully.';
+        return $this->sendSuccess($msg, [
+            'id' => $pre_alert_input->id
         ]);
-        
-        $pre_alert_input = PreAlert::where("id", $request->id)->first();
-        $pre_alert_input->inactive = $request->inactive ? $request->inactive : '';
-        $pre_alert_input->fill($request->all());
-        $pre_alert_input->update();
-        
-        $notify[] = ['success', 'Pre Alert Input Updated Successfully.'];
-        return redirect()->route('admin.pre_alert_input.create')->withNotify($notify);
     }
-    
-    
+
     public function get_data(Request $request)
     {
         $id = $request->id;
         $type = $request->type;
-        $data = null;
-        
-        if($type == "first") {
-            $data = PreAlert::orderBy('id', 'asc')->first();
+
+        // Reset form
+        if ($type == "reset") {
+            return $this->sendResponse(view('admin.pre_alert_input.partials.form', ['data' => []])->render());
         }
-        else if($type == "last") {
-            $data = PreAlert::orderBy('id', 'desc')->first();
+
+        // Delete form data
+        if ($type == "delete") {
+            if ($this->delete($id)) {
+                return $this->sendResponse(view('admin.pre_alert_input.partials.form', ['data' => []])->render());
+            }
+
+            return $this->sendResponse(null, 'Something went wrong.', 404);
         }
-        else if($type == "forward") {
-            $data = PreAlert::where('id', '>', $id)->first();
+
+        // Fetch form data
+        $data = PreAlertInput::with([
+            'overseas_agent',
+            'vessel',
+            'vessel.voyages',
+            'voyage',
+            'rows',
+            'rows.container',
+            'rows.size_type',
+            'rows.principal'
+        ]);
+
+        if ($type == "first") {
+            $data = $data->orderBy('id', 'asc');
+        } else if ($type == "last") {
+            $data = $data->orderBy('id', 'desc');
+        } else if ($type == "forward") {
+            $data = $data->where('id', '>', $id);
+        } else if ($type == "backward") {
+            $data = $data->where('id', '<', $id)->orderBy('id', 'desc');
         }
-        else if($type == "backward") {
-            $data = PreAlert::where('id', '<', $id)->orderBy('id', 'desc')->first();
+
+        $data = $data->first();
+
+        if ($data) {
+            return $this->sendResponse(
+                view('admin.pre_alert_input.partials.form', ['data' => $data->toArray()])->render()
+            );
         }
-        
-        return $data;
+
+        return $this->sendResponse(null, 'Record not found.');
     }
-    
 }

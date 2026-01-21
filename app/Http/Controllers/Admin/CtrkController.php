@@ -187,4 +187,16 @@ class CtrkController extends Controller
 
         return $data;
     }
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_container') {
+            $search_term = $request->search;
+            $data = Ctrk::Where(function ($query) use ($search_term) {
+                $query->where('container_no', 'like', "%$search_term%");
+            })
+                ->select(["id", "container_no as text"])->get();
+            return $data;
+        }
+    }
 }

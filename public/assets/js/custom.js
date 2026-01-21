@@ -1,7 +1,8 @@
 $(document).ready(function () {
     initSearchSelect2();
+    navigation('last');
 
-    $("#newForm").on("submit", function (e) {
+    $(document).on('submit', '#newForm', function (e) {
         e.preventDefault();
 
         let form = this;
@@ -26,6 +27,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.success == 1) {
+                    $(form).find("input[name=id]").val(response.data.id);
                     notify('success', response.message);
                 } else if (response.success == 0) {
                     notify('error', response.message);
@@ -60,6 +62,14 @@ function navigation(type = 'first') {
     let token = $('#newForm input[name="_token"]').val();
     let navigation_url = $("#newForm").data("navigation_url");
 
+    if (!navigation_url) {
+        return;
+    }
+
+    if (type === 'delete' && !confirm('Are you sure?')) {
+        return;
+    }
+
     $.ajax({
         url: navigation_url,
         method: 'POST',
@@ -72,11 +82,17 @@ function navigation(type = 'first') {
             $(".loader").show();
         },
         success: function (response) {
-            $('#formResponse').html(response.data);
-            console.log(response)
+            if (response.data) {
+                $('#formResponse').html(response.data);
+                initSearchSelect2();
+
+                if (type === 'delete') {
+                    notify('success', 'Deleted successfully.');
+                }
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
-            notify('error', 'Failed to fetch record.');
+            notify('error', xhr.responseJSON.message || 'Failed to fetch record.');
         },
         complete: function () {
             $(".loader").hide();
@@ -85,7 +101,8 @@ function navigation(type = 'first') {
 }
 
 function initSearchSelect2() {
-    const search_select2 = $(".search_select2");
+    const select2 = $(document).find(".select2");
+    const search_select2 = $(document).find(".search_select2");
 
     if (search_select2.length) {
         $(search_select2).each(function (i, v) {
@@ -112,5 +129,18 @@ function initSearchSelect2() {
                 });
             }
         })
+    }
+
+    if (select2.length) {
+        select2.each(function () {
+            const $el = $(this);
+
+            if (!$el.hasClass('select2-hidden-accessible')) {
+                $el.select2({
+                    placeholder: 'Search for...',
+                    width: '100%'
+                });
+            }
+        });
     }
 }

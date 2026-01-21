@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 
 class AppBaseController extends Controller
 {
-    public function sendResponse($result, $message)
+    public function sendResponse($result, $message = '', $code = 200)
     {
         return response()->json([
             'success' => true,
             'message' => $message,
-            'data'    => $result,
-        ], 200);
+            'data'    => $result
+        ], $code);
     }
 
     public function sendError($error, $code = 404, $data = [])
@@ -20,15 +20,16 @@ class AppBaseController extends Controller
         return response()->json([
             'success' => false,
             'message' => $error,
-            'data'    => $data,
+            'data'    => $data
         ], $code);
     }
 
-    public function sendSuccess($message)
+    public function sendSuccess($message, $result = [])
     {
         return response()->json([
             'success' => true,
             'message' => $message,
+            'data'    => $result
         ], 200);
     }
 }

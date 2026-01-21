@@ -271,6 +271,7 @@ Route::namespace('Admin')
             Route::post('equipment/update', [EquipmentController::class, 'update'])->name('equipment.update');
             Route::post('equipment/get', [EquipmentController::class, 'get_data'])->name('equipment.get');
             Route::post('equipment/import', [EquipmentController::class, 'bulkUpload'])->name('equipment.import');
+            Route::get('equipment/get_all_data', [EquipmentController::class, 'getAllData'])->name('equipment.get_all_data');
 
             // PACKAGES ROUTES
             Route::get('packages', [PackagesController::class, 'index'])->name('packages');
@@ -535,6 +536,7 @@ Route::namespace('Admin')
             Route::post('ctrk/update', [CtrkController::class, 'update'])->name('ctrk.update');
             Route::post('ctrk/import', [CtrkController::class, 'bulkUpload'])->name('ctrk.import');
             Route::post('ctrk/get', [CtrkController::class, 'get_data'])->name('ctrk.get');
+            Route::get('ctrk/get_all_data', [CtrkController::class, 'getAllData'])->name('ctrk.get_all_data');
 
             // CONTAINER MOVEMENTS ROUTES
             Route::get('container-movement/create', [ContainerMovementController::class, 'create'])->name('container_movement.create');
@@ -728,11 +730,9 @@ Route::namespace('Admin')
 
             //  PRE ALERT INPUT INSTRUCTION
             Route::get('pre_alert_input', [PreAlertController::class, 'index'])->name('pre_alert_input');
-            Route::get('pre_alert_input/create', [PreAlertController::class, 'create'])->name('pre_alert_input.create');
-            Route::get('pre_alert_input/edit/{id}', [PreAlertController::class, 'edit'])->name('pre_alert_input.edit');
             Route::get('pre_alert_input/delete/{id}', [PreAlertController::class, 'delete'])->name('pre_alert_input.delete');
             Route::post('pre_alert_input/store', [PreAlertController::class, 'store'])->name('pre_alert_input.store');
-            Route::post('pre_alert_input/update', [PreAlertController::class, 'update'])->name('pre_alert_input.update');
+            Route::post('pre_alert_input/get', [PreAlertController::class, 'get_data'])->name('pre_alert_input.get');
 
             //  DELIVERY ORDER INSTRUCTION
             Route::get('delivery_order', [DeliveryOrderController::class, 'index'])->name('delivery_order');

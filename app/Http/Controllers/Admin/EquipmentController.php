@@ -146,4 +146,17 @@ class EquipmentController extends Controller
 
         return $data;
     }
+
+    public function getAllData(Request $request)
+    {
+        if (isset($request->type) && $request->type == 'get_equipment') {
+            $search_term = $request->search;
+            $data = Equipment::Where(function ($query) use ($search_term) {
+                $query->where('code', 'like', "%$search_term%")
+                    ->orWhere('size', 'like', "%$search_term%");
+            })
+                ->select(["id", "code as text"])->get();
+            return $data;
+        }
+    }
 }

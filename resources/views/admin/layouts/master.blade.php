@@ -122,7 +122,10 @@
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    @if (!request()->routeIs('admin.dashboard'))
+        <script src="{{ asset('assets/js/custom.js') }}"></script>
+    @endif
+
     @stack('script')
     @include('admin.partials.notify')
 
