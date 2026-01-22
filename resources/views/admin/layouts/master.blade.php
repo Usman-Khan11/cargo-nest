@@ -73,6 +73,11 @@
         .table> :not(caption)>*>* {
             padding: 6px;
         }
+
+        .form-label.w-100 {
+            text-align: right;
+            padding-right: 8px;
+        }
     </style>
 @else
     <style>

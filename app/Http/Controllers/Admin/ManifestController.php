@@ -30,6 +30,16 @@ class ManifestController extends Controller
         $this->name = "Manifest";
     }
 
+    public function index(Request $request)
+    {
+        $data['seo_title']    = "Manifest";
+        $data['seo_desc']     = "Manifest";
+        $data['seo_keywords'] = "Manifest";
+        $data['page_title']   = "Manifest";
+
+        return view('admin.manifest.index', $data);
+    }
+
     public function create(Request $request)
     {
         $user_info = session()->get('user_info');
